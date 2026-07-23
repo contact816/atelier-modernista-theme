@@ -1,0 +1,3626 @@
+/*
+ * custom-modernista.css
+ * Atelier Modernista â€” Full site reskin for Shopify Dawn theme
+ * Matches: https://ateliermodernista-mockup.vercel.app
+ *
+ * HOW TO INSTALL:
+ * 1. Shopify Admin â†’ Online Store â†’ Themes â†’ your live theme â†’ Edit code
+ * 2. Open Assets folder â†’ click "Add a new asset" â†’ create file named "custom-modernista.css"
+ * 3. Paste this entire file
+ * 4. Open layout/theme.liquid
+ * 5. Just before </head>, add:
+ *    {{ 'custom-modernista.css' | asset_url | stylesheet_tag }}
+ * 6. Save â€” changes are live immediately on your theme
+ *
+ * FONTS:
+ * In layout/theme.liquid, also add these lines inside <head> (before the stylesheet tag above):
+ *   <link rel="preconnect" href="https://fonts.googleapis.com">
+ *   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ *   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+ */
+
+
+/* ============================================================
+   0. DESIGN TOKENS â€” single source of truth
+   ============================================================ */
+
+:root {
+  /* Colour */
+  --am-cream:        #fdf6e3;
+  --am-ink:          #1a1a18;
+  --am-ink-light:    #3a3a35;
+  --am-cobalt:       #0047AB;
+  --am-cobalt-dark:  #003080;
+  --am-cobalt-light: #e8eef8;
+  --am-warm-grey:    #e8e2d4;
+  --am-mid-grey:     #9e9a90;
+  --am-border:       rgba(26,26,24,0.12);
+  --am-border-strong:rgba(26,26,24,0.22);
+
+  /* Typography */
+  --am-serif:   'Cormorant Garamond', 'Garamond', 'Georgia', serif;
+  --am-sans:    'Jost', 'Helvetica Neue', sans-serif;
+
+  /* Scale */
+  --am-hero-size:       clamp(2.8rem, 6vw, 5.5rem);
+  --am-h1-size:         clamp(2.4rem, 4.5vw, 4.2rem);
+  --am-h2-size:         clamp(2.4rem, 4vw, 4.2rem);
+  --am-h3-size:         clamp(1.3rem, 2vw, 1.8rem);
+  --am-body-size:       1rem;
+  --am-caption-size:    0.75rem;
+  --am-label-tracking:  0.12em;
+
+  /* Spacing */
+  --am-section-pad:     clamp(4rem, 8vw, 8rem);
+  --am-gap:             clamp(1rem, 2vw, 1.5rem);
+
+  /* Motion */
+  --am-ease:            cubic-bezier(0.25, 0.1, 0.25, 1);
+  --am-ease-out:        cubic-bezier(0.0, 0, 0.2, 1);
+  --am-duration-fast:   180ms;
+  --am-duration-med:    320ms;
+}
+
+
+/* ============================================================
+   1. BASE â€” background, body, global resets
+   ============================================================ */
+
+body,
+.shopify-section,
+.page-width,
+main {
+  background-color: var(--am-cream) !important;
+  color: var(--am-ink) !important;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dawn overrides colour vars */
+:root,
+.color-scheme-1,
+.color-scheme-2,
+.color-background-1,
+.color-background-2 {
+  --color-background: 253, 246, 227;   /* cream as RGB */
+  --color-foreground: 26, 26, 24;
+  --color-base-accent-1: 0, 71, 171;   /* cobalt */
+  --color-base-accent-2: 0, 71, 171;
+  --color-border: 26, 26, 24;
+  --gradient-background: var(--am-cream);
+  background-color: var(--am-cream);
+}
+
+
+/* ============================================================
+   2. TYPOGRAPHY â€” the single biggest visual lever
+   ============================================================ */
+
+/* All headings â†’ Cormorant Garamond */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4,
+.heading,
+.collection-hero__title,
+.product__title,
+.card__heading,
+.section-header .title,
+[class*="__heading"],
+[class*="-heading"] {
+  font-family: var(--am-serif) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+  color: var(--am-ink);
+}
+
+/* H1 scale */
+h1, .h1 {
+  font-size: var(--am-h1-size) !important;
+}
+
+/* H2 scale */
+h2, .h2 {
+  font-size: var(--am-h2-size) !important;
+  font-weight: 300 !important;
+}
+
+/* H3 scale */
+h3, .h3 {
+  font-size: var(--am-h3-size) !important;
+  font-weight: 400 !important;
+}
+
+/* Body, UI â†’ Jost */
+body,
+p,
+li,
+input,
+select,
+textarea,
+button,
+label,
+.rte,
+[class*="__text"],
+[class*="__description"],
+[class*="__subtitle"] {
+  font-family: var(--am-sans) !important;
+  font-weight: 300;
+  font-size: var(--am-body-size);
+  line-height: 1.65;
+  color: var(--am-ink-light);
+}
+
+/* Small caps / eyebrow labels */
+.eyebrow,
+.section-label,
+.collection-hero__label,
+.breadcrumb,
+nav.breadcrumbs,
+.breadcrumbs__item,
+.product__text.caption,
+.badge,
+.card__badge {
+  font-family: var(--am-sans) !important;
+  font-size: var(--am-caption-size) !important;
+  font-weight: 500 !important;
+  letter-spacing: var(--am-label-tracking) !important;
+  text-transform: uppercase !important;
+}
+
+/* Announcement bar */
+.announcement-bar,
+.announcement-bar__message,
+.announcement-bar p {
+  font-family: var(--am-sans) !important;
+  font-size: 0.7rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  background-color: var(--am-ink) !important;
+  color: var(--am-cream) !important;
+}
+
+
+/* ============================================================
+   3. HEADER / NAVIGATION
+   ============================================================ */
+
+.header-wrapper,
+.header,
+header {
+  background-color: var(--am-cream) !important;
+  border-bottom: 1px solid var(--am-border) !important;
+  box-shadow: none !important;
+}
+
+/* Logo */
+.header__heading-link,
+.header__heading {
+  font-family: var(--am-serif) !important;
+  font-size: 1.3rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+  color: var(--am-ink) !important;
+}
+.header__heading-logo {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  max-width: 180px !important;
+  height: auto !important;
+}
+
+.header__heading-link {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Nav links */
+.header__navigation a,
+.list-menu__item--link,
+.header__menu-item {
+  font-family: var(--am-sans) !important;
+  font-size: 0.72rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: var(--am-ink) !important;
+  text-decoration: none !important;
+  transition: color var(--am-duration-fast) var(--am-ease) !important;
+}
+
+.header__navigation a:hover,
+.list-menu__item--link:hover,
+.header__menu-item:hover {
+  color: var(--am-cobalt) !important;
+}
+
+/* Header icons */
+.header__icon,
+.header__icon svg {
+  color: var(--am-ink) !important;
+  fill: var(--am-ink) !important;
+}
+
+/* Cart count bubble */
+.cart-count-bubble {
+  background-color: var(--am-cobalt) !important;
+  color: var(--am-cream) !important;
+  font-family: var(--am-sans) !important;
+  font-size: 0.6rem !important;
+  font-weight: 500 !important;
+}
+
+/* Dropdown menus */
+.disclosure__panel,
+.mega-menu,
+.list-menu {
+  background-color: var(--am-cream) !important;
+  border: 1px solid var(--am-border) !important;
+  box-shadow: 0 8px 32px rgba(26,26,24,0.08) !important;
+}
+
+/* Hide Dawn header completely â€” am-nav-bar takes over */
+.section-header,
+.shopify-section-header-sticky,
+header-drawer {
+  display: none !important;
+}
+
+/* AM nav bar padding */
+.am-header__nav-bar {
+  padding: 0 5% !important;
+}
+
+
+/* ============================================================
+   4. BREADCRUMBS
+   ============================================================ */
+
+nav.breadcrumbs,
+.breadcrumbs,
+.breadcrumbs__list {
+  font-family: var(--am-sans) !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.08em !important;
+  color: var(--am-mid-grey) !important;
+  padding: 18px 0 0 !important;
+}
+
+.breadcrumbs__item a,
+.breadcrumbs a {
+  color: var(--am-mid-grey) !important;
+  text-decoration: none !important;
+}
+
+.breadcrumbs__item a:hover,
+.breadcrumbs a:hover {
+  color: var(--am-ink) !important;
+}
+
+.breadcrumbs__item + .breadcrumbs__item::before {
+  content: '/' !important;
+  margin: 0 0.4em !important;
+  color: var(--am-border-strong) !important;
+}
+
+/* AM breadcrumb breathing room */
+nav.am-breadcrumbs {
+  padding-bottom: 3rem !important;
+}
+
+
+/* ============================================================
+   5. COLLECTION HERO
+   ============================================================ */
+.am-collection-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 340px;
+  margin: 2rem 0 0 !important;
+}
+
+.am-collection-hero--with-image {
+  grid-template-columns: 1fr 1.26fr;
+}
+
+.am-collection-hero__image {
+  overflow: hidden;
+  height: 340px;
+  max-height: none !important;
+}
+
+.am-collection-hero__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.am-collection-hero__content {
+  background-color: var(--am-cobalt) !important;
+  padding: 48px 7.2vw 28px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.am-collection-hero__eyebrow {
+  font-family: var(--am-sans) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.32em !important;
+  text-transform: uppercase !important;
+  color: #f4c400 !important;
+  margin: 0 0 20px !important;
+}
+
+.am-collection-hero__title {
+  font-family: var(--am-serif) !important;
+  font-size: clamp(32px, 3.2vw, 52px) !important;
+  font-weight: 400 !important;
+  color: #fdf6e3 !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.02em !important;
+  margin: 0 0 20px !important;
+}
+
+.am-collection-hero .am-collection-hero__description,
+.am-collection-hero .am-collection-hero__description p {
+  font-family: var(--am-sans) !important;
+  font-size: 19px !important;
+  font-weight: 400 !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0 !important;
+  color: rgba(253,246,227,0.82) !important;
+  max-width: 760px !important;
+  margin: 0 !important;
+}
+
+.am-collection-hero__description p {
+  line-height: 2.4 !important;
+  font-size: 17px !important;
+  font-weight: 300 !important;
+  color: rgba(253,246,227,0.85) !important;
+  max-width: 52ch !important;
+}
+
+.am-collection-hero .am-collection-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  margin-top: 28px !important;
+  padding-top: 20px !important;
+  border-top: 1px solid rgba(253,246,227,0.25);
+}
+
+.am-collection-hero__meta-label {
+  font-family: var(--am-sans) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.32em !important;
+  text-transform: uppercase !important;
+  color: #f4c400 !important;
+  display: inline-block !important;
+  margin-right: 10px !important;
+}
+
+.am-collection-hero__meta-value {
+  font-family: var(--am-sans) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: rgba(253,246,227,0.92) !important;
+}
+
+.shopify-section:has(.am-collection-hero) {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 749px) {
+  .am-collection-hero,
+  .am-collection-hero--with-image {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .am-collection-hero__image {
+    height: 280px;
+  }
+
+  .am-collection-hero__content {
+    padding: 42px 24px 48px !important;
+    justify-content: flex-start;
+  }
+
+  .am-collection-hero__eyebrow {
+    font-size: 11px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .am-collection-hero__title {
+    font-size: 36px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .am-collection-hero__description,
+  .am-collection-hero__description p {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+
+  .am-collection-hero .am-collection-hero__meta {
+    margin-top: 24px !important;
+    padding-top: 18px !important;
+  }
+}
+
+
+/* ============================================================
+   6. FILTER BAR & SORT
+   ============================================================ */
+
+/* Filter wrapper */
+.facets-wrapper,
+.facets,
+.facet-filters,
+#main-collection-filters {
+  background-color: var(--am-cream) !important;
+  border-bottom: 1px solid var(--am-border) !important;
+  padding: 0.75rem 0 !important;
+  margin-bottom: 2.5rem !important;
+}
+
+/* Filter labels */
+.facets__summary,
+.facets label,
+.facets__heading,
+.facet-filters__item summary,
+.mobile-facets__summary {
+  font-family: var(--am-sans) !important;
+  font-size: 0.72rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: var(--am-ink) !important;
+  cursor: pointer !important;
+}
+
+/* Active filter pills */
+.active-facets__button,
+.facets__tag,
+.active-facets a {
+  font-family: var(--am-sans) !important;
+  font-size: 0.68rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  background-color: var(--am-ink) !important;
+  color: var(--am-cream) !important;
+  border: none !important;
+  padding: 0.3rem 0.75rem !important;
+  border-radius: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  text-decoration: none !important;
+  transition: background-color var(--am-duration-fast) var(--am-ease) !important;
+}
+
+.active-facets__button:hover,
+.facets__tag:hover {
+  background-color: var(--am-cobalt) !important;
+}
+
+/* Clear all */
+.active-facets__button-remove-all,
+.facets__reset {
+  font-family: var(--am-sans) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--am-mid-grey) !important;
+  background: none !important;
+  border: none !important;
+  text-decoration: underline !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+}
+
+/* Sort select */
+.facets__sort,
+.facet-filters__sort select,
+#SortBy {
+  font-family: var(--am-sans) !important;
+  font-size: 0.72rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  background-color: var(--am-cream) !important;
+  border: 1px solid var(--am-border-strong) !important;
+  color: var(--am-ink) !important;
+  padding: 0.35rem 2rem 0.35rem 0.75rem !important;
+  border-radius: 0 !important;
+  appearance: none !important;
+  cursor: pointer !important;
+}
+
+/* Filter checkboxes */
+.facets__checkbox,
+input[type="checkbox"].facets__checkbox {
+  accent-color: var(--am-ink) !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+
+/* Product count text */
+.product-count,
+#ProductCount,
+.facets-container .product-count {
+  font-family: var(--am-sans) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--am-mid-grey) !important;
+}
+
+/* Facet typography â€” px override for 10px root */
+.facets__heading,
+.facets__summary,
+.facets__header,
+.facet-checkbox,
+.facet-checkbox__text-label,
+.facets__label,
+.facets__list label,
+.facets-layout-grid .facets__label,
+.facet-filters__label,
+.facet-filters__sort,
+.facets__price,
+.product-count__text,
+.mobile-facets__heading,
+.mobile-facets__label,
+.active-facets__button-inner,
+.facets__and-helptext {
+  font-size: 11px !important;
+  font-family: 'Jost', sans-serif !important;
+  letter-spacing: 0.08em !important;
+}
+
+.facets__summary {
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  color: #1a1a18 !important;
+}
+
+.facets__header {
+  font-size: 11px !important;
+}
+
+.product-count__text {
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #9e9a90 !important;
+}
+
+/* Colour filter swatch size fix */
+.facets-layout-list--swatch .swatch-input__label {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  display: inline-block !important;
+  border-radius: 3px !important;
+}
+
+
+/* ============================================================
+   8. PRODUCT PAGE
+   ============================================================ */
+
+/* Product title */
+.product__title,
+.product h1 {
+  font-family: var(--am-serif) !important;
+  font-size: clamp(2rem, 3.5vw, 3.2rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.1 !important;
+  color: var(--am-ink) !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Collection tag above title */
+.product__text.caption,
+.product__text--tag,
+.product-badge-label {
+  font-family: var(--am-sans) !important;
+  font-size: 0.65rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: var(--am-mid-grey) !important;
+  margin-bottom: 0.4rem !important;
+  display: block !important;
+}
+
+/* Product subtitle / material subtitle */
+.product__subtitle,
+.product__text.body,
+.product .product-information .body {
+  font-family: var(--am-sans) !important;
+  font-size: 0.78rem !important;
+  font-weight: 300 !important;
+  color: var(--am-mid-grey) !important;
+  letter-spacing: 0.03em !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Product price */
+.product__price .price,
+.product-form__price .price-item {
+  font-family: var(--am-sans) !important;
+  font-size: 1.15rem !important;
+  font-weight: 400 !important;
+  color: var(--am-ink) !important;
+  letter-spacing: 0.02em !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Product description */
+.product__description {
+  max-width: 100% !important;
+  line-height: 1.7 !important;
+}
+
+.product__description.rte,
+.product__description.rte p {
+  font-family: var(--am-sans) !important;
+  font-size: 15px !important;
+  font-weight: 300 !important;
+  line-height: 1.8 !important;
+  color: var(--am-ink-light) !important;
+}
+
+/* Variant selector (size/chain length) */
+.variant-selects,
+.product-form__variants,
+.variant-picker {
+  margin-bottom: 1.5rem !important;
+}
+
+.product-form__input label,
+.variant-picker label {
+  font-family: var(--am-sans) !important;
+  font-size: 0.68rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--am-ink) !important;
+  margin-bottom: 0.5rem !important;
+  display: block !important;
+}
+
+/* Variant option pills */
+.variant-button,
+.button--swatch {
+  background-color: var(--am-cream) !important;
+  color: var(--am-ink) !important;
+  border: 1px solid var(--am-border-strong) !important;
+  border-radius: 0 !important;
+  padding: 0.4rem 0.8rem !important;
+  cursor: pointer !important;
+  transition: border-color var(--am-duration-fast), background-color var(--am-duration-fast) !important;
+}
+
+.swatch--selected,
+.swatch[aria-pressed="true"],
+.variant-button--selected {
+  background-color: var(--am-ink) !important;
+  color: var(--am-cream) !important;
+  border-color: var(--am-ink) !important;
+}
+
+/* ADD TO CART button â€” the primary CTA */
+.product-form__submit,
+button[name="add"],
+.btn-add-to-cart {
+  font-family: var(--am-sans) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  background-color: var(--am-ink) !important;
+  color: var(--am-cream) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 1.1rem 2.5rem !important;
+  min-height: 60px !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: background-color var(--am-duration-fast) var(--am-ease) !important;
+}
+
+.product-form__submit:hover,
+button[name="add"]:hover {
+  background-color: var(--am-cobalt) !important;
+}
+
+/* Trust badges below CTA */
+.product__trust-badges,
+.product-trust-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 1.2rem !important;
+  margin-top: 1.2rem !important;
+  padding-top: 1.2rem !important;
+  border-top: 1px solid var(--am-border) !important;
+}
+
+/* Product media / image gallery */
+.product__media-wrapper {
+  background: transparent !important;
+}
+
+.product__media,
+.product-media-container {
+  background-color: transparent !important;
+}
+
+.product__media img,
+.product-media img {
+  border-radius: 0 !important;
+}
+
+/* Accordion / details (Materials, Dimensions, Care, Shipping) */
+.accordion,
+details.accordion {
+  border-top: 1px solid var(--am-border) !important;
+  border-bottom: none !important;
+}
+
+.accordion summary,
+details.accordion summary {
+  font-family: var(--am-sans) !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: var(--am-ink) !important;
+  padding: 1rem 0 !important;
+  cursor: pointer !important;
+  list-style: none !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.accordion__content,
+details.accordion .rte {
+  font-family: var(--am-sans) !important;
+  font-size: 1.2rem !important;
+  font-weight: 300 !important;
+  line-height: 1.7 !important;
+  color: var(--am-ink-light) !important;
+  padding-bottom: 1.2rem !important;
+}
+
+.product__accordion .accordion__content {
+  font-weight: 400 !important;
+}
+
+/* Curatorial blockquote on product page */
+.product__curatorial-note,
+blockquote.editorial {
+  font-family: var(--am-serif) !important;
+  font-style: italic !important;
+  font-size: clamp(1.1rem, 2vw, 1.5rem) !important;
+  font-weight: 300 !important;
+  color: var(--am-ink) !important;
+  line-height: 1.5 !important;
+  border-left: 2px solid var(--am-cobalt) !important;
+  padding-left: 1.5rem !important;
+  margin: 2.5rem 0 !important;
+}
+
+
+/* ============================================================
+   9. BUTTONS â€” global
+   ============================================================ */
+
+.button,
+button.button,
+a.button {
+  font-family: var(--am-sans) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  border-radius: 0 !important;
+}
+
+/* Primary */
+.button--primary,
+.button[type="submit"],
+.btn-primary {
+  background-color: var(--am-cobalt) !important;
+  color: var(--am-cream) !important;
+  border: 1px solid var(--am-cobalt) !important;
+  padding: 0.9rem 2rem !important;
+  font-size: 16px !important;
+  transition: background-color var(--am-duration-fast), border-color var(--am-duration-fast) !important;
+}
+
+.button--primary:hover,
+.btn-primary:hover {
+  background-color: var(--am-cobalt-dark) !important;
+  border-color: var(--am-cobalt-dark) !important;
+}
+
+/* Secondary / ghost */
+.button--secondary,
+.btn-secondary {
+  background-color: transparent !important;
+  color: var(--am-cobalt) !important;
+  border: 1px solid var(--am-border-strong) !important;
+  padding: 0.9rem 2rem !important;
+  font-size: 0.72rem !important;
+  transition: background-color var(--am-duration-fast), color var(--am-duration-fast) !important;
+}
+
+.button--secondary:hover {
+  background-color: var(--am-cobalt) !important;
+  color: var(--am-cream) !important;
+}
+
+
+/* ============================================================
+   10. CART / DRAWER
+   ============================================================ */
+
+.cart-drawer,
+.cart-notification,
+.cart-items {
+  background-color: var(--am-cream) !important;
+  font-family: var(--am-sans) !important;
+}
+
+.cart-drawer__header,
+.cart-notification__heading,
+.cart-items thead {
+  font-family: var(--am-serif) !important;
+  font-size: 1.3rem !important;
+  font-weight: 400 !important;
+  color: var(--am-ink) !important;
+  border-bottom: 1px solid var(--am-border) !important;
+}
+
+.cart-item__name {
+  font-family: var(--am-serif) !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  color: var(--am-ink) !important;
+}
+
+.cart-item__price {
+  font-family: var(--am-sans) !important;
+  font-size: 0.85rem !important;
+  color: var(--am-ink) !important;
+}
+
+.cart-drawer__footer,
+.cart__footer {
+  border-top: 1px solid var(--am-border) !important;
+  background-color: var(--am-cream) !important;
+}
+
+.cart__checkout-button {
+  font-family: var(--am-sans) !important;
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  background-color: var(--am-ink) !important;
+  color: var(--am-cream) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 1rem 2rem !important;
+  width: 100% !important;
+  transition: background-color var(--am-duration-fast) !important;
+}
+
+.cart__checkout-button:hover {
+  background-color: var(--am-cobalt) !important;
+}
+
+/* Progress bar (free shipping) */
+.cart-notification-product__price,
+.shipping-notice {
+  font-family: var(--am-sans) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--am-mid-grey) !important;
+}
+
+
+/* ============================================================
+   12. EMAIL SIGNUP SECTION
+   ============================================================ */
+
+.newsletter-section,
+.footer__newsletter,
+section[id*="newsletter"],
+.email-signup {
+  background-color: var(--am-cream) !important;
+  padding: clamp(2rem, 1vw, 2rem) !important;
+  text-align: center !important;
+}
+
+.newsletter-section h2,
+.footer__newsletter h2,
+.email-signup-title {
+  font-family: var(--am-serif) !important;
+  font-size: var(--am-h2-size) !important;
+  font-weight: 400 !important;
+  color: var(--am-ink) !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.newsletter-section p,
+.footer__newsletter p {
+  font-family: var(--am-sans) !important;
+  font-size: 0.85rem !important;
+  font-weight: 300 !important;
+  color: var(--am-ink-light) !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.newsletter-form__field-wrapper input,
+.footer__newsletter input[type="email"] {
+  font-family: var(--am-sans) !important;
+  font-size: 0.85rem !important;
+  background-color: var(--am-cream) !important;
+  border: 1px solid var(--am-border-strong) !important;
+  border-radius: 0 !important;
+  padding: 0.75rem 1rem !important;
+  color: var(--am-ink) !important;
+}
+
+.am-newsletter__form button[type="submit"] {
+  background-color: var(--am-cream) !important;
+  color: #1a1a1a !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.am-newsletter__form button[type="submit"]:hover {
+  background-color: #F5C518 !important;
+  color: #1a1a1a !important;
+}
+
+
+/* ============================================================
+   13. SECTION PADDING â€” breathing room like the mockup
+   ============================================================ */
+
+.section-padding,
+[class*="spaced-section"] {
+  padding-top: clamp(36px, 5vw, 72px) !important;
+  padding-bottom: clamp(36px, 5vw, 72px) !important;
+}
+
+/* Page width constraints */
+.page-width {
+  max-width: 1280px !important;
+  padding-left: clamp(1.25rem, 4vw, 3rem) !important;
+  padding-right: clamp(1.25rem, 4vw, 3rem) !important;
+}
+
+
+/* ============================================================
+   14. MISC UI â€” search, predictive, back-to-top, etc.
+   ============================================================ */
+
+/* Search */
+.search-form,
+.predictive-search {
+  background-color: var(--am-cream) !important;
+  border: 1px solid var(--am-border) !important;
+}
+
+.search-form input,
+.predictive-search input {
+  font-family: var(--am-sans) !important;
+  background-color: transparent !important;
+  color: var(--am-ink) !important;
+}
+
+.predictive-search__item-heading {
+  font-family: var(--am-serif) !important;
+  font-size: 0.95rem !important;
+  color: var(--am-ink) !important;
+}
+
+.predictive-search__item-subheading {
+  font-family: var(--am-sans) !important;
+  font-size: 0.72rem !important;
+  color: var(--am-mid-grey) !important;
+}
+
+/* Pagination */
+.pagination .button {
+  border-radius: 0 !important;
+  font-family: var(--am-sans) !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+}
+
+/* Focus ring â€” accessibility, on-brand */
+:focus-visible {
+  outline: 2px solid var(--am-cobalt) !important;
+  outline-offset: 2px !important;
+}
+
+/* Selection colour */
+::selection {
+  background-color: var(--am-cobalt) !important;
+  color: var(--am-cream) !important;
+}
+
+/* Scrollbar â€” subtle, refined */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--am-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--am-warm-grey);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--am-mid-grey);
+}
+
+
+/* ============================================================
+   15. MOBILE RESPONSIVE ADJUSTMENTS
+   ============================================================ */
+
+@media (max-width: 768px) {
+  :root {
+    --am-section-pad: 3rem;
+  }
+
+  .collection-hero__meta {
+    flex-wrap: wrap !important;
+    gap: 1.2rem !important;
+  }
+
+  /* Stack quick-add always visible on mobile (no hover) */
+  .quick-add,
+  .quick-add__submit,
+  .card__quick-add {
+    opacity: 1 !important;
+    position: static !important;
+    margin-top: 0.75rem !important;
+  }
+
+  /* Breadcrumb â€” shorter on mobile */
+  nav.breadcrumbs,
+  .breadcrumbs {
+    font-size: 0.6rem !important;
+  }
+}
+
+@media (max-width: 749px) {
+  /* Stack collection feature panels on mobile */
+  .image-with-text__grid,
+  .image-with-text .grid--2-col,
+  [class*="collection-feature"] .grid,
+  [class*="collection-feature"] .split {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .image-with-text__media,
+  [class*="collection-feature"] .image-col {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  .image-with-text__content,
+  [class*="collection-feature"] .text-col {
+    width: 100% !important;
+    min-width: 100% !important;
+    padding: 30px 24px !important;
+  }
+
+  /* Mobile nav fix */
+  .shopify-section-group-header-group {
+    display: none !important;
+  }
+
+  /* Mobile left padding fix */
+  .collection-filters-container,
+  .facets-container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+@media (max-width: 989px) {
+  /* Force inline nav to hide on mobile â€” drawer takes over */
+  .header__inline-menu {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  h1, .h1 {
+    font-size: 2.2rem !important;
+  }
+
+  h2, .h2 {
+    font-size: 1.6rem !important;
+  }
+}
+
+
+/* ============================================================
+   16. PRINT â€” strip colour for clean output
+   ============================================================ */
+
+@media print {
+  body { background: white !important; color: black !important; }
+  .header-wrapper, .footer, .facets-wrapper { display: none !important; }
+}
+
+
+/* ============================================================
+   17. AM HERO â€” ABSOLUTE OVERRIDES
+   ============================================================ */
+
+:is(.am-hero) :is(.am-hero__content) :is(.am-hero__sub) {
+  font-size: 1rem !important;
+  font-weight: 300 !important;
+  line-height: 1.8 !important;
+  color: #3a3a35 !important;
+  max-width: 48ch !important;
+  margin: 0 0 2.5rem !important;
+}
+
+:is(.am-hero) :is(.am-hero__content) :is(.am-btn-primary) {
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em !important;
+  padding: 1rem 2.4rem !important;
+  background-color: #0047AB !important;
+  color: #fdf6e3 !important;
+  border: 1px solid #0047AB !important;
+}
+
+:is(.am-hero) :is(.am-hero__content) :is(.am-btn-secondary) {
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em !important;
+  padding: 0.25rem 0 !important;
+  color: #1a1a18 !important;
+  border-bottom: 1px solid #1a1a18 !important;
+  background: transparent !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+:is(.am-hero) :is(.am-hero__content) :is(.am-hero__trust),
+:is(.am-hero) :is(.am-hero__content) :is(.am-hero__trust) span {
+  font-size: 0.68rem !important;
+  color: #9e9a90 !important;
+  letter-spacing: 0.1em !important;
+  font-weight: 400 !important;
+}
+
+.am-hero__content {
+  padding: 80px 5% !important;
+}
+
+.am-hero__heading {
+  font-size: 48px !important;
+  text-align: center !important;
+}
+/* Cream frame around hero image */
+.am-hero__image {
+  background-color: #fdf6e3 !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+}
+.am-hero__image-link {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+@media (max-width: 749px) {
+  .am-hero__image {
+    padding: 16px !important;
+  }
+}
+
+/* ============================================================
+   18. CURATORIAL NOTE BLOCK
+   ============================================================ */
+
+.am-curatorial p.am-curatorial__quote {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 34px !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  line-height: 1.45 !important;
+  color: #1a1a18 !important;
+  text-align: left !important;
+}
+
+.am-curatorial p.am-curatorial__source {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 22px !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  color: #1a1a18 !important;
+  text-align: left !important;
+}
+
+.am-curatorial p.am-curatorial__label {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: #0047AB !important;
+  text-align: left !important;
+}
+
+.am-curatorial p.am-curatorial__journal {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: #9e9a90 !important;
+  text-align: left !important;
+}
+
+
+/* ============================================================
+   19. FOOTER
+   ============================================================ */
+
+.am-footer__socials {
+  display: flex !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  margin-top: 0 !important;
+  list-style: none !important;
+  padding: 0 !important;
+}
+
+.am-footer__social-btn {
+  display: inline-flex !important;
+  width: auto !important;
+  max-width: none !important;
+  height: 32px !important;
+  padding: 0 14px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  white-space: nowrap !important;
+  text-align: left !important;
+  font-size: 11px !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  border: 1px solid rgba(0, 71, 171, 0.25) !important;
+  text-decoration: none !important;
+}
+
+
+/* ============================================================
+   20. POLICIES
+   ============================================================ */
+
+.shopify-policy__container p,
+.shopify-policy__container li,
+.policy p,
+.policy li {
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+}
+
+.shopify-policy__container h1,
+.policy h1 {
+  font-size: 28px !important;
+}
+
+.shopify-policy__container h2,
+.policy h2 {
+  font-size: 20px !important;
+}
+
+
+/* ============================================================
+   21. REVIEWS
+   ============================================================ */
+
+.am-section:has(.am-reviews),
+.am-reviews {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.am-reviews__count {
+  margin-bottom: 2rem !important;
+}
+
+.am-reviews__grid {
+  margin-top: 0 !important;
+}
+
+
+/* ============================================================
+   22. CAROUSEL
+   ============================================================ */
+
+.am-carousel__content {
+  justify-content: flex-end !important;
+  padding-bottom: 75px !important;
+}
+
+.am-circle__quote cite {
+  display: block !important;
+  margin-top: 10px !important;
+}
+
+
+/* ============================================================
+   23. BYL SUMMARY â€” cobalt panel
+   ============================================================ */
+
+.byl-summary,
+.byl-summary *:not(.byl-summary__button) {
+  color: #fff !important;
+}
+.byl-summary.byl-summary .byl-summary__label {
+  font-size: 14px !important;
+  color: rgba(255,255,255,0.5) !important;
+}
+
+.byl-summary.byl-summary .byl-summary__row span:first-child {
+  color: rgba(255,255,255,0.7) !important;
+  font-size: 20px !important;
+  line-height: 1.2 !important;
+  max-width: 68%;
+}
+
+.byl-summary .byl-summary__row--saving span:first-child,
+.byl-summary .byl-summary__row--saving span:last-child,
+.byl-summary [data-byl-saving] {
+  color: #f4c400 !important;
+}
+
+.byl-summary [data-byl-subtotal-individual] {
+  color: rgba(255,255,255,0.35) !important;
+  font-size: 24px !important;
+  white-space: nowrap !important;
+}
+
+.byl-summary [data-byl-bundle-total-preview] {
+  font-size: 24px !important;
+  white-space: nowrap !important;
+}
+
+.byl-summary.byl-summary .byl-summary__total-label {
+  color: rgba(255,255,255,0.45) !important;
+  font-size: 14px !important;
+}
+
+.byl-summary .byl-summary__button {
+  color: #0047AB !important;
+}
+
+.byl-summary__row {
+  gap: 14px !important;
+}
+
+.byl-summary [data-byl-main-price],
+.byl-summary [data-byl-look-total],
+.byl-summary [data-byl-saving] {
+  font-size: 28px !important;
+  white-space: nowrap !important;
+}
+
+.byl-individual__prices {
+  min-width: 120px !important;
+}
+
+.byl-summary__total {
+  font-size: 42px !important;
+}
+.am-quick-add {
+  display: inline-block;
+  width: auto;
+  margin-top: 12px;
+  padding: 10px 24px;
+  font-family: var(--am-font-sans);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--am-cream);
+  background: var(--am-cobalt);
+  border: 1px solid var(--am-cobalt);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.am-quick-add:hover {
+  background: var(--am-cobalt-deep, #003a8c);
+  color: var(--am-cream);
+}
+
+/* Choose options â€” now cobalt to match */
+
+.am-product-grid .am-quick-add,
+.am-product-grid button.am-quick-add[name="add"] {
+  display: inline-block !important;
+  width: auto !important;
+  min-height: 0 !important;
+  margin-top: 12px !important;
+  padding: 10px 24px !important;
+  font-family: var(--am-sans) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  color: var(--am-cream) !important;
+  background-color: var(--am-cobalt) !important;
+  border: 1px solid var(--am-cobalt) !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.am-product-grid .am-quick-add:hover,
+.am-product-grid button.am-quick-add[name="add"]:hover {
+  background-color: var(--am-cobalt-dark) !important;
+  color: var(--am-cream) !important;
+}
+
+.am-product-grid .am-quick-add--options {
+  background-color: var(--am-cobalt) !important;
+  color: var(--am-cream) !important;
+  border-color: var(--am-cobalt) !important;
+}
+.am-product-grid .am-quick-add--options:hover {
+  background-color: var(--am-cobalt-dark) !important;
+  color: var(--am-cream) !important;
+}
+
+.am-product-grid .am-quick-add[disabled] {
+  background-color: #b9b9b9 !important;
+  border-color: #b9b9b9 !important;
+  cursor: not-allowed !important;
+}
+.am-reviews .am-review-card__text {
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+}
+
+.am-reviews .am-review-card__author {
+  font-size: 12px !important;
+}
+
+/* the centred "5 STARS â€” FROM VERIFIED REVIEWS" label */
+.am-reviews .am-reviews__count {
+  font-size: 12px !important;
+}
+
+/* ============================================================
+   BUY BUTTON TEXT SIZE â€” definitive override.
+   Multiple .button--primary / .button[type=submit] rules set
+   font-size: .72rem !important (â‰ˆ7px at 10px root). Beat them
+   all with higher specificity (html prefix) + px.
+   ============================================================ */
+html body .product-form__submit,
+html body button[name="add"],
+html body .btn-add-to-cart,
+html body .cart__ctas button,
+html body #checkout.cart__checkout-button,
+html body .cart__checkout-button,
+html body .button--primary[type="submit"],
+html body .quick-add__submit,
+html body button.quick-add__submit,
+html body .button--primary,
+html body .button[type="submit"],
+html body .btn-primary {
+  font-size: 16px !important;
+  letter-spacing: 0.14em !important;
+}
+/* Product card links and quick add */
+.am-product-card__link,
+.am-product-card__link * {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 3;
+}
+
+.am-product-card__atb-form,
+.am-product-card .am-quick-add {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 2;
+}
+
+.am-product-card__atb-form button,
+.am-product-card .am-quick-add button,
+.am-product-card .quick-add__submit {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 4;
+}
+
+@media (max-width: 749px) {
+  .am-product-card__atb-form,
+  .am-product-card .am-quick-add {
+    display: none !important;
+  }
+}
+/* MOBILE FIX: stop Add to Bag covering product cards */
+@media screen and (max-width: 749px) {
+  .card-wrapper .quick-add,
+  .card-wrapper quick-add-modal,
+  .card-wrapper product-form,
+  .card-wrapper .product-form,
+  .card-wrapper form[action*="/cart/add"] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .card-wrapper a,
+  .card-wrapper .card__heading a,
+  .card-wrapper .card__media a,
+  .card-wrapper .full-unstyled-link {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+}
+
+/* MOBILE PRODUCT CARD FIX */
+@media screen and (max-width: 749px) {
+  /* Keep quick add hidden on mobile */
+  .card-wrapper .quick-add,
+  .card-wrapper quick-add-modal,
+  .card-wrapper product-form,
+  .card-wrapper .product-form,
+  .card-wrapper form[action*="/cart/add"] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  /* Let Dawn's title link overlay make image/card clickable */
+  .card-wrapper .card__heading a.full-unstyled-link::after {
+    content: "";
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 5 !important;
+  }
+
+  .card-wrapper .card__heading a.full-unstyled-link {
+    position: static !important;
+  }
+
+  .card-wrapper .card__content {
+    position: relative !important;
+    z-index: 6 !important;
+  }
+
+  .card-wrapper .card__inner {
+    position: relative !important;
+  }
+}
+.product-grid .card__inner,
+.product-grid .card__media,
+.product-grid .media {
+  background: #FFEBCD !important;
+}
+/* Product cards â€” white ground behind product images (removes taupe scheme fill) */
+.product-card-wrapper .card__inner,
+.product-card-wrapper .card__media,
+.product-card-wrapper .card__media .media {
+  background-color: #FFEBCD!important;
+  background-image: none !important;
+}
+
+
+/* ============================================================
+   24. PRODUCT PAGE — REFINED RESTORATION
+   One final, contained product-page layer. Keep this section last.
+   ============================================================ */
+
+.template-product #MainContent {
+  padding-top: 0 !important;
+}
+
+.template-product .product,
+.template-product .product.grid {
+  max-width: 1240px !important;
+  margin-inline: auto !important;
+  column-gap: clamp(36px, 5vw, 78px) !important;
+  align-items: start !important;
+}
+
+.template-product .product__media-wrapper,
+.template-product .product__info-wrapper {
+  min-width: 0 !important;
+}
+
+.template-product .product__info-container {
+  max-width: 520px !important;
+  padding-top: 8px !important;
+}
+
+.template-product .product__title,
+.template-product .product__title h1,
+.template-product .product h1 {
+  font-family: var(--am-serif) !important;
+  font-size: clamp(34px, 3.2vw, 48px) !important;
+  font-weight: 400 !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--am-ink) !important;
+  margin: 0 0 12px !important;
+}
+
+.template-product .product__info-container .price,
+.template-product .product__info-container .price-item {
+  font-family: var(--am-sans) !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  color: var(--am-ink) !important;
+}
+
+.template-product .product__description,
+.template-product .product__description p,
+.template-product .product__description li {
+  font-family: var(--am-sans) !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.72 !important;
+  color: #34332f !important;
+}
+
+.template-product .product-form__input .form__label,
+.template-product .product-form__input label,
+.template-product .quantity__label {
+  font-family: var(--am-sans) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0.10em !important;
+  text-transform: uppercase !important;
+}
+
+.template-product .product-form__submit,
+.template-product button[name="add"] {
+  min-height: 54px !important;
+  padding: 14px 24px !important;
+  font-size: 12px !important;
+  letter-spacing: 0.16em !important;
+  background: var(--am-cobalt) !important;
+  color: #fff !important;
+}
+
+.template-product .accordion summary,
+.template-product details.accordion summary {
+  font-size: 12px !important;
+  padding: 16px 0 !important;
+}
+
+.template-product .accordion__content,
+.template-product details.accordion .rte,
+.template-product details.accordion .rte p {
+  font-size: 15px !important;
+  line-height: 1.65 !important;
+}
+
+/* Keep all recommendation/product-card photography rectangular. */
+.template-product .related-products .card,
+.template-product .related-products .card__inner,
+.template-product .related-products .card__media,
+.template-product .related-products .card__media .media,
+.template-product .related-products img,
+.template-product .product-recommendations .card,
+.template-product .product-recommendations .card__inner,
+.template-product .product-recommendations .card__media,
+.template-product .product-recommendations .card__media .media,
+.template-product .product-recommendations img {
+  border-radius: 0 !important;
+  clip-path: none !important;
+}
+
+.template-product .related-products,
+.template-product .product-recommendations {
+  padding-top: 56px !important;
+  padding-bottom: 64px !important;
+}
+
+.template-product .related-products h2,
+.template-product .product-recommendations h2 {
+  font-size: clamp(34px, 4vw, 52px) !important;
+  margin-bottom: 30px !important;
+}
+
+/* Product-page Atelier Circle: compact editorial sign-up, not a landing page. */
+.template-product .atelier-circle__inner {
+  width: min(100%, 1180px) !important;
+  padding: 54px 32px 62px !important;
+}
+
+.template-product .atelier-circle__header {
+  max-width: 820px !important;
+  margin: 0 auto 38px !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.template-product .atelier-circle__title {
+  font-size: clamp(46px, 5vw, 68px) !important;
+  line-height: 0.98 !important;
+}
+
+.template-product .atelier-circle__statement {
+  margin-top: 18px !important;
+  font-size: clamp(26px, 3vw, 38px) !important;
+  line-height: 1.12 !important;
+}
+
+.template-product .atelier-circle .atelier-circle__intro,
+.template-product .atelier-circle .atelier-circle__intro p {
+  margin-top: 18px !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.65 !important;
+  color: #34332f !important;
+}
+
+.template-product .atelier-circle__layout {
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr) !important;
+  gap: clamp(36px, 5vw, 72px) !important;
+  max-width: 1000px !important;
+}
+
+.template-product .atelier-circle__benefit {
+  padding: 16px 0 16px 26px !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+}
+
+.template-product .atelier-circle__benefit::before {
+  top: 23px !important;
+  width: 7px !important;
+  height: 7px !important;
+}
+
+.template-product .atelier-circle__panel {
+  padding: 34px !important;
+  box-shadow: 10px 10px 0 rgba(230, 178, 60, 0.18) !important;
+}
+
+/* Prevent a custom logo/nav wrapper from acquiring page-height dimensions. */
+.am-header__nav-bar,
+.am-header__inner,
+.am-nav-bar {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+.am-header__nav-bar {
+  padding-top: 18px !important;
+  padding-bottom: 18px !important;
+}
+
+.am-header__logo img,
+.am-header__brand img,
+.am-nav-bar img {
+  max-height: 82px !important;
+  width: auto !important;
+  object-fit: contain !important;
+}
+
+@media screen and (max-width: 749px) {
+  .template-product .product,
+  .template-product .product.grid {
+    display: block !important;
+  }
+
+  .template-product .product__info-container {
+    max-width: none !important;
+    padding-top: 24px !important;
+  }
+
+  .template-product .atelier-circle__inner {
+    padding: 38px 18px 46px !important;
+  }
+
+  .template-product .atelier-circle__layout {
+    grid-template-columns: 1fr !important;
+    gap: 34px !important;
+  }
+
+  .template-product .atelier-circle__panel {
+    padding: 28px 22px !important;
+  }
+}
+/* ============================================================
+   PRODUCT PAGE — ATELIER CIRCLE INVITE
+   Targets the actual .am-circle-invite markup
+   ============================================================ */
+
+.product__info-container .am-circle-invite,
+.product__info-wrapper .am-circle-invite,
+.am-circle-invite {
+  width: 100% !important;
+  max-width: 700px !important;
+  margin: 42px 0 0 !important;
+  padding: 32px 0 0 !important;
+
+  background: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(26, 26, 24, 0.14) !important;
+  box-shadow: none !important;
+
+  color: var(--am-ink, #1a1a18) !important;
+  text-align: left !important;
+}
+
+/* Small section label */
+
+.am-circle-invite .am-circle-invite__eyebrow {
+  margin: 0 0 8px !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+
+  color: var(--am-cobalt, #0047ab) !important;
+}
+
+/* Heading */
+
+.am-circle-invite .am-circle-invite__heading {
+  margin: 0 0 5px !important;
+
+  font-family: var(--am-serif, "Cormorant Garamond", Georgia, serif) !important;
+  font-size: clamp(34px, 3vw, 44px) !important;
+  font-weight: 400 !important;
+  line-height: 1.04 !important;
+  letter-spacing: -0.015em !important;
+  text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+
+  color: var(--am-ink, #1a1a18) !important;
+}
+
+/* Membership line */
+
+.am-circle-invite .am-circle-invite__subheading {
+  margin: 0 0 17px !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  letter-spacing: 0 !important;
+  text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+
+  color: rgba(26, 26, 24, 0.68) !important;
+}
+
+/* Benefits — one restrained editorial line */
+
+.am-circle-invite .am-circle-benefits {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 7px 0 !important;
+
+  margin: 0 0 20px !important;
+  padding: 0 !important;
+}
+
+.am-circle-invite .am-circle-benefits span {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin: 0 !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.01em !important;
+
+  color: rgba(26, 26, 24, 0.76) !important;
+}
+
+.am-circle-invite .am-circle-benefits span:not(:last-child)::after {
+  content: "·";
+  display: inline-block;
+  margin: 0 9px;
+
+  color: var(--am-cobalt, #0047ab) !important;
+}
+
+.am-circle-invite .am-circle-benefits i {
+  display: none !important;
+}
+
+/* Reset the Shopify form wrapper */
+
+.am-circle-invite .am-circle-form {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Email and CTA in one composed row */
+
+.am-circle-invite .am-circle-form__row {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(270px, 0.92fr) !important;
+  gap: 10px !important;
+  align-items: stretch !important;
+
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Email field */
+
+.am-circle-invite .am-circle-form__input,
+.am-circle-invite input.am-circle-form__input[type="email"] {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 58px !important;
+  min-height: 58px !important;
+  margin: 0 !important;
+  padding: 0 17px !important;
+
+  appearance: none !important;
+  background: transparent !important;
+  border: 1px solid rgba(26, 26, 24, 0.28) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+
+  color: var(--am-ink, #1a1a18) !important;
+}
+
+.am-circle-invite .am-circle-form__input::placeholder {
+  color: rgba(26, 26, 24, 0.48) !important;
+  opacity: 1 !important;
+}
+
+.am-circle-invite .am-circle-form__input:focus {
+  border-color: var(--am-cobalt, #0047ab) !important;
+  outline: 1px solid var(--am-cobalt, #0047ab) !important;
+  outline-offset: -1px !important;
+}
+
+/* CTA — defeat global button width, size and type rules */
+
+html body .am-circle-invite button.am-circle-form__button,
+html body .am-circle-invite .am-circle-form__button {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 58px !important;
+  min-height: 58px !important;
+  margin: 0 !important;
+  padding: 7px 16px !important;
+
+  background: var(--am-cobalt, #0047ab) !important;
+  border: 1px solid var(--am-cobalt, #0047ab) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  color: #ffffff !important;
+  cursor: pointer !important;
+}
+
+html body .am-circle-invite button.am-circle-form__button:hover {
+  background: var(--am-cobalt-dark, #003080) !important;
+  border-color: var(--am-cobalt-dark, #003080) !important;
+}
+
+/* Main CTA line */
+
+.am-circle-invite .am-circle-form__title {
+  display: block !important;
+  margin: 0 !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+
+  color: #ffffff !important;
+}
+
+.am-circle-invite .am-circle-form__title span {
+  display: inline !important;
+  margin-left: 5px !important;
+  color: inherit !important;
+}
+
+/* Secondary CTA line */
+
+.am-circle-invite .am-circle-form__subtitle {
+  display: block !important;
+  margin: 4px 0 0 !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 9px !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+
+  color: rgba(255, 255, 255, 0.76) !important;
+}
+
+/* Privacy and status messages */
+
+.am-circle-invite .am-circle-form__privacy {
+  margin: 11px 0 0 !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 300 !important;
+  line-height: 1.55 !important;
+  letter-spacing: 0 !important;
+
+  color: rgba(26, 26, 24, 0.52) !important;
+}
+
+.am-circle-invite .am-circle-form__message {
+  margin: 12px 0 0 !important;
+  padding: 10px 12px !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+
+  color: var(--am-cobalt, #0047ab) !important;
+  background: rgba(0, 71, 171, 0.05) !important;
+  border: 1px solid rgba(0, 71, 171, 0.18) !important;
+}
+
+.am-circle-invite .am-circle-form__message--error {
+  color: #8a2424 !important;
+  background: rgba(138, 36, 36, 0.05) !important;
+  border-color: rgba(138, 36, 36, 0.2) !important;
+}
+
+/* Existing member message */
+
+.am-circle-invite .am-circle-member-message {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+
+  margin: 18px 0 0 !important;
+  padding: 16px 18px !important;
+
+  background: rgba(0, 71, 171, 0.045) !important;
+  border: 1px solid rgba(0, 71, 171, 0.18) !important;
+}
+
+.am-circle-invite .am-circle-member-message__dot {
+  flex: 0 0 auto !important;
+  width: 7px !important;
+  height: 7px !important;
+  margin-top: 7px !important;
+
+  background: var(--am-cobalt, #0047ab) !important;
+  transform: rotate(45deg) !important;
+}
+
+.am-circle-invite .am-circle-member-message p {
+  margin: 0 !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+
+  color: rgba(26, 26, 24, 0.76) !important;
+}
+
+/* Mobile */
+
+@media screen and (max-width: 749px) {
+  .product__info-container .am-circle-invite,
+  .product__info-wrapper .am-circle-invite,
+  .am-circle-invite {
+    margin-top: 34px !important;
+    padding-top: 26px !important;
+  }
+
+  .am-circle-invite .am-circle-invite__heading {
+    font-size: 34px !important;
+  }
+
+  .am-circle-invite .am-circle-benefits {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 7px !important;
+  }
+
+  .am-circle-invite .am-circle-benefits span:not(:last-child)::after {
+    display: none !important;
+  }
+
+  .am-circle-invite .am-circle-form__row {
+    grid-template-columns: 1fr !important;
+    gap: 9px !important;
+  }
+
+  .am-circle-invite .am-circle-form__input,
+  html body .am-circle-invite button.am-circle-form__button {
+    height: 56px !important;
+    min-height: 56px !important;
+  }
+}
+/* Keep the Circle block integrated with the product column */
+.product__info-container .am-circle-invite {
+  margin-top: 34px !important;
+  padding-top: 30px !important;
+}
+
+/* Keep accordions close beneath the Circle block */
+.product__info-container .am-circle-invite + .product__accordion,
+.product__info-container .am-circle-invite ~ .product__accordion:first-of-type {
+  margin-top: 10px !important;
+}
+
+/* Remove excessive bottom space before Build Your Look */
+.product-section,
+.product.product--large,
+.product.product--medium,
+.product.product--small {
+  margin-bottom: 0 !important;
+  padding-bottom: 32px !important;
+}
+
+.shopify-section:has(.byl),
+.shopify-section:has(.build-your-look),
+.shopify-section:has([class*="byl-"]) {
+  margin-top: 0 !important;
+  padding-top: 38px !important;
+}
+/* ============================================================
+   PRODUCT PAGE ACCORDIONS — FINAL RESET
+   ============================================================ */
+
+.product__info-container .product__accordion,
+.product__info-wrapper .product__accordion,
+.product__info-container details.accordion {
+  margin: 0 !important;
+  border-top: 1px solid rgba(26, 26, 24, 0.14) !important;
+  border-bottom: 0 !important;
+}
+
+.product__info-container .product__accordion summary,
+.product__info-wrapper .product__accordion summary,
+.product__info-container details.accordion summary {
+  min-height: 42px !important;
+  padding: 13px 0 !important;
+  margin: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+
+  color: rgba(26, 26, 24, 0.72) !important;
+}
+
+/* Dawn often places the accordion label inside an h2/h3 */
+.product__info-container .product__accordion .accordion__title,
+.product__info-wrapper .product__accordion .accordion__title,
+.product__info-container details.accordion .accordion__title,
+.product__info-container .product__accordion summary h2,
+.product__info-container .product__accordion summary h3,
+.product__info-container details.accordion summary h2,
+.product__info-container details.accordion summary h3 {
+  margin: 0 !important;
+  padding: 0 !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+
+  color: rgba(26, 26, 24, 0.72) !important;
+}
+
+/* Accordion icons */
+.product__info-container .product__accordion summary .icon,
+.product__info-container details.accordion summary .icon,
+.product__info-container .product__accordion summary svg {
+  width: 12px !important;
+  height: 12px !important;
+  flex: 0 0 12px !important;
+}
+
+/* Open accordion content */
+.product__info-container .product__accordion .accordion__content,
+.product__info-container details.accordion .accordion__content,
+.product__info-container details.accordion .rte {
+  padding: 2px 0 18px !important;
+  margin: 0 !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 14px !important;
+  font-weight: 300 !important;
+  line-height: 1.7 !important;
+
+  color: rgba(26, 26, 24, 0.72) !important;
+}
+/* Hide Build Your Look link until the feature is live */
+.byl-build-own,
+.byl-own-look,
+a[href*="build-your-look"] {
+  display: none !important;
+}
+/* ============================================================
+   PRODUCT PAGE TYPOGRAPHY REFINEMENT
+   ============================================================ */
+
+/* Product description */
+.product__description,
+.product__description p,
+.product .rte {
+  font-size: 16px !important;
+  line-height: 1.8 !important;
+  color: rgba(26,26,24,0.82) !important;
+}
+
+/* Provenance */
+.am-product-provenance {
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  color: rgba(26,26,24,0.72) !important;
+}
+
+/* Trust badges */
+.product-trust-row,
+.product__trust-badges {
+  font-size: 15px !important;
+  color: rgba(26,26,24,0.72) !important;
+}
+
+/* Quantity and small labels */
+.product-form__input label,
+.product-form__quantity label,
+.product__info-container .form__label {
+  font-size: 12px !important;
+  letter-spacing: 0.12em !important;
+}
+
+/* Accordion body */
+.product__accordion .accordion__content,
+.product__accordion .rte {
+  font-size: 15px !important;
+  line-height: 1.75 !important;
+  color: rgba(26,26,24,0.78) !important;
+}
+/* ============================================================
+   BUILD YOUR LOOK / COMPLETE THE COMPOSITION
+   ============================================================ */
+
+/* Transparent product cards */
+.byl-product-card,
+.byl-product,
+.byl-card,
+.byl-item {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Remove white image panels */
+.byl-product-card .media,
+.byl-product-card .card,
+.byl-product-card .card__inner,
+.byl-product-card .card__media,
+.byl-product-card .card__content {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+/* Product title */
+.byl-product-card .card__heading,
+.byl-product-card .card__heading a,
+.byl-product-card h3 {
+  font-size: 1.7rem !important;
+  font-weight: 400 !important;
+  line-height: 1.35 !important;
+}
+
+/* Price */
+.byl-product-card .price {
+  font-size: 1.5rem !important;
+}
+
+/* Smaller body text */
+.byl-product-card p,
+.byl-product-card .card__information {
+  font-size: 1.4rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Cobalt CTA */
+.byl-product-card .button,
+.byl-product-card button,
+.byl-product-card button[name="add"],
+.byl-summary__button {
+  background: var(--am-cobalt, #0047AB) !important;
+  border-color: var(--am-cobalt, #0047AB) !important;
+  color: #fff !important;
+}
+
+.byl-product-card .button:hover,
+.byl-product-card button:hover,
+.byl-summary__button:hover {
+  background: var(--am-cobalt-dark, #003080) !important;
+  border-color: var(--am-cobalt-dark, #003080) !important;
+}
+
+/* Remove Dawn's inner outline */
+.byl-product-card .button::before,
+.byl-product-card .button::after,
+.byl-summary__button::before,
+.byl-summary__button::after {
+  display: none !important;
+}
+/* ============================================================
+   YOU MAY ALSO LIKE
+   ============================================================ */
+
+/* Remove the card */
+.related-products .card,
+.related-products .card__inner,
+.related-products .card__content,
+.related-products .card__information {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Remove circular image crop */
+.related-products .media,
+.related-products .card__media,
+.related-products img {
+    border-radius: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Smaller product title */
+.related-products .card__heading,
+.related-products .card__heading a {
+    font-size: 1.9rem !important;
+    line-height: 1.35 !important;
+    font-weight: 400 !important;
+}
+
+/* Smaller price */
+.related-products .price {
+    font-size: 1.6rem !important;
+}
+
+/* Cobalt Add to Bag */
+.related-products .button,
+.related-products button,
+.related-products .quick-add__submit {
+    background: var(--am-cobalt, #0047AB) !important;
+    border-color: var(--am-cobalt, #0047AB) !important;
+    color: #fff !important;
+}
+
+.related-products .button:hover,
+.related-products button:hover,
+.related-products .quick-add__submit:hover {
+    background: var(--am-cobalt-dark, #003080) !important;
+    border-color: var(--am-cobalt-dark, #003080) !important;
+}
+/* ============================================================
+   PRODUCT PAGE — FINAL READABILITY, CIRCLE + GIFT WRAP
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   DARKER, MORE READABLE SUPPORTING TYPE
+   ------------------------------------------------------------ */
+
+.product__info-container .am-product-provenance,
+.product__info-container .product__description,
+.product__info-container .product__description p,
+.product__info-container .product-trust-row,
+.product__info-container .product__trust-badges,
+.product__info-container .am-circle-invite__subheading,
+.product__info-container .am-circle-benefits span,
+.product__info-container .am-circle-form__privacy,
+.product__info-container .am-circle-form__consent {
+  color: rgba(26, 26, 24, 0.82) !important;
+}
+
+.product__info-container .product__description,
+.product__info-container .product__description p {
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 1.78 !important;
+}
+
+.product__info-container .am-product-provenance {
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+}
+
+.product__info-container .product-trust-row,
+.product__info-container .product__trust-badges,
+.product__info-container .product-trust-row span,
+.product__info-container .product__trust-badges span {
+  font-weight: 400 !important;
+  color: rgba(26, 26, 24, 0.86) !important;
+}
+
+
+/* ------------------------------------------------------------
+   ATELIER CIRCLE — FINE FRAMED PANEL
+   ------------------------------------------------------------ */
+
+.product__info-container .am-circle-invite,
+.product__info-wrapper .am-circle-invite,
+aside.am-circle-invite {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 42px 0 0 !important;
+  padding: 30px 32px 28px !important;
+
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(0, 71, 171, 0.24) !important;
+  box-shadow: none !important;
+}
+
+.am-circle-invite .am-circle-invite__eyebrow {
+  color: var(--am-cobalt, #0047ab) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.18em !important;
+}
+
+.am-circle-invite .am-circle-invite__heading {
+  color: #1a1a18 !important;
+  font-weight: 400 !important;
+}
+
+.am-circle-invite .am-circle-invite__subheading {
+  font-weight: 400 !important;
+}
+
+.am-circle-invite .am-circle-benefits span {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+}
+
+
+/* ------------------------------------------------------------
+   GDPR CONSENT
+   ------------------------------------------------------------ */
+
+.am-circle-invite .am-circle-form__consent {
+  display: grid !important;
+  grid-template-columns: 18px minmax(0, 1fr) !important;
+  gap: 10px !important;
+  align-items: start !important;
+
+  margin: 14px 0 0 !important;
+  padding: 0 !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+
+  cursor: pointer !important;
+}
+
+.am-circle-invite .am-circle-form__checkbox {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  width: 16px !important;
+  height: 16px !important;
+  margin: 2px 0 0 !important;
+
+  background: transparent !important;
+  border: 1px solid rgba(26, 26, 24, 0.45) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  cursor: pointer !important;
+}
+
+.am-circle-invite .am-circle-form__checkbox:checked {
+  background-color: var(--am-cobalt, #0047ab) !important;
+  border-color: var(--am-cobalt, #0047ab) !important;
+}
+
+.am-circle-invite .am-circle-form__checkbox:checked::after {
+  content: "✓";
+  display: block !important;
+
+  font-family: Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  line-height: 14px !important;
+  text-align: center !important;
+
+  color: #ffffff !important;
+}
+
+.am-circle-invite .am-circle-form__privacy {
+  margin: 9px 0 0 !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+}
+
+
+/* ------------------------------------------------------------
+   GIFT WRAP — QUIETER, REFINED, NO COBALT FILL ON HOVER
+   ------------------------------------------------------------ */
+
+/*
+  These selectors cover common custom gift-wrap classes.
+  Keep the selector that matches your section; unused selectors do no harm.
+*/
+
+.product__info-container .gift-wrap,
+.product__info-container .gift-wrap-button,
+.product__info-container .gift-wrap__button,
+.product__info-container .am-gift-wrap,
+.product__info-container [class*="gift-wrap"] {
+  background: transparent !important;
+  color: #1a1a18 !important;
+  border-color: rgba(0, 71, 171, 0.48) !important;
+  box-shadow: none !important;
+}
+
+.product__info-container .gift-wrap:hover,
+.product__info-container .gift-wrap-button:hover,
+.product__info-container .gift-wrap__button:hover,
+.product__info-container .am-gift-wrap:hover,
+.product__info-container [class*="gift-wrap"]:hover {
+  background: rgba(0, 71, 171, 0.035) !important;
+  color: #1a1a18 !important;
+  border-color: var(--am-cobalt, #0047ab) !important;
+}
+
+.product__info-container .gift-wrap::before,
+.product__info-container .gift-wrap::after,
+.product__info-container .gift-wrap-button::before,
+.product__info-container .gift-wrap-button::after,
+.product__info-container .gift-wrap__button::before,
+.product__info-container .gift-wrap__button::after,
+.product__info-container .am-gift-wrap::before,
+.product__info-container .am-gift-wrap::after {
+  box-shadow: none !important;
+}
+
+/* Gift-wrap text must stay dark even when a global button hover fires */
+.product__info-container [class*="gift-wrap"],
+.product__info-container [class*="gift-wrap"] *,
+.product__info-container [class*="gift-wrap"]:hover,
+.product__info-container [class*="gift-wrap"]:hover * {
+  color: #1a1a18 !important;
+}
+
+/* Refine the gift-wrap label */
+.product__info-container [class*="gift-wrap"] {
+  min-height: 58px !important;
+  padding: 14px 22px !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+}
+
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+
+@media screen and (max-width: 749px) {
+  .product__info-container .am-circle-invite,
+  .product__info-wrapper .am-circle-invite,
+  aside.am-circle-invite {
+    padding: 26px 20px 24px !important;
+  }
+
+  .am-circle-invite .am-circle-form__consent {
+    font-size: 11px !important;
+  }
+}
+/* ============================================================
+   PRODUCT PAGE ATELIER CIRCLE — CENTRED FINAL DESIGN
+   ============================================================ */
+
+html body .product__info-container aside.am-circle-invite,
+html body .product__info-wrapper aside.am-circle-invite,
+html body aside.am-circle-invite {
+  display: block !important;
+  width: 100% !important;
+  max-width: 760px !important;
+  margin: 44px auto 0 !important;
+  padding: 38px 44px 34px !important;
+
+  background: transparent !important;
+  border: 1px solid rgba(0, 71, 171, 0.32) !important;
+  border-radius: 5px !important;
+  box-shadow: none !important;
+
+  text-align: /* ============================================================
+   PRODUCT PAGE ATELIER CIRCLE — CENTRED FINAL DESIGN
+   ============================================================ */
+
+html body .product__info-container aside.am-circle-invite,
+html body .product__info-wrapper aside.am-circle-invite,
+html body aside.am-circle-invite {
+  display: block !important;
+  width: 100% !important;
+  max-width: 760px !important;
+  margin: 44px auto 0 !important;
+  padding: 38px 44px 34px !important;
+
+  background: transparent !important;
+  border: 1px solid rgba(0, 71, 171, 0.32) !important;
+  border-radius: 5px !important;
+  box-shadow: none !important;
+
+  text-align: center !important;
+}
+
+/* Eyebrow */
+html body .am-circle-invite .am-circle-invite__eyebrow {
+  margin: 0 0 10px !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+
+.am-circle-invite__eyebrow{
+    display:block;
+    width:100%;
+    text-align:center !important;
+    margin:0 auto 18px !important;
+}
+  color: var(--am-cobalt, #0047ab) !important;
+}
+
+/* Heading */
+html body .am-circle-invite .am-circle-invite__heading {
+  margin: 0 auto 5px !important;
+
+  font-family: var(--am-serif, "Cormorant Garamond", Georgia, serif) !important;
+  font-size: clamp(40px, 4vw, 54px) !important;
+  font-weight: 400 !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.015em !important;
+  text-align: center !important;
+
+  color: #1a1a18 !important;
+}
+
+/* Membership line */
+html body .am-circle-invite .am-circle-invite__subheading {
+  margin: 0 auto 23px !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+
+  color: rgba(26, 26, 24, 0.82) !important;
+}
+
+/* Benefits */
+html body .am-circle-invite .am-circle-benefits {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px 0 !important;
+
+  max-width: 650px !important;
+  margin: 0 auto 25px !important;
+  padding: 0 !important;
+
+  text-align: center !important;
+}
+
+html body .am-circle-invite .am-circle-benefits span {
+  display: inline-flex !important;
+  align-items: center !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+
+  color: rgba(26, 26, 24, 0.86) !important;
+}
+
+html body .am-circle-invite .am-circle-benefits span:not(:last-child)::after {
+  content: "·" !important;
+  margin: 0 10px !important;
+  color: var(--am-cobalt, #0047ab) !important;
+}
+
+html body .am-circle-invite .am-circle-benefits i {
+  display: none !important;
+}
+
+/* Form */
+html body .am-circle-invite .am-circle-form {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+
+  width: 100% !important;
+  max-width: 650px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+/* Email and CTA stacked */
+html body .am-circle-invite .am-circle-form__row {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 18px !important;
+
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* Email */
+html body .am-circle-invite .am-circle-form__input {
+  display: block !important;
+  width: 100% !important;
+  height: 58px !important;
+  min-height: 58px !important;
+  margin: 0 !important;
+  padding: 0 18px !important;
+
+  background: transparent !important;
+  border: 1px solid rgba(26, 26, 24, 0.27) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+
+  color: #1a1a18 !important;
+}
+
+/* Smaller rounded cobalt button */
+html body .am-circle-invite button.am-circle-form__button {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+    width:380px !important;
+    max-width:100%;
+
+    height:58px !important;
+
+    margin:26px auto 0 !important;
+
+    border-radius:999px;
+
+    font-weight:600;
+
+    letter-spacing:.18em;
+
+    font-size:15px;
+
+    box-shadow:
+        0 8px 22px rgba(0,71,171,.12);
+}
+
+  color: #ffffff !important;
+}
+
+html body .am-circle-invite button.am-circle-form__button::before,
+html body .am-circle-invite button.am-circle-form__button::after {
+  display: none !important;
+  content: none !important;
+  box-shadow: none !important;
+}
+
+/* Button text */
+html body .am-circle-invite .am-circle-form__title {
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+}
+
+html body .am-circle-invite .am-circle-form__subtitle {
+  margin-top: 4px !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 9px !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.13em !important;
+  text-transform: uppercase !important;
+
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+
+/* Hover */
+html body .am-circle-invite button.am-circle-form__button:hover {
+  background: var(--am-cobalt-dark, #003080) !important;
+  border-color: var(--am-cobalt-dark, #003080) !important;
+  color: #ffffff !important;
+}
+
+/* Privacy */
+html body .am-circle-invite .am-circle-form__privacy {
+  max-width: 560px !important;
+  margin: 18px auto 0 !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  text-align: center !important;
+
+  color: rgba(26, 26, 24, 0.68) !important;
+}
+
+/* Mobile */
+@media screen and (max-width: 749px) {
+  html body aside.am-circle-invite {
+    padding: 30px 20px 27px !important;
+  }
+
+  html body .am-circle-invite .am-circle-invite__heading {
+    font-size: 38px !important;
+  }
+
+  html body .am-circle-invite .am-circle-benefits {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+
+  html body .am-circle-invite .am-circle-benefits span {
+    justify-content: cente !important;
+  }
+
+  html body .am-circle-invite .am-circle-benefits span:not(:last-child)::after {
+    display: none !important;
+  }
+
+  html body .am-circle-invite button.am-circle-form__button {
+    min-width: min(100%, 320px) !important;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+} !important;
+}
+
+/* Eyebrow */
+html body .am-circle-invite .am-circle-invite__eyebrow {
+  margin: 0 0 10px !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+
+  color: var(--am-cobalt, #0047ab) !important;
+}
+
+/* Heading */
+html body .am-circle-invite .am-circle-invite__heading {
+  margin: 0 auto 5px !important;
+
+  font-family: var(--am-serif, "Cormorant Garamond", Georgia, serif) !important;
+  font-size: clamp(40px, 4vw, 54px) !important;
+  font-weight: 400 !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.015em !important;
+  text-align: center !important;
+
+  color: #1a1a18 !important;
+}
+
+/* Membership line */
+html body .am-circle-invite .am-circle-invite__subheading {
+  margin: 0 auto 23px !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+
+  color: rgba(26, 26, 24, 0.82) !important;
+}
+
+/* Benefits */
+html body .am-circle-invite .am-circle-benefits {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px 0 !important;
+
+  max-width: 650px !important;
+  margin: 0 auto 25px !important;
+  padding: 0 !important;
+
+  text-align: center !important;
+}
+
+html body .am-circle-invite .am-circle-benefits span {
+  display: inline-flex !important;
+  align-items: center !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+
+  color: rgba(26, 26, 24, 0.86) !important;
+}
+
+html body .am-circle-invite .am-circle-benefits span:not(:last-child)::after {
+  content: "·" !important;
+  margin: 0 10px !important;
+  color: var(--am-cobalt, #0047ab) !important;
+}
+
+html body .am-circle-invite .am-circle-benefits i {
+  display: none !important;
+}
+
+/* Form */
+html body .am-circle-invite .am-circle-form {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+
+  width: 100% !important;
+  max-width: 650px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+/* Email and CTA stacked */
+html body .am-circle-invite .am-circle-form__row {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 18px !important;
+
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* Email */
+html body .am-circle-invite .am-circle-form__input {
+  display: block !important;
+  width: 100% !important;
+  height: 58px !important;
+  min-height: 58px !important;
+  margin: 0 !important;
+  padding: 0 18px !important;
+
+  background: transparent !important;
+  border: 1px solid rgba(26, 26, 24, 0.27) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+
+  color: #1a1a18 !important;
+}
+
+/* Smaller rounded cobalt button */
+html body .am-circle-invite button.am-circle-form__button {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: auto !important;
+  min-width: 390px !important;
+  max-width: 100% !important;
+  height: 62px !important;
+  min-height: 62px !important;
+  margin: 0 auto !important;
+  padding: 8px 42px !important;
+
+  background: var(--am-cobalt, #0047ab) !important;
+  border: 1px solid var(--am-cobalt, #0047ab) !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+
+  color: #ffffff !important;
+}
+
+html body .am-circle-invite button.am-circle-form__button::before,
+html body .am-circle-invite button.am-circle-form__button::after {
+  display: none !important;
+  content: none !important;
+  box-shadow: none !important;
+}
+
+/* Button text */
+html body .am-circle-invite .am-circle-form__title {
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+}
+
+html body .am-circle-invite .am-circle-form__subtitle {
+  margin-top: 4px !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 9px !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.13em !important;
+  text-transform: uppercase !important;
+
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+
+/* Hover */
+html body .am-circle-invite button.am-circle-form__button:hover {
+  background: var(--am-cobalt-dark, #003080) !important;
+  border-color: var(--am-cobalt-dark, #003080) !important;
+  color: #ffffff !important;
+}
+
+/* Privacy */
+html body .am-circle-invite .am-circle-form__privacy {
+  max-width: 560px !important;
+  margin: 18px auto 0 !important;
+
+  font-family: var(--am-sans, "Jost", sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  text-align: center !important;
+
+  color: rgba(26, 26, 24, 0.68) !important;
+}
+
+/* Mobile */
+@media screen and (max-width: 749px) {
+  html body aside.am-circle-invite {
+    padding: 30px 20px 27px !important;
+  }
+
+  html body .am-circle-invite .am-circle-invite__heading {
+    font-size: 38px !important;
+  }
+
+  html body .am-circle-invite .am-circle-benefits {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+
+  html body .am-circle-invite .am-circle-benefits span {
+    justify-content: center !important;
+  }
+
+  html body .am-circle-invite .am-circle-benefits span:not(:last-child)::after {
+    display: none !important;
+  }
+
+  html body .am-circle-invite button.am-circle-form__button {
+    min-width: min(100%, 320px) !important;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+}
+/* ==========================================================
+   Gift Wrap CTA
+   ========================================================== */
+
+.product-gift-wrap,
+.product-gift-wrap *,
+.gift-wrap,
+.gift-wrap * {
+  transition: none !important;
+}
+
+/* Main text */
+.product-gift-wrap,
+.gift-wrap {
+  font-family: var(--am-sans, Jost, sans-serif) !important;
+  font-size: 1.65rem !important;
+  font-weight: 500 !important;   /* was much lighter */
+  letter-spacing: 0.12em !important;
+  color: #3b3834 !important;
+}
+
+/* Price */
+.product-gift-wrap .money,
+.gift-wrap .money {
+  font-weight: 600 !important;
+  color: #26231f !important;
+}
+
+/* Sparkle icon */
+.product-gift-wrap svg,
+.gift-wrap svg,
+.product-gift-wrap .icon,
+.gift-wrap .icon {
+  color: var(--am-cobalt) !important;
+}
+
+/* Keep cream on hover */
+.product-gift-wrap:hover,
+.gift-wrap:hover {
+  background: transparent !important;
+  color: inherit !important;
+}
+
+.product-gift-wrap:hover *,
+.gift-wrap:hover * {
+  color: inherit !important;
+}
+/* ==========================================================
+   PRODUCT PAGE ATELIER CIRCLE — FINAL POLISH
+   ========================================================== */
+
+/* Centre the eyebrow */
+.am-circle-invite__eyebrow{
+    display:block;
+    width:100%;
+    text-align:center !important;
+    margin:0 auto 18px !important;
+}
+
+/* Make email and button the same width */
+.am-circle-form__input{
+    width:min(660px,100%) !important;
+    max-width:660px !important;
+    margin:0 auto !important;
+    display:block;
+}
+
+.am-circle-form__button{
+    width:min(660px,100%) !important;
+    max-width:660px !important;
+    margin:24px auto 0 !important;
+}
+
+/* Tighten spacing */
+.am-circle-form{
+    margin-top:6px !important;
+}
+
+/* Improve typography */
+.am-circle-form__title{
+    font-size:16px !important;
+    font-weight:600 !important;
+}
+
+.am-circle-form__subtitle{
+    font-size:10px !important;
+    opacity:.75 !important;
+}
+
+/* Quieter privacy text */
+.am-circle-form__privacy{
+    font-size:11px !important;
+    opacity:.6 !important;
+    margin-top:20px !important;
+}
+/* ==========================================================
+   PRODUCT PAGE ATELIER CIRCLE — TRUE FINAL POLISH
+   Must remain at the absolute bottom of this file
+   ========================================================== */
+
+/* Centre the complete Circle header */
+html body .product__info-container aside.am-circle-invite,
+html body .product__info-wrapper aside.am-circle-invite {
+  text-align: center !important;
+}
+
+html body .product__info-container .am-circle-invite__eyebrow,
+html body .product__info-container .am-circle-invite__heading,
+html body .product__info-container .am-circle-invite__subheading {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+html body .product__info-container .am-circle-invite__eyebrow {
+  margin-top: 0 !important;
+  margin-bottom: 18px !important;
+}
+
+/* Centre the benefits */
+html body .product__info-container .am-circle-benefits {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+/* Ensure the form itself is centred */
+html body .product__info-container form.am-circle-form {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 10px auto 0 !important;
+}
+
+/* The row must also be full width and centred */
+html body .product__info-container .am-circle-form__row {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  gap: 22px !important;
+}
+
+/* Keep the email field generous */
+html body .product__info-container input.am-circle-form__input {
+  display: block !important;
+  width: 100% !important;
+  max-width: 900px !important;
+  height: 60px !important;
+  margin: 0 auto !important;
+}
+
+/* Smaller, centred cobalt CTA */
+html body .product__info-container button.am-circle-form__button {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+
+  width: 72% !important;
+  max-width: 620px !important;
+  min-width: 0 !important;
+  height: 62px !important;
+  min-height: 62px !important;
+  margin: 0 auto !important;
+  padding: 8px 34px !important;
+
+  background: #0047ab !important;
+  border: 1px solid #0047ab !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+
+  color: #ffffff !important;
+}
+
+/* Remove Dawn’s generated button outlines */
+html body .product__info-container button.am-circle-form__button::before,
+html body .product__info-container button.am-circle-form__button::after {
+  display: none !important;
+  content: none !important;
+  box-shadow: none !important;
+}
+
+/* Heavier button typography */
+html body .product__info-container .am-circle-form__title {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0.17em !important;
+  text-align: center !important;
+  color: #ffffff !important;
+}
+
+html body .product__info-container .am-circle-form__subtitle {
+  margin-top: 4px !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.12em !important;
+  text-align: center !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+/* Centre the privacy line */
+html body .product__info-container .am-circle-form__privacy {
+  display: block !important;
+  width: 100% !important;
+  max-width: 650px !important;
+  margin: 20px auto 0 !important;
+  text-align: center !important;
+}
+
+/* Mobile */
+@media screen and (max-width: 749px) {
+  html body .product__info-container button.am-circle-form__button {
+    width: 88% !important;
+    max-width: 360px !important;
+    height: 58px !important;
+    min-height: 58px !important;
+  }
+
+  html body .product__info-container input.am-circle-form__input {
+    width: 100% !important;
+  }
+}
+/* Product-page Atelier Circle benefit separators */
+
+.am-circle-invite .am-circle-benefits {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 8px 0 !important;
+  text-align: center !important;
+}
+
+.am-circle-invite .am-circle-benefits span {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.am-circle-invite .am-circle-benefits span:not(:last-child)::after {
+  content: "·" !important;
+  display: inline-block !important;
+  margin: 0 12px !important;
+  color: #0047ab !important;
+  font-weight: 700 !important;
+}
+
+@media screen and (max-width: 749px) {
+  .am-circle-invite .am-circle-benefits {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 7px !important;
+  }
+
+  .am-circle-invite .am-circle-benefits span {
+    justify-content: center !important;
+  }
+
+  .am-circle-invite .am-circle-benefits span:not(:last-child)::after {
+    display: none !important;
+  }
+}
+/* =========================================================
+   ATELIER CIRCLE LANDING PAGE — BENEFITS BELOW FORM
+   ========================================================= */
+
+.atelier-circle .atelier-circle__membership {
+  display: block !important;
+  width: 100% !important;
+  max-width: 680px !important;
+  margin: 44px auto 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+/* Membership heading */
+.atelier-circle .atelier-circle__membership
+.atelier-circle__section-label {
+  display: block !important;
+  margin: 0 0 20px !important;
+
+  font-family: Jost, sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+
+  color: #255eb3 !important;
+}
+
+/* Reset the list */
+.atelier-circle .atelier-circle__membership
+.atelier-circle__benefits {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  list-style: none !important;
+  border-top: 1px solid rgba(38, 35, 31, 0.17) !important;
+}
+
+/* Each benefit becomes its own row */
+.atelier-circle .atelier-circle__membership
+.atelier-circle__benefit {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+
+  margin: 0 !important;
+  padding: 18px 12px 18px 34px !important;
+
+  border-right: 0 !important;
+  border-bottom: 1px solid rgba(38, 35, 31, 0.17) !important;
+
+  font-family: Jost, sans-serif !important;
+  font-size: 1.4rem !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  text-align: left !important;
+
+  color: #34302b !important;
+}
+
+.atelier-circle .atelier-circle__membership
+.atelier-circle__benefit::before {
+  content: "" !important;
+  position: absolute !important;
+
+  top: 27px !important;
+  left: 8px !important;
+
+  width: 6px !important;
+  height: 6px !important;
+
+  background: #255eb3 !important;
+  border-radius: 50% !important;
+}
+
+/* Mobile */
+@media screen and (max-width: 749px) {
+  .atelier-circle .atelier-circle__membership {
+    margin-top: 36px !important;
+  }
+
+  .atelier-circle .atelier-circle__membership
+  .atelier-circle__benefit {
+    padding: 17px 8px 17px 30px !important;
+    font-size: 1.3rem !important;
+  }
+
+  .atelier-circle .atelier-circle__membership
+  .atelier-circle__benefit::before {
+    top: 25px !important;
+    left: 3px !important;
+  }
+.am-trust-strip {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 6px;
+  margin: 20px 0;
+  border-top: 1px solid rgba(26,26,26,0.12);
+  border-bottom: 1px solid rgba(26,26,26,0.12);
+}
+.am-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;   /* was 11px */
+  letter-spacing: 0.03em;
+  color: rgba(26,26,26,0.55);
+}
+.am-trust-item svg { flex-shrink: 0; }
+
+@media (max-width: 749px) {
+  .am-trust-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+html body .am-circle-invite .am-circle-invite__heading {
+  font-size: clamp(32px, 3.2vw, 46px) !important;
+}
+
+@media screen and (max-width: 749px) {
+  html body .am-circle-invite .am-circle-invite__heading {
+    font-size: 28px !important;
+  }
+}

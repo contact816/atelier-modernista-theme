@@ -1,0 +1,104 @@
+/* =========================================================
+   AM â€” CART POINTS
+   ========================================================= */
+
+.am-cart-points {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  width: 100%;
+  padding: 1.4rem 1.6rem;
+  border: 0.1rem solid rgba(0, 71, 171, 0.34);
+  background: rgba(254, 247, 232, 0.76);
+  color: #26231f;
+}
+
+.am-cart-points__mark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 3.8rem;
+  width: 3.8rem;
+  height: 3.8rem;
+  border: 0.1rem solid #0047ab;
+  border-radius: 50%;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #0047ab;
+}
+
+.am-cart-points__copy {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.am-cart-points__eyebrow {
+  font-family: Jost, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #0047ab;
+}
+
+.am-cart-points__line {
+  font-family: Jost, sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.45;
+  color: #34302b;
+}
+
+.am-cart-points__line strong {
+  font-weight: 600;
+  color: #0047ab;
+}
+
+.am-cart-points__link {
+  width: fit-content;
+  font-family: Jost, sans-serif;
+  font-size: 1rem;
+  line-height: 1.35;
+  text-underline-offset: 0.25rem;
+  color: #5f5a53;
+}
+
+.am-cart-points--cart {
+  margin: 0 0 1.4rem;
+}
+
+.am-cart-points--drawer {
+  margin: 0 0 1.2rem;
+  padding: 1.2rem 1.3rem;
+}
+
+.am-cart-points--drawer .am-cart-points__mark {
+  flex-basis: 3.4rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  font-size: 1.15rem;
+}
+
+.am-cart-points--drawer .am-cart-points__line {
+  font-size: 1.15rem;
+}
+
+@media screen and (max-width: 749px) {
+  .am-cart-points {
+    align-items: flex-start;
+    gap: 1.1rem;
+    padding: 1.25rem 1.3rem;
+  }
+
+  .am-cart-points__mark {
+    flex-basis: 3.4rem;
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+
+  .am-cart-points__line {
+    font-size: 1.15rem;
+  }
+}

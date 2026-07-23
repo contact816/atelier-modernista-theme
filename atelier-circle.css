@@ -1,0 +1,824 @@
+/* =========================================================
+   ATELIER CIRCLE
+   ========================================================= */
+
+.section-atelier-circle {
+  margin: 0;
+  padding: 0;
+}
+
+.atelier-circle {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #fef7e8;
+  color: #26231f;
+}
+
+.atelier-circle__inner {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding:
+    var(--atelier-circle-padding-top, 56px)
+    40px
+    var(--atelier-circle-padding-bottom, 96px);
+}
+
+/* Header */
+
+.atelier-circle__header {
+  max-width: 850px;
+  margin: 0 auto 64px;
+  text-align: center;
+  color: #255eb3;
+}
+.atelier-circle__rule {
+  width: 92px;
+  height: 2px;
+  margin: 0 auto 26px;
+  background: #255eb3;
+}
+
+.atelier-circle__statement {
+  max-width: 840px;
+  margin: 32px auto 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(3.2rem, 4.8vw, 5.4rem);
+  font-weight: 500;
+  line-height: 1.08;
+  text-align: center;
+  color: #26231f;
+}
+
+.atelier-circle__statement p {
+  margin: 0;
+}
+
+.atelier-circle__inbox-note {
+  max-width: 620px;
+  margin: 22px auto 0;
+  font-family: Jost, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0.05em;
+  color: #255eb3;
+}
+
+.atelier-circle__panel-label {
+  margin: 0 0 17px;
+  font-family: Jost, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #e6b23c;
+}
+.atelier-circle__eyebrow,
+.atelier-circle__section-label {
+  margin: 0;
+  font-family: Jost, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #255eb3;
+}
+
+.atelier-circle__eyebrow {
+  margin-bottom: 17px;
+}
+
+.atelier-circle__title {
+  max-width: 830px;
+  margin: 0 auto;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(4.4rem, 7vw, 7.5rem);
+
+  font-weight: 500;          /* was 400 */
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+
+  text-wrap: balance;
+
+  color: #255eb3;            /* cobalt */
+}
+
+.atelier-circle__intro {
+  max-width: 820px;
+  margin: 28px auto 0;
+  text-align: center;
+  font-family: Jost, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.7;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #255eb3;
+}
+
+.atelier-circle__intro p {
+  margin: 0;
+}
+
+.atelier-circle__intro p {
+  margin: 0;
+}
+
+/* Layout */
+
+.atelier-circle__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(380px, 1.15fr);
+  gap: clamp(54px, 8vw, 105px);
+  align-items: start;
+  max-width: 1030px;
+  margin: 0 auto;
+}
+
+/* Privileges */
+
+.atelier-circle__membership {
+  padding-top: 8px;
+}
+
+.atelier-circle__membership .atelier-circle__section-label {
+  margin-bottom: 22px;
+}
+
+.atelier-circle__benefits {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(38, 35, 31, 0.18);
+}
+
+.atelier-circle__benefit {
+  position: relative;
+  margin: 0;
+  padding: 21px 0 21px 25px;
+  border-bottom: 1px solid rgba(38, 35, 31, 0.18);
+  font-family: Jost, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #34302b;
+}
+
+.atelier-circle__benefit::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 1px;
+  width: 6px;
+  height: 6px;
+  background: #2458a8;
+  transform: rotate(45deg);
+}
+
+/* Membership panel */
+
+.atelier-circle__panel {
+  padding: clamp(30px, 4vw, 46px);
+  border: 1px solid rgba(38, 35, 31, 0.2);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.atelier-circle__panel .atelier-circle__section-label {
+  margin-bottom: 15px;
+}
+
+.atelier-circle__panel-title {
+  margin: 0 0 14px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(3.1rem, 4vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.04;
+  color: #26231f;
+}
+
+.atelier-circle__panel-copy {
+  margin: 0 0 27px;
+  font-family: Jost, sans-serif;
+  font-size: 1.45rem;
+  line-height: 1.65;
+  color: #5a544d;
+}
+
+.atelier-circle__panel-copy p {
+  margin: 0;
+}
+
+/* Form */
+
+.atelier-circle__form {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+}
+
+.atelier-circle__field {
+  display: grid;
+  gap: 8px;
+}
+
+.atelier-circle__label {
+  font-family: Jost, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #39342f;
+}
+
+.atelier-circle__input {
+  display: block;
+  width: 100%;
+  min-height: 54px;
+  padding: 13px 15px;
+  border: 1px solid rgba(38, 35, 31, 0.38);
+  border-radius: 0;
+  background: #fffaf0;
+  box-shadow: none;
+  font-family: Jost, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  color: #26231f;
+  appearance: none;
+}
+
+.atelier-circle__input::placeholder {
+  color: #827b72;
+  opacity: 1;
+}
+
+.atelier-circle__input:focus {
+  border-color: #2458a8;
+  outline: 2px solid #2458a8;
+  outline-offset: 2px;
+}
+
+.atelier-circle__consent {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 11px;
+  align-items: start;
+  cursor: pointer;
+  font-family: Jost, sans-serif;
+  font-size: 1.18rem;
+  line-height: 1.55;
+  color: #625c55;
+}
+
+.atelier-circle__checkbox {
+  width: 18px;
+  height: 18px;
+  margin: 3px 0 0;
+  accent-color: #2458a8;
+}
+
+/* Buttons */
+
+.atelier-circle__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 24px;
+  border: 1px solid #26231f;
+  border-radius: 0;
+  background: #26231f;
+  box-shadow: none;
+  cursor: pointer;
+  font-family: Jost, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #ffffff;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.atelier-circle__button:hover {
+  border-color: #2458a8;
+  background: #2458a8;
+  color: #ffffff;
+}
+
+.atelier-circle__button:focus-visible {
+  outline: 2px solid #2458a8;
+  outline-offset: 3px;
+}
+
+.atelier-circle__button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+/* Small print */
+
+.atelier-circle__small-print {
+  margin: 18px 0 0;
+  font-family: Jost, sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.55;
+  color: #777067;
+}
+
+.atelier-circle__small-print p {
+  margin: 0;
+}
+
+.atelier-circle__small-print a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+/* Messages */
+
+.atelier-circle__message {
+  margin: 0;
+  font-family: Jost, sans-serif;
+  font-size: 1.3rem;
+  line-height: 1.55;
+}
+
+.atelier-circle__message[hidden] {
+  display: none;
+}
+
+.atelier-circle__message--error {
+  padding: 12px 14px;
+  border-left: 2px solid #92372f;
+  color: #792c26;
+}
+
+.atelier-circle__message--success {
+  padding: 22px 0 2px;
+  border-top: 1px solid rgba(38, 35, 31, 0.2);
+  color: #34302b;
+}
+
+.atelier-circle__success-title {
+  margin: 0 0 8px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: #26231f;
+}
+
+.atelier-circle__message--success p {
+  margin: 0;
+}
+
+.atelier-circle__success-link {
+  display: inline-block;
+  margin-top: 18px;
+  font-family: Jost, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-underline-offset: 4px;
+  color: #2458a8;
+}
+
+/* Member state */
+
+.atelier-circle__member-status {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 17px;
+  font-family: Jost, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #2458a8;
+}
+
+.atelier-circle__member-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  background: #2458a8;
+  transform: rotate(45deg);
+}
+
+/* Mobile */
+
+@media screen and (max-width: 749px) {
+  .atelier-circle__inner {
+    padding:
+      max(36px, calc(var(--atelier-circle-padding-top, 56px) * 0.72))
+      20px
+      max(64px, calc(var(--atelier-circle-padding-bottom, 96px) * 0.75));
+  }
+
+  .atelier-circle__header {
+    margin-bottom: 44px;
+    text-align: left;
+  }
+
+  .atelier-circle__eyebrow {
+    margin-bottom: 14px;
+    font-size: 1rem;
+  }
+
+  .atelier-circle__title {
+    font-size: clamp(4rem, 13vw, 5.6rem);
+    line-height: 1;
+  }
+
+  .atelier-circle__intro {
+  max-width: 100%;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.65;
+  letter-spacing: 0.18em;
+}
+
+  .atelier-circle__layout {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .atelier-circle__benefit {
+    padding-top: 18px;
+    padding-bottom: 18px;
+    font-size: 1.4rem;
+  }
+
+  .atelier-circle__benefit::before {
+    top: 27px;
+  }
+
+  .atelier-circle__panel {
+    padding: 28px 21px;
+  }
+
+  .atelier-circle__panel-title {
+    font-size: 3.3rem;
+  }
+}
+.atelier-circle__rule {
+  width: 70px;
+  margin-bottom: 22px;
+}
+
+.atelier-circle__statement {
+  margin-top: 26px;
+  font-size: clamp(3.2rem, 10vw, 4.5rem);
+}
+
+.atelier-circle__inbox-note {
+  margin-top: 18px;
+  font-size: 1.15rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atelier-circle__button {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   ATELIER CIRCLE — CLEAN CENTRED LANDING PAGE
+   Membership information remains below the submit form.
+   ========================================================= */
+
+.atelier-circle__inner {
+  width: min(100%, 980px);
+}
+
+.atelier-circle__layout {
+  display: block;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.atelier-circle__panel {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 44px 48px 40px;
+  border: 1px solid rgba(37, 94, 179, 0.38);
+  border-radius: 5px;
+  background: transparent;
+  text-align: center;
+}
+
+.atelier-circle__panel-label,
+.atelier-circle__panel-title,
+.atelier-circle__panel-copy {
+  text-align: center;
+}
+
+.atelier-circle__panel-title {
+  max-width: 720px;
+  margin: 0 auto 14px;
+}
+
+.atelier-circle__panel-copy {
+  max-width: 620px;
+  margin: 0 auto 27px;
+}
+
+.atelier-circle__form {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.atelier-circle__button {
+  width: min(460px, 100%);
+  min-width: 0;
+  margin: 6px auto 0;
+  border-color: #0047ab;
+  border-radius: 999px;
+  background: #0047ab;
+}
+
+.atelier-circle__button:hover {
+  border-color: #003080;
+  background: #003080;
+}
+
+.atelier-circle__membership {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+  margin: 46px auto 0;
+  padding: 0;
+  text-align: center;
+}
+
+.atelier-circle__membership .atelier-circle__section-label {
+  margin: 0 0 22px;
+  text-align: center;
+}
+
+.atelier-circle__membership .atelier-circle__benefits {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(38, 35, 31, 0.18);
+}
+
+.atelier-circle__membership .atelier-circle__benefit {
+  display: block;
+  padding: 21px 0 21px 25px;
+  text-align: left;
+}
+
+@media screen and (max-width: 749px) {
+  .atelier-circle__panel {
+    padding: 28px 21px;
+  }
+
+  .atelier-circle__membership {
+    margin-top: 38px;
+  }
+
+  .atelier-circle__button {
+    width: min(100%, 310px);
+  }
+}
+/* =========================================================
+   ATELIER CIRCLE LANDING PAGE — BENEFITS BELOW FORM
+   ========================================================= */
+
+.atelier-circle .atelier-circle__membership {
+  display: block !important;
+  width: 100% !important;
+  max-width: 680px !important;
+  margin: 44px auto 0 !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+/* Membership heading */
+.atelier-circle .atelier-circle__membership
+.atelier-circle__section-label {
+  display: block !important;
+  margin: 0 0 20px !important;
+
+  font-family: Jost, sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+
+  color: #255eb3 !important;
+}
+
+/* Reset the list */
+.atelier-circle .atelier-circle__membership
+.atelier-circle__benefits {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  list-style: none !important;
+  border-top: 1px solid rgba(38, 35, 31, 0.17) !important;
+}
+
+/* Each benefit becomes its own row */
+.atelier-circle .atelier-circle__membership
+.atelier-circle__benefit {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+
+  margin: 0 !important;
+  padding: 18px 12px 18px 34px !important;
+
+  border-right: 0 !important;
+  border-bottom: 1px solid rgba(38, 35, 31, 0.17) !important;
+
+  font-family: Jost, sans-serif !important;
+  font-size: 1.4rem !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  text-align: left !important;
+
+  color: #34302b !important;
+}
+
+/* Cobalt diamond */
+.atelier-circle .atelier-circle__membership
+.atelier-circle__benefit::before {
+  content: "" !important;
+  position: absolute !important;
+  display: block !important;
+
+  top: 27px !important;
+  left: 5px !important;
+
+  width: 7px !important;
+  height: 7px !important;
+
+  background: #255eb3 !important;
+  transform: rotate(45deg) !important;
+}
+
+/* Mobile */
+@media screen and (max-width: 749px) {
+  .atelier-circle .atelier-circle__membership {
+    margin-top: 36px !important;
+  }
+
+  .atelier-circle .atelier-circle__membership
+.atelier-circle__benefit::before {
+  top: 24px !important;
+  left: 6px !important;
+}
+
+  .atelier-circle .atelier-circle__membership
+  .atelier-circle__benefit::before {
+    top: 25px !important;
+    left: 3px !important;
+  }
+}
+/* =========================================================
+   FORCE LANDING-PAGE BENEFITS TO DISPLAY
+   ========================================================= */
+
+.section-atelier-circle .atelier-circle__membership {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  max-width: 680px !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  margin: 42px auto 0 !important;
+  padding: 0 !important;
+}
+
+.section-atelier-circle .atelier-circle__section-label {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin: 0 0 20px !important;
+  text-align: center !important;
+  color: #255eb3 !important;
+}
+
+.section-atelier-circle .atelier-circle__benefits {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+  border-top: 1px solid rgba(38, 35, 31, 0.18) !important;
+}
+
+.section-atelier-circle .atelier-circle__benefit {
+  position: relative !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 18px 12px 18px 34px !important;
+  border-bottom: 1px solid rgba(38, 35, 31, 0.18) !important;
+
+  font-family: Jost, sans-serif !important;
+  font-size: 1.4rem !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  text-align: left !important;
+  color: #34302b !important;
+}
+
+.section-atelier-circle .atelier-circle__benefit::before {
+  content: "" !important;
+  position: absolute !important;
+  display: block !important;
+  top: 26px !important;
+  left: 8px !important;
+  width: 6px !important;
+  height: 6px !important;
+  background: #255eb3 !important;
+  border-radius: 50% !important;
+  transform: none !important;
+}
+/* Force membership benefits to appear beneath the form */
+.section-atelier-circle .atelier-circle__signup-panel .atelier-circle__membership {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: static !important;
+
+  width: 100% !important;
+  max-width: 680px !important;
+  height: auto !important;
+  max-height: none !important;
+
+  margin: 42px auto 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.section-atelier-circle .atelier-circle__signup-panel .atelier-circle__benefits {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.section-atelier-circle .atelier-circle__signup-panel .atelier-circle__benefit {
+  position: relative !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  padding: 18px 12px 18px 34px !important;
+  border-bottom: 1px solid rgba(38, 35, 31, 0.18) !important;
+
+  text-align: left !important;
+  color: #34302b !important;
+}
+
+.section-atelier-circle .atelier-circle__signup-panel .atelier-circle__benefit::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 27px !important;
+  left: 8px !important;
+
+  width: 6px !important;
+  height: 6px !important;
+
+  background: #255eb3 !important;
+  border-radius: 50% !important;
+  transform: none !important;
+}

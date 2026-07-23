@@ -1,0 +1,80 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_nz6VzJ": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_6YNTtM": {
+          "type": "heading",
+          "settings": {
+            "heading": " <strong>Atelier Modernista’s Exclusive Jewellery Subscriptions</strong>",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_6YNTtM"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "image_with_text_jz4GfE": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_pFAgwh": {
+          "type": "heading",
+          "settings": {
+            "heading": "Welcome to Atelier Modernista’s Jewellery Subscription!",
+            "heading_size": "h2"
+          }
+        },
+        "text_rByTwT": {
+          "type": "text",
+          "settings": {
+            "text": "<p>You are invited to join one of our exclusive <strong>Atelier Modernista Jewellery Subscriptions</strong> completely individualised to you. Offering <strong>6–18 pieces of handmade Bauhaus-inspired jewellery</strong> over the year, advance access to new designers before they launch on the store, and discounts across Atelier Modernista’s shop, our exclusive subscriptions specialise in taking jewellery very personally.</p><p>Plus exclusive invitations, early sale access, and surprise treats. <em>Starts at £15/month.</em></p><p><strong>The MODERNISTA Subscription: £15 per month for 12 months</strong></p><p>• One piece of Atelier Modernista jewellery tailored to your tastes, delivered every 8 weeks for a year (6 jewellery deliveries per annum)<br/>• Early access to new designers before they launch on the store</p><p><strong>The CALLIGRAPHER Subscription: £25 per month for 12 months</strong></p><p>• Two pieces of Atelier Modernista jewellery tailored to your tastes, delivered every 8 weeks for a year (6 deliveries per annum)<br/>• One design-led surprise gift in every delivery.<br/>• 10% off the Atelier Modernista store.<br/>• Early access to new designers before they launch on the store.<br/>• Members-only access to limited runs.</p><p><strong>The ICON Subscription: £40 per month for 12 months</strong></p><p>• Three pieces of Atelier Modernista jewellery tailored to your tastes, delivered every 8 weeks for a year (6 deliveries per annum)<br/>• One design-led surprise gift in every delivery.<br/>• 20% off the Atelier Modernista store.<br/>• Early access to new designers before they launch on the store.<br/>• Members-only access to limited runs.<br/>• Priority access to Archive Editions.<br/>• Early Sale Access</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading_pFAgwh",
+        "text_rByTwT"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/WhatsApp_Image_2025-11-04_at_17.17.01_2adee9c2.jpg",
+        "height": "small",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "rich_text_nz6VzJ",
+    "image_with_text_jz4GfE"
+  ]
+}

@@ -1,0 +1,106 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "disabled": true,
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 3,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-8430db35-7882-4674-824b-6e26b4f3fb1e",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "enable_filtering": false,
+        "filter_type": "vertical",
+        "enable_sorting": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "multirow_LtHqVf": {
+      "type": "multirow",
+      "blocks": {
+        "row_bfTY4X": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/d5540e7e-9918-4a1e-8050-878ab682240a.png",
+            "caption": "",
+            "heading": "3 Month Atelier Jewellery Subscription",
+            "text": "<p><strong>Receive a fantastic parcel of colour and elegance each month, with an Atelier Modernista Jewellery Subscription arriving straight to your door. Also makes a fabulous gift!</strong></p><ul><li>Contains <strong>1 piece of jewellery</strong> each month for <strong>three magical months</strong>, specially chosen for you.</li><li><strong>Free Shipping</strong></li><li>Plus <strong>Special Treats in every parcel!</strong></li></ul><p> </p>",
+            "button_label": "",
+            "button_link": "shopify://products/3-month-atelier-modernista-jewellery-subscription"
+          }
+        },
+        "row_wDxMPh": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/d5540e7e-9918-4a1e-8050-878ab682240a.png",
+            "caption": "",
+            "heading": "6 Month Atelier Jewellery Subscription",
+            "text": "<p><strong>Receive a fantastic parcel of colour and elegance each month for six months, with an Atelier Modernista Jewellery Subscription arriving straight to your door. Also makes a fabulous gift!</strong></p><ul><li>Contains <strong>1 piece of jewellery each month </strong>for <strong>six magical months</strong>, specially chosen for you.</li><li><strong>Private Early Access </strong>to our Sale.</li><li><strong>Free shipping.</strong></li><li>Plus<strong> extras and special treats</strong> in every parcel!</li></ul><p></p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "row_EfVMAc": {
+          "type": "row",
+          "settings": {
+            "image": "shopify://shop_images/Another_Double_Parcel_Picture_for_the_Subscription.png",
+            "caption": "",
+            "heading": "One Year Atelier Jewellery Subscription",
+            "text": "<p><strong>Receive a fantastic parcel of colour and elegance each month for a whole magical year, with an Atelier Modernista Jewellery Subscription arriving straight to your door. Also makes a fabulous gift!</strong></p><ul><li>Contains <strong>1 piece of jewellery each month </strong>for <strong>twelve magical months</strong>, specially chosen for you.</li><li><strong>Private Early Access </strong>to our Sale.</li><li><strong>Free shipping.</strong></li><li>Plus<strong> extras and special treats</strong> in every parcel!</li></ul><p></p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "row_bfTY4X",
+        "row_wDxMPh",
+        "row_EfVMAc"
+      ],
+      "name": "t:sections.multirow.presets.name",
+      "settings": {
+        "image_height": "medium",
+        "desktop_image_width": "medium",
+        "image_layout": "alternate-left",
+        "heading_size": "h1",
+        "text_style": "body",
+        "button_style": "secondary",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "row_color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "multirow_LtHqVf"
+  ]
+}

@@ -1,0 +1,101 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "custom_css": [],
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "176787382520646131": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_2ee0a1c_y8Vxng": {
+          "type": "ai_gen_block_2ee0a1c",
+          "settings": {
+            "logo_1": "shopify://shop_images/Transparent_Logo_with_AYCW_Jan_2026.png",
+            "logo_1_width": 150,
+            "logo_1_link": "https://www.ateliermodernista.com",
+            "logo_2": "shopify://shop_images/Image_03-01-2026_at_12.18.jpg",
+            "logo_2_width": 590,
+            "logo_2_link": "shopify://collections/frontpage",
+            "tagline_text": "",
+            "tagline_link": "",
+            "text_font": "cormorant_n7",
+            "text_size": 28,
+            "text_color": "#334fb4"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_7335a52_rb6iqn": {
+          "type": "ai_gen_block_7335a52",
+          "name": "About us text box",
+          "settings": {
+            "heading": "Studio Edit Sale",
+            "content": "<p>We are offfering a selection of pieces from earlier Atelier Modernista collections that are being retired, including some of our fine Euclid necklaces,  and a whole array of colourful pieces made by really wonderful artists. </p><p>We hope you enjoy exploring The Studio Edit.</p><p><strong>Team Atelier Modernista</strong></p>",
+            "desktop_width_percent": 50,
+            "text_alignment": "center",
+            "padding": 30,
+            "heading_size": 24,
+            "heading_spacing": 15,
+            "text_size": 16,
+            "line_height": 1.5,
+            "paragraph_spacing": 15,
+            "background_color": "#feedd5",
+            "heading_color": "#000000",
+            "text_color": "#242833",
+            "border_thickness": 1,
+            "border_color": "#121212",
+            "border_radius": 0,
+            "shadow_opacity": 0,
+            "shadow_vertical": 4,
+            "shadow_blur": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_2ee0a1c_y8Vxng",
+        "ai_gen_block_7335a52_rb6iqn"
+      ],
+      "settings": {}
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 24,
+        "columns_desktop": 2,
+        "columns_mobile": "1",
+        "color_scheme": "scheme-8430db35-7882-4674-824b-6e26b4f3fb1e",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "enable_filtering": false,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "padding_top": 60,
+        "padding_bottom": 56
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "176787382520646131",
+    "product-grid"
+  ]
+}

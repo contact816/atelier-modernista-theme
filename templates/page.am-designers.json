@@ -1,0 +1,81 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 12
+      }
+    },
+    "rich_text_wPd3cT": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_6ek3qh": {
+          "type": "heading",
+          "settings": {
+            "heading": "Artists and Designers",
+            "heading_size": "h0"
+          }
+        },
+        "heading_hRfwGX": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Atelier Modernista Makers",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_6ek3qh",
+        "heading_hRfwGX"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "rich_text_wnfHbA": {
+      "type": "rich-text",
+      "blocks": {
+        "text_qCwqBV": {
+          "type": "text",
+          "settings": {
+            "text": "<h2><strong>Justine Nettleton</strong></h2><p>Justine Nettleton creates enamel jewellery as 830 Degrees from her garden studio. With a background in Fine Art, her small-batch pieces are created by using kiln-fired enamel fused onto copper, through which she builds colour and texture. Each firing produces subtle variations in tone and surface, making every piece unique. Justine's vibrant, mixed-media creations reflect a love of colour, texture and storytelling, with each piece designed to bring a little joy and individuality to everyday life.</p><h2><strong>Gwawr Jones</strong></h2><p>Gwawr Jones founded Deryn Jewellery in 2018, creating colourful, handcrafted pieces from her home studio in North Wales. Inspired by eclectic styling, collected materials, and natural colour combinations, each piece is made individually in small batches, celebrating playful design.</p><h2><strong>Jenni Douglas</strong></h2><p>Jenni Douglas is an Edinburgh-based artist and designer working across jewellery, prints, and homeware. Inspired by mid-century design, her colourful work combines graphic pattern with thoughtful small-scale production. Jenni's approach is to 'be passionate about my creative process, use good quality, sustainable materials, buy locally and and don’t worry about making mistakes.' Her distinctive and original block printed jewellery features a wide range of colourful designs, and her pieces act as an enthusiastic catalyst into colourful jewellery. </p><h2><strong>Will Sharp</strong></h2><p>Will Sharp is a contemporary jeweller and designer based in London. A graduate of the Glasgow School of Art, his work focuses on developing jewellery efficiently and responsibly; key materials are recycled silver and PLA, a plant based renewable bio-plastic. His inventive jewellery-making explores the intersection of craft and industrial design, creating bold, sculptural pieces that challenge conventional notions of wearable art. Will has a multidisiplinary approach to his process which involves CAD design, 3D printing and precious metal casting along with hand fabrication.  Each piece is handmade using sustainable materials and traditional techniques. He won the Hallmark Studio’s New Designers Award and the Association of Contemporary Jewellers Mark Fenn Award, and has created bespoke pieces for the Hepworth Museum, Wakefield, and the London Museum.</p><h2><strong>Mia Houghton</strong></h2><p>Mia Houghton, founder of Mijoux Creations, handcrafts jewellery in silver using traditional bench techniques alongside enamel. Inspired by nature, her Salisbury-based studio practice focuses on small-batch making. She previously worked In London at Boodles and De Beers. Handcrafted, her jewellery reflects Mia’s deep interest in colour, movement, and geometry. Traditional bench techniques and careful finishing give her pieces a delicate and confident presence, and every piece is one of a kind.</p><h2><strong>The Natural Paper Company</strong></h2><p>Leah Lewis founded the Natural Paper Company from a lifelong love of paper and stationery. Traditional craft processes and sustainable materials sit at the heart of the work, using natural, textured paper chosen for its tactile quality and durability. Thoughtfully produced using sustainable paper sources, their products invite slow creativity and everyday use.</p><h2><strong>Copper Bee</strong></h2><p>Claire founded Copper Bee in 2019, handcrafting jewellery from her Wiltshire home studio. Working primarily with copper and mixed metals, she uses traditional forming and texturing techniques to create warm, tactile surfaces. Her jewellery features vibrant colours and bold styles that are both artistic and celebrate individuality, and the character of hand-worked materials. Claire's aim is for her bold, bright and contemporary statement pieces to be more than just jewellery - to also give and celebrate confidence, creativity and happiness. As she says 'while jewellery alone may not change the world, the people who wear it certainly will.'</p><h2><strong>Kirsty Thomas</strong></h2><p>Kirsty Thomas is the founder of Tom Pigeon, a design studio inspired by modern art and architectural colour blocking. Working in small batches, Kirsty's designs balance bold colour with simple shapes, and each one functions as a small piece of wearable sculpture. She pays very careful attention to colour and form in her pieces, and has created collections and products for The Barbican, Tate Modern, The Design Museum, and the V&A.</p><p></p><p></p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_qCwqBV"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_wPd3cT",
+    "rich_text_wnfHbA"
+  ]
+}

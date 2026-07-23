@@ -1,0 +1,87 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collabs": {
+      "type": "apps",
+      "blocks": {
+        "a9bc057f-61d4-4331-a638-c86b0e5168a9": {
+          "type": "shopify://apps/collabs/blocks/application-page/54758706-9f25-4fa9-a553-64720a4c998b",
+          "disabled": true,
+          "settings": {
+            "heading": "Join the Atelier Modernista Community",
+            "show_square_logo": true,
+            "show_partnership_info": false,
+            "button_text": "Accept Invitation",
+            "number_of_images": "1",
+            "logo_position": "above",
+            "corner_style": "square",
+            "button_background_color": "#334fb4",
+            "button_label_color": "#ffffff",
+            "link_color": "#12541f"
+          }
+        }
+      },
+      "block_order": [
+        "a9bc057f-61d4-4331-a638-c86b0e5168a9"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "rich_text_i7EBnh": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_WmrBrq": {
+          "type": "heading",
+          "settings": {
+            "heading": "Atelier Modernista + Collabs",
+            "heading_size": "h1"
+          }
+        },
+        "text_RmRVjj": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We are open to interesting affiliate partnerships. </p><p>If you have an eclectic style,we'd love to hear from you. Follower count doesn't matter, but your love of colour and texture really do. </p><p>Let's start the conversation by emailing us at <strong>contact@ateliermodernista.com</strong></p><p><strong>Team Atelier Modernista</strong></p>"
+          }
+        },
+        "button_46WTzi": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_WmrBrq",
+        "text_RmRVjj",
+        "button_46WTzi"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "collabs",
+    "rich_text_i7EBnh"
+  ]
+}

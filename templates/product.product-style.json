@@ -1,0 +1,206 @@
+{
+  "sections": {
+    "17676449791c05dd17": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_d14e24d_zCV37j": {
+          "type": "ai_gen_block_d14e24d",
+          "disabled": true,
+          "settings": {
+            "logo": "shopify://shop_images/Transparent_Logo_with_AYCW_Jan_2026.png",
+            "logo_link": "https://www.ateliermodernista.com",
+            "logo_width": 45,
+            "mobile_logo_width": 55,
+            "max_width": 400,
+            "background_color": "#ffebcd",
+            "padding_top": 0,
+            "padding_bottom": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_d14e24d_zCV37j"
+      ],
+      "settings": {}
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "custom_liquid_8NrnB4": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% if product.title contains 'Miró' or product.title contains 'Miro' %}\n  <p class=\"am-product-provenance\">\n    Official Miró Collection <span aria-hidden=\"true\">·</span>\n    Crafted in Spain by Joidart\n  </p>\n{% endif %}"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
+        "icon_with_text_NnQJre": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "horizontal",
+            "icon_1": "none",
+            "heading_1": "30-day returns",
+            "icon_2": "none",
+            "heading_2": "Dispatches in 1–2 days",
+            "icon_3": "none",
+            "heading_3": "Secure Checkout"
+          }
+        },
+        "judge_me_reviews_preview_badge_qVAbqj": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "custom_liquid_hRWYcw": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<aside class=\"am-circle-invite\" aria-labelledby=\"am-circle-heading\">\n\n  {% if customer and customer.accepts_marketing %}\n\n    <p class=\"am-circle-invite__eyebrow\">\n      The Atelier Circle\n    </p>\n\n    <h2 id=\"am-circle-heading\" class=\"am-circle-invite__heading\">\n      Welcome back{% if customer.first_name != blank %}, {{ customer.first_name | escape }}{% endif %}.\n    </h2>\n\n    <p class=\"am-circle-invite__subheading\">\n      Your Free UK Delivery is active.\n    </p>\n\n    <div class=\"am-circle-member-message\">\n      <span class=\"am-circle-member-message__dot\" aria-hidden=\"true\"></span>\n\n      <p>\n        Free UK delivery is included when you use\n        <strong>{{ customer.email | escape }}</strong>\n        at checkout.\n      </p>\n    </div>\n\n  {% else %}\n\n    <p class=\"am-circle-invite__eyebrow\">\n     The Atelier Circle\n    </p>\n\n    <h2 id=\"am-circle-heading\" class=\"am-circle-invite__heading\"      Join The Atelier Circle \n    </h2>\n\n    <p class=\"am-circle-invite__subheading\">\n      Membership is free.\n    </p>\n\n    <div class=\"am-circle-benefits\">\n      <span><i aria-hidden=\"true\"></i>Free UK delivery</span>\n      <span><i aria-hidden=\"true\"></i>Early access to new collections and offers</span>\n      <span><i aria-hidden=\"true\"></i>Notes from the Atelier</span>\n    </div>\n\n    {% form 'customer', class: 'am-circle-form' %}\n\n      <input\n        type=\"hidden\"\n        name=\"contact[tags]\"\n        value=\"newsletter,Atelier Circle\"\n      >\n\n      <label\n        class=\"visually-hidden\"\n        for=\"AmCircleEmail-{{ section.id }}\"\n      >\n        Email address\n      </label>\n\n      <div class=\"am-circle-form__row\">\n\n        <input\n          id=\"AmCircleEmail-{{ section.id }}\"\n          class=\"am-circle-form__input\"\n          type=\"email\"\n          name=\"contact[email]\"\n          value=\"{% if customer %}{{ customer.email | escape }}{% endif %}\"\n          autocomplete=\"email\"\n          autocorrect=\"off\"\n          autocapitalize=\"off\"\n          placeholder=\"Your email address\"\n          required\n        >\n\n        <button\n          class=\"am-circle-form__button\"\n          type=\"submit\"\n        >\n          <span class=\"am-circle-form__title\">\n           Join the Atelier Circle\n            <span aria-hidden=\"true\">→</span>\n          </span>\n\n          <span class=\"am-circle-form__subtitle\">Free UK delivery included\n            \n          </span>\n        </button>\n\n      </div>\n\n      {% if form.posted_successfully? %}\n        <p class=\"am-circle-form__message\" role=\"status\">\n          You're in! Welcome to the Atelier Circle. Your Free UK Delivery is now active.\n        </p>\n      {% endif %}\n\n      {% if form.errors %}\n        <div\n          class=\"am-circle-form__message am-circle-form__message--error\"\n          role=\"alert\"\n        >\n          {{ form.errors | default_errors }}\n        </div>\n      {% endif %}\n\n      <p class=\"am-circle-form__privacy\">\n        By joining, you agree to receive Atelier Modernista emails.\n        You may unsubscribe at any time.\n      </p>\n\n    {% endform %}\n\n  {% endif %}\n\n</aside>"
+          }
+        },
+        "collapsible_tab_Qga4GX": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping",
+            "icon": "none",
+            "content": "<p>Free Standard Delivery  on all orders. </p><p>Delivery in 1-4 Days.  </p><p>Express Delivery Available for £7.95. </p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_XAGNWH": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Details",
+            "icon": "none",
+            "content": "<p>{{ product.metafields.custom.artist.value }}{{ product.metafields.general.materials.value }}</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_heD9EU": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Care",
+            "icon": "none",
+            "content": "<p>An Atelier Modernista polishing cloth is enclosed with your purchase to help maintain your AM jewellery. Each piece is delicately crafted, so please limit exposure to water, fragrance, cosmetics, and chemicals. Remove before showers, swimming, or exercise. </p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_GtqmGT": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Returns",
+            "icon": "return",
+            "content": "<p>30-day returns are included with your purchase for most Atelier Modernista items, but please note that, in order to uphold the highest standards of hygiene and safety, pierced earrings are non-returnable. Luxury Gift Wrapping is also non-returnable.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "custom_liquid_8NrnB4",
+        "buy_buttons",
+        "icon_with_text_NnQJre",
+        "judge_me_reviews_preview_badge_qVAbqj",
+        "description",
+        "custom_liquid_hRWYcw",
+        "collapsible_tab_Qga4GX",
+        "collapsible_tab_XAGNWH",
+        "collapsible_tab_heD9EU",
+        "collapsible_tab_GtqmGT"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "small",
+        "constrain_to_viewport": true,
+        "media_fit": "cover",
+        "gallery_layout": "thumbnail",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "hover",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "build_your_look_ffywd7": {
+      "type": "build-your-look",
+      "custom_css": [],
+      "name": "Build Your Look",
+      "settings": {
+        "eyebrow": "Pairs beautifully with...",
+        "heading": "Complete the composition",
+        "subheading": "Complementary pieces selected for their balance of colour, proportion and form.",
+        "product_cta_label": "Add to bag",
+        "builder_label": "Build your own look",
+        "builder_url": "",
+        "background_colour": "#fdf6e3",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "round",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 12,
+        "padding_bottom": 8
+      }
+    }
+  },
+  "order": [
+    "17676449791c05dd17",
+    "main",
+    "build_your_look_ffywd7",
+    "related-products"
+  ]
+}

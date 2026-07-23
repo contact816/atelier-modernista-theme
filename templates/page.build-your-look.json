@@ -1,0 +1,10 @@
+
+{
+  "sections": {
+    "main": {
+      "type": "build-your-look-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,54 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "featured_collection_3MnTMj": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "our-jewellery-sets",
+        "products_to_show": 2,
+        "title": "",
+        "heading_size": "h1",
+        "description": "<h2><em><strong>Craft and Materials</strong></em></h2><h3><em><strong>The materials and methods behind our wearable art.</strong></em></h3><p> </p><p> </p><p><strong>Recycled Sterling Silver:</strong> Certified sustainable precious metal, chosen to minimize environmental impact without compromising on quality or durability.</p><p> </p><p><strong>Architectural Brass & Copper:</strong> Evolving elements that gain character and a unique patina over time, providing a warm, structural anchor to the warm cobalt tones.</p><p> </p><p><strong>Matte Anodised Aluminium:</strong> Selected for its velvet-touch finish and ethereal weightlessness, and ability to act as a lightweight colour-rich canvas for the artists' original designs.</p><p> </p><p><strong>Brushed Aluminium:</strong> A directional grain that catches light with a soft glow, juxtaposed against the deep pigment of, for example, the Yves Klein cobalt blue.</p><p> </p><p><strong>Sterling Silver Findings:</strong> Hand-finished for seamless, all-day comfort and a hypoallergenic foundation.</p><p> </p><p><strong>Vitreous Enamel:</strong> Hand-applied and kiln-fired to achieve a signature, light-catching lustre that is fused permanently to the copper.</p><p> </p><p><strong>Dual-Finish Disc:</strong> A high-pigment blue enamel face contrasted with a smooth, silver-satin reverse, offering two distinct ways to wear the piece.</p><p> </p><p><strong>Gold-Plated Trace Chain:</strong> A delicate yet durable diamond-cut chain, plated in high-karat gold for a refined, luxurious finish.</p><p> </p><p><strong>Lightweight Engineering:</strong> Carefully balanced proportions to ensure the pendant sits flat against the skin while remaining effortlessly light.</p><p> </p><p><strong>Hand-Finished Assembly:</strong> Every component is inspected and hand-assembled by the artists to ensure quality and precision.</p>",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 2,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "bulk",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 28,
+        "padding_bottom": 24
+      }
+    }
+  },
+  "order": [
+    "main",
+    "featured_collection_3MnTMj"
+  ]
+}

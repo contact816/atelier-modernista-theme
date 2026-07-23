@@ -1,0 +1,33 @@
+{%- liquid
+    assign badge_label = ''
+    assign badge_mod = ''
+    for tag in product.tags
+      case tag
+        when 'am-badge-new'
+          assign badge_label = 'New'
+          assign badge_mod = 'new'
+        when 'am-badge-bestseller'
+          assign badge_label = 'Bestseller'
+          assign badge_mod = 'bestseller'
+        when 'am-badge-one-of-a-kind'
+          assign badge_label = 'One of a Kind'
+          assign badge_mod = 'ooak'
+        when 'am-badge-set-available'
+          assign badge_label = 'Set Available'
+          assign badge_mod = 'set'
+        when 'am-badge-limited'
+          assign badge_label = 'Limited Edition'
+          assign badge_mod = 'limited'
+      endcase
+    endfor
+    if product.compare_at_price > product.price and badge_label == ''
+      assign badge_label = 'Sale'
+      assign badge_mod = 'sale'
+    endif
+  -%}
+
+  {%- if badge_label != '' -%}
+    <span class="am-card-badge am-card-badge--{{ badge_mod }}" aria-label="{{ badge_label }}">
+      {{ badge_label }}
+    </span>
+  {%- endif -%}

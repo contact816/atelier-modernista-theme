@@ -1,0 +1,611 @@
+{%- comment -%}
+  Atelier Modernista — Luxury Gift Wrapping Add-On (Modal version v3)
+  -------------------------------------------------------
+  SETUP:
+  1. Product handle must be: luxury-gift-wrapping
+  2. Save as snippets/gift-wrapping.liquid (replace previous version)
+  3. Render tag in main-product.liquid: {% render 'gift-wrapping' %}
+{%- endcomment -%}
+
+{%- assign gift_wrap_product = all_products['luxury-gift-wrapping'] -%}
+{%- if gift_wrap_product != blank -%}
+  {%- assign gift_wrap_variant = gift_wrap_product.first_available_variant -%}
+
+  <!-- ── TRIGGER ─────────────────────────────────────────────── -->
+  <div class="am-gw-trigger-wrap">
+    <button class="am-gw-trigger" id="am-gw-trigger" type="button"
+            aria-haspopup="dialog" aria-controls="am-gw-modal">
+      <span class="am-gw-trigger__mark">✦</span>
+      <span class="am-gw-trigger__text">Gift wrap this order</span>
+      <span class="am-gw-trigger__price">{{ gift_wrap_variant.price | money }}</span>
+    </button>
+  </div>
+
+  <!-- ── MODAL OVERLAY ────────────────────────────────────────── -->
+  <div class="am-gw-overlay" id="am-gw-overlay" aria-hidden="true" role="presentation"></div>
+
+  <!-- ── MODAL PANEL ──────────────────────────────────────────── -->
+  <div class="am-gw-modal" id="am-gw-modal" role="dialog" aria-modal="true"
+       aria-label="Luxury Gift Wrapping" aria-hidden="true">
+
+    <button class="am-gw-modal__close" id="am-gw-close" type="button" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="am-gw-modal__inner">
+
+      <!-- Header -->
+      <div class="am-gw-modal__header">
+        <p class="am-gw-modal__eyebrow">Atelier Modernista</p>
+        <h2 class="am-gw-modal__title">Luxury Gift Wrapping</h2>
+        
+      </div>
+
+      <!-- What's included -->
+      <div class="am-gw-modal__includes">
+        <p class="am-gw-modal__includes-label">What&rsquo;s included</p>
+        <ul class="am-gw-modal__pills" aria-label="Gift wrapping includes">
+          <li>Atelier Modernista Fabric Jewellery Pouch</li>
+          <li>Gift Box with Hand-tied Ribbon</li>
+          <li>AM Polishing Cloth</li>
+          <li>Handwritten note on handmade card</li>
+          <li>Red wax seal</li>
+          <li>Gift Bag with Hand-tied Ribbon</li>
+          <li class="am-gw-modal__pill--accent">Option to ship directly to recipient</li>
+        </ul>
+      </div>
+
+      <!-- Send to -->
+      <div class="am-gw-modal__sendto">
+        <p class="am-gw-modal__includes-label">Where should we send it?</p>
+        <div class="am-gw-modal__sendto-options">
+          <button type="button" class="am-gw-modal__sendto-btn is-active" id="am-gw-send-recipient">
+            To my recipient
+          </button>
+          <button type="button" class="am-gw-modal__sendto-btn" id="am-gw-send-self">
+            To me
+          </button>
+        </div>
+      </div>
+
+      <!-- Gift message toggle -->
+      <div class="am-gw-modal__message-row">
+        <label class="am-gw-modal__toggle-label" for="am-gw-msg-toggle">
+          Add a handwritten gift message
+        </label>
+        <button
+          class="am-gw-modal__toggle"
+          id="am-gw-msg-toggle"
+          role="switch"
+          aria-checked="false"
+          aria-controls="am-gw-msg-field"
+          type="button"
+        >
+          <span class="am-gw-modal__toggle-knob"></span>
+          <span class="visually-hidden">Toggle gift message</span>
+        </button>
+      </div>
+
+      <div class="am-gw-modal__message-field" id="am-gw-msg-field" hidden>
+        <textarea
+          id="am-gw-msg-text"
+          name="properties[Gift message]"
+          class="am-gw-modal__textarea"
+          maxlength="200"
+          rows="3"
+          placeholder="Your message, written in our hand&hellip;"
+          aria-label="Gift message (max 200 characters)"
+        ></textarea>
+        <p class="am-gw-modal__charcount">
+          <span id="am-gw-msg-count">0</span> / 200
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <div class="am-gw-modal__cta">
+        <button
+          type="button"
+          class="am-gw-modal__add-btn"
+          id="am-gw-add"
+          data-variant-id="{{ gift_wrap_variant.id }}"
+        >
+          Gift wrap this order &mdash; {{ gift_wrap_variant.price | money }}
+        </button>
+      </div>
+
+      <!-- Success state -->
+      <div class="am-gw-modal__success" id="am-gw-success" hidden>
+        <p class="am-gw-modal__success-title">Luxury gift wrapping added.</p>
+        <p class="am-gw-modal__success-sub">Your piece will arrive beautifully wrapped.</p>
+        <button type="button" class="am-gw-modal__dismiss" id="am-gw-dismiss">Continue shopping</button>
+      </div>
+
+    </div>
+  </div>
+
+{%- endif -%}
+
+
+<style>
+/* ── Atelier Modernista Gift Wrap Modal ────────────────────────────── */
+:root {
+  --am-cobalt: #0047AB;
+  --am-cream: #fdf6e3;
+  --am-linen: #f7f0e6;
+  --am-text: #1a1a1a;
+  --am-muted: #7a7a7a;
+  --am-border: rgba(26,26,26,0.12);
+  --am-radius: 6px;
+}
+
+/* Trigger */
+.am-gw-trigger-wrap {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.am-gw-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: var(--am-cream);
+  border: 1px solid var(--am-cobalt);
+  padding: 14px 24px;
+  border-radius: var(--am-radius);
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--am-cobalt);
+  transition: background 0.15s, color 0.15s;
+}
+
+.am-gw-trigger:hover {
+  background: var(--am-cobalt);
+  color: white;
+}
+
+.am-gw-trigger__mark {
+  color: var(--am-cobalt);
+  font-size: 10px;
+}
+
+.am-gw-trigger__text {
+  border-bottom: 0.5px solid currentColor;
+  padding-bottom: 1px;
+}
+
+.am-gw-trigger__price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  color: var(--am-text);
+}
+
+/* Overlay */
+.am-gw-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 10, 25, 0.55);
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.am-gw-overlay.is-open {
+  display: block;
+  opacity: 1;
+}
+
+/* Modal panel */
+.am-gw-modal {
+  display: none;
+  position: fixed;
+  top: 5vh;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: var(--am-cream);
+  border-radius: 12px 12px 0 0;
+  max-width: 560px;
+  margin: 0 auto;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  max-height: 95vh;
+  overflow-y: auto;
+}
+
+@media (min-width: 600px) {
+  .am-gw-modal {
+    bottom: auto;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    width: 560px;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    max-height: 85vh;
+  }
+  .am-gw-modal.is-open {
+    display: block;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+}
+
+.am-gw-modal.is-open {
+  display: block;
+  transform: translateY(0);
+}
+
+/* Close button */
+.am-gw-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--am-muted);
+  padding: 4px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.am-gw-modal__close:hover { color: var(--am-text); }
+
+/* Inner padding */
+.am-gw-modal__inner {
+  padding: 2rem 1.75rem 1.75rem;
+}
+
+/* Header */
+.am-gw-modal__eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--am-muted);
+  margin: 0 0 6px;
+}
+
+.am-gw-modal__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--am-text);
+  margin: 0 0 4px;
+  line-height: 1.15;
+}
+
+.am-gw-modal__subtitle {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--am-muted);
+  margin: 0 0 1.25rem;
+  letter-spacing: 0.03em;
+}
+
+/* Includes */
+.am-gw-modal__includes { margin-bottom: 1.25rem; }
+
+.am-gw-modal__includes-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--am-muted);
+  margin: 0 0 0.6rem;
+}
+
+.am-gw-modal__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.am-gw-modal__pills li {
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 5px 14px;
+  border: 0.5px solid var(--am-border);
+  border-radius: 20px;
+  color: var(--am-cobalt);
+  background: var(--am-linen);
+}
+
+.am-gw-modal__pill--accent {
+  border-color: rgba(0,71,171,0.3) !important;
+  color: var(--am-cobalt) !important;
+  background: rgba(0,71,171,0.05) !important;
+}
+
+/* Send to */
+.am-gw-modal__sendto {
+  margin-bottom: 1.25rem;
+  padding-top: 1rem;
+  border-top: 0.5px solid var(--am-border);
+}
+
+.am-gw-modal__sendto-options {
+  display: flex;
+  gap: 8px;
+}
+
+.am-gw-modal__sendto-btn {
+  flex: 1;
+  padding: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  border: 0.5px solid var(--am-border);
+  border-radius: var(--am-radius);
+  background: var(--am-linen);
+  color: var(--am-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.am-gw-modal__sendto-btn.is-active {
+  border-color: var(--am-cobalt);
+  color: var(--am-cobalt);
+  background: rgba(0,71,171,0.05);
+}
+
+/* Message row */
+.am-gw-modal__message-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  padding-top: 1rem;
+  border-top: 0.5px solid var(--am-border);
+}
+
+.am-gw-modal__toggle-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--am-muted);
+  letter-spacing: 0.04em;
+}
+
+.am-gw-modal__toggle {
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  border: 0.5px solid var(--am-border);
+  background: #e0d9cc;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.am-gw-modal__toggle[aria-checked="true"] {
+  background: var(--am-cobalt);
+  border-color: var(--am-cobalt);
+}
+
+.am-gw-modal__toggle-knob {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 2.5px;
+  left: 2.5px;
+  transition: left 0.2s;
+  pointer-events: none;
+}
+
+.am-gw-modal__toggle[aria-checked="true"] .am-gw-modal__toggle-knob {
+  left: 19.5px;
+}
+
+/* Message field */
+.am-gw-modal__message-field { margin-bottom: 1rem; }
+
+.am-gw-modal__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--am-text);
+  background: var(--am-linen);
+  border: 0.5px solid var(--am-border);
+  border-radius: var(--am-radius);
+  resize: none;
+  outline: none;
+  line-height: 1.7;
+  transition: border-color 0.15s;
+}
+
+.am-gw-modal__textarea:focus { border-color: rgba(26,26,26,0.3); }
+
+.am-gw-modal__charcount {
+  text-align: right;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  color: var(--am-muted);
+  margin: 4px 0 0;
+  letter-spacing: 0.04em;
+}
+
+/* CTA */
+.am-gw-modal__cta { margin-top: 1.25rem; }
+
+.am-gw-modal__add-btn {
+  width: 100%;
+  padding: 15px 24px;
+  background: var(--am-cobalt);
+  border: none;
+  color: white;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: var(--am-radius);
+  transition: opacity 0.15s;
+}
+
+.am-gw-modal__add-btn:hover { opacity: 0.88; }
+.am-gw-modal__add-btn:active { transform: scale(0.99); }
+
+/* Success */
+.am-gw-modal__success {
+  text-align: center;
+  padding: 1rem 0 0.5rem;
+}
+
+.am-gw-modal__success-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--am-text);
+  margin: 0 0 6px;
+}
+
+.am-gw-modal__success-sub {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--am-muted);
+  margin: 0 0 1.25rem;
+}
+
+.am-gw-modal__dismiss {
+  background: none;
+  border: 0.5px solid var(--am-border);
+  padding: 10px 24px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--am-muted);
+  cursor: pointer;
+  border-radius: var(--am-radius);
+  transition: background 0.15s;
+}
+
+.am-gw-modal__dismiss:hover { background: var(--am-linen); }
+/* ─────────────────────────────────────────────────────────────────── */
+</style>
+
+
+<script>
+(function () {
+  var trigger    = document.getElementById('am-gw-trigger');
+  var overlay    = document.getElementById('am-gw-overlay');
+  var modal      = document.getElementById('am-gw-modal');
+  var closeBtn   = document.getElementById('am-gw-close');
+  var msgToggle  = document.getElementById('am-gw-msg-toggle');
+  var msgField   = document.getElementById('am-gw-msg-field');
+  var msgText    = document.getElementById('am-gw-msg-text');
+  var msgCount   = document.getElementById('am-gw-msg-count');
+  var addBtn     = document.getElementById('am-gw-add');
+  var successEl  = document.getElementById('am-gw-success');
+  var dismissBtn = document.getElementById('am-gw-dismiss');
+  var sendBtns   = document.querySelectorAll('.am-gw-modal__sendto-btn');
+
+  if (!trigger) return;
+
+  function openModal() {
+    overlay.classList.add('is-open');
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    trigger.focus();
+  }
+
+  trigger.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+  dismissBtn.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+
+  sendBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      sendBtns.forEach(function (b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+    });
+  });
+
+  msgToggle.addEventListener('click', function () {
+    var isOpen = msgToggle.getAttribute('aria-checked') === 'true';
+    msgToggle.setAttribute('aria-checked', isOpen ? 'false' : 'true');
+    msgField.hidden = isOpen;
+    if (!isOpen) msgText.focus();
+  });
+
+  msgText.addEventListener('input', function () {
+    msgCount.textContent = msgText.value.length;
+  });
+
+  addBtn.addEventListener('click', function () {
+    var variantId  = parseInt(addBtn.dataset.variantId);
+    var message    = msgText ? msgText.value.trim() : '';
+    var activeSend = document.querySelector('.am-gw-modal__sendto-btn.is-active');
+    var sendTo     = activeSend ? activeSend.textContent.trim() : '';
+    var properties = { '_gift_wrap': 'true' };
+    if (sendTo)  properties['Send to']      = sendTo;
+    if (message) properties['Gift message'] = message;
+
+    addBtn.textContent = 'Adding\u2026';
+    addBtn.disabled = true;
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+      body: JSON.stringify({ items: [{ id: variantId, quantity: 1, properties: properties }] })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function () {
+      addBtn.closest('.am-gw-modal__cta').hidden = true;
+      successEl.hidden = false;
+      document.dispatchEvent(new CustomEvent('cart:refresh'));
+    })
+    .catch(function () {
+      addBtn.textContent = 'Something went wrong \u2014 try again';
+      addBtn.disabled = false;
+    });
+  });
+})();
+</script>

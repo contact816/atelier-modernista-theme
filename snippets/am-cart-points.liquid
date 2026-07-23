@@ -1,0 +1,51 @@
+{%- comment -%}
+  Atelier Points cart message
+  Usage:
+    {% render 'am-cart-points', total_price: cart.total_price, context: 'cart' %}
+    {% render 'am-cart-points', total_price: cart.total_price, context: 'drawer' %}
+
+  Current earning rate:
+    1 Atelier Point per £1 spent
+
+  To change the rate later, edit points_per_pound below.
+{%- endcomment -%}
+
+{%- liquid
+  assign points_per_pound = 1
+  assign total_price_value = total_price | default: 0
+  assign atelier_points = total_price_value | divided_by: 100 | times: points_per_pound | floor
+  assign message_context = context | default: 'cart'
+-%}
+{% assign is_member = false %}
+
+{% if customer and customer.tags contains 'Atelier Circle' %}
+  {% assign is_member = true %}
+{% endif %}
+{% if is_member %}
+  towards your next Atelier Selection.
+{% else %}
+  towards your first Atelier Selection.
+{% endif %}
+{%- if atelier_points > 0 -%}
+  <div
+    class="am-cart-points am-cart-points--{{ message_context }}"
+    aria-label="This order will collect {{ atelier_points }} Atelier Points"
+  >
+    <span class="am-cart-points__mark" aria-hidden="true">AM</span>
+
+    <div class="am-cart-points__copy">
+      <span class="am-cart-points__eyebrow">
+        Atelier Circle
+      </span>
+
+     <span class="am-cart-points__line">
+  This order earns
+  <strong>{{ atelier_points }} Atelier Points</strong>
+  towards your next Atelier Selection.
+</span>
+      <a class="am-cart-points__link" href="/pages/atelier-circle">
+        View your Atelier Selections →
+      </a>
+    </div>
+  </div>
+{%- endif -%}

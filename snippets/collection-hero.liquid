@@ -1,0 +1,211 @@
+{% comment %}
+  SNIPPET: snippets/collection-hero.liquid
+{% endcomment %}
+
+<nav class="am-breadcrumbs" aria-label="Breadcrumb">
+  <a href="/">Home</a>
+  <span aria-hidden="true"> / </span>
+  <a href="/collections">Collections</a>
+  <span aria-hidden="true"> / </span>
+  <span>{{ collection.title }}</span>
+</nav>
+
+<div class="am-collection-hero{% if collection.image %} am-collection-hero--with-image{% endif %}">
+
+  {%- if collection.image -%}
+    <div class="am-collection-hero__image">
+      <img
+        src="{{ collection.image | image_url: width: 1200 }}"
+        alt="{{ collection.image.alt | escape | default: collection.title }}"
+        loading="eager"
+        width="{{ collection.image.width }}"
+        height="{{ collection.image.height }}"
+      >
+    </div>
+  {%- endif -%}
+
+  <div class="am-collection-hero__content">
+    <p class="am-collection-hero__eyebrow">Artists Made These</p>
+    <h1 class="am-collection-hero__title">{{ collection.title | escape }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="am-collection-hero__description">{{ collection.description }}</div>
+    {%- endif -%}
+    <div class="am-collection-hero__statement">
+  
+</div>
+    <div class="am-collection-hero__meta">
+      {%- if collection.metafields['custom']['am_collection_from'] != blank -%}
+        <div class="am-collection-hero__meta-item">
+          <span class="am-collection-hero__meta-label">From</span>
+          <span class="am-collection-hero__meta-value">{{ collection.metafields['custom']['am_collection_from'] }}</span>
+        </div>
+      {%- endif -%}
+      {%- if collection.metafields['custom']['am_collection_materials'] != blank -%}
+        <div class="am-collection-hero__meta-item">
+          <span class="am-collection-hero__meta-label">Materials</span>
+          <span class="am-collection-hero__meta-value">{{ collection.metafields['custom']['am_collection_materials'] }}</span>
+        </div>
+      {%- endif -%}
+      {%- if collection.metafields['custom']['am_collection_curated'] != blank -%}
+        <div class="am-collection-hero__meta-item">
+          <span class="am-collection-hero__meta-label">Curated</span>
+          <span class="am-collection-hero__meta-value">{{ collection.metafields['custom']['am_collection_curated'] }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .am-breadcrumbs {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: #9e9a90;
+    padding: 15px 10px;
+    margin: 0;
+    display: block;
+  }
+  .am-breadcrumbs a { color: #9e9a90; text-decoration: none; }
+  .am-breadcrumbs a:hover { color: #1a1a18; }
+  .am-breadcrumbs span[aria-hidden] { margin: 0 0.3em; color: rgba(26,26,24,0.3); }
+
+  .shopify-section:has(.am-breadcrumbs) {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  .am-collection-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 520px;
+  max-height: none;
+  margin: 0;
+  align-items: stretch;
+}
+
+.am-collection-hero--with-image {
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+
+.am-collection-hero__image {
+  overflow: hidden;
+  background-color: #e8e2d4;
+  min-height: 100%;
+}
+
+  .am-collection-hero__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .am-collection-hero__content {
+    background-color: #0047AB;
+    color: #fdf6e3;
+    padding: clamp(56px, 7vw, 96px) clamp(48px, 5vw, 72px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .am-collection-hero__eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #C9A96E;
+    margin: 0 0 24px;
+  }
+
+  .am-collection-hero__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(48px, 5.5vw, 86px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: #fdf6e3;
+    margin: 0 0 40px;
+  }
+
+  .am-collection-hero__description,
+  .am-collection-hero__description p {
+    font-family: 'Jost', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 2;
+    color: rgba(253,246,227,0.85);
+    max-width: 56ch;
+    margin: 0;
+  }
+
+  .am-collection-hero__description p + p {
+    margin-top: 32px;
+  }
+ .am-collection-hero__statement {
+  font-family: var(--am-sans) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.32em !important;
+  text-transform: uppercase !important;
+  color: #f4c400 !important;
+  margin-top: 34px !important;
+  margin-bottom: 18px !important;
+}
+  .am-collection-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 40px;
+    padding-top: 24px;
+    margin-top: auto;
+    border-top: 1px solid rgba(253,246,227,0.2);
+  }
+
+  .am-collection-hero__meta-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .am-collection-hero__meta-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #C9A96E;
+  }
+
+  .am-collection-hero__meta-value {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(253,246,227,0.85);
+  }
+
+  @media (max-width: 749px) {
+    .am-collection-hero--with-image {
+      grid-template-columns: 1fr;
+      max-height: none;
+    }
+    .am-collection-hero__image {
+      height: 260px;
+    }
+    .am-collection-hero__content {
+      padding: 32px 20px;
+    }
+    .am-collection-hero__title {
+      font-size: 32px;
+    }
+    .am-breadcrumbs {
+      padding: 16px 20px;
+    }
+  }
+</style>

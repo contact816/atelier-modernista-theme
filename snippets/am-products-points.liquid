@@ -1,0 +1,95 @@
+{%- liquid
+  assign points_per_pound = 1
+  assign variant = product.selected_or_first_available_variant
+  assign atelier_points = variant.price | divided_by: 100 | times: points_per_pound | floor
+
+  assign is_atelier_member = false
+
+  if customer and customer.tags contains 'Atelier Circle'
+    assign is_atelier_member = true
+  endif
+-%}
+
+{%- unless product.handle == 'luxury-gift-wrapping' -%}
+  <a
+    id="AMProductPoints-{{ product.id }}"
+    class="am-product-points{% if is_atelier_member %} am-product-points--member{% endif %}"
+    href="/pages/atelier-circle"
+    data-am-product-points
+    data-points-per-pound="{{ points_per_pound }}"
+  >
+    <div class="am-product-points__icon" aria-hidden="true">
+      AM
+    </div>
+
+    <div class="am-product-points__content">
+      <p class="am-product-points__eyebrow">
+        Atelier Circle
+      </p>
+
+      <p class="am-product-points__text">
+        {%- if is_atelier_member -%}
+          This piece earns
+<strong>{{ atelier_points }} Atelier Points.</strong>
+          closer to your next Atelier Selection.
+        {%- else -%}
+  Earn
+  <strong data-am-points-value>
+    {{ atelier_points }} Atelier Point{% unless atelier_points == 1 %}s{% endunless %}
+  </strong>
+  towards your first Atelier Selection.
+{%- endif -%}
+      </p>
+    </div>
+  </a>
+
+  <script>
+    (() => {
+      const component = document.getElementById(
+        'AMProductPoints-{{ product.id }}'
+      );
+
+      if (!component || component.dataset.initialised === 'true') return;
+
+      component.dataset.initialised = 'true';
+
+      const productSection = component.closest('product-info');
+      const pointsOutput = component.querySelector('[data-am-points-value]');
+      const pointsPerPound = Number(
+        component.dataset.pointsPerPound || 1
+      );
+
+      const variants = {{ product.variants | json }};
+
+      if (!productSection || !pointsOutput || !Array.isArray(variants)) return;
+
+      function updatePoints() {
+        const variantInput = productSection.querySelector(
+          'form[action*="/cart/add"] input[name="id"]'
+        );
+
+        if (!variantInput) return;
+
+        const selectedVariantId = Number(variantInput.value);
+
+        const selectedVariant = variants.find(
+          variant => variant.id === selectedVariantId
+        );
+
+        if (!selectedVariant) return;
+
+        const points =
+          Math.floor(selectedVariant.price / 100) * pointsPerPound;
+
+        pointsOutput.textContent =
+          `${points} Atelier Point${points === 1 ? '' : 's'}`;
+      }
+
+      productSection.addEventListener('change', () => {
+        window.requestAnimationFrame(updatePoints);
+      });
+
+      updatePoints();
+    })();
+  </script>
+{%- endunless -%}

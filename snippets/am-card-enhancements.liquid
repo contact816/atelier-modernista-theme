@@ -1,0 +1,258 @@
+{% comment %}
+  SNIPPET: snippets/am-card-enhancements.liquid
+
+  HOW TO INSTALL:
+  1. Create this as a new snippet named "am-card-enhancements"
+  2. Open snippets/card-product.liquid (Dawn's existing product card)
+  3. At the very bottom of card-product.liquid, add:
+       {% render 'am-card-enhancements' %}
+     This loads the CSS + JS exactly once per page (it self-deduplicates).
+
+  WHAT IT DOES:
+  - Image hover-swap: if a product has a second image, it fades in on hover
+  - Quick Add pill: appears at bottom of card image on hover (desktop),
+    always visible on mobile. Submits a form add-to-cart without page reload.
+  - Badge rendering: "New", "Bestseller", "One of a Kind", "Set Available"
+    pulled from product tags (add matching tags in Shopify product editor)
+  
+  BADGE TAGS (add to products in Shopify Admin → Products → Tags):
+    am-badge-new
+    am-badge-bestseller
+    am-badge-one-of-a-kind
+    am-badge-set-available
+    am-badge-limited        (renders "Limited Edition")
+
+  The card hover image swap works automatically if the product has
+  a second image (product.images[1]). No changes to card-product.liquid
+  needed for images — Dawn already outputs both images in its card markup;
+  this CSS layer does the rest.
+
+  QUICK ADD:
+  Dawn ships with its own quick-add behaviour. This snippet styles it
+  to match the mockup aesthetic. If your theme has Quick Add disabled
+  in Theme Editor, enable it: Customize → Theme settings → Cart → 
+  set "Cart type" to "Drawer" or "Popup" and enable Quick Add.
+{% endcomment %}
+
+{%- unless am_card_enhancements_loaded -%}
+  {%- assign am_card_enhancements_loaded = true -%}
+
+<style>
+  /* ── Card image hover-swap ─────────────────────────── */
+
+  /*
+    Dawn renders the card media as:
+      <div class="card__media">
+        <div class="media media--transparent">
+          <img class="motion-reduce" ...>   ← primary image
+          -- sometimes a second img is output for "on hover" --
+        </div>
+      </div>
+    
+    We target the second image inside .card__media and handle
+    the opacity transition. Dawn uses .card--media, .card--image,
+    or .card__inner depending on version.
+  */
+
+  /* Primary image — zoom very slightly on hover */
+  .card-wrapper .card__media .media img:first-child,
+  .card-wrapper .card__inner .media img:first-child {
+    transition: transform 360ms cubic-bezier(0.25, 0.1, 0.25, 1),
+                opacity 280ms ease;
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  .card-wrapper:hover .card__media .media img:first-child,
+  .card-wrapper:hover .card__inner .media img:first-child {
+    transform: scale(1.04);
+  }
+
+  /* Alt image — hidden by default, fades in on hover */
+  .card-wrapper .card__media .media img:nth-child(2),
+  .card-wrapper .card__inner .media img:nth-child(2) {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    opacity: 0 !important;
+    transition: opacity 360ms ease !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+  }
+
+  .card-wrapper:hover .card__media .media img:nth-child(2),
+  .card-wrapper:hover .card__inner .media img:nth-child(2) {
+    opacity: 1 !important;
+  }
+
+  /* Ensure media container is position:relative for the alt image */
+  .card-wrapper .card__media .media,
+  .card-wrapper .card__inner .media {
+    overflow: hidden !important;
+  }
+
+
+  /* ── Quick Add — styled to match mockup ────────────── */
+
+  /*
+    Dawn's Quick Add renders inside .quick-add as:
+      <quick-add-modal>
+        <button type="submit" class="quick-add__submit button button--secondary button--full-width ..."
+    
+    We override its appearance to match the mockup pill style.
+  */
+.quick-add {
+  position: absolute !important;
+  bottom: 0.6rem !important;
+  left: 0.6rem !important;
+  right: 0.6rem !important;
+  z-index: 3 !important;
+  opacity: 0 !important;
+  transform: translateY(4px) !important;
+  transition: opacity 200ms ease, transform 200ms ease !important;
+  pointer-events: none !important;
+}
+
+.card-wrapper:hover .quick-add {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  pointer-events: none !important;
+}
+
+.card-wrapper:hover .quick-add__submit {
+  pointer-events: auto !important;
+}
+
+.quick-add__submit {
+  display: block !important;
+  width: 100% !important;
+  position: relative !important;
+  z-index: 4 !important;
+  pointer-events: auto !important;
+  font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+  font-size: 0.62rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  background-color: #1a1a18 !important;
+  color: #fdf6e3 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0.7rem 1rem !important;
+  cursor: pointer !important;
+  transition: background-color 180ms ease !important;
+  line-height: 1 !important;
+}
+
+.quick-add__submit:hover {
+  background-color: #0047AB !important;
+}
+
+@media (max-width: 768px) {
+  .quick-add {
+    position: static !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: none !important;
+    margin-top: 0.6rem !important;
+  }
+
+  .quick-add__submit {
+    pointer-events: auto !important;
+  }
+}
+  
+
+  /* ── Product card badges ───────────────────────────── */
+
+  /*
+    Badges rendered by am-card-badge.liquid snippet (below).
+    Position: top-left of the card image.
+  */
+
+  .am-card-badge {
+    position: absolute !important;
+    top: 0.65rem !important;
+    left: 0.65rem !important;
+    z-index: 4 !important;
+    font-family: 'Jost', 'Helvetica Neue', sans-serif !important;
+    font-size: 0.58rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    background-color: #1a1a18 !important;
+    color: #fdf6e3 !important;
+    padding: 0.25rem 0.55rem !important;
+    line-height: 1.4 !important;
+    pointer-events: none !important;
+    border-radius: 0 !important;
+  }
+
+  .am-card-badge--new       { background-color: #1a1a18 !important; }
+  .am-card-badge--bestseller { background-color: #1a1a18 !important; }
+  .am-card-badge--ooak      { background-color: #3a3a35 !important; }
+  .am-card-badge--set       { background-color: #1a1a18 !important; }
+  .am-card-badge--limited   { background-color: #0047AB !important; }
+  .am-card-badge--sale      { background-color: #0047AB !important; }
+
+</style>
+
+{%- endunless -%}
+
+
+{% comment %}
+  ─────────────────────────────────────────────────────────────────────
+  SEPARATE SNIPPET: snippets/am-card-badge.liquid
+  
+  HOW TO USE:
+  1. Create a NEW snippet named "am-card-badge" with the content below
+  2. Inside snippets/card-product.liquid, find where the card image
+     media is output (look for card__media or card__inner with the image)
+  3. Just AFTER the opening <div class="card__media"> (or similar),
+     add this line:
+       {%- render 'am-card-badge', product: card_product -%}
+  
+  This reads the product's tags and renders the appropriate badge.
+  ─────────────────────────────────────────────────────────────────────
+
+  Copy this into snippets/am-card-badge.liquid:
+  ╔══════════════════════════════════════════════════════════╗
+
+  {%- liquid
+    assign badge_label = ''
+    assign badge_mod = ''
+    for tag in product.tags
+      case tag
+        when 'am-badge-new'
+          assign badge_label = 'New'
+          assign badge_mod = 'new'
+        when 'am-badge-bestseller'
+          assign badge_label = 'Bestseller'
+          assign badge_mod = 'bestseller'
+        when 'am-badge-one-of-a-kind'
+          assign badge_label = 'One of a Kind'
+          assign badge_mod = 'ooak'
+        when 'am-badge-set-available'
+          assign badge_label = 'Set Available'
+          assign badge_mod = 'set'
+        when 'am-badge-limited'
+          assign badge_label = 'Limited Edition'
+          assign badge_mod = 'limited'
+      endcase
+    endfor
+    if product.compare_at_price > product.price and badge_label == ''
+      assign badge_label = 'Sale'
+      assign badge_mod = 'sale'
+    endif
+  -%}
+
+  {%- if badge_label != '' -%}
+    <span class="am-card-badge am-card-badge--{{ badge_mod }}" aria-label="{{ badge_label }}">
+      {{ badge_label }}
+    </span>
+  {%- endif -%}
+
+  ╚══════════════════════════════════════════════════════════╝
+{% endcomment %}

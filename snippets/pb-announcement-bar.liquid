@@ -1,0 +1,10 @@
+{% comment %}
+  Snippet: am-announcement-bar.liquid
+  Usage: {% render 'am-announcement-bar' %}
+  Or control via theme settings: settings.announcement_text
+{% endcomment %}
+{%- if settings.announcement_text != blank or section.settings.text != blank -%}
+  <div class="am-announce" role="complementary" aria-label="Announcement">
+    {{ settings.announcement_text | default: section.settings.text }}
+  </div>
+{%- endif -%}

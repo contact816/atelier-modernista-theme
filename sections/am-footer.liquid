@@ -1,0 +1,329 @@
+{% comment %}theme-check-disable UndefinedObject{% endcomment %}
+
+<style>
+  .am-footer-wrap {
+    background: #f7f0e6;
+    border-top: 1px solid rgba(0, 71, 171, 0.12);
+    padding: 64px 60px 0;
+    font-family: 'Jost', system-ui, sans-serif;
+  }
+
+  .am-footer-wrap * {
+    box-sizing: border-box;
+    color: #0047AB;
+  }
+
+  .am-footer__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 56px;
+  }
+
+  /* Brand column */
+  .am-footer__brand-logo {
+    display: block;
+    margin-bottom: 18px;
+    max-width: 90px;
+  }
+
+  .am-footer__brand-logo img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .am-footer__brand-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    max-width: 260px;
+    font-weight: 300;
+    margin-bottom: 22px;
+    margin-top: 0;
+  }
+
+  /* Socials */
+  .am-footer__socials {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .am-footer__social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 14px;
+    border: 1px solid rgba(0, 71, 171, 0.25);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .am-footer__social-btn:hover {
+    background: #0047AB;
+    color: #f7f0e6 !important;
+    border-color: #0047AB;
+  }
+
+  /* Nav columns */
+  .am-footer__col-heading {
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 0;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .am-footer__col-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .am-footer__col-links li {
+    margin-bottom: 12px;
+  }
+
+  .am-footer__col-links a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;
+    transition: opacity 0.2s ease;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .am-footer__col-links a:hover {
+    opacity: 0.6;
+  }
+
+  /* Bottom bar */
+  .am-footer__bottom {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px 0 32px;
+    border-top: 1px solid rgba(0, 71, 171, 0.12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .am-footer__copyright {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .am-footer__policies {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+
+  .am-footer__policies a {
+    text-decoration: none;
+    font-size: 13px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    transition: opacity 0.2s ease;
+  }
+
+  .am-footer__policies a:hover {
+    opacity: 0.6;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .am-footer__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 749px) {
+    .am-footer-wrap {
+      padding: 48px 24px 0;
+    }
+
+    .am-footer__inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding-bottom: 40px;
+    }
+
+    .am-footer__bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .am-footer__policies {
+      gap: 14px;
+    }
+  }
+</style>
+
+<footer class="am-footer-wrap">
+  <div class="am-footer__inner">
+
+    {%- comment %} Brand column {%- endcomment %}
+    <div class="am-footer__brand">
+      <a href="{{ routes.root_url }}" class="am-footer__brand-logo">
+        {%- if settings.logo != blank -%}
+          {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio | round -%}
+          {{
+            settings.logo
+            | image_url: width: 200
+            | image_tag:
+              loading: 'lazy',
+              width: settings.logo_width,
+              height: logo_height,
+              alt: shop.name
+          }}
+        {%- else -%}
+          <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;letter-spacing:0.02em;">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+
+      <p class="am-footer__brand-desc">
+        {%- if section.settings.brand_description != blank -%}
+          {{ section.settings.brand_description }}
+        {%- else -%}
+          A London-based curatorial label for art jewellery in the Modernist tradition.
+        {%- endif -%}
+      </p>
+
+      <ul class="am-footer__socials">
+        <li><a href="https://www.instagram.com/ateliermodernista/" target="_blank" rel="noopener" class="am-footer__social-btn">Instagram</a></li>
+        <li><a href="https://www.pinterest.co.uk/ateliermodernista/" target="_blank" rel="noopener" class="am-footer__social-btn">Pinterest</a></li>
+        <li><a href="https://bsky.app/profile/ateliermodernista.bsky.social" target="_blank" rel="noopener" class="am-footer__social-btn">Bluesky</a></li>
+      </ul>
+    </div>
+
+    {%- comment %} Shop column {%- endcomment %}
+    <div class="am-footer__col">
+      <h4 class="am-footer__col-heading">Shop</h4>
+      <ul class="am-footer__col-links">
+        {%- if section.settings.shop_menu != blank -%}
+          {%- for link in linklists[section.settings.shop_menu].links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        {%- else -%}
+          <li><a href="/collections/the-atelier-collection">All Pieces</a></li>
+          <li><a href="/collections/earrings">Earrings</a></li>
+          <li><a href="/collections/necklaces">Necklaces</a></li>
+          <li><a href="/collections/the-colour-edit">By Colour</a></li>
+          <li><a href="/products/gift-card">Gift Cards</a></li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+    {%- comment %} Atelier column {%- endcomment %}
+    <div class="am-footer__col">
+      <h4 class="am-footer__col-heading">Atelier</h4>
+      <ul class="am-footer__col-links">
+        {%- if section.settings.atelier_menu != blank -%}
+          {%- for link in linklists[section.settings.atelier_menu].links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        {%- else -%}
+          <li><a href="/pages/philosophy">The Philosophy</a></li>
+          <li><a href="/collections/the-atelier-collection">The Edit</a></li>
+          <li><a href="/blogs/journal">Journal</a></li>
+          <li><a href="/pages/contact">Contact</a></li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+    {%- comment %} Help column {%- endcomment %}
+    <div class="am-footer__col">
+      <h4 class="am-footer__col-heading">Help</h4>
+      <ul class="am-footer__col-links">
+        {%- if section.settings.help_menu != blank -%}
+          {%- for link in linklists[section.settings.help_menu].links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        {%- else -%}
+          <li><a href="/pages/shipping-returns">Shipping &amp; Returns</a></li>
+          <li><a href="/pages/contact">Contact</a></li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+  </div>
+
+  {%- comment %} Bottom bar {%- endcomment %}
+  <div class="am-footer__bottom">
+    <span class="am-footer__copyright">
+      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }} &middot; London
+    </span>
+    <ul class="am-footer__policies">
+      {%- for policy in shop.policies -%}
+        {%- if policy != blank and policy.title != 'Contact information' -%}
+          <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "tag": "section",
+  "class": "footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Brand description",
+      "default": "A London-based curatorial label for art jewellery in the Modernist tradition."
+    },
+    {
+      "type": "header",
+      "content": "Navigation menus"
+    },
+    {
+      "type": "link_list",
+      "id": "shop_menu",
+      "label": "Shop menu",
+      "info": "Leave empty to use default links"
+    },
+    {
+      "type": "link_list",
+      "id": "atelier_menu",
+      "label": "Atelier menu",
+      "info": "Leave empty to use default links"
+    },
+    {
+      "type": "link_list",
+      "id": "help_menu",
+      "label": "Help menu",
+      "info": "Leave empty to use default links"
+    }
+  ],
+  "blocks": [],
+  "default": {
+    "settings": {}
+  }
+}
+{% endschema %}

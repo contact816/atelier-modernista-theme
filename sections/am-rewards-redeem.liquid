@@ -1,0 +1,419 @@
+<section
+  class="am-rewards-redeem color-{{ section.settings.color_scheme }}"
+  style="
+    --am-cobalt: #0047AB;
+    --am-cobalt-deep: #071465;
+    --am-ui-cobalt: #1f2c8a;
+    --am-ui-cobalt-dark: #161f63;
+    --am-cream: #fdf6e3;
+    --am-cream-soft: #f7eed8;
+    --am-padding-top: {{ section.settings.padding_top }}px;
+    --am-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="page-width">
+
+    <div class="am-rewards-redeem__header">
+      {% if section.settings.eyebrow != blank %}
+        <p class="am-rewards-redeem__eyebrow">
+          {{ section.settings.eyebrow }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="am-rewards-redeem__heading">
+          {{ section.settings.heading }}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.introduction != blank %}
+        <div class="am-rewards-redeem__intro rte">
+          {{ section.settings.introduction }}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="am-rewards-redeem__grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'reward_gift' and block.settings.active %}
+            <article
+              class="am-rewards-redeem__card"
+              {{ block.shopify_attributes }}
+            >
+              {% if block.settings.image != blank %}
+                <div class="am-rewards-redeem__image-wrap">
+                  {{
+                    block.settings.image
+                    | image_url: width: 1200
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '360, 540, 720, 960, 1200',
+                      sizes: '(min-width: 990px) 50vw, 100vw',
+                      alt: block.settings.title
+                  }}
+                </div>
+              {% endif %}
+
+              <div class="am-rewards-redeem__content">
+                {% if block.settings.points_required != blank %}
+                  <p class="am-rewards-redeem__points">
+                    Available from
+                    <strong>{{ block.settings.points_required }} Atelier Points</strong>
+                  </p>
+                {% endif %}
+
+                {% if block.settings.title != blank %}
+                  <h2 class="am-rewards-redeem__title">
+                    {{ block.settings.title }}
+                  </h2>
+                {% endif %}
+
+                {% if block.settings.description != blank %}
+                  <div class="am-rewards-redeem__description rte">
+                    {{ block.settings.description }}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.note != blank %}
+                  <p class="am-rewards-redeem__note">
+                    {{ block.settings.note }}
+                  </p>
+                {% endif %}
+
+                {% if block.settings.button_link != blank %}
+                  <a
+                    href="{{ block.settings.button_link }}"
+                    class="am-rewards-redeem__link"
+                  >
+                    {{ block.settings.button_label | default: 'View Reward Gift' }}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                {% endif %}
+              </div>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="am-rewards-redeem__empty">
+        Add Reward Gift blocks in the Theme Editor.
+      </p>
+    {% endif %}
+
+  </div>
+</section>
+
+{% stylesheet %}
+
+.am-rewards-redeem {
+  padding-top: var(--am-padding-top);
+  padding-bottom: var(--am-padding-bottom);
+  background: var(--am-cream);
+}
+
+.am-rewards-redeem *,
+.am-rewards-redeem *::before,
+.am-rewards-redeem *::after {
+  box-sizing: border-box;
+}
+
+.am-rewards-redeem__header {
+  max-width: 78rem;
+  margin-bottom: clamp(3.5rem, 7vw, 7rem);
+}
+
+.am-rewards-redeem__eyebrow {
+  margin: 0 0 1rem;
+  color: var(--am-cobalt-deep);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.am-rewards-redeem__heading {
+  margin: 0;
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-heading-family);
+  font-size: clamp(3.6rem, 6vw, 6.8rem);
+  font-weight: 500;
+  line-height: .98;
+}
+
+.am-rewards-redeem__intro {
+  max-width: 66rem;
+  margin-top: 1.8rem;
+  color: rgba(var(--color-foreground), .78);
+  font-size: 1.5rem;
+  line-height: 1.65;
+}
+
+.am-rewards-redeem__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 4rem);
+}
+
+.am-rewards-redeem__card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(0, 71, 171, .18);
+}
+
+.am-rewards-redeem__image-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #fff;
+}
+
+.am-rewards-redeem__image-wrap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.am-rewards-redeem__card:hover .am-rewards-redeem__image-wrap img {
+  transform: scale(1.02);
+}
+
+.am-rewards-redeem__content {
+  padding: clamp(2rem, 3vw, 3.2rem);
+}
+
+.am-rewards-redeem__points {
+  margin: 0;
+  color: var(--am-cobalt-deep);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.am-rewards-redeem__points strong {
+  display: block;
+  margin-top: .25rem;
+  color: var(--am-cobalt);
+  font-size: 1.2rem;
+}
+
+.am-rewards-redeem__title {
+  margin: 1.2rem 0 0;
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-heading-family);
+  font-size: clamp(2.8rem, 4vw, 4.6rem);
+  font-weight: 500;
+  line-height: 1.02;
+}
+
+.am-rewards-redeem__description {
+  margin-top: 1.2rem;
+  color: rgba(var(--color-foreground), .76);
+  font-size: 1.35rem;
+  line-height: 1.65;
+}
+
+.am-rewards-redeem__description p {
+  margin: 0;
+}
+
+.am-rewards-redeem__note {
+  margin: 1.2rem 0 0;
+  color: rgba(var(--color-foreground), .62);
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.am-rewards-redeem__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  margin-top: 1.8rem;
+  padding-bottom: .2rem;
+  color: var(--am-cobalt);
+  border-bottom: 1px solid currentColor;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.am-rewards-redeem__link:hover {
+  color: var(--am-cobalt-deep);
+}
+
+.am-rewards-redeem__empty {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+@media screen and (max-width: 749px) {
+  .am-rewards-redeem__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .am-rewards-redeem__heading {
+    font-size: clamp(3.2rem, 12vw, 5rem);
+  }
+
+  .am-rewards-redeem__content {
+    padding: 2rem 1.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .am-rewards-redeem__image-wrap img {
+    transition: none;
+  }
+}
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "AM — Reward Gifts",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "The Atelier Circle"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose Your Reward Gift"
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Introduction",
+      "default": "<p>Choose from jewellery, candles and considered objects selected for members of The Atelier Circle.</p>"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "reward_gift",
+      "name": "Reward Gift",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "active",
+          "label": "Show this Reward Gift",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Reward Gift title",
+          "default": "Studio Candle"
+        },
+        {
+          "type": "range",
+          "id": "points_required",
+          "label": "Points required",
+          "min": 50,
+          "max": 5000,
+          "step": 50,
+          "default": 250
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>A considered object chosen to bring colour, calm or pleasure to everyday life.</p>"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Optional note",
+          "default": "Reward Gift availability may change."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Link wording",
+          "default": "View Reward Gift"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Reward Gifts",
+      "blocks": [
+        {
+          "type": "reward_gift",
+          "settings": {
+            "title": "Choose Your Gift",
+            "points_required": 250,
+            "description": "<p>Choose a small pleasure from a changing selection of beautiful, useful things.</p>",
+            "note": "The selection changes throughout the year."
+          }
+        },
+        {
+          "type": "reward_gift",
+          "settings": {
+            "title": "Choose a Studio Gift",
+            "points_required": 500,
+            "description": "<p>Choose something considered for your home, desk or dressing table.</p>",
+            "note": "Candles, small design objects and seasonal Atelier finds."
+          }
+        },
+        {
+          "type": "reward_gift",
+          "settings": {
+            "title": "Choose Your Jewellery Gift",
+            "points_required": 1000,
+            "description": "<p>Choose a piece of jewellery from a rotating edit for members of The Atelier Circle.</p>",
+            "note": "The jewellery selection changes regularly."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

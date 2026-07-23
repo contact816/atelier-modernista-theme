@@ -1,0 +1,869 @@
+{% comment %}
+  Build Your Look — Standalone Page Template
+  File: templates/page.build-your-look.json  (creates a new page template)
+  Or: sections/build-your-look-page.liquid   (used by that template)
+
+  HOW TO INSTALL:
+  1. In Shopify Admin > Online Store > Themes > Edit code
+  2. Create a new file: sections/build-your-look-page.liquid
+  3. Paste this entire file into it
+  4. Create a new file: templates/page.build-your-look.json with:
+     { "sections": { "main": { "type": "build-your-look-page" } }, "order": ["main"] }
+  5. Go to Pages > Create new page, set template to "build-your-look"
+  6. Set the page handle to "build-your-look"
+{% endcomment %}
+
+<div id="byl-page-{{ section.id }}" class="byl-page">
+
+  {%- comment %} Page header {%- endcomment %}
+  <div class="byl-page__header">
+    <p class="byl-page__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1 class="byl-page__title">{{ section.settings.heading }}</h1>
+    <p class="byl-page__subtitle">{{ section.settings.subheading }}</p>
+    <div class="byl-page__badge">
+      <span class="byl-page__badge-number">15%</span>
+      <span class="byl-page__badge-text">off when you build a look of 3 pieces</span>
+    </div>
+  </div>
+
+  <div class="byl-page__body">
+
+    {%- comment %} Slot column {%- endcomment %}
+    <div class="byl-page__slots">
+
+      <div class="byl-page__slots-header">
+        <p class="byl-page__slots-label">Your selection</p>
+        <p class="byl-page__slots-hint">Pick any three pieces — the discount applies automatically.</p>
+      </div>
+
+      {%- for i in (1..3) -%}
+        {%- assign slot_num = i -%}
+        <div class="byl-page__slot" data-bylp-slot="{{ slot_num }}">
+
+          {%- comment %} Empty state {%- endcomment %}
+          <div class="byl-page__slot-empty" data-bylp-slot-empty="{{ slot_num }}">
+            <div class="byl-page__slot-number">{{ slot_num }}</div>
+            <div class="byl-page__slot-select-wrap">
+              <label class="byl-page__slot-slabel" for="bylp-select-{{ slot_num }}">
+                {%- if slot_num == 1 -%}First piece
+                {%- elsif slot_num == 2 -%}Second piece
+                {%- else -%}Third piece{%- endif -%}
+              </label>
+              <select id="bylp-select-{{ slot_num }}" class="byl-page__slot-dropdown" data-bylp-select="{{ slot_num }}">
+                <option value="">— Choose from collection —</option>
+              </select>
+            </div>
+          </div>
+
+          {%- comment %} Filled card {%- endcomment %}
+          <article class="byl-page__slot-card" data-bylp-card="{{ slot_num }}" style="display:none"
+            data-current-variant-id="" data-current-price="0">
+            <div class="byl-page__slot-card-img" data-bylp-card-img="{{ slot_num }}"></div>
+            <div class="byl-page__slot-card-body">
+              <p class="byl-page__slot-card-num">Piece {{ slot_num }}</p>
+              <h3 class="byl-page__slot-card-title" data-bylp-card-title="{{ slot_num }}"></h3>
+              <select class="byl-page__slot-card-variants" data-bylp-variant-select="{{ slot_num }}"></select>
+              <div class="byl-page__slot-card-price-row">
+                <span class="byl-page__slot-card-price" data-bylp-card-price="{{ slot_num }}">—</span>
+              </div>
+              <button class="byl-page__slot-remove" data-bylp-remove="{{ slot_num }}" type="button">
+                Remove
+              </button>
+            </div>
+          </article>
+
+        </div>
+      {%- endfor -%}
+
+      {%- comment %} Loading indicator {%- endcomment %}
+      <p class="byl-page__loading" data-bylp-loading aria-live="polite">Loading collection…</p>
+
+    </div>
+
+    {%- comment %} Summary sidebar {%- endcomment %}
+    <aside class="byl-page__summary">
+      <div class="byl-page__summary-inner">
+
+        <p class="byl-page__summary-label">Your look</p>
+
+        <div class="byl-page__summary-rows">
+          <div class="byl-page__summary-row" data-bylp-summary-row="1" style="display:none">
+            <span data-bylp-summary-name="1" class="byl-page__summary-row-name">—</span>
+            <span data-bylp-summary-price="1">—</span>
+          </div>
+          <div class="byl-page__summary-row" data-bylp-summary-row="2" style="display:none">
+            <span data-bylp-summary-name="2" class="byl-page__summary-row-name">—</span>
+            <span data-bylp-summary-price="2">—</span>
+          </div>
+          <div class="byl-page__summary-row" data-bylp-summary-row="3" style="display:none">
+            <span data-bylp-summary-name="3" class="byl-page__summary-row-name">—</span>
+            <span data-bylp-summary-price="3">—</span>
+          </div>
+        </div>
+
+        <div class="byl-page__summary-empty" data-bylp-summary-empty>
+          <p>Your look is empty.<br>Add three pieces to unlock your discount.</p>
+        </div>
+
+        <div class="byl-page__summary-totals" data-bylp-totals style="display:none">
+          <div class="byl-page__summary-divider"></div>
+          <div class="byl-page__summary-line">
+            <span>Subtotal</span>
+            <span data-bylp-subtotal>—</span>
+          </div>
+          <div class="byl-page__summary-line byl-page__summary-line--saving">
+            <span>15% look discount</span>
+            <span data-bylp-saving>—</span>
+          </div>
+          <div class="byl-page__summary-line byl-page__summary-line--total">
+            <span>Your price</span>
+            <span data-bylp-total>—</span>
+          </div>
+        </div>
+
+        <button type="button" class="byl-page__cta" data-bylp-add-btn disabled>
+          {{ section.settings.cta_label }}
+        </button>
+
+        <p class="byl-page__cta-hint" data-bylp-cta-hint>Add 3 pieces to unlock</p>
+        <p class="byl-page__toast" data-bylp-toast role="status" aria-live="polite"></p>
+
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<style>
+  #byl-page-{{ section.id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 40px {{ section.settings.padding_bottom }}px;
+  }
+
+  /* Header */
+  #byl-page-{{ section.id }} .byl-page__header {
+    text-align: center;
+    padding-bottom: 64px;
+    border-bottom: 0.5px solid rgba(0,71,171,0.12);
+    margin-bottom: 64px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(0,71,171,0.5);
+    margin: 0 0 16px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 400;
+    line-height: 1.05;
+    color: #111111;
+    margin: 0 0 16px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__subtitle {
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(17,17,17,0.55);
+    max-width: 480px;
+    margin: 0 auto 32px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: #0047AB;
+    color: #fff;
+    padding: 14px 28px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__badge-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__badge-text {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    max-width: 140px;
+  }
+
+  /* Body layout */
+  #byl-page-{{ section.id }} .byl-page__body {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 60px;
+    align-items: start;
+  }
+
+  /* Slots */
+  #byl-page-{{ section.id }} .byl-page__slots-header {
+    margin-bottom: 28px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slots-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(0,71,171,0.55);
+    margin: 0 0 6px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slots-hint {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(17,17,17,0.45);
+    margin: 0;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot {
+    margin-bottom: 12px;
+    border: 0.5px solid rgba(0,71,171,0.15);
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-empty {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 28px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-number {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border: 0.5px solid rgba(0,71,171,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: rgba(0,71,171,0.4);
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-select-wrap {
+    flex: 1;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-slabel {
+    display: block;
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,71,171,0.55);
+    margin-bottom: 8px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-dropdown {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 0.5px solid rgba(0,71,171,0.2);
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: #111;
+    cursor: pointer;
+    appearance: auto;
+  }
+
+  /* Filled card */
+  #byl-page-{{ section.id }} .byl-page__slot-card {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    min-height: 160px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-card-img {
+    background: rgba(0,71,171,0.03);
+    overflow: hidden;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-card-img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-card-body {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-card-num {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,71,171,0.5);
+    margin: 0 0 6px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #111;
+    margin: 0 0 12px;
+    line-height: 1.2;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-card-variants {
+    width: 100%;
+    min-height: 38px;
+    padding: 0 12px;
+    border: 0.5px solid rgba(0,0,0,0.12);
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-card-price-row {
+    margin-bottom: 8px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-card-price {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: #111;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-remove {
+    background: transparent;
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(17,17,17,0.3);
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    align-self: flex-start;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__slot-remove:hover {
+    color: #0047AB;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__loading {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    color: rgba(17,17,17,0.35);
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding: 20px 0;
+    display: none;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__loading.is-visible {
+    display: block;
+  }
+
+  /* Summary panel */
+  #byl-page-{{ section.id }} .byl-page__summary {
+    position: sticky;
+    top: 24px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__summary-inner {
+    border: 0.5px solid rgba(0,71,171,0.15);
+    padding: 32px 28px;
+    background: #fdf6e3;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__summary-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(0,71,171,0.55);
+    margin: 0 0 20px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__summary-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: #111;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__summary-row-name {
+    flex: 1;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__summary-empty {
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(17,17,17,0.35);
+    padding: 12px 0 20px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__summary-divider {
+    height: 0.5px;
+    background: rgba(0,71,171,0.12);
+    margin: 20px 0;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(17,17,17,0.55);
+    margin-bottom: 10px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__summary-line--saving {
+    color: #0047AB;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__summary-line--total {
+    font-size: 18px;
+    font-weight: 400;
+    color: #111;
+    font-family: 'Cormorant Garamond', serif;
+    margin-top: 4px;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__cta {
+    display: block;
+    width: 100%;
+    padding: 15px 24px;
+    margin-top: 24px;
+    background: #0047AB;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__cta:hover:not(:disabled) {
+    background: #003a8c;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__cta:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__cta-hint {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    text-align: center;
+    color: rgba(17,17,17,0.3);
+    letter-spacing: 0.08em;
+    margin: 10px 0 0;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__cta-hint.is-hidden {
+    display: none;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__toast {
+    display: block;
+    min-height: 20px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    text-align: center;
+    color: #0047AB;
+    letter-spacing: 0.08em;
+    margin-top: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #byl-page-{{ section.id }} .byl-page__toast.is-visible {
+    opacity: 1;
+  }
+
+  /* Responsive */
+  @media screen and (max-width: 989px) {
+    #byl-page-{{ section.id }} {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    #byl-page-{{ section.id }} .byl-page__body {
+      grid-template-columns: 1fr;
+    }
+
+    #byl-page-{{ section.id }} .byl-page__summary {
+      position: static;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #byl-page-{{ section.id }} {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    #byl-page-{{ section.id }} .byl-page__slot-card {
+      grid-template-columns: 110px 1fr;
+    }
+  }
+</style>
+
+<script>
+(function() {
+  const root = document.getElementById('byl-page-{{ section.id }}');
+  if (!root) return;
+
+  const SAVINGS = 0.15;
+  const CURRENCY = '{{ cart.currency.iso_code }}';
+  let allProducts = [];
+  let slots = { 1: null, 2: null, 3: null }; // { id, price, name, variantId }
+  let toastTimer = null;
+
+  function money(cents) {
+    return new Intl.NumberFormat(undefined, {
+      style: 'currency', currency: CURRENCY, maximumFractionDigits: 2
+    }).format((Number(cents) || 0) / 100);
+  }
+
+  function showToast(msg) {
+    const el = root.querySelector('[data-bylp-toast]');
+    if (!el) return;
+    clearTimeout(toastTimer);
+    el.textContent = msg;
+    el.classList.add('is-visible');
+    toastTimer = setTimeout(() => el.classList.remove('is-visible'), 2800);
+  }
+
+  // ---- Fetch products ----
+  async function fetchProducts() {
+    const loadingEl = root.querySelector('[data-bylp-loading]');
+    if (loadingEl) loadingEl.classList.add('is-visible');
+    try {
+      let products = [], page = 1;
+      while (true) {
+        const res = await fetch('/products.json?limit=250&page=' + page);
+        const data = await res.json();
+        if (!data.products || !data.products.length) break;
+        products = products.concat(data.products);
+        if (data.products.length < 250) break;
+        page++;
+      }
+      allProducts = products;
+      populateAllDropdowns();
+    } catch(e) {
+      console.error('[BYL Page]', e);
+    } finally {
+      if (loadingEl) loadingEl.classList.remove('is-visible');
+    }
+  }
+
+  function populateAllDropdowns() {
+    [1, 2, 3].forEach(slotNum => {
+      const dropdown = root.querySelector('[data-bylp-select="' + slotNum + '"]');
+      if (!dropdown) return;
+      allProducts.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = p.title;
+        dropdown.appendChild(opt);
+      });
+    });
+  }
+
+  // ---- Slot management ----
+  function fillSlot(slotNum, productId) {
+    const product = allProducts.find(p => p.id === Number(productId));
+    if (!product) return;
+
+    const card = root.querySelector('[data-bylp-card="' + slotNum + '"]');
+    const emptyEl = root.querySelector('[data-bylp-slot-empty="' + slotNum + '"]');
+    const imgEl = root.querySelector('[data-bylp-card-img="' + slotNum + '"]');
+    const titleEl = root.querySelector('[data-bylp-card-title="' + slotNum + '"]');
+    const variantSelect = root.querySelector('[data-bylp-variant-select="' + slotNum + '"]');
+    const priceEl = root.querySelector('[data-bylp-card-price="' + slotNum + '"]');
+
+    // Image
+    imgEl.innerHTML = '';
+    if (product.images && product.images[0]) {
+      const img = document.createElement('img');
+      img.src = product.images[0].src;
+      img.alt = product.title;
+      imgEl.appendChild(img);
+    }
+
+    // Title
+    titleEl.textContent = product.title;
+
+    // Variants
+    variantSelect.innerHTML = '';
+    product.variants.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v.id;
+      opt.dataset.price = Math.round(parseFloat(v.price) * 100);
+      opt.textContent = product.variants.length > 1 ? v.title : product.title;
+      if (!v.available) { opt.disabled = true; opt.textContent += ' — Sold out'; }
+      variantSelect.appendChild(opt);
+    });
+
+    const firstVariant = product.variants[0];
+    const priceInCents = Math.round(parseFloat(firstVariant.price) * 100);
+
+    card.dataset.currentVariantId = String(firstVariant.id);
+    card.dataset.currentPrice = String(priceInCents);
+    priceEl.textContent = money(priceInCents);
+
+    slots[slotNum] = { name: product.title, price: priceInCents, variantId: firstVariant.id };
+
+    emptyEl.style.display = 'none';
+    card.style.display = 'grid';
+
+    updateSummary();
+  }
+
+  function clearSlot(slotNum) {
+    const card = root.querySelector('[data-bylp-card="' + slotNum + '"]');
+    const emptyEl = root.querySelector('[data-bylp-slot-empty="' + slotNum + '"]');
+    const dropdown = root.querySelector('[data-bylp-select="' + slotNum + '"]');
+
+    if (card) { card.style.display = 'none'; card.dataset.currentVariantId = ''; card.dataset.currentPrice = '0'; }
+    if (emptyEl) emptyEl.style.display = 'flex';
+    if (dropdown) dropdown.value = '';
+
+    slots[slotNum] = null;
+    updateSummary();
+  }
+
+  // ---- Summary ----
+  function updateSummary() {
+    const filledSlots = [1, 2, 3].filter(n => slots[n] !== null);
+    const subtotal = filledSlots.reduce((sum, n) => sum + slots[n].price, 0);
+    const saving = Math.round(subtotal * SAVINGS);
+    const total = subtotal - saving;
+    const allFilled = filledSlots.length === 3;
+
+    // Per-row summary
+    [1, 2, 3].forEach(n => {
+      const row = root.querySelector('[data-bylp-summary-row="' + n + '"]');
+      const nameEl = root.querySelector('[data-bylp-summary-name="' + n + '"]');
+      const priceEl = root.querySelector('[data-bylp-summary-price="' + n + '"]');
+      if (!row) return;
+      if (slots[n]) {
+        nameEl.textContent = slots[n].name;
+        priceEl.textContent = money(slots[n].price);
+        row.style.display = 'flex';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    // Totals
+    const totalsEl = root.querySelector('[data-bylp-totals]');
+    const emptyEl = root.querySelector('[data-bylp-summary-empty]');
+    if (filledSlots.length > 0) {
+      if (emptyEl) emptyEl.style.display = 'none';
+    } else {
+      if (emptyEl) emptyEl.style.display = 'block';
+    }
+
+    if (allFilled && totalsEl) {
+      totalsEl.style.display = 'block';
+      const subtotalEl = root.querySelector('[data-bylp-subtotal]');
+      const savingEl = root.querySelector('[data-bylp-saving]');
+      const totalEl = root.querySelector('[data-bylp-total]');
+      if (subtotalEl) subtotalEl.textContent = money(subtotal);
+      if (savingEl) savingEl.textContent = '−' + money(saving);
+      if (totalEl) totalEl.textContent = money(total);
+    } else if (totalsEl) {
+      totalsEl.style.display = 'none';
+    }
+
+    // CTA
+    const btn = root.querySelector('[data-bylp-add-btn]');
+    const hint = root.querySelector('[data-bylp-cta-hint]');
+    if (btn) btn.disabled = !allFilled;
+    if (hint) hint.classList.toggle('is-hidden', allFilled);
+  }
+
+  // ---- Events ----
+  root.addEventListener('change', function(e) {
+    const t = e.target;
+
+    // Product dropdown
+    const selectNum = t.getAttribute('data-bylp-select');
+    if (selectNum) {
+      Number(t.value) ? fillSlot(Number(selectNum), t.value) : clearSlot(Number(selectNum));
+      return;
+    }
+
+    // Variant select inside filled card
+    const variantNum = t.getAttribute('data-bylp-variant-select');
+    if (variantNum) {
+      const slotNum = Number(variantNum);
+      const selectedOpt = t.options[t.selectedIndex];
+      const price = Number(selectedOpt.dataset.price || 0);
+      const card = root.querySelector('[data-bylp-card="' + slotNum + '"]');
+      const priceEl = root.querySelector('[data-bylp-card-price="' + slotNum + '"]');
+      if (card) { card.dataset.currentVariantId = selectedOpt.value; card.dataset.currentPrice = String(price); }
+      if (priceEl) priceEl.textContent = money(price);
+      if (slots[slotNum]) { slots[slotNum].price = price; slots[slotNum].variantId = Number(selectedOpt.value); }
+      updateSummary();
+    }
+  });
+
+  root.addEventListener('click', function(e) {
+    const removeBtn = e.target.closest('[data-bylp-remove]');
+    if (removeBtn) clearSlot(Number(removeBtn.getAttribute('data-bylp-remove')));
+  });
+
+  // ---- Add to cart ----
+  const addBtn = root.querySelector('[data-bylp-add-btn]');
+  if (addBtn) {
+    addBtn.addEventListener('click', async function() {
+      const filledSlots = [1, 2, 3].filter(n => slots[n] !== null);
+      if (filledSlots.length < 3) { showToast('Please select all three pieces first.'); return; }
+
+      const items = filledSlots.map(n => {
+        const card = root.querySelector('[data-bylp-card="' + n + '"]');
+        return { id: Number(card.dataset.currentVariantId), quantity: 1 };
+      });
+
+      addBtn.disabled = true;
+      addBtn.textContent = 'Adding…';
+
+      try {
+        const res = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+          body: JSON.stringify({ items })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.description || 'Error');
+
+        showToast('Your look has been added to your bag.');
+        addBtn.textContent = 'Added ✓';
+        document.dispatchEvent(new CustomEvent('cart:refresh'));
+
+        setTimeout(() => {
+          addBtn.textContent = '{{ section.settings.cta_label | escape }}';
+          addBtn.disabled = false;
+        }, 2000);
+      } catch(err) {
+        showToast('Something went wrong — please try again.');
+        addBtn.textContent = '{{ section.settings.cta_label | escape }}';
+        addBtn.disabled = false;
+      }
+    });
+  }
+
+  // ---- Init ----
+  updateSummary();
+  fetchProducts();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Build Your Look — Page",
+  "tag": "section",
+  "class": "build-your-look-page-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Atelier Modernista"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Page heading",
+      "default": "Build Your Look"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Choose any three pieces from the collection. Your 15% discount is applied automatically — no code needed."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Add to cart button label",
+      "default": "Add look to bag"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "Build Your Look — Page"
+    }
+  ]
+}
+{% endschema %}

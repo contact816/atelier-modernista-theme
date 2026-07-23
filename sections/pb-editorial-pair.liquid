@@ -1,0 +1,190 @@
+{%- assign pt = section.settings.padding_top -%}
+{%- assign pb = section.settings.padding_bottom -%}
+
+<div class="am-editorial-banner-pair" style="margin-top: {{ pt }}px; margin-bottom: {{ pb }}px;">
+
+  <section class="am-editorial-banner{% if section.settings.image_position_1 == 'right' %} am-editorial-banner--image-right{% endif %} am-editorial-banner--inset">
+    <div class="am-editorial-banner__image">
+      {%- if section.settings.image_1 != blank -%}
+        <img src="{{ section.settings.image_1 | image_url: width: 900 }}" alt="{{ section.settings.image_1.alt | escape }}" loading="lazy">
+      {%- else -%}
+        {{ 'collection-1' | placeholder_svg_tag: 'am-editorial-banner__placeholder' }}
+      {%- endif -%}
+    </div>
+    <div class="am-editorial-banner__content">
+      {%- if section.settings.eyebrow_1 != blank -%}
+        <div class="am-eyebrow am-eyebrow--yellow">{{ section.settings.eyebrow_1 }}</div>
+      {%- endif -%}
+      <h2 class="am-editorial-banner__heading">{{ section.settings.heading_1 }}</h2>
+      {%- if section.settings.description_1 != blank -%}
+        <p class="am-editorial-banner__desc">{{ section.settings.description_1 }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_label_1 != blank -%}
+        <a href="{{ section.settings.cta_url_1 }}" class="am-btn-ghost" style="margin-top: 24px;">
+          {{ section.settings.cta_label_1 }} →
+        </a>
+      {%- endif -%}
+    </div>
+  </section>
+
+  <section class="am-editorial-banner{% if section.settings.image_position_2 == 'right' %} am-editorial-banner--image-right{% endif %} am-editorial-banner--inset">
+    <div class="am-editorial-banner__image">
+      {%- if section.settings.image_2 != blank -%}
+        <img src="{{ section.settings.image_2 | image_url: width: 800 }}" alt="{{ section.settings.image_2.alt | escape }}" loading="lazy">
+      {%- else -%}
+        {{ 'collection-2' | placeholder_svg_tag: 'am-editorial-banner__placeholder' }}
+      {%- endif -%}
+    </div>
+    <div class="am-editorial-banner__content">
+      {%- if section.settings.eyebrow_2 != blank -%}
+        <div class="am-eyebrow am-eyebrow--yellow">{{ section.settings.eyebrow_2 }}</div>
+      {%- endif -%}
+      <h2 class="am-editorial-banner__heading">{{ section.settings.heading_2 }}</h2>
+      {%- if section.settings.description_2 != blank -%}
+        <p class="am-editorial-banner__desc">{{ section.settings.description_2 }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_label_2 != blank -%}
+        <a href="{{ section.settings.cta_url_2 }}" class="am-btn-ghost" style="margin-top: 24px;">
+          {{ section.settings.cta_label_2 }} →
+        </a>
+      {%- endif -%}
+      
+    </div>
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "AM — Editorial Pair",
+  "tag": "section",
+  "class": "am-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left panel"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position_1",
+      "label": "Image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_1",
+      "label": "Eyebrow",
+      "default": "Atelier Modernista"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading",
+      "default": "Cobalt Season"
+    },
+    {
+      "type": "textarea",
+      "id": "description_1",
+      "label": "Description",
+      "default": "Cobalt is our signature colour."
+    },
+    {
+      "type": "text",
+      "id": "cta_label_1",
+      "label": "Link label",
+      "default": "View the edit"
+    },
+    {
+      "type": "url",
+      "id": "cta_url_1",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Right panel"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position_2",
+      "label": "Image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_2",
+      "label": "Eyebrow",
+      "default": "Atelier Modernista"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading",
+      "default": "The Architect's Edit"
+    },
+    {
+      "type": "textarea",
+      "id": "description_2",
+      "label": "Description",
+      "default": "Geometry and pure imagination."
+    },
+    {
+      "type": "text",
+      "id": "cta_label_2",
+      "label": "Link label",
+      "default": "View the edit"
+    },
+    {
+      "type": "url",
+      "id": "cta_url_2",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Space above",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Space below",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Editorial Pair"
+    }
+  ]
+}
+{% endschema %}

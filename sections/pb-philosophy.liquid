@@ -1,0 +1,139 @@
+<div class="am-philosophy">
+  <div class="am-section-head am-section-head--centered">
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="am-eyebrow">{{ section.settings.eyebrow }}</div>
+    {%- endif -%}
+    <h2 class="am-section-head__heading">{{ section.settings.heading }}</h2>
+    {%- if section.settings.intro != blank -%}
+      <p class="am-section-head__intro">{{ section.settings.intro }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.pullquote != blank -%}
+    <div class="am-philosophy__quote">
+      <blockquote>{{ section.settings.pullquote }}</blockquote>
+      <div class="am-philosophy__quote-attr">{{ section.settings.pullquote_attr }}</div>
+    </div>
+  {%- endif -%}
+
+  <div class="am-references">
+    {%- for block in section.blocks -%}
+      <div class="am-reference am-reference--{{ forloop.index }}" {{ block.shopify_attributes }}>
+        <div class="am-reference__tag">{{ block.settings.numeral }}</div>
+        <h3 class="am-reference__name">{{ block.settings.name }}</h3>
+        <div class="am-reference__dates">{{ block.settings.dates }}</div>
+        <p class="am-reference__body">{{ block.settings.description }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "AM — Philosophy",
+  "tag": "section",
+  "class": "am-section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Philosophy"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Less, but better — and in colour."
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro text",
+      "default": "Every piece in the edit is a small argument with three modernists. Their thinking shapes ours: how we look at colour, what we ask of geometry, and why we believe a piece of jewellery can be a small piece of art."
+    },
+    {
+      "type": "header",
+      "content": "Pull quote"
+    },
+    {
+      "type": "text",
+      "id": "pullquote",
+      "label": "Quote text",
+      "default": "Creativity is more than just being different. Anybody can plan weird; that’s easy. What’s hard is to be as simple as Bach. Making the simple, awesomely simple, that’s creativity. Charles Mingus"
+    },
+    {
+      "type": "text",
+      "id": "pullquote_attr",
+      "label": "Attribution",
+      "default": "— Sophie Taeuber-Arp · 1934"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "reference",
+      "name": "Modernist reference",
+      "settings": [
+        {
+          "type": "text",
+          "id": "numeral",
+          "label": "Numeral (i. / ii. / iii.)",
+          "default": "i."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Artist name",
+          "default": "Sophie Taeuber-Arp"
+        },
+        {
+          "type": "text",
+          "id": "dates",
+          "label": "Country & dates",
+          "default": "Switzerland · 1889–1943"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Philosophy",
+      "blocks": [
+        {
+          "type": "reference",
+          "settings": {
+            "numeral": "i.",
+            "name": "Sophie Taeuber-Arp",
+            "dates": "Switzerland · 1889–1943",
+            "description": "The reason we look for geometry. Taeuber-Arp made everything from the same vocabulary of squares and circles, and refused the line between fine art and applied art."
+          }
+        },
+        {
+          "type": "reference",
+          "settings": {
+            "numeral": "ii.",
+            "name": "Fernand Léger",
+            "dates": "France · 1881–1955",
+            "description": "The reason we trust red, blue, and yellow with such conviction. Léger painted the modern world in three colours, and made them sing. The vermilions in our arc pieces are his red."
+          }
+        },
+        {
+          "type": "reference",
+          "settings": {
+            "numeral": "iii.",
+            "name": "Marc Chagall",
+            "dates": "Russia/France · 1887–1985",
+            "description": "The reason we trust cobalt above any other colour. Chagall's blues are night skies, dreams, and stained glass at once. The cobalt in our edit reaches for the same depth."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

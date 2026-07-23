@@ -1,0 +1,999 @@
+{%- comment -%}
+  ATELIER MODERNISTA — ATELIER CIRCLE REWARDS
+
+  All rewards are editable as blocks in the Shopify Theme Editor.
+
+  IMPORTANT:
+  Keep active reward blocks ordered from the lowest points threshold
+  to the highest points threshold.
+{%- endcomment -%}
+
+{%- liquid
+  assign am_points = 0
+  assign am_using_preview = false
+
+  if customer
+    if customer.metafields.custom.atelier_points_balance != blank
+      assign am_points = customer.metafields.custom.atelier_points_balance.value | default: customer.metafields.custom.atelier_points_balance | plus: 0
+    elsif customer.metafields.smile.points_balance != blank
+      assign am_points = customer.metafields.smile.points_balance.value | default: customer.metafields.smile.points_balance | plus: 0
+    elsif customer.metafields.smile.points != blank
+      assign am_points = customer.metafields.smile.points.value | default: customer.metafields.smile.points | plus: 0
+    endif
+  endif
+
+  if section.settings.use_preview_points
+    assign am_points = section.settings.preview_points | plus: 0
+    assign am_using_preview = true
+  endif
+
+  assign am_previous_threshold = 0
+  assign am_next_threshold = 0
+  assign am_next_title = blank
+  assign am_next_description = blank
+  assign am_next_image = blank
+  assign am_next_button_label = blank
+  assign am_next_button_link = blank
+  assign am_next_note = blank
+  assign am_next_found = false
+  assign am_active_rewards = 0
+  assign am_highest_title = blank
+  assign am_highest_description = blank
+  assign am_highest_image = blank
+  assign am_highest_button_label = blank
+  assign am_highest_button_link = blank
+
+  for block in section.blocks
+    if block.type == 'reward' and block.settings.active
+      assign am_active_rewards = am_active_rewards | plus: 1
+      assign am_threshold = block.settings.points_required | plus: 0
+
+      assign am_highest_title = block.settings.title
+      assign am_highest_description = block.settings.description
+      assign am_highest_image = block.settings.image
+      assign am_highest_button_label = block.settings.button_label
+      assign am_highest_button_link = block.settings.button_link
+
+      if am_next_found == false
+        if am_points < am_threshold
+          assign am_next_threshold = am_threshold
+          assign am_next_title = block.settings.title
+          assign am_next_description = block.settings.description
+          assign am_next_image = block.settings.image
+          assign am_next_button_label = block.settings.button_label
+          assign am_next_button_link = block.settings.button_link
+          assign am_next_note = block.settings.availability_note
+          assign am_next_found = true
+        else
+          assign am_previous_threshold = am_threshold
+        endif
+      endif
+    endif
+  endfor
+
+  if am_next_found
+    assign am_points_remaining = am_next_threshold | minus: am_points
+    assign am_stage_size = am_next_threshold | minus: am_previous_threshold
+    assign am_stage_points = am_points | minus: am_previous_threshold
+
+    if am_stage_size > 0
+      assign am_progress = am_stage_points | times: 100.0 | divided_by: am_stage_size
+    else
+      assign am_progress = 0
+    endif
+
+    if am_progress < 0
+      assign am_progress = 0
+    elsif am_progress > 100
+      assign am_progress = 100
+    endif
+  else
+    assign am_points_remaining = 0
+    assign am_progress = 100
+  endif
+
+  assign am_member_view = customer
+
+if section.settings.use_preview_points
+  assign am_member_view = true
+endif
+-%}
+
+<section
+  id="AMCircle-{{ section.id }}"
+  class="am-circle color-{{ section.settings.color_scheme }}"
+  style="
+    --am-circle-accent: {{ section.settings.accent_colour }};
+    --am-circle-spacing-top: {{ section.settings.padding_top }}px;
+    --am-circle-spacing-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="am-circle__page page-width">
+
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="am-circle__eyebrow">
+        {{ section.settings.eyebrow }}
+      </p>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="am-circle__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {%- endif -%}
+
+    {%- if section.settings.introduction != blank -%}
+      <div class="am-circle__introduction rte">
+        {{ section.settings.introduction }}
+      </div>
+    {%- endif -%}
+
+    {%- if am_member_view -%}
+
+      <div class="am-circle__member-card">
+
+        <div class="am-circle__member-header">
+          <div>
+            <p class="am-circle__member-label">
+              {{ section.settings.points_label }}
+            </p>
+
+            <p class="am-circle__points">
+              {{ am_points }}
+            </p>
+          </div>
+
+          {%- if customer and section.settings.show_customer_name -%}
+            <p class="am-circle__welcome">
+              Welcome back{% if customer.first_name != blank %}, {{ customer.first_name | escape }}{% endif %}.
+            </p>
+          {%- endif -%}
+        </div>
+
+        {%- if am_active_rewards > 0 -%}
+
+          <div
+            class="am-circle__track"
+            role="progressbar"
+            aria-label="Progress towards your next Atelier Selection"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="{{ am_progress | round }}"
+          >
+            <span
+              class="am-circle__fill"
+              style="width: {{ am_progress }}%;"
+            ></span>
+          </div>
+
+          {%- if am_next_found -%}
+
+            <div class="am-circle__next">
+
+              {%- if am_next_image != blank -%}
+                <div class="am-circle__next-image">
+                  {{
+                    am_next_image
+                    | image_url: width: 900
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '280, 420, 600, 900',
+                      sizes: '(min-width: 750px) 280px, 100vw',
+                      alt: am_next_title
+                  }}
+                </div>
+              {%- endif -%}
+
+              <div class="am-circle__next-copy">
+                <p class="am-circle__status">
+  <strong>
+    {{ am_points_remaining }}
+    Atelier Point{% unless am_points_remaining == 1 %}s{% endunless %}
+  </strong>
+  until your next Selection.
+</p>
+
+                <h3 class="am-circle__reward-title">
+                  {{ am_next_title }}
+                </h3>
+
+                {%- if am_next_description != blank -%}
+                  <div class="am-circle__reward-description rte">
+                    {{ am_next_description }}
+                  </div>
+                {%- endif -%}
+
+                {%- if am_next_note != blank -%}
+                  <p class="am-circle__availability">
+                    {{ am_next_note }}
+                  </p>
+                {%- endif -%}
+
+                {%- if am_next_button_link != blank -%}
+                  <a
+                    href="{{ am_next_button_link }}"
+                    class="am-circle__text-link"
+                  >
+                    {{ am_next_button_label | default: 'View your Atelier Selection' }}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+
+          {%- else -%}
+
+            <div class="am-circle__next">
+
+              {%- if am_highest_image != blank -%}
+                <div class="am-circle__next-image">
+                  {{
+                    am_highest_image
+                    | image_url: width: 900
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '280, 420, 600, 900',
+                      sizes: '(min-width: 750px) 280px, 100vw',
+                      alt: am_highest_title
+                  }}
+                </div>
+              {%- endif -%}
+
+              <div class="am-circle__next-copy">
+                <p class="am-circle__status">
+                  {{ section.settings.top_reward_message }}
+                </p>
+
+                <h3 class="am-circle__reward-title">
+                  {{ am_highest_title | default: 'The Curator’s Commission' }}
+                </h3>
+
+                {%- if am_highest_description != blank -%}
+                  <div class="am-circle__reward-description rte">
+                    {{ am_highest_description }}
+                  </div>
+                {%- endif -%}
+
+                {%- if am_highest_button_link != blank -%}
+                  <a
+                    href="{{ am_highest_button_link }}"
+                    class="am-circle__text-link"
+                  >
+                    {{ am_highest_button_label | default: 'Contact the Atelier' }}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+
+          {%- endif -%}
+
+        {%- else -%}
+
+          <p class="am-circle__empty">
+            Add and activate reward blocks in the Theme Editor.
+          </p>
+
+        {%- endif -%}
+      </div>
+
+    {%- elsif section.settings.show_guest_view -%}
+
+      <div class="am-circle__guest-card">
+        <div class="am-circle__guest-copy">
+          <h3 class="am-circle__guest-title">
+            {{ section.settings.guest_heading }}
+          </h3>
+
+          {%- if section.settings.guest_text != blank -%}
+            <div class="am-circle__guest-text rte">
+              {{ section.settings.guest_text }}
+            </div>
+          {%- endif -%}
+
+          <div class="am-circle__guest-actions">
+            <a
+              href="{{ routes.account_register_url }}"
+              class="button button--primary"
+            >
+              {{ section.settings.join_label }}
+            </a>
+
+            <a
+              href="{{ routes.account_login_url }}"
+              class="am-circle__text-link"
+            >
+              {{ section.settings.login_label }}
+            </a>
+          </div>
+        </div>
+      </div>
+
+    {%- endif -%}
+
+    {%- if section.settings.show_reward_ladder and am_active_rewards > 0 -%}
+      <div class="am-circle__ladder">
+
+        {%- if section.settings.ladder_heading != blank -%}
+          <h3 class="am-circle__ladder-heading">
+            {{ section.settings.ladder_heading }}
+          </h3>
+        {%- endif -%}
+
+        <div class="am-circle__reward-grid">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'reward' and block.settings.active -%}
+              {%- assign reward_threshold = block.settings.points_required | plus: 0 -%}
+              {%- assign reward_unlocked = false -%}
+
+              {%- if am_member_view and am_points >= reward_threshold -%}
+                {%- assign reward_unlocked = true -%}
+              {%- endif -%}
+
+              <article
+                class="am-circle__reward-card{% if reward_unlocked %} am-circle__reward-card--unlocked{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.image != blank -%}
+                  <div class="am-circle__reward-image">
+                    {{
+                      block.settings.image
+                      | image_url: width: 900
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '280, 420, 600, 900',
+                        sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 100vw',
+                        alt: block.settings.title
+                    }}
+                  </div>
+                {%- endif -%}
+
+                <div class="am-circle__reward-card-copy">
+
+                  <div class="am-circle__reward-meta">
+                    <p class="am-circle__reward-points">
+                      {{ block.settings.points_required }} points
+                    </p>
+
+                    {%- if reward_unlocked -%}
+                      <span class="am-circle__unlocked">
+  Available
+</span>
+                    {%- endif -%}
+                  </div>
+
+                  <h4 class="am-circle__card-title">
+                    {{ block.settings.title }}
+                  </h4>
+
+                  {%- if block.settings.description != blank -%}
+                    <div class="am-circle__card-description rte">
+                      {{ block.settings.description }}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.availability_note != blank -%}
+                    <p class="am-circle__card-note">
+                      {{ block.settings.availability_note }}
+                    </p>
+                  {%- endif -%}
+
+                  {%- if block.settings.button_link != blank -%}
+                    <a
+                      href="{{ block.settings.button_link }}"
+                      class="am-circle__text-link"
+                    >
+                      {{ block.settings.button_label | default: 'View selection' }}
+                      <span aria-hidden="true">→</span>
+                    </a>
+                  {%- endif -%}
+                </div>
+              </article>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% stylesheet %}
+  .am-circle {
+    padding-top: var(--am-circle-spacing-top);
+    padding-bottom: var(--am-circle-spacing-bottom);
+  }
+
+  .am-circle *,
+  .am-circle *::before,
+  .am-circle *::after {
+    box-sizing: border-box;
+  }
+
+  .am-circle__eyebrow {
+    margin: 0 0 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .am-circle__heading {
+    max-width: 80rem;
+    margin: 0;
+    font-size: clamp(3.2rem, 6vw, 6.5rem);
+    font-weight: 500;
+    line-height: 0.98;
+  }
+
+  .am-circle__introduction {
+    max-width: 72rem;
+    margin-top: 1.8rem;
+    font-size: 1.55rem;
+    line-height: 1.65;
+  }
+
+  .am-circle__member-card,
+.am-circle__guest-card {
+  margin-top: 3.6rem;
+  padding: clamp(3rem, 5vw, 6rem);
+  border: 1px solid rgba(var(--color-foreground), 0.14);
+  background: rgba(var(--color-background), 0.34);
+}
+  .am-circle__member-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 0;
+}
+
+  .am-circle__member-label {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .am-circle__points {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: clamp(2.5rem, 3.6vw, 3.8rem);
+  font-weight: 500;
+  line-height: 0.95;
+  color: rgba(var(--color-foreground), 0.9);
+}
+
+  .am-circle__welcome {
+    margin: 0;
+    font-size: 1.4rem;
+  }
+
+  .am-circle__track {
+  width: min(100%, 92rem);
+  height: 0.8rem;          /* Was 0.3rem */
+  margin-top: 2.8rem;
+  overflow: hidden;
+
+  background: rgba(44, 33, 29, 0.08);
+
+  border-radius: 999px;
+}
+
+.am-circle__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  background: #1f2c8a;
+  border-radius: inherit;
+
+  box-shadow: 0 0 10px rgba(63, 110, 142, 0.18);
+
+  transition: width 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+  .am-circle__next {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.4rem;
+  padding-top: 3.2rem;
+}
+
+  .am-circle__next:has(.am-circle__next-image) {
+    grid-template-columns: minmax(180px, 280px) minmax(0, 1fr);
+  }
+
+  .am-circle__next-image img,
+  .am-circle__reward-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .am-circle__next-image {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+
+  .am-circle__status {
+    margin: 0 0 0.8rem;
+    opacity: 0.7;
+    font-size: 1.4rem;
+    line-height: 1.5;
+  }
+
+  .am-circle__status strong {
+    opacity: 1;
+    color: rgb(var(--color-foreground));
+  }
+
+  .am-circle__reward-title,
+.am-circle__guest-title {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: clamp(3rem, 4.5vw, 5rem);
+  font-weight: 500;
+  line-height: 1.02;
+}
+
+  .am-circle__reward-description,
+  .am-circle__guest-text {
+    max-width: 62rem;
+    margin-top: 1.2rem;
+    font-size: 1.45rem;
+    line-height: 1.6;
+  }
+
+  .am-circle__availability {
+    margin: 1.3rem 0 0;
+    opacity: 0.68;
+    font-size: 1.25rem;
+    font-style: italic;
+  }
+
+  .am-circle__text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 1.8rem;
+    padding-bottom: 0.25rem;
+    color: currentColor;
+    border-bottom: 1px solid currentColor;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .am-circle__guest-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.8rem;
+    margin-top: 2rem;
+  }
+
+  .am-circle__ladder {
+    margin-top: clamp(5rem, 8vw, 9rem);
+  }
+
+  .am-circle__ladder-heading {
+    margin: 0 0 2.4rem;
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.8rem, 4vw, 4.4rem);
+    font-weight: 500;
+  }
+
+  .am-circle__reward-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .am-circle__reward-card {
+    overflow: hidden;
+    border: 1px solid rgba(var(--color-foreground), 0.15);
+  }
+
+  .am-circle__reward-card--unlocked {
+    border-color: var(--am-circle-accent);
+  }
+
+  .am-circle__reward-image {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .am-circle__reward-card-copy {
+    padding: 2.2rem;
+  }
+
+  .am-circle__reward-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .am-circle__reward-points {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .am-circle__unlocked {
+  color: var(--am-circle-accent);
+  font-size: 1rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+  .am-circle__card-title {
+    margin: 1.2rem 0 0;
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.2rem, 3vw, 3.2rem);
+    font-weight: 500;
+    line-height: 1.08;
+  }
+
+  .am-circle__card-description {
+    margin-top: 1rem;
+    font-size: 1.35rem;
+    line-height: 1.6;
+  }
+
+  .am-circle__card-note {
+    margin: 1.1rem 0 0;
+    opacity: 0.68;
+    font-size: 1.2rem;
+    font-style: italic;
+  }
+
+  .am-circle__empty {
+    margin: 0;
+    font-size: 1.35rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .am-circle__member-header {
+      display: block;
+    }
+
+    .am-circle__welcome {
+      margin-top: 1.4rem;
+    }
+
+    .am-circle__next:has(.am-circle__next-image) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .am-circle__next-image {
+      max-width: 32rem;
+    }
+
+    .am-circle__reward-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .am-circle__guest-actions {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .am-circle__track {
+  margin-top: 2.2rem;
+}
+
+.am-circle__member-card {
+  padding: 2.6rem 2rem;
+}
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "AM — Atelier Circle",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "Atelier Circle"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Something lovely to look forward to."
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Introduction",
+      "default": "<p>Earn Atelier Points and choose from jewellery, candles, design objects and other pleasures selected by the Atelier.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Member progress"
+    },
+    {
+      "type": "text",
+      "id": "points_label",
+      "label": "Points label",
+      "default": "Your Atelier Points"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_customer_name",
+      "label": "Show customer’s first name",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "remaining_prefix",
+      "label": "Progress message beginning",
+      "default": "You are"
+    },
+    {
+      "type": "text",
+      "id": "remaining_suffix",
+      "label": "Progress message ending",
+      "default": "from your next Atelier Selection."
+    },
+    {
+      "type": "text",
+      "id": "top_reward_message",
+      "label": "Top reward message",
+      "default": "You have reached Atelier Circle’s most exceptional selection."
+    },
+    {
+  "type": "checkbox",
+  "id": "use_preview_points",
+  "label": "Use preview points",
+  "info": "Turn this on while designing the section. Turn it off before publishing.",
+  "default": true
+},
+    {
+  "type": "range",
+  "id": "preview_points",
+  "label": "Preview points",
+  "min": 0,
+  "max": 5000,
+  "step": 50,
+  "default": 400
+},
+    {
+      "type": "header",
+      "content": "Logged-out customers"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guest_view",
+      "label": "Show invitation to logged-out customers",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "guest_heading",
+      "label": "Guest heading",
+      "default": "Beautiful choices, reserved for members."
+    },
+    {
+      "type": "richtext",
+      "id": "guest_text",
+      "label": "Guest text",
+      "default": "<p>Join Atelier Circle and earn points towards jewellery, candles, design objects and other considered pleasures.</p>"
+    },
+    {
+      "type": "text",
+      "id": "join_label",
+      "label": "Join button",
+      "default": "Join Atelier Circle"
+    },
+    {
+      "type": "text",
+      "id": "login_label",
+      "label": "Sign-in link",
+      "default": "Already a member? Sign in"
+    },
+    {
+      "type": "header",
+      "content": "Reward ladder"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reward_ladder",
+      "label": "Show all rewards",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "ladder_heading",
+      "label": "Reward ladder heading",
+      "default": "Your Atelier Selections"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "accent_colour",
+      "label": "Progress and unlocked colour",
+      "default": "#A42828"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "reward",
+      "name": "Atelier reward",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "active",
+          "label": "Show this reward",
+          "default": true
+        },
+        
+        {
+          "type": "range",
+          "id": "points_required",
+          "label": "Points required",
+          "min": 50,
+          "max": 5000,
+          "step": 50,
+          "default": 250
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Reward title",
+          "default": "Choose a Little Pleasure"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Choose a small pleasure from the Atelier’s changing selection.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Reward image"
+        },
+        {
+          "type": "text",
+          "id": "availability_note",
+          "label": "Availability note",
+          "default": "The selection changes throughout the year."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Link wording",
+          "default": "View the selection"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Atelier Circle",
+      "blocks": [
+        {
+          "type": "reward",
+          "settings": {
+            "points_required": 250,
+            "title": "Choose a Little Pleasure",
+            "description": "<p>Choose a small pleasure from the Atelier’s changing selection of beautiful, useful things.</p>",
+            "availability_note": "The selection changes throughout the year.",
+            "button_label": "View the selection"
+          }
+        },
+        {
+          "type": "reward",
+          "settings": {
+            "points_required": 500,
+            "title": "Choose a Studio Gift",
+            "description": "<p>Choose something considered for your home, desk or dressing table.</p>",
+            "availability_note": "Candles, small design objects and seasonal Atelier finds.",
+            "button_label": "View the selection"
+          }
+        },
+        {
+          "type": "reward",
+          "settings": {
+            "points_required": 1000,
+            "title": "Choose Your Jewellery Gift",
+            "description": "<p>Choose a piece of jewellery from a rotating Atelier Circle edit.</p>",
+            "availability_note": "The jewellery selection changes regularly.",
+            "button_label": "Choose your gift"
+          }
+        },
+        {
+          "type": "reward",
+          "settings": {
+            "points_required": 1500,
+            "title": "Choose from the Atelier Cabinet",
+            "description": "<p>A more generous choice of jewellery, colour and design objects selected by the Atelier.</p>",
+            "availability_note": "Available only to Atelier Circle members.",
+            "button_label": "Open the Cabinet"
+          }
+        },
+        {
+          "type": "reward",
+          "settings": {
+            "points_required": 2000,
+            "title": "An Atelier Circle Exclusive",
+            "description": "<p>Choose a limited piece or object created especially for Atelier Circle.</p>",
+            "availability_note": "These pieces are not part of the main collection.",
+            "button_label": "View the exclusive selection"
+          }
+        },
+        {
+          "type": "reward",
+          "settings": {
+            "points_required": 3000,
+            "title": "The Atelier Box",
+            "description": "<p>A beautifully presented choice of jewellery and lifestyle objects from the Atelier.</p>",
+            "availability_note": "Contents and choices change seasonally.",
+            "button_label": "Discover the Atelier Box"
+          }
+        },
+        {
+          "type": "reward",
+          "settings": {
+            "points_required": 5000,
+            "title": "The Curator’s Commission",
+            "description": "<p>An exclusive jewellery piece in your chosen colour story, accompanied by a box personally selected for you by the Atelier.</p>",
+            "availability_note": "Created individually with the Atelier after redemption.",
+            "button_label": "Begin your commission"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

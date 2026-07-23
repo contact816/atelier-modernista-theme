@@ -1,0 +1,170 @@
+<section class="am-inspires">
+  <div class="am-inspires__card">
+    <div class="am-inspires__inner">
+      <div class="am-inspires__left">
+        <h2 class="am-inspires__heading">What<br>Inspires<br>Us</h2>
+      </div>
+      {% if section.settings.image %}
+        <div class="am-inspires__image-wrap">
+          <img
+            src="{{ section.settings.image | image_url: width: 600 }}"
+            srcset="{{ section.settings.image | image_url: width: 300 }} 300w,
+                    {{ section.settings.image | image_url: width: 600 }} 600w,
+                    {{ section.settings.image | image_url: width: 900 }} 900w"
+            sizes="(max-width: 768px) 100%, 420px"
+            alt="{{ section.settings.image.alt | escape }}"
+            class="am-inspires__image"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+            loading="lazy"
+          >
+          {% if section.settings.image_title != blank or section.settings.image_credit != blank %}
+            <p class="am-inspires__caption">
+              {% if section.settings.image_title != blank %}<em>{{ section.settings.image_title }}</em>{% endif %}
+              {% if section.settings.image_title != blank and section.settings.image_credit != blank %}<br>{% endif %}
+              {% if section.settings.image_credit != blank %}{{ section.settings.image_credit }}{% endif %}
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="am-inspires__right">
+        <p class="am-inspires__body">Atelier Modernista was born of a love of jewellery that has genuine presence. The Dadaist artist Sophie Taeuber-Arp's belief that “only when we go into ourselves and attempt to be entirely true to ourselves will we succeed in making things of value, living things, and in this way help to develop a new style that is fitting for us”, is a central focal point at Atelier Modernista. The pieces we offer are chosen because they do something we think is different - something that makes us feel more vivid when we wear them. Taeuber-Arp's vision and colour-richness, Chagall's flying lovers, Léger's vivid lettering, Le Brocquy's Táin illustrations, Jane South's geometric paper sculptures - these are what prescence and beauty mean to us.</p>
+        <a href="/pages/philosophy" class="am-inspires__btn">Our Philosophy</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+
+.am-inspires__card {
+  background: #fdf6e3;
+  border: 0.5px solid #0047AB;
+  box-shadow: inset 0 0 0 4px #f7f0e6, inset 0 0 0 5px rgba(0,71,171,0.3);
+  padding: 25px 35px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.am-inspires__inner {
+  display: grid;
+  grid-template-columns: 200px 420px 1fr;
+  gap: 34px;
+  align-items: start;
+  justify-items: stretch;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.am-inspires__left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 40px;
+}
+.am-inspires__heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.15;
+  color: #111111;
+  margin: 0;
+  text-align: left;
+  padding-left: 20px;
+}
+.am-inspires__image-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.am-inspires__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.am-inspires__caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  color: #111111;
+  opacity: 0.7;
+  margin: 10px 0 0;
+  text-align: center;
+}
+.am-inspires__body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 350;
+  line-height: 1.6;
+  color: #111111;
+  opacity: 0.85;
+  margin: 0 0 22px;
+}
+.am-inspires__btn {
+  display: inline-block;
+  background: #0047AB;
+  color: #fdf6e3;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  text-decoration: none;
+}
+.am-inspires__btn:hover {
+  background: #003380;
+}
+@media (max-width: 768px) {
+  .am-inspires {
+    padding: 28px 14px;
+  }
+  .am-inspires__card {
+    padding: 20px 8px;
+  }
+  .am-inspires__inner {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .am-inspires__heading {
+    font-size: 32px;
+    text-align: left;
+  }
+  .am-inspires__image-wrap {
+    width: 100%;
+  }
+  .am-inspires__body {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "What Inspires Us",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Inspiration image"
+    },
+    {
+      "type": "text",
+      "id": "image_title",
+      "label": "Image title",
+      "placeholder": "e.g. The Dance"
+    },
+    {
+      "type": "text",
+      "id": "image_credit",
+      "label": "Image credit",
+      "placeholder": "e.g. Marc Chagall, 1950"
+    }
+  ],
+  "presets": [{ "name": "What Inspires Us" }]
+}
+{% endschema %}

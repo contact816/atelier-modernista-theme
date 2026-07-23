@@ -1,0 +1,363 @@
+{% comment %}
+  Atelier Modernista Library Header
+{% endcomment %}
+
+<style>
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+  {{ section.settings.body_font | font_face: font_display: 'swap' }}
+</style>
+
+<section
+  id="AMLibraryHeader-{{ section.id }}"
+  class="am-library-header am-library-header--{{ section.settings.alignment }}"
+  style="
+    --am-header-bg: {{ section.settings.background_colour }};
+    --am-header-text: {{ section.settings.text_colour }};
+    --am-header-accent: {{ section.settings.accent_colour }};
+    --am-header-max-width: {{ section.settings.max_width }}px;
+    --am-header-heading-size: {{ section.settings.heading_size }}px;
+    --am-header-heading-mobile: {{ section.settings.heading_size_mobile }}px;
+    --am-header-body-size: {{ section.settings.body_size }}px;
+    --am-header-top-space: {{ section.settings.padding_top }}px;
+    --am-header-bottom-space: {{ section.settings.padding_bottom }}px;
+    --am-header-heading-font: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    --am-header-body-font: {{ section.settings.body_font.family }}, {{ section.settings.body_font.fallback_families }};
+  "
+>
+  <div class="am-library-header__inner">
+    {% if section.settings.eyebrow != blank %}
+      <p class="am-library-header__eyebrow">
+        {{ section.settings.eyebrow | escape }}
+      </p>
+    {% endif %}
+
+    {% if section.settings.title != blank %}
+      <h1
+        class="
+          am-library-header__title
+          {% if section.settings.show_rule %}
+            am-library-header__title--ruled
+          {% endif %}
+        "
+      >
+        {{ section.settings.title | escape }}
+      </h1>
+    {% endif %}
+
+    {% if section.settings.introduction != blank %}
+      <div class="am-library-header__intro rte">
+        {{ section.settings.introduction }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.bookshop_url != blank %}
+      <a
+        class="am-library-header__link"
+        href="{{ section.settings.bookshop_url }}"
+        {% if section.settings.open_new_tab %}
+          target="_blank"
+          rel="noopener sponsored"
+        {% endif %}
+      >
+        {{ section.settings.link_label | escape }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  #AMLibraryHeader-{{ section.id }} {
+    width: 100%;
+    padding: var(--am-header-top-space) 24px var(--am-header-bottom-space);
+    background: var(--am-header-bg);
+    color: var(--am-header-text);
+    box-sizing: border-box;
+  }
+
+  #AMLibraryHeader-{{ section.id }} *,
+  #AMLibraryHeader-{{ section.id }} *::before,
+  #AMLibraryHeader-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #AMLibraryHeader-{{ section.id }} .am-library-header__inner {
+    width: 100%;
+    max-width: var(--am-header-max-width);
+    margin: 0 auto;
+  }
+
+  #AMLibraryHeader-{{ section.id }}.am-library-header--centre {
+    text-align: center;
+  }
+
+  #AMLibraryHeader-{{ section.id }}.am-library-header--centre
+    .am-library-header__title {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  #AMLibraryHeader-{{ section.id }}.am-library-header--centre
+    .am-library-header__intro {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  #AMLibraryHeader-{{ section.id }}.am-library-header--left {
+    text-align: left;
+  }
+
+  #AMLibraryHeader-{{ section.id }} .am-library-header__eyebrow {
+    margin: 0 0 18px;
+    font-family: var(--am-header-body-font);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--am-header-accent);
+  }
+
+  #AMLibraryHeader-{{ section.id }} .am-library-header__title {
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-family: var(--am-header-heading-font);
+    font-size: var(--am-header-heading-size);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    color: var(--am-header-text);
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  #AMLibraryHeader-{{ section.id }} .am-library-header__title--ruled {
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--am-header-accent);
+  }
+
+  #AMLibraryHeader-{{ section.id }} .am-library-header__intro {
+    max-width: 720px;
+    font-family: var(--am-header-body-font);
+    font-size: var(--am-header-body-size);
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--am-header-text);
+  }
+
+  #AMLibraryHeader-{{ section.id }} .am-library-header__intro p {
+    margin-top: 0;
+    margin-bottom: 14px;
+  }
+
+  #AMLibraryHeader-{{ section.id }} .am-library-header__intro p:last-child {
+    margin-bottom: 0;
+  }
+
+  #AMLibraryHeader-{{ section.id }} .am-library-header__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 28px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid currentColor;
+    font-family: var(--am-header-body-font);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--am-header-accent);
+  }
+
+  #AMLibraryHeader-{{ section.id }} .am-library-header__link::after {
+    content: '→';
+    font-size: 15px;
+    transition: transform 180ms ease;
+  }
+
+  #AMLibraryHeader-{{ section.id }} .am-library-header__link:hover::after {
+    transform: translateX(4px);
+  }
+
+  @media screen and (max-width: 749px) {
+    #AMLibraryHeader-{{ section.id }} {
+      padding-right: 18px;
+      padding-left: 18px;
+    }
+
+    #AMLibraryHeader-{{ section.id }} .am-library-header__title {
+      font-size: var(--am-header-heading-mobile);
+      line-height: 1;
+    }
+
+    #AMLibraryHeader-{{ section.id }} .am-library-header__intro {
+      font-size: calc(var(--am-header-body-size) - 1px);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "AM Library header",
+  "tag": "section",
+  "class": "am-library-header-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "The Atelier Modernista Library"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main heading",
+      "default": "The books that made us"
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Introduction",
+      "default": "<p>The books we have returned to, underlined, recommended and given as gifts. Together, they have shaped the way we see art, colour, architecture, design and the world around us.</p>"
+    },
+    {
+      "type": "url",
+      "id": "bookshop_url",
+      "label": "Main Bookshop.org list link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link wording",
+      "default": "Visit our Bookshop"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_new_tab",
+      "label": "Open Bookshop in a new tab",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Text alignment",
+      "default": "centre",
+      "options": [
+        {
+          "value": "centre",
+          "label": "Centre"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rule",
+      "label": "Show line below heading",
+      "default": true
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size — desktop",
+      "min": 36,
+      "max": 90,
+      "step": 2,
+      "unit": "px",
+      "default": 66
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size — mobile",
+      "min": 30,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Introduction size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Content width",
+      "min": 500,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "default": 760
+    },
+    {
+      "type": "color",
+      "id": "background_colour",
+      "label": "Background",
+      "default": "#fdf6e3"
+    },
+    {
+      "type": "color",
+      "id": "text_colour",
+      "label": "Text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "accent_colour",
+      "label": "Accent",
+      "default": "#0047ab"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Space above",
+      "min": 20,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Space below",
+      "min": 20,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM Library header"
+    }
+  ]
+}
+{% endschema %}

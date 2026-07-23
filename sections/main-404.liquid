@@ -1,0 +1,15 @@
+<style>
+.am-404{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:50vh;text-align:center;padding:4rem 2rem}
+.am-404-eyebrow{font-family:'Jost',sans-serif;font-size:0.7rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:#6B5B4E;margin-bottom:1.5rem}
+.am-404-rule{width:40px;border:none;border-top:2px solid #3C3228;margin:0 auto 2rem}
+.am-404-heading{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:400;color:#111;margin-bottom:2.5rem;line-height:1.2}
+.am-404-btn{display:inline-block;background:#0047AB;color:#fff;font-family:'Jost',sans-serif;font-size:0.75rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;padding:0.9rem 2rem;transition:background 0.2s}
+.am-404-btn:hover{background:#003380}
+</style>
+
+<div class="am-404">
+  <p class="am-404-eyebrow">404</p>
+  <hr class="am-404-rule">
+  <h1 class="am-404-heading">This page is ghosting us.</h1>
+  <a href="{{ routes.root_url }}" class="am-404-btn">Back to reality</a>
+</div>

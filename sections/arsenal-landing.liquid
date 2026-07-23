@@ -1,0 +1,269 @@
+{{ 'arsenal-landing.css' | asset_url | stylesheet_tag }}
+
+<div class="arsenal-landing">
+
+ <section class="arsenal-hero">
+    {%- if section.settings.hero_image != blank -%}
+      {%- if section.settings.hero_image_link != blank -%}
+        <a href="{{ section.settings.hero_image_link }}" class="arsenal-hero-image">
+          <img src="{{ section.settings.hero_image | image_url: width: 1600 }}"
+               alt="{{ section.settings.hero_image_alt | escape }}"
+               loading="eager"
+               width="{{ section.settings.hero_image.width }}"
+               height="{{ section.settings.hero_image.height }}">
+        </a>
+      {%- else -%}
+        <div class="arsenal-hero-image">
+          <img src="{{ section.settings.hero_image | image_url: width: 1600 }}"
+               alt="{{ section.settings.hero_image_alt | escape }}"
+               loading="eager"
+               width="{{ section.settings.hero_image.width }}"
+               height="{{ section.settings.hero_image.height }}">
+        </div>
+      {%- endif -%}
+      
+    {%- endif -%}
+    {%- if section.settings.kicker != blank -%}
+      <div class="arsenal-kicker">{{ section.settings.kicker }}</div>
+    {%- endif -%}
+    {%- if section.settings.headline != blank -%}
+      <h1 class="arsenal-headline">{{ section.settings.headline }}</h1>
+    {%- endif -%}
+    {%- if section.settings.lead != blank -%}
+      <p class="arsenal-lead">{{ section.settings.lead }}</p>
+    {%- endif -%}
+  </section>
+
+  {%- if section.blocks.size > 0 or section.settings.featured_product_1 != blank or section.settings.featured_product_2 != blank -%}
+    <section class="arsenal-products">
+      {%- if section.settings.products_eyebrow != blank -%}
+        <div class="arsenal-section-eyebrow">{{ section.settings.products_eyebrow }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.featured_product_1 != blank or section.settings.featured_product_2 != blank -%}
+        <div class="arsenal-featured-pair">
+          {%- assign featured_1 = all_products[section.settings.featured_product_1] -%}
+          {%- assign featured_2 = all_products[section.settings.featured_product_2] -%}
+
+          {%- if featured_1 != blank and featured_1.id -%}
+            <div class="arsenal-featured-card">
+              <a href="{{ featured_1.url }}" class="arsenal-featured-link">
+                <div class="arsenal-featured-image">
+                  {%- if featured_1.featured_image -%}
+                    <img src="{{ featured_1.featured_image | image_url: width: 1200 }}"
+                         alt="{{ featured_1.featured_image.alt | escape | default: featured_1.title }}"
+                         loading="lazy">
+                  {%- endif -%}
+                </div>
+                <div class="arsenal-featured-info">
+                  <div class="arsenal-featured-title">{{ featured_1.title }}</div>
+                  {%- if featured_1.metafields.custom.designer != blank -%}
+                    <div class="arsenal-featured-designer">{{ featured_1.metafields.custom.designer }}</div>
+                  {%- endif -%}
+                  <div class="arsenal-featured-price">{{ featured_1.price | money }}</div>
+                </div>
+              </a>
+              {%- if featured_1.has_only_default_variant -%}
+                <product-form>
+                  {%- form 'product', featured_1, id: 'arsenal-feat-1', class: 'arsenal-add-form', data-type: 'add-to-cart-form' -%}
+                    <input type="hidden" name="id" value="{{ featured_1.selected_or_first_available_variant.id }}">
+                    <input type="hidden" name="return_to" value="back">
+                    <button type="submit" name="add" class="arsenal-add-to-cart" {% unless featured_1.available %}disabled{% endunless %}>
+                      {% if featured_1.available %}Add to cart{% else %}Sold out{% endif %}
+                    </button>
+                  {%- endform -%}
+                </product-form>
+              {%- else -%}
+                <a href="{{ featured_1.url }}" class="arsenal-add-to-cart arsenal-add-to-cart-options">Select options &rarr;</a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- if featured_2 != blank and featured_2.id -%}
+            <div class="arsenal-featured-card">
+              <a href="{{ featured_2.url }}" class="arsenal-featured-link">
+                <div class="arsenal-featured-image">
+                  {%- if featured_2.featured_image -%}
+                    <img src="{{ featured_2.featured_image | image_url: width: 1200 }}"
+                         alt="{{ featured_2.featured_image.alt | escape | default: featured_2.title }}"
+                         loading="lazy">
+                         
+                  {%- endif -%}
+                </div>
+                <div class="arsenal-featured-info">
+                  <div class="arsenal-featured-title">{{ featured_2.title }}</div>
+                  {%- if featured_2.metafields.custom.designer != blank -%}
+                    <div class="arsenal-featured-designer">{{ featured_2.metafields.custom.designer }}</div>
+                  {%- endif -%}
+                  <div class="arsenal-featured-price">{{ featured_2.price | money }}</div>
+                </div>
+              </a>
+              {%- if featured_2.has_only_default_variant -%}
+                <product-form>
+                  {%- form 'product', featured_2, id: 'arsenal-feat-2', class: 'arsenal-add-form', data-type: 'add-to-cart-form' -%}
+                    <input type="hidden" name="id" value="{{ featured_2.selected_or_first_available_variant.id }}">
+                    <input type="hidden" name="return_to" value="back">
+                    <button type="submit" name="add" class="arsenal-add-to-cart" {% unless featured_2.available %}disabled{% endunless %}>
+                      {% if featured_2.available %}Add to cart{% else %}Sold out{% endif %}
+                    </button>
+                  {%- endform -%}
+                </product-form>
+              {%- else -%}
+                <a href="{{ featured_2.url }}" class="arsenal-add-to-cart arsenal-add-to-cart-options">Select options &rarr;</a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="arsenal-products-grid">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'product' -%}
+              {%- assign featured_product = all_products[block.settings.product] -%}
+              {%- if featured_product != blank and featured_product.id -%}
+                {%- assign form_id = 'arsenal-prod-' | append: forloop.index -%}
+                <div class="arsenal-product-card" {{ block.shopify_attributes }}>
+                  <a href="{{ featured_product.url }}" class="arsenal-product-link">
+                    <div class="arsenal-product-image">
+                      {%- if featured_product.featured_image -%}
+                        <img src="{{ featured_product.featured_image | image_url: width: 600 }}"
+                             alt="{{ featured_product.featured_image.alt | escape | default: featured_product.title }}"
+                             loading="lazy"
+                             width="600"
+                             height="600">
+                      {%- else -%}
+                        <div class="arsenal-product-placeholder">
+                          <span>No image</span>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                    <div class="arsenal-product-info">
+                      <div class="arsenal-product-title">{{ featured_product.title }}</div>
+                      {%- if featured_product.metafields.custom.designer != blank -%}
+                        <div class="arsenal-product-designer">{{ featured_product.metafields.custom.designer }}</div>
+                      {%- endif -%}
+                      <div class="arsenal-product-price">{{ featured_product.price | money }}</div>
+                    </div>
+                  </a>
+                  {%- if featured_product.has_only_default_variant -%}
+                    <product-form>
+                      {%- form 'product', featured_product, id: form_id, class: 'arsenal-add-form', data-type: 'add-to-cart-form' -%}
+                        <input type="hidden" name="id" value="{{ featured_product.selected_or_first_available_variant.id }}">
+                        <input type="hidden" name="return_to" value="back">
+                        <button type="submit" name="add" class="arsenal-add-to-cart" {% unless featured_product.available %}disabled{% endunless %}>
+                          {% if featured_product.available %}Add to cart{% else %}Sold out{% endif %}
+                        </button>
+                      {%- endform -%}
+                    </product-form>
+                  {%- else -%}
+                    <a href="{{ featured_product.url }}" class="arsenal-add-to-cart arsenal-add-to-cart-options">Select options &rarr;</a>
+                  {%- endif -%}
+                </div>
+              {%- else -%}
+                <div class="arsenal-product-card arsenal-product-card-empty" {{ block.shopify_attributes }}>
+                  <div class="arsenal-product-image arsenal-product-placeholder">
+                    <span>Select a product</span>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </section>
+  {%- endif -%}
+
+  
+
+  <section class="arsenal-note">
+    <div class="arsenal-note-text">
+      {%- if section.settings.note_eyebrow != blank -%}
+        <div class="arsenal-note-eyebrow">{{ section.settings.note_eyebrow }}</div>
+      {%- endif -%}
+      {%- if section.settings.note_quote != blank -%}
+        <blockquote class="arsenal-note-quote">&ldquo;{{ section.settings.note_quote }}&rdquo;</blockquote>
+      {%- endif -%}
+      {%- if section.settings.note_body != blank -%}
+        <p class="arsenal-note-body">{{ section.settings.note_body }}</p>
+      {%- endif -%}
+      {%- if section.settings.signoff_name != blank -%}
+        <div class="arsenal-note-signoff">&mdash; {{ section.settings.signoff_name }}</div>
+      {%- endif -%}
+    </div>
+    <div class="arsenal-note-image">
+      {%- if section.settings.note_image != blank -%}
+        <img src="{{ section.settings.note_image | image_url: width: 800 }}"
+             alt="{{ section.settings.note_image.alt | escape }}"
+             loading="lazy"
+             width="{{ section.settings.note_image.width }}"
+             height="{{ section.settings.note_image.height }}">
+      {%- else -%}
+        <div class="arsenal-note-image-placeholder" aria-hidden="true">
+          <div class="arsenal-note-ring-outer"></div>
+          <div class="arsenal-note-ring-inner"></div>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  <section class="arsenal-close">
+    {%- if section.settings.closing_tagline != blank -%}
+      <div class="arsenal-close-tagline">{{ section.settings.closing_tagline }}</div>
+    {%- endif -%}
+    <div class="arsenal-close-url">ateliermodernista.com</div>
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "Arsenal Landing",
+  "tag": "section",
+  "class": "arsenal-landing-section",
+  "settings": [
+    { "type": "header", "content": "Announcement bar" },
+    { "type": "checkbox", "id": "show_announcement", "label": "Show top announcement", "default": true },
+    { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "A celebration · 22% off the Red Edit · Code ARSENAL22" },
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+    { "type": "text", "id": "hero_image_alt", "label": "Hero image alt text", "default": "The Red Edit — Atelier Modernista" },
+    { "type": "url", "id": "hero_image_link", "label": "Hero image link", "info": "Where the hero image links to (optional)" },
+    { "type": "text", "id": "kicker", "label": "Kicker (small, above headline)", "default": "We did it" },
+    { "type": "text", "id": "headline", "label": "Headline", "default": "Art Jewellery Chosen for Gunners by Gunners" },
+    { "type": "textarea", "id": "lead", "label": "Lead paragraph", "default": "From one massive Arsenal fan to another — the Red Edit is full of colour, joy, and pieces that feel nearly as good as this week does." },
+    { "type": "header", "content": "Products", "info": "Featured pair sits big above the grid. Add product blocks below for the smaller grid." },
+    { "type": "text", "id": "products_eyebrow", "label": "Section eyebrow", "default": "The Red Edit · A colour story" },
+    { "type": "product", "id": "featured_product_1", "label": "Featured product — left", "info": "Big — sits above the grid" },
+    { "type": "product", "id": "featured_product_2", "label": "Featured product — right" },
+    { "type": "header", "content": "Code reveal" },
+    { "type": "text", "id": "code_eyebrow", "label": "Eyebrow", "default": "Your code" },
+    { "type": "text", "id": "discount_code", "label": "Discount code", "default": "ARSENAL22" },
+    { "type": "text", "id": "discount_line", "label": "Discount line", "default": "22% off everything" },
+    { "type": "text", "id": "cta_text", "label": "CTA button text", "default": "Shop the Red Edit" },
+    { "type": "url", "id": "cta_link", "label": "CTA link", "info": "Usually /collections/the-red-edit" },
+    { "type": "text", "id": "validity", "label": "Fine print", "default": "Valid through Sunday. One use per customer." },
+    { "type": "header", "content": "Personal note" },
+    { "type": "text", "id": "note_eyebrow", "label": "Eyebrow", "default": "A note" },
+    { "type": "text", "id": "note_quote", "label": "Pull quote", "default": "Red has never looked so good." },
+    { "type": "textarea", "id": "note_body", "label": "Body", "default": "The Red Edit was already one of my favourites — colourful, elegant, alive. This week made it feel even more like the right thing to share. Use the code through Sunday." },
+    { "type": "text", "id": "signoff_name", "label": "Sign-off name", "default": "Antonia" },
+    { "type": "image_picker", "id": "note_image", "label": "Note image (optional)", "info": "If empty, an editorial placeholder shows." },
+    { "type": "header", "content": "Closing" },
+    { "type": "text", "id": "closing_tagline", "label": "Closing tagline", "default": "Less, but better." }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "limit": 8,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Arsenal Landing" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,430 @@
+{%- comment -%}
+  ============================================================
+  ARSENAL EMAIL CAPTURE  ·  Atelier Modernista
+  Standalone section. Drop onto the Arsenal landing page via
+  the theme customiser. Posts emails directly into a Klaviyo
+  list using Klaviyo's client-side subscriptions API.
+
+  SETUP (2 values, set in the customiser — no code editing):
+    1. Klaviyo Public API Key  T6P3Rt
+    2. Klaviyo List ID         YujBgr
+  ============================================================
+{%- endcomment -%}
+
+{%- liquid
+  assign uid = section.id
+  assign company_id = section.settings.klaviyo_company_id | strip
+  assign list_id = section.settings.klaviyo_list_id | strip
+-%}
+
+{% style %}
+  #ArsenalEmail-{{ uid }} {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+  }
+  #ArsenalEmail-{{ uid }} .ae__inner {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  #ArsenalEmail-{{ uid }} .ae__heading {
+    font-family: Georgia, "Times New Roman", serif;
+    color: {{ section.settings.heading_color }} !important;
+    font-size: 2rem;
+    line-height: 1.15;
+    margin: 0 0 12px;
+    letter-spacing: 0.01em;
+  }
+  #ArsenalEmail-{{ uid }} .ae__sub {
+    font-size: 1.02rem;
+    line-height: 1.5;
+    margin: 0 auto 26px;
+    max-width: 46ch;
+    color: {{ section.settings.text_color }} !important;
+    opacity: 0.92;
+  }
+  #ArsenalEmail-{{ uid }} .ae__form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  #ArsenalEmail-{{ uid }} .ae__field {
+    flex: 1 1 260px;
+    min-width: 0;
+  }
+  #ArsenalEmail-{{ uid }} .ae__label {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  #ArsenalEmail-{{ uid }} .ae__input {
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+    font-size: 1rem;
+    color: #1a1a1a;
+    background: {{ section.settings.input_bg }};
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 2px;
+    box-sizing: border-box;
+  }
+  #ArsenalEmail-{{ uid }} .ae__input::placeholder { color: #6b6b6b; }
+  #ArsenalEmail-{{ uid }} .ae__input:focus {
+    outline: 2px solid {{ section.settings.button_bg }};
+    outline-offset: 1px;
+  }
+  #ArsenalEmail-{{ uid }} .ae__button {
+    flex: 0 0 auto;
+    height: 52px;
+    padding: 0 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: {{ section.settings.button_text }};
+    background: {{ section.settings.button_bg }};
+    border: 0;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+  #ArsenalEmail-{{ uid }} .ae__button:hover { opacity: 0.88; }
+  #ArsenalEmail-{{ uid }} .ae__button[disabled] { opacity: 0.6; cursor: default; }
+  #ArsenalEmail-{{ uid }} .ae__status {
+    min-height: 1.2em;
+    margin: 14px 0 0;
+    font-size: 0.95rem;
+    color: {{ section.settings.small_text_color }} !important;
+  }
+  #ArsenalEmail-{{ uid }} .ae__status[data-state="error"] { color: {{ section.settings.heading_color }} !important; font-weight: 600; }
+  #ArsenalEmail-{{ uid }} .ae__disclaimer {
+    margin: 16px 0 0;
+    font-size: {{ section.settings.disclaimer_size }}px;
+    color: {{ section.settings.small_text_color }} !important;
+    opacity: 0.72;
+  }
+  /* honeypot — hidden from humans */
+  #ArsenalEmail-{{ uid }} .ae__hp {
+    position: absolute; left: -9999px;
+    width: 1px; height: 1px; overflow: hidden;
+  }
+  /* success state */
+  #ArsenalEmail-{{ uid }}.is-done .ae__form,
+  #ArsenalEmail-{{ uid }}.is-done .ae__disclaimer { display: none; }
+
+  @media (max-width: 600px) {
+    #ArsenalEmail-{{ uid }} .ae__heading { font-size: 1.6rem; }
+    #ArsenalEmail-{{ uid }} .ae__form { flex-direction: column; }
+    #ArsenalEmail-{{ uid }} .ae__button { width: 100%; }
+  }
+{% endstyle %}
+
+<div
+  id="ArsenalEmail-{{ uid }}"
+  data-company-id="{{ company_id }}"
+  data-list-id="{{ list_id }}"
+  data-success="{{ section.settings.success_message | escape }}"
+  data-error="{{ section.settings.error_message | escape }}"
+>
+  <div class="ae__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="ae__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="ae__sub">{{ section.settings.subheading | escape }}</p>
+    {%- endif -%}
+
+    <form class="ae__form" novalidate>
+      <div class="ae__field">
+        <label class="ae__label" for="ae-email-{{ uid }}">Email address</label>
+        <input
+          class="ae__input"
+          id="ae-email-{{ uid }}"
+          type="email"
+          name="email"
+          inputmode="email"
+          autocomplete="email"
+          placeholder="{{ section.settings.placeholder | escape }}"
+          required
+        >
+      </div>
+
+      {%- comment -%} honeypot: real people leave this empty {%- endcomment -%}
+      <div class="ae__hp" aria-hidden="true">
+        <label>Leave this field empty
+          <input type="text" name="company" tabindex="-1" autocomplete="off">
+        </label>
+      </div>
+
+      <button class="ae__button" type="submit">{{ section.settings.button_label | escape }}</button>
+    </form>
+
+    <p class="ae__status" role="status" aria-live="polite"></p>
+
+    {%- if section.settings.disclaimer != blank -%}
+      <p class="ae__disclaimer">{{ section.settings.disclaimer | escape }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById("ArsenalEmail-{{ uid }}");
+    if (!root) return;
+
+    var form    = root.querySelector(".ae__form");
+    var input   = root.querySelector(".ae__input");
+    var hp      = root.querySelector('input[name="company"]');
+    var button  = root.querySelector(".ae__button");
+    var status  = root.querySelector(".ae__status");
+
+    var companyId  = root.getAttribute("data-company-id");
+    var listId     = root.getAttribute("data-list-id");
+    var successMsg = root.getAttribute("data-success");
+    var errorMsg   = root.getAttribute("data-error");
+
+    function setStatus(msg, state) {
+      status.textContent = msg;
+      if (state) { status.setAttribute("data-state", state); }
+      else { status.removeAttribute("data-state"); }
+    }
+
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function subscribeShopify(email) {
+      var body = new URLSearchParams();
+      body.append("form_type", "customer");
+      body.append("utf8", "✓");
+      body.append("contact[tags]", "newsletter,atelier-circle");
+      body.append("contact[email]", email);
+      body.append("contact[accepts_marketing]", "true");
+
+      return fetch("/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+        body: body.toString()
+      });
+    }
+
+    function subscribeKlaviyo(email) {
+      var payload = {
+        data: {
+          type: "subscription",
+          attributes: {
+            profile: {
+              data: {
+                type: "profile",
+                attributes: {
+                  email: email,
+                  properties: { "Signup Source": "Homepage Circle Box" }
+                }
+              }
+            }
+          },
+          relationships: { list: { data: { type: "list", id: listId } } }
+        }
+      };
+
+      return fetch("https://a.klaviyo.com/client/subscriptions/?company_id=" + encodeURIComponent(companyId), {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "revision": "2024-10-15" },
+        body: JSON.stringify(payload)
+      });
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // bot filled the honeypot — pretend success, send nothing
+      if (hp && hp.value) { root.classList.add("is-done"); setStatus(successMsg); return; }
+
+      var email = (input.value || "").trim();
+      if (!EMAIL_RE.test(email)) { setStatus("Please enter a valid email address.", "error"); input.focus(); return; }
+
+      if (!companyId || !listId) {
+        setStatus(errorMsg, "error");
+        console.warn("Arsenal email capture: Klaviyo Company ID and/or List ID are not set in the section settings.");
+        return;
+      }
+
+      button.setAttribute("disabled", "disabled");
+      setStatus("One moment…");
+
+      // fire both — tag the Shopify customer (free shipping segment) AND subscribe in Klaviyo
+      Promise.allSettled([subscribeShopify(email), subscribeKlaviyo(email)])
+        .then(function (results) {
+          var shopifyOk = results[0].status === "fulfilled" && results[0].value.ok;
+          var klaviyoOk = results[1].status === "fulfilled" && results[1].value.ok;
+
+          if (shopifyOk || klaviyoOk) {
+            root.classList.add("is-done");
+            setStatus(successMsg);
+          } else {
+            button.removeAttribute("disabled");
+            setStatus(errorMsg, "error");
+          }
+        })
+        .catch(function () {
+          button.removeAttribute("disabled");
+          setStatus(errorMsg, "error");
+        });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Arsenal Email Capture",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Klaviyo connection (required)"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_company_id",
+      "label": "Klaviyo Public API Key (Site ID)",
+      "info": "6-character public key. Klaviyo → Settings → API keys → Public API Key / Site ID."
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Klaviyo List ID",
+      "info": "Open the list in Klaviyo → Settings → the List ID is shown there (e.g. Y6nRLr)."
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "First to know"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Be first to see the next Arsenal edition and limited drops. No noise — just the good stuff."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input placeholder",
+      "default": "Your email"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Join the list"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "You're in. Check your inbox to confirm.",
+      "info": "If your Klaviyo list uses double opt-in, keep the 'check your inbox' wording. If single opt-in, you can shorten it."
+    },
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Error message",
+      "default": "Something went wrong — please try again."
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Small print (optional)",
+      "default": "We'll only email about new pieces and editions. Unsubscribe anytime."
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#EF0107"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text",
+      "default": "#FDF6E3"
+    },
+    {
+      "type": "color",
+      "id": "small_text_color",
+      "label": "Confirmation & small-print text",
+      "default": "#FDF6E3"
+    },
+    {
+      "type": "range",
+      "id": "disclaimer_size",
+      "label": "Small-print text size",
+      "min": 11,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "input_bg",
+      "label": "Input background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button background",
+      "default": "#FDF6E3"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "#EF0107"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Arsenal Email Capture"
+    }
+  ]
+}
+{% endschema %}

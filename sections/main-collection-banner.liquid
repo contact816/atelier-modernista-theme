@@ -1,0 +1,76 @@
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .section-{{ section.id }}-padding .am-collection-subheading {
+    max-width: 760px;
+    margin: 10px auto 24px;
+    padding: 0 24px;
+    font-family: var(--font-body-family);
+    font-size: 1.7rem;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    text-align: center;
+    color: rgba(var(--color-foreground), 0.72);
+  }
+
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-padding .am-collection-subheading {
+      margin-top: 8px;
+      margin-bottom: 20px;
+      padding: 0 20px;
+      font-size: 1.5rem;
+      line-height: 1.45;
+    }
+  }
+{% endstyle %}
+
+<div class="section-{{ section.id }}-padding">
+  {% render 'collection-hero', collection: collection %}
+
+  {% if section.settings.subheading != blank %}
+    <div class="am-collection-subheading">
+      {{ section.settings.subheading | escape }}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-collection-banner.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sub-heading",
+      "default": "Art jewellery chosen with colour, character and a point of view."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "default": false,
+      "label": "t:sections.main-collection-banner.settings.show_collection_image.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    }
+  ]
+}
+{% endschema %}

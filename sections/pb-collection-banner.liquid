@@ -1,0 +1,87 @@
+<div class="am-editorial-banner">
+  <div
+    class="am-editorial-banner__image"
+    {%- if section.settings.image != blank -%}
+      style="background-image: url('{{ section.settings.image | image_url: width: 1200 }}');"
+    {%- endif -%}
+  >
+    {%- if section.settings.image == blank -%}
+      {{ 'collection-1' | placeholder_svg_tag: 'am-editorial-banner__placeholder' }}
+    {%- endif -%}
+  </div>
+  <div class="am-editorial-banner__content">
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="am-eyebrow am-eyebrow--yellow">{{ section.settings.eyebrow }}</div>
+    {%- endif -%}
+    <h1 class="am-editorial-banner__heading">{{ section.settings.heading }}</h1>
+    {%- if section.settings.description != blank -%}
+      <p class="am-editorial-banner__desc">{{ section.settings.description }}</p>
+    {%- endif -%}
+    <div class="am-editorial-banner__meta">
+      {%- if section.settings.meta_from != blank -%}
+        <span><b>From</b> {{ section.settings.meta_from }}</span>
+      {%- endif -%}
+      {%- if section.settings.meta_materials != blank -%}
+        <span><b>Materials</b> {{ section.settings.meta_materials }}</span>
+      {%- endif -%}
+      {%- if section.settings.meta_curated != blank -%}
+        <span><b>Curated</b> {{ section.settings.meta_curated }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "AM — Collection Banner",
+  "tag": "section",
+  "class": "am-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow (e.g. A Curated Edit · 9 Pieces)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Collection heading"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Editorial description"
+    },
+    {
+      "type": "header",
+      "content": "Meta line"
+    },
+    {
+      "type": "text",
+      "id": "meta_from",
+      "label": "From (price)"
+    },
+    {
+      "type": "text",
+      "id": "meta_materials",
+      "label": "Materials"
+    },
+    {
+      "type": "text",
+      "id": "meta_curated",
+      "label": "Curated",
+      "default": "London"
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Collection Banner"
+    }
+  ]
+}
+{% endschema %}

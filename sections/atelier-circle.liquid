@@ -1,0 +1,247 @@
+{{ 'atelier-circle.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign membership_tag = section.settings.customer_tag | default: 'Atelier Circle'
+  assign is_circle_member = false
+
+  if customer and customer.tags contains membership_tag
+    assign is_circle_member = true
+  endif
+-%}
+
+<section
+  id="AtelierCircle-{{ section.id }}"
+  class="atelier-circle"
+  data-atelier-circle
+  data-klaviyo-public-key="{{ section.settings.klaviyo_public_key | escape }}"
+  data-klaviyo-list-id="{{ section.settings.klaviyo_list_id | escape }}"
+  data-customer-tag="{{ membership_tag | escape }}"
+>
+  <div
+    class="atelier-circle__inner"
+    style="
+      --atelier-circle-padding-top: {{ section.settings.padding_top }}px;
+      --atelier-circle-padding-bottom: {{ section.settings.padding_bottom }}px;
+    "
+  >
+    <header class="atelier-circle__header">
+      <div class="atelier-circle__rule" aria-hidden="true"></div>
+
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="atelier-circle__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="atelier-circle__title">{{ section.settings.heading | escape }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.statement != blank -%}
+        <div class="atelier-circle__statement rte">{{ section.settings.statement }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.intro != blank -%}
+        <div class="atelier-circle__intro rte">{{ section.settings.intro }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.inbox_note != blank -%}
+        <p class="atelier-circle__inbox-note">{{ section.settings.inbox_note | escape }}</p>
+      {%- endif -%}
+    </header>
+
+    <div class="atelier-circle__layout">
+      <div class="atelier-circle__panel">
+        {%- if is_circle_member -%}
+          <div class="atelier-circle__member-panel">
+            {%- if section.settings.member_label != blank -%}
+              <p class="atelier-circle__panel-label">{{ section.settings.member_label | escape }}</p>
+            {%- endif -%}
+
+            <h2 class="atelier-circle__panel-title">
+              {{ section.settings.member_heading | escape }}
+              {%- if customer.first_name != blank -%}, {{ customer.first_name | escape }}{%- endif -%}
+            </h2>
+
+            {%- if section.settings.member_text != blank -%}
+              <div class="atelier-circle__panel-copy rte">{{ section.settings.member_text }}</div>
+            {%- endif -%}
+
+            <a class="atelier-circle__button" href="#smile-home">
+              {{ section.settings.member_points_button_label | escape }}
+            </a>
+
+            {%- if section.settings.show_account_link -%}
+              <a class="atelier-circle__success-link" href="{{ routes.account_url }}">
+                {{ section.settings.member_account_link_label | escape }}
+              </a>
+            {%- endif -%}
+          </div>
+
+        {%- else -%}
+          <div class="atelier-circle__signup-panel">
+            {%- if section.settings.form_label != blank -%}
+              <p class="atelier-circle__panel-label">{{ section.settings.form_label | escape }}</p>
+            {%- endif -%}
+
+            {%- if section.settings.form_heading != blank -%}
+              <h2 class="atelier-circle__panel-title">{{ section.settings.form_heading | escape }}</h2>
+            {%- endif -%}
+
+            {%- if section.settings.form_text != blank -%}
+              <div class="atelier-circle__panel-copy rte">{{ section.settings.form_text }}</div>
+            {%- endif -%}
+
+            <form class="atelier-circle__form" data-atelier-circle-form novalidate>
+              <div class="atelier-circle__field">
+                <label class="atelier-circle__label" for="AtelierCircleEmail-{{ section.id }}">
+                  {{ section.settings.email_label | escape }}
+                </label>
+
+                <input
+                  id="AtelierCircleEmail-{{ section.id }}"
+                  class="atelier-circle__input"
+                  data-atelier-circle-email
+                  type="email"
+                  name="email"
+                  autocomplete="email"
+                  inputmode="email"
+                  placeholder="{{ section.settings.email_placeholder | escape }}"
+                  required
+                >
+              </div>
+
+              <label class="atelier-circle__consent">
+                <input class="atelier-circle__checkbox" data-atelier-circle-consent type="checkbox" required>
+                <span>
+                  {{ section.settings.circle_consent_text | default: 'I would like to receive occasional Atelier Circle emails. I can unsubscribe at any time.' | escape }}
+                </span>
+              </label>
+
+              <button class="atelier-circle__button" data-atelier-circle-submit type="submit">
+                {{ section.settings.button_label | escape }}
+              </button>
+
+              <p
+                class="atelier-circle__message atelier-circle__message--error"
+                data-atelier-circle-error
+                role="alert"
+                hidden
+              ></p>
+
+              <div
+                class="atelier-circle__message atelier-circle__message--success"
+                data-atelier-circle-success
+                role="status"
+                tabindex="-1"
+                hidden
+              >
+                <h3 class="atelier-circle__success-title">{{ section.settings.success_heading | escape }}</h3>
+
+                {%- if section.settings.success_text != blank -%}
+                  <div class="atelier-circle__success-copy rte">{{ section.settings.success_text }}</div>
+                {%- endif -%}
+
+                <a
+                  class="atelier-circle__button"
+                  href="{{ section.settings.success_shop_link | default: '/collections/the-atelier-collection' }}"
+                >
+                  {{ section.settings.success_shop_link_label | escape }}
+                </a>
+              </div>
+            </form>
+
+            {%- if section.settings.small_print != blank -%}
+              <div class="atelier-circle__small-print rte">{{ section.settings.small_print }}</div>
+            {%- elsif section.settings.circle_privacy_text != blank -%}
+              <p class="atelier-circle__small-print">{{ section.settings.circle_privacy_text | escape }}</p>
+            {%- endif -%}
+
+            <div class="atelier-circle__membership">
+              {%- if section.settings.membership_heading != blank -%}
+                <p class="atelier-circle__section-label">{{ section.settings.membership_heading | escape }}</p>
+              {%- endif -%}
+
+              <ul class="atelier-circle__benefits" role="list">
+                {%- if section.settings.circle_benefit_one != blank -%}<li class="atelier-circle__benefit">{{ section.settings.circle_benefit_one | escape }}</li>{%- endif -%}
+                {%- if section.settings.circle_benefit_two != blank -%}<li class="atelier-circle__benefit">{{ section.settings.circle_benefit_two | escape }}</li>{%- endif -%}
+                {%- if section.settings.circle_benefit_three != blank -%}<li class="atelier-circle__benefit">{{ section.settings.circle_benefit_three | escape }}</li>{%- endif -%}
+                {%- if section.settings.circle_benefit_four != blank -%}<li class="atelier-circle__benefit">{{ section.settings.circle_benefit_four | escape }}</li>{%- endif -%}
+                {%- if section.settings.circle_benefit_five != blank -%}<li class="atelier-circle__benefit">{{ section.settings.circle_benefit_five | escape }}</li>{%- endif -%}
+              </ul>
+
+              {%- if section.settings.show_existing_points_link -%}
+                <a class="atelier-circle__success-link" href="#smile-home">
+                  {{ section.settings.existing_points_link_label | escape }}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'atelier-circle.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Atelier Circle",
+  "tag": "section",
+  "class": "section-atelier-circle",
+  "settings": [
+    { "type": "header", "content": "Introduction" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "You are invited to" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Atelier Circle" },
+    { "type": "richtext", "id": "statement", "label": "Main statement", "default": "<p>Beautiful things are even better when shared.</p>" },
+    { "type": "richtext", "id": "intro", "label": "Introduction", "default": "<p>Join us for Atelier Points, complimentary UK delivery, early access to new collections and occasional notes from the Atelier.</p>" },
+    { "type": "text", "id": "inbox_note", "label": "Inbox promise", "default": "We’ll write when we have something worth sharing." },
+
+    { "type": "header", "content": "Circle benefits" },
+    { "type": "text", "id": "membership_heading", "label": "Benefits heading", "default": "Circle membership includes" },
+    { "type": "text", "id": "circle_benefit_one", "label": "Benefit 1", "default": "Earn Atelier Points with every purchase" },
+    { "type": "text", "id": "circle_benefit_two", "label": "Benefit 2", "default": "Complimentary UK delivery" },
+    { "type": "text", "id": "circle_benefit_three", "label": "Benefit 3", "default": "Early access to new collections and offers" },
+    { "type": "text", "id": "circle_benefit_four", "label": "Benefit 4", "default": "Notes from the Atelier" },
+    { "type": "text", "id": "circle_benefit_five", "label": "Benefit 5", "default": "Private invitations and Circle rewards" },
+    { "type": "checkbox", "id": "show_existing_points_link", "label": "Show points link for existing members", "default": true },
+    { "type": "text", "id": "existing_points_link_label", "label": "Existing member points link", "default": "Already collecting points? View Atelier Points" },
+
+    { "type": "header", "content": "Email signup" },
+    { "type": "text", "id": "form_label", "label": "Form label", "default": "Complimentary membership" },
+    { "type": "text", "id": "form_heading", "label": "Form heading", "default": "Your Invitation" },
+    { "type": "richtext", "id": "form_text", "label": "Form text", "default": "<p>Join the Atelier Circle for complimentary UK delivery, early access, occasional notes and Atelier Points when you shop.</p>" },
+    { "type": "text", "id": "email_label", "label": "Email field label", "default": "Email address" },
+    { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "Your email address" },
+    { "type": "text", "id": "button_label", "label": "Signup button", "default": "Join the Atelier Circle" },
+    { "type": "textarea", "id": "circle_consent_text", "label": "Consent wording", "default": "I would like to receive occasional Atelier Circle emails. I can unsubscribe at any time." },
+    { "type": "textarea", "id": "circle_privacy_text", "label": "Privacy note", "default": "Your details will be handled in accordance with our Privacy Policy." },
+    { "type": "richtext", "id": "small_print", "label": "Custom small print" },
+
+    { "type": "header", "content": "Successful signup" },
+    { "type": "text", "id": "success_heading", "label": "Success heading", "default": "Welcome to the Circle." },
+    { "type": "richtext", "id": "success_text", "label": "Success message", "default": "<p>You’re now on the Atelier Circle list. Shop using this email address and your Atelier Points will be waiting for you.</p>" },
+    { "type": "url", "id": "success_shop_link", "label": "Success button destination" },
+    { "type": "text", "id": "success_shop_link_label", "label": "Success button label", "default": "Explore the Atelier" },
+
+    { "type": "header", "content": "Existing members" },
+    { "type": "text", "id": "member_label", "label": "Member label", "default": "Membership active" },
+    { "type": "text", "id": "member_heading", "label": "Member heading", "default": "Welcome back" },
+    { "type": "richtext", "id": "member_text", "label": "Member message", "default": "<p>Your Atelier Circle membership is active. View your Atelier Points, available rewards and ways to earn.</p>" },
+    { "type": "text", "id": "member_points_button_label", "label": "Member points button", "default": "View Atelier Points" },
+    { "type": "checkbox", "id": "show_account_link", "label": "Show account and orders link", "default": true },
+    { "type": "text", "id": "member_account_link_label", "label": "Account link label", "default": "View your account and orders" },
+
+    { "type": "header", "content": "Klaviyo connection" },
+    { "type": "text", "id": "klaviyo_public_key", "label": "Klaviyo public API key", "default": "T6P3Rt" },
+    { "type": "text", "id": "klaviyo_list_id", "label": "Klaviyo list ID", "default": "YujBgr" },
+    { "type": "text", "id": "customer_tag", "label": "Shopify customer membership tag", "default": "Atelier Circle" },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Top spacing", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 48, "max": 160, "step": 4, "unit": "px", "label": "Bottom spacing", "default": 104 }
+  ],
+  "presets": [
+    { "name": "Atelier Circle" }
+  ]
+}
+{% endschema %}

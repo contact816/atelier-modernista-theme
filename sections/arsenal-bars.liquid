@@ -1,0 +1,48 @@
+{{ 'arsenal-landing.css' | asset_url | stylesheet_tag }}
+
+{%- if section.settings.show_announcement and section.settings.announcement_text != blank -%}
+  <div class="arsenal-announce">{{ section.settings.announcement_text }}</div>
+{%- endif -%}
+
+<section class="arsenal-code">
+  {%- if section.settings.code_eyebrow != blank -%}
+    <div class="arsenal-code-eyebrow">{{ section.settings.code_eyebrow }}</div>
+  {%- endif -%}
+  {%- if section.settings.discount_code != blank -%}
+    <div class="arsenal-code-code">{{ section.settings.discount_code }}</div>
+  {%- endif -%}
+  {%- if section.settings.discount_line != blank -%}
+    <div class="arsenal-code-discount">{{ section.settings.discount_line }}</div>
+  {%- endif -%}
+  {%- if section.settings.cta_text != blank -%}
+    <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="arsenal-code-cta">
+      {{ section.settings.cta_text }} <span aria-hidden="true">&rarr;</span>
+    </a>
+  {%- endif -%}
+  {%- if section.settings.validity != blank -%}
+    <div class="arsenal-validity">{{ section.settings.validity }}</div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Arsenal Bars",
+  "tag": "section",
+  "class": "arsenal-bars-section",
+  "settings": [
+    { "type": "header", "content": "Red announcement bar" },
+    { "type": "checkbox", "id": "show_announcement", "label": "Show red bar", "default": true },
+    { "type": "text", "id": "announcement_text", "label": "Red bar text", "default": "· !!Champions!! · We fogging did it!" },
+    { "type": "header", "content": "Blue code strip" },
+    { "type": "text", "id": "code_eyebrow", "label": "Eyebrow", "default": "Your code - 22% off everything plus Free UK +Ireland Shipping" },
+    { "type": "text", "id": "discount_code", "label": "Discount code", "default": "ARSENAL22" },
+    { "type": "text", "id": "discount_line", "label": "Discount line" },
+    { "type": "text", "id": "cta_text", "label": "CTA button text", "default": "Shop the Arsenal Edit" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" },
+    { "type": "text", "id": "validity", "label": "Fine print" }
+  ],
+  "presets": [
+    { "name": "Arsenal Bars" }
+  ]
+}
+{% endschema %}

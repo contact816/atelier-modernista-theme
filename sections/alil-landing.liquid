@@ -1,0 +1,507 @@
+{{ 'alil-landing.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%} ── BLOCK 1: HERO ── {%- endcomment -%}
+<section class="alil-hero">
+  <div class="alil-hero__inner">
+
+    {%- if section.settings.offer_active -%}
+    <div class="alil-offer-pill">
+      <span class="alil-offer-pill__dot"></span>
+      <span>Free Pintail candle with your first order — first {{ section.settings.offer_count }} only</span>
+    </div>
+    {%- endif -%}
+
+    <p class="alil-eyebrow">Atelier Modernista · London</p>
+
+    <h1 class="alil-hero__headline">
+      {{ section.settings.hero_headline }}
+      {%- if section.settings.hero_headline_italic != blank -%}
+        <br><em>{{ section.settings.hero_headline_italic }}</em>
+      {%- endif -%}
+    </h1>
+
+    <p class="alil-hero__body">{{ section.settings.hero_body }}</p>
+
+    <div class="alil-hero__cta-group">
+      <a href="{{ routes.root_url }}collections/all" class="alil-btn alil-btn--primary">
+        Shop the edit
+      </a>
+      {%- if section.settings.offer_active -%}
+      <span class="alil-hero__offer-note">
+        Free Pintail candle · first {{ section.settings.offer_count }} orders only
+      </span>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{%- comment -%} ── PHILOSOPHY BLOCK ── {%- endcomment -%}
+{%- if section.settings.philosophy_active -%}
+<section class="alil-philosophy">
+  {%- if section.settings.philosophy_image != blank -%}
+    <div class="alil-philosophy__image-wrap">
+      {{
+        section.settings.philosophy_image
+        | image_url: width: 1200
+        | image_tag:
+          loading: 'lazy',
+          alt: 'Atelier Modernista',
+          class: 'alil-philosophy__image'
+      }}
+    </div>
+  {%- endif -%}
+  <div class="alil-philosophy__content">
+    {%- if section.settings.philosophy_eyebrow != blank -%}
+      <p class="alil-section-label">{{ section.settings.philosophy_eyebrow }}</p>
+    {%- endif -%}
+    {%- if section.settings.philosophy_headline != blank -%}
+      <h2 class="alil-philosophy__headline">{{ section.settings.philosophy_headline }}</h2>
+    {%- endif -%}
+    {%- if section.settings.philosophy_body != blank -%}
+      <p class="alil-philosophy__body">{{ section.settings.philosophy_body }}</p>
+    {%- endif -%}
+    {%- if section.settings.philosophy_quote != blank -%}
+      <blockquote class="alil-philosophy__quote">
+        <p>{{ section.settings.philosophy_quote }}</p>
+        {%- if section.settings.philosophy_quote_attribution != blank -%}
+          <cite>{{ section.settings.philosophy_quote_attribution }}</cite>
+        {%- endif -%}
+      </blockquote>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+
+{%- comment -%} ── PRODUCTS ── {%- endcomment -%}
+<section class="alil-products">
+  <div class="alil-products__header">
+    <p class="alil-section-label">The Edit</p>
+    <h2 class="alil-section-title">Pieces chosen with conviction.</h2>
+    <p class="alil-section-sub">
+      Each one selected because it does something the rest of the market doesn't.
+      Independently made. Art-referenced. Nothing forgettable.
+    </p>
+  </div>
+
+  <div class="alil-product-grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'product' -%}
+        {%- assign product = block.settings.product -%}
+        <div class="alil-product-card" {{ block.shopify_attributes }}>
+
+          {%- if block.settings.tag != blank -%}
+            <span class="alil-product-tag {% if block.settings.tag_style == 'gold' %}alil-product-tag--gold{% endif %}">
+              {{ block.settings.tag }}
+            </span>
+          {%- endif -%}
+
+          {%- comment -%} IMAGE — product featured image takes priority {%- endcomment -%}
+          {%- if product != blank and product.featured_image != blank -%}
+            <a href="{{ product.url }}" class="alil-product-card__image-link">
+              <div class="alil-product-card__image">
+                {{
+                  product.featured_image
+                  | image_url: width: 800
+                  | image_tag:
+                    loading: 'lazy',
+                    alt: product.title,
+                    class: 'alil-product-card__img'
+                }}
+              </div>
+            </a>
+          {%- elsif block.settings.card_image != blank -%}
+            <div class="alil-product-card__image">
+              {{
+                block.settings.card_image
+                | image_url: width: 800
+                | image_tag:
+                  loading: 'lazy',
+                  alt: block.settings.title,
+                  class: 'alil-product-card__img'
+              }}
+            </div>
+          {%- else -%}
+            <div class="alil-product-colour-bar" style="background: {{ block.settings.colour_bar }};"></div>
+          {%- endif -%}
+
+          <div class="alil-product-card__body">
+            <p class="alil-product-name">
+              {%- if product != blank -%}{{ product.title }}{%- else -%}{{ block.settings.title }}{%- endif -%}
+            </p>
+
+            {%- if block.settings.maker != blank -%}
+              <p class="alil-product-maker">{{ block.settings.maker }}</p>
+            {%- endif -%}
+
+            <p class="alil-product-editorial">{{ block.settings.editorial }}</p>
+
+            <p class="alil-product-price">
+              {%- if product != blank -%}
+                {{ product.price_min | money }}
+                {%- if product.price_varies -%} – {{ product.price_max | money }}{%- endif -%}
+              {%- else -%}
+                {{ block.settings.price }}
+              {%- endif -%}
+            </p>
+
+            {%- if product != blank -%}
+              {%- if product.available -%}
+                <a href="{{ product.url }}" class="alil-btn alil-btn--product">Add to bag</a>
+              {%- else -%}
+                <span class="alil-btn alil-btn--product alil-btn--soldout">Sold out</span>
+              {%- endif -%}
+            {%- else -%}
+              <a href="{{ block.settings.url }}" class="alil-btn alil-btn--product">Add to bag</a>
+            {%- endif -%}
+          </div>
+
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  <div class="alil-products__footer">
+    <a href="{{ routes.root_url }}collections/all" class="alil-link-underline">
+      View the full edit &rarr;
+    </a>
+  </div>
+</section>
+
+{%- comment -%} ── BUILD YOUR LOOK SLOT ── {%- endcomment -%}
+{%- if section.settings.byl_active -%}
+<section class="alil-byl">
+  <div class="alil-byl__header">
+    <p class="alil-section-label">{{ section.settings.byl_eyebrow }}</p>
+    <h2 class="alil-section-title">{{ section.settings.byl_headline }}</h2>
+    {%- if section.settings.byl_body != blank -%}
+      <p class="alil-section-sub">{{ section.settings.byl_body }}</p>
+    {%- endif -%}
+  </div>
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'byl_look' -%}
+      <div class="alil-byl__look" {{ block.shopify_attributes }}>
+        {%- if block.settings.look_image != blank -%}
+          <div class="alil-byl__image-wrap">
+            {{
+              block.settings.look_image
+              | image_url: width: 900
+              | image_tag:
+                loading: 'lazy',
+                alt: block.settings.look_name,
+                class: 'alil-byl__image'
+            }}
+          </div>
+        {%- endif -%}
+        <div class="alil-byl__content">
+          {%- if block.settings.look_name != blank -%}
+            <p class="alil-byl__look-name">{{ block.settings.look_name }}</p>
+          {%- endif -%}
+          {%- if block.settings.look_description != blank -%}
+            <p class="alil-byl__look-desc">{{ block.settings.look_description }}</p>
+          {%- endif -%}
+          {%- if block.settings.look_url != blank -%}
+            <a href="{{ block.settings.look_url }}" class="alil-btn alil-btn--primary alil-btn--dark">
+              Shop this look
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+</section>
+{%- endif -%}
+
+{%- comment -%} ── OFFER ── {%- endcomment -%}
+{%- if section.settings.offer_active -%}
+<section class="alil-offer">
+  <div class="alil-offer__content">
+    <p class="alil-offer__eyebrow">Limited offer</p>
+    <h2 class="alil-offer__headline">Your first order.<br>Plus a gift.</h2>
+    <p class="alil-offer__body">
+      The first {{ section.settings.offer_count }} orders receive a Pintail candle — a considered gift from us, to you. No code needed. Just shop the edit.
+    </p>
+    <a href="{{ routes.root_url }}collections/all" class="alil-btn alil-btn--offer">Claim yours now</a>
+    <p class="alil-offer__terms">
+      First {{ section.settings.offer_count }} orders only &middot; while stocks last &middot; gift applied at dispatch
+    </p>
+  </div>
+  <div class="alil-candle-visual" aria-hidden="true">
+    <div class="alil-candle">
+      <div class="alil-candle__flame"></div>
+      <div class="alil-candle__wick"></div>
+      <span class="alil-candle__label">Pintail</span>
+    </div>
+    <p class="alil-candle__caption">Gift with<br>first order</p>
+  </div>
+</section>
+{%- endif -%}
+
+{%- comment -%} ── EMAIL CAPTURE ── {%- endcomment -%}
+<section class="alil-email">
+  <p class="alil-section-label alil-section-label--cobalt">Join the edit</p>
+  <h2 class="alil-email__headline">New pieces. First to know.</h2>
+  <p class="alil-email__body">
+    The edit rotates. We'd rather show you ten things we believe in completely than a hundred things we think you might like. Sign up and we'll tell you when something new earns its place.
+  </p>
+  <form action="/contact#contact_form" method="post" class="alil-email__form" id="alil-email-form">
+    <input type="hidden" name="form_type" value="customer">
+    <input type="hidden" name="utf8" value="✓">
+    <input type="hidden" name="contact[tags]" value="newsletter,alil-landing">
+    <div class="alil-email__field-group">
+      <input type="email" name="contact[email]" class="alil-email__input" placeholder="Your email address" required autocomplete="email">
+      <button type="submit" class="alil-btn alil-btn--email">Join</button>
+    </div>
+    <p class="alil-email__promise">
+      <span class="alil-promise-dot"></span>
+      No noise. One email when something is worth your attention.
+    </p>
+  </form>
+  <div class="alil-email__success" id="alil-email-success" style="display:none;">
+    <p class="alil-email__success-msg">You're in. We'll be in touch when it matters.</p>
+  </div>
+</section>
+
+{%- comment -%} ── FOOTER STRIP ── {%- endcomment -%}
+<div class="alil-footer-strip">
+  <span class="alil-footer-strip__brand">Atelier Modernista</span>
+  <a href="{{ routes.root_url }}" class="alil-footer-strip__link">ateliermodernista.com &rarr;</a>
+</div>
+
+<script>
+(function() {
+  var form = document.getElementById('alil-email-form');
+  if (!form) return;
+  form.addEventListener('submit', function() {
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) { btn.textContent = 'Joining...'; btn.disabled = true; }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "ALIL Landing Page",
+  "tag": "article",
+  "class": "alil-page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_headline",
+      "label": "Headline — plain part",
+      "default": "Jewellery that looks like"
+    },
+    {
+      "type": "text",
+      "id": "hero_headline_italic",
+      "label": "Headline — italic part",
+      "default": "it has a point of view.",
+      "info": "Renders in italics on second line. Leave blank to skip."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_body",
+      "label": "Hero body text",
+      "default": "Art-inspired pieces from independent designers — chosen because they do something we think is special. Bold colour, real presence, and nothing produced at scale."
+    },
+    {
+      "type": "header",
+      "content": "Philosophy block"
+    },
+    {
+      "type": "checkbox",
+      "id": "philosophy_active",
+      "label": "Show philosophy block",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "philosophy_image",
+      "label": "Philosophy image",
+      "info": "Optional. Wide crop works best — 1200x600px or similar."
+    },
+    {
+      "type": "text",
+      "id": "philosophy_eyebrow",
+      "label": "Eyebrow label",
+      "default": "Our conviction"
+    },
+    {
+      "type": "text",
+      "id": "philosophy_headline",
+      "label": "Headline",
+      "default": "Less, but better."
+    },
+    {
+      "type": "textarea",
+      "id": "philosophy_body",
+      "label": "Body text",
+      "default": "Most jewellery is designed to match most things. It sits quietly, coordinates politely, then disappears. Atelier Modernista was born from an opposite impulse — a love of jewellery that has genuine presence."
+    },
+    {
+      "type": "textarea",
+      "id": "philosophy_quote",
+      "label": "Pull quote",
+      "default": "Make the things we own more beautiful.",
+      "info": "Optional. Leave blank to hide."
+    },
+    {
+      "type": "text",
+      "id": "philosophy_quote_attribution",
+      "label": "Quote attribution",
+      "default": "Sophie Taeuber-Arp"
+    },
+    {
+      "type": "header",
+      "content": "Build Your Look"
+    },
+    {
+      "type": "checkbox",
+      "id": "byl_active",
+      "label": "Show Build Your Look section",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "byl_eyebrow",
+      "label": "Eyebrow label",
+      "default": "Build Your Look"
+    },
+    {
+      "type": "text",
+      "id": "byl_headline",
+      "label": "Headline",
+      "default": "Pieces that work together."
+    },
+    {
+      "type": "textarea",
+      "id": "byl_body",
+      "label": "Intro text",
+      "default": "Each look is a considered combination — chosen because the pieces do something together they can't do apart."
+    },
+    {
+      "type": "header",
+      "content": "Offer"
+    },
+    {
+      "type": "checkbox",
+      "id": "offer_active",
+      "label": "Show Pintail candle offer",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "offer_count",
+      "label": "Number of orders in offer",
+      "default": 25
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product",
+          "info": "Pulls live image, price and availability automatically."
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Override image",
+          "info": "Optional. Only used if no product is selected or product has no image."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title (manual fallback)",
+          "default": "Product Name"
+        },
+        {
+          "type": "text",
+          "id": "maker",
+          "label": "Maker / Designer"
+        },
+        {
+          "type": "textarea",
+          "id": "editorial",
+          "label": "Editorial line",
+          "default": "A piece chosen because it does something special."
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price (manual fallback)",
+          "default": "From £65"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link (manual fallback)"
+        },
+        {
+          "type": "text",
+          "id": "colour_bar",
+          "label": "Colour bar (shown if no image)",
+          "default": "linear-gradient(90deg, #e05a2b, #f0a500)"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Badge label (optional)"
+        },
+        {
+          "type": "select",
+          "id": "tag_style",
+          "label": "Badge style",
+          "options": [
+            { "value": "cobalt", "label": "Cobalt" },
+            { "value": "gold", "label": "Gold" }
+          ],
+          "default": "cobalt"
+        }
+      ]
+    },
+    {
+      "type": "byl_look",
+      "name": "Build Your Look",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "look_image",
+          "label": "Look image"
+        },
+        {
+          "type": "text",
+          "id": "look_name",
+          "label": "Look name",
+          "default": "The Modernist Edit"
+        },
+        {
+          "type": "textarea",
+          "id": "look_description",
+          "label": "Look description"
+        },
+        {
+          "type": "url",
+          "id": "look_url",
+          "label": "Shop this look link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ALIL Landing Page"
+    }
+  ]
+}
+{% endschema %}

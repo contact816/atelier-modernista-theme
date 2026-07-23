@@ -1,0 +1,597 @@
+{% comment %}
+  Atelier Modernista — Collect Atelier Points
+
+  Editable Shopify section for the Your Rewards page.
+
+  Brand rules:
+  - The Atelier Circle
+  - AM Cobalt Blue: #0047AB
+  - Deep Cobalt: #071465
+  - AM Cream: #fdf6e3
+  - White cards only
+  - No grey or beige card backgrounds
+{% endcomment %}
+
+<section
+  id="AMCollectPoints-{{ section.id }}"
+  class="am-collect-points color-{{ section.settings.color_scheme }}"
+  style="
+    --am-cobalt: #0047AB;
+    --am-cobalt-deep: #071465;
+    --am-cream: #fdf6e3;
+    --am-padding-top: {{ section.settings.padding_top }}px;
+    --am-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="page-width">
+    <div class="am-collect-points__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="am-collect-points__eyebrow">
+          {{ section.settings.eyebrow }}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="am-collect-points__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.introduction != blank -%}
+        <div class="am-collect-points__introduction rte">
+          {{ section.settings.introduction }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- assign visible_blocks = 0 -%}
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'earning_method' and block.settings.active -%}
+        {%- assign visible_blocks = visible_blocks | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if visible_blocks > 0 -%}
+      <div class="am-collect-points__grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'earning_method' and block.settings.active -%}
+            <article
+              class="am-collect-points__card"
+              {{ block.shopify_attributes }}
+            >
+              <div class="am-collect-points__icon" aria-hidden="true">
+                {%- case block.settings.icon -%}
+
+                  {%- when 'purchase' -%}
+                    <svg viewBox="0 0 48 48">
+                      <path
+                        d="M10 15h28l-2 23H12L10 15Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M17 18v-5a7 7 0 0 1 14 0v5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+
+                  {%- when 'birthday' -%}
+                    <svg viewBox="0 0 48 48">
+                      <path
+                        d="M10 22h28v16H10V22Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M8 18h32v7H8v-7Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M24 18V9"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M24 9c-3-2-3-6 0-8 3 2 3 6 0 8Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+
+                  {%- when 'friend' -%}
+                    <svg viewBox="0 0 48 48">
+                      <circle
+                        cx="17"
+                        cy="17"
+                        r="6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <circle
+                        cx="32"
+                        cy="18"
+                        r="5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M7 38c1-8 5-12 10-12s9 4 10 12"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M27 38c1-6 4-9 8-9 3 0 6 3 7 9"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+
+                  {%- when 'review' -%}
+                    <svg viewBox="0 0 48 48">
+                      <path
+                        d="M8 9h32v24H20l-9 7v-7H8V9Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M15 17h18M15 23h14"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+
+                  {%- when 'seasonal' -%}
+                    <svg viewBox="0 0 48 48">
+                      <path
+                        d="m24 5 3.2 10.8L38 19l-10.8 3.2L24 33l-3.2-10.8L10 19l10.8-3.2L24 5Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="m37 31 1.7 5.3L44 38l-5.3 1.7L37 45l-1.7-5.3L30 38l5.3-1.7L37 31Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+
+                  {%- when 'join' -%}
+                    <svg viewBox="0 0 48 48">
+                      <circle
+                        cx="24"
+                        cy="16"
+                        r="6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M12 39c1-9 6-14 12-14s11 5 12 14"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M36 10v10M31 15h10"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+
+                  {%- else -%}
+                    <svg viewBox="0 0 48 48">
+                      <circle
+                        cx="24"
+                        cy="24"
+                        r="16"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M24 15v18M15 24h18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+
+                {%- endcase -%}
+              </div>
+
+              <div class="am-collect-points__card-copy">
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="am-collect-points__card-heading">
+                    {{ block.settings.heading }}
+                  </h3>
+                {%- endif -%}
+
+                {%- if block.settings.description != blank -%}
+                  <div class="am-collect-points__description rte">
+                    {{ block.settings.description }}
+                  </div>
+                {%- endif -%}
+
+                {%- if block.settings.note != blank -%}
+                  <p class="am-collect-points__note">
+                    {{ block.settings.note }}
+                  </p>
+                {%- endif -%}
+
+                {%- if block.settings.link != blank and block.settings.link_label != blank -%}
+                  <a
+                    class="am-collect-points__link"
+                    href="{{ block.settings.link }}"
+                  >
+                    {{ block.settings.link_label }}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="am-collect-points__empty">
+        Add ways to collect Atelier Points in the Theme Editor.
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .am-collect-points {
+    padding-top: var(--am-padding-top);
+    padding-bottom: var(--am-padding-bottom);
+    background: var(--am-cream);
+  }
+
+  .am-collect-points *,
+  .am-collect-points *::before,
+  .am-collect-points *::after {
+    box-sizing: border-box;
+  }
+
+  .am-collect-points__header {
+    max-width: 66rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .am-collect-points__eyebrow {
+    margin: 0 0 .6rem;
+    color: var(--am-cobalt-deep);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .am-collect-points__heading {
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.8rem, 4vw, 4.6rem);
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .am-collect-points__introduction {
+    max-width: 60rem;
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .am-collect-points__introduction p {
+    margin: 0;
+  }
+
+  .am-collect-points__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .am-collect-points__card {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    align-items: start;
+    gap: 1rem;
+    min-height: 0;
+    padding: 1.25rem 1.4rem;
+    background: #fff;
+    border: 1px solid rgba(0, 71, 171, .18);
+  }
+
+  .am-collect-points__icon {
+    width: 2.8rem;
+    height: 2.8rem;
+    color: var(--am-cobalt);
+  }
+
+  .am-collect-points__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .am-collect-points__card-copy {
+    min-width: 0;
+  }
+
+  .am-collect-points__card-heading {
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-size: clamp(1.7rem, 2vw, 2.2rem);
+    font-weight: 500;
+    line-height: 1.05;
+  }
+
+  .am-collect-points__description {
+    margin-top: .35rem;
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+
+  .am-collect-points__description p {
+    margin: 0;
+  }
+
+  .am-collect-points__note {
+    margin: .45rem 0 0;
+    color: var(--am-cobalt-deep);
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.35;
+  }
+
+  .am-collect-points__link {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    margin-top: .75rem;
+    padding-bottom: .15rem;
+    color: var(--am-cobalt);
+    border-bottom: 1px solid currentColor;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .am-collect-points__link:hover {
+    color: var(--am-cobalt-deep);
+  }
+
+  .am-collect-points__empty {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .am-collect-points__header {
+      margin-bottom: 2rem;
+    }
+
+    .am-collect-points__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: .8rem;
+    }
+
+    .am-collect-points__card {
+      grid-template-columns: 2.8rem minmax(0, 1fr);
+      gap: .9rem;
+      padding: 1.2rem;
+    }
+
+    .am-collect-points__icon {
+      width: 2.6rem;
+      height: 2.6rem;
+    }
+
+    .am-collect-points__card-heading {
+      font-size: 1.9rem;
+    }
+
+    .am-collect-points__description {
+      font-size: 1.08rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "AM — Collect Points",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "The Atelier Circle"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Collect Atelier Points"
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Introduction",
+      "default": "<p>Every interaction with the Atelier can bring you closer to your next Reward Gift.</p>"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "earning_method",
+      "name": "Way to collect points",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "active",
+          "label": "Show this item",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "purchase",
+              "label": "Purchase"
+            },
+            {
+              "value": "birthday",
+              "label": "Birthday"
+            },
+            {
+              "value": "friend",
+              "label": "Invite a friend"
+            },
+            {
+              "value": "review",
+              "label": "Review"
+            },
+            {
+              "value": "seasonal",
+              "label": "Seasonal"
+            },
+            {
+              "value": "join",
+              "label": "Join"
+            },
+            {
+              "value": "plus",
+              "label": "Simple plus"
+            }
+          ],
+          "default": "purchase"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Every Purchase"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Collect Atelier Points whenever you shop with Atelier Modernista.</p>"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Optional note"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Optional link wording"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Optional link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Collect Points",
+      "blocks": [
+        {
+          "type": "earning_method",
+          "settings": {
+            "icon": "purchase",
+            "heading": "Every Purchase",
+            "description": "<p>Collect Atelier Points whenever you shop with Atelier Modernista.</p>"
+          }
+        },
+        {
+          "type": "earning_method",
+          "settings": {
+            "icon": "birthday",
+            "heading": "Birthday Reward",
+            "description": "<p>A little something from the Atelier to mark your birthday.</p>"
+          }
+        },
+        {
+          "type": "earning_method",
+          "settings": {
+            "icon": "friend",
+            "heading": "Invite a Friend",
+            "description": "<p>Introduce someone to Atelier Modernista and receive Atelier Points when they make their first purchase.</p>"
+          }
+        },
+        {
+          "type": "earning_method",
+          "settings": {
+            "icon": "review",
+            "heading": "Share Your Thoughts",
+            "description": "<p>Review a piece you have purchased and receive Atelier Points once your review has been approved.</p>",
+            "note": "Review points are currently added manually."
+          }
+        },
+        {
+          "type": "earning_method",
+          "settings": {
+            "icon": "seasonal",
+            "heading": "Seasonal Opportunities",
+            "description": "<p>From time to time, members can collect additional Atelier Points through special events and offers.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,804 @@
+{% comment %}
+  Atelier Modernista Library Shelf
+  Add one instance for every subject/category.
+{% endcomment %}
+
+<style>
+  {{ section.settings.heading_font | font_face: font_display: 'swap' }}
+  {{ section.settings.body_font | font_face: font_display: 'swap' }}
+</style>
+
+<section
+  id="AMReadingShelf-{{ section.id }}"
+  class="am-reading-shelf"
+  style="
+    --am-shelf-bg: {{ section.settings.background_colour }};
+    --am-shelf-text: {{ section.settings.text_colour }};
+    --am-shelf-muted: {{ section.settings.muted_colour }};
+    --am-shelf-accent: {{ section.settings.accent_colour }};
+    --am-shelf-border: {{ section.settings.border_colour }};
+    --am-shelf-width: {{ section.settings.max_width }}px;
+    --am-shelf-heading-size: {{ section.settings.heading_size }}px;
+    --am-book-title-size: {{ section.settings.book_title_size }}px;
+    --am-book-body-size: {{ section.settings.body_size }}px;
+    --am-cover-width: {{ section.settings.cover_width }}px;
+    --am-shelf-top: {{ section.settings.padding_top }}px;
+    --am-shelf-bottom: {{ section.settings.padding_bottom }}px;
+    --am-heading-font: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+    --am-body-font: {{ section.settings.body_font.family }}, {{ section.settings.body_font.fallback_families }};
+  "
+>
+  <div class="am-reading-shelf__inner">
+    {% if section.settings.title != blank %}
+      <header class="am-reading-shelf__header">
+        <h2 class="am-reading-shelf__title">
+          {{ section.settings.title | escape }}
+        </h2>
+
+        {% if section.settings.introduction != blank %}
+          <div class="am-reading-shelf__intro rte">
+            {{ section.settings.introduction }}
+          </div>
+        {% endif %}
+      </header>
+    {% endif %}
+
+    <div
+      class="
+        am-reading-shelf__grid
+        am-reading-shelf__grid--{{ section.settings.columns_desktop }}
+      "
+    >
+      {% for block in section.blocks %}
+        {% liquid
+          assign destination = block.settings.link
+          if destination == blank
+            assign destination = section.settings.fallback_url
+          endif
+
+          assign has_cover = false
+          if block.settings.cover != blank
+            assign has_cover = true
+          endif
+        %}
+
+        <article
+          class="
+            am-book-card
+            {% unless has_cover %}
+              am-book-card--no-cover
+            {% endunless %}
+            {% if block.settings.featured %}
+              am-book-card--featured
+            {% endif %}
+          "
+          {{ block.shopify_attributes }}
+        >
+          {% if section.settings.show_numbers %}
+            <div class="am-book-card__number">
+              {% if block.settings.number != blank %}
+                {{ block.settings.number | escape }}
+              {% else %}
+                {{ forloop.index | prepend: '0' | slice: -2, 2 }}
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if has_cover %}
+            {% if destination != blank %}
+              <a
+                class="am-book-card__cover-link"
+                href="{{ destination }}"
+                {% if section.settings.open_new_tab %}
+                  target="_blank"
+                  rel="noopener sponsored"
+                {% endif %}
+                aria-label="View {{ block.settings.title | escape }} on Bookshop.org"
+              >
+            {% endif %}
+
+            <div
+              class="
+                am-book-card__cover-frame
+                am-book-card__cover-frame--{{ section.settings.image_ratio }}
+              "
+            >
+              {{
+                block.settings.cover
+                | image_url: width: 600
+                | image_tag:
+                  class: 'am-book-card__cover',
+                  loading: 'lazy',
+                  widths: '160, 240, 360, 480, 600',
+                  sizes: '(max-width: 749px) 82px, 120px',
+                  alt: block.settings.cover.alt
+              }}
+            </div>
+
+            {% if destination != blank %}
+              </a>
+            {% endif %}
+          {% endif %}
+
+          <div class="am-book-card__content">
+            {% if block.settings.kicker != blank %}
+              <p class="am-book-card__kicker">
+                {{ block.settings.kicker | escape }}
+              </p>
+            {% endif %}
+
+            {% if block.settings.title != blank %}
+              <h3 class="am-book-card__title">
+                {% if destination != blank %}
+                  <a
+                    href="{{ destination }}"
+                    {% if section.settings.open_new_tab %}
+                      target="_blank"
+                      rel="noopener sponsored"
+                    {% endif %}
+                  >
+                    {{ block.settings.title | escape }}
+                  </a>
+                {% else %}
+                  {{ block.settings.title | escape }}
+                {% endif %}
+              </h3>
+            {% endif %}
+
+            {% if block.settings.author != blank %}
+              <p class="am-book-card__author">
+                {{ block.settings.author | escape }}
+              </p>
+            {% endif %}
+
+            {% if section.settings.show_notes and block.settings.note != blank %}
+              <div class="am-book-card__note rte">
+                {{ block.settings.note }}
+              </div>
+            {% endif %}
+
+            {% if section.settings.show_links and destination != blank %}
+              <a
+                class="am-book-card__shop-link"
+                href="{{ destination }}"
+                {% if section.settings.open_new_tab %}
+                  target="_blank"
+                  rel="noopener sponsored"
+                {% endif %}
+              >
+                {% if block.settings.link_label != blank %}
+                  {{ block.settings.link_label | escape }}
+                {% else %}
+                  {{ section.settings.default_link_label | escape }}
+                {% endif %}
+              </a>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+    {% if section.blocks.size == 0 %}
+      <div class="am-reading-shelf__empty">
+        Add book blocks to this shelf in the theme editor.
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  #AMReadingShelf-{{ section.id }} {
+    width: 100%;
+    padding: var(--am-shelf-top) 24px var(--am-shelf-bottom);
+    background: var(--am-shelf-bg);
+    color: var(--am-shelf-text);
+    box-sizing: border-box;
+  }
+
+  #AMReadingShelf-{{ section.id }} *,
+  #AMReadingShelf-{{ section.id }} *::before,
+  #AMReadingShelf-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-reading-shelf__inner {
+    width: 100%;
+    max-width: var(--am-shelf-width);
+    margin: 0 auto;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-reading-shelf__header {
+    margin-bottom: 38px;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-reading-shelf__title {
+    margin: 0;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--am-shelf-border);
+    font-family: var(--am-heading-font);
+    font-size: var(--am-shelf-heading-size);
+    font-weight: 500;
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+    color: var(--am-shelf-text);
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-reading-shelf__intro {
+    max-width: 720px;
+    margin-top: 18px;
+    font-family: var(--am-body-font);
+    font-size: var(--am-book-body-size);
+    line-height: 1.7;
+    color: var(--am-shelf-muted);
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-reading-shelf__intro p {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-reading-shelf__grid {
+    display: grid;
+    width: 100%;
+    column-gap: 56px;
+    row-gap: 0;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-reading-shelf__grid--1 {
+    grid-template-columns: 1fr;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-reading-shelf__grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-reading-shelf__grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 34px;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card {
+    position: relative;
+    display: grid;
+    grid-template-columns:
+      {% if section.settings.show_numbers %}
+        30px
+      {% endif %}
+      var(--am-cover-width)
+      minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+    min-width: 0;
+    padding: 28px 0 34px;
+    border-top: 1px solid var(--am-shelf-border);
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card--no-cover {
+    grid-template-columns:
+      {% if section.settings.show_numbers %}
+        30px
+      {% endif %}
+      minmax(0, 1fr);
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card--featured {
+    padding-right: 18px;
+    padding-left: 18px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__number {
+    padding-top: 3px;
+    font-family: var(--am-body-font);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.09em;
+    color: var(--am-shelf-accent);
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__cover-link {
+    display: block;
+    width: var(--am-cover-width);
+    text-decoration: none;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__cover-frame {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid rgba(26, 26, 26, 0.09);
+    box-shadow: 0 8px 22px rgba(26, 26, 26, 0.1);
+  }
+
+  #AMReadingShelf-{{ section.id }}
+    .am-book-card__cover-frame--portrait {
+    aspect-ratio: 2 / 3;
+  }
+
+  #AMReadingShelf-{{ section.id }}
+    .am-book-card__cover-frame--book {
+    aspect-ratio: 5 / 8;
+  }
+
+  #AMReadingShelf-{{ section.id }}
+    .am-book-card__cover-frame--natural {
+    aspect-ratio: auto;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__cover {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition:
+      transform 220ms ease,
+      filter 220ms ease;
+  }
+
+  #AMReadingShelf-{{ section.id }}
+    .am-book-card__cover-frame--natural
+    .am-book-card__cover {
+    height: auto;
+  }
+
+  #AMReadingShelf-{{ section.id }}
+    .am-book-card__cover-link:hover
+    .am-book-card__cover {
+    transform: scale(1.025);
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__content {
+    min-width: 0;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__kicker {
+    margin: 0 0 8px;
+    font-family: var(--am-body-font);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--am-shelf-accent);
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__title {
+    width: 100%;
+    margin: 0 0 9px;
+    font-family: var(--am-heading-font);
+    font-size: var(--am-book-title-size);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.012em;
+    color: var(--am-shelf-text);
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__title a {
+    color: inherit;
+    text-decoration: none;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__title a:hover {
+    color: var(--am-shelf-accent);
+    text-decoration: underline;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__author {
+    margin: 0;
+    font-family: var(--am-body-font);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--am-shelf-accent);
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__note {
+    margin-top: 12px;
+    font-family: var(--am-body-font);
+    font-size: var(--am-book-body-size);
+    line-height: 1.65;
+    color: var(--am-shelf-muted);
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__note p {
+    margin-top: 0;
+    margin-bottom: 9px;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__note p:last-child {
+    margin-bottom: 0;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__shop-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 17px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid currentColor;
+    font-family: var(--am-body-font);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--am-shelf-accent);
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-book-card__shop-link::after {
+    content: '→';
+    font-size: 14px;
+    transition: transform 180ms ease;
+  }
+
+  #AMReadingShelf-{{ section.id }}
+    .am-book-card__shop-link:hover::after {
+    transform: translateX(4px);
+  }
+
+  #AMReadingShelf-{{ section.id }} a:focus-visible {
+    outline: 2px solid var(--am-shelf-accent);
+    outline-offset: 4px;
+  }
+
+  #AMReadingShelf-{{ section.id }} .am-reading-shelf__empty {
+    padding: 30px;
+    border: 1px dashed var(--am-shelf-border);
+    font-family: var(--am-body-font);
+    font-size: 14px;
+    text-align: center;
+    color: var(--am-shelf-muted);
+  }
+
+  @media screen and (max-width: 989px) {
+    #AMReadingShelf-{{ section.id }}
+      .am-reading-shelf__grid--3 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #AMReadingShelf-{{ section.id }} {
+      padding-right: 18px;
+      padding-left: 18px;
+    }
+
+    #AMReadingShelf-{{ section.id }} .am-reading-shelf__grid,
+    #AMReadingShelf-{{ section.id }}
+      .am-reading-shelf__grid--2,
+    #AMReadingShelf-{{ section.id }}
+      .am-reading-shelf__grid--3 {
+      grid-template-columns: 1fr;
+    }
+
+    #AMReadingShelf-{{ section.id }} .am-reading-shelf__title {
+      font-size: calc(var(--am-shelf-heading-size) * 0.82);
+    }
+
+    #AMReadingShelf-{{ section.id }} .am-book-card {
+      grid-template-columns:
+        {% if section.settings.show_numbers %}
+          24px
+        {% endif %}
+        80px
+        minmax(0, 1fr);
+      gap: 12px;
+      padding: 24px 0 28px;
+    }
+
+    #AMReadingShelf-{{ section.id }} .am-book-card--no-cover {
+      grid-template-columns:
+        {% if section.settings.show_numbers %}
+          24px
+        {% endif %}
+        minmax(0, 1fr);
+    }
+
+    #AMReadingShelf-{{ section.id }} .am-book-card__cover-link {
+      width: 80px;
+    }
+
+    #AMReadingShelf-{{ section.id }} .am-book-card__title {
+      font-size: calc(var(--am-book-title-size) * 0.88);
+    }
+
+    #AMReadingShelf-{{ section.id }} .am-book-card__note {
+      font-size: calc(var(--am-book-body-size) - 1px);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "AM Library shelf",
+  "tag": "section",
+  "class": "am-reading-shelf-section",
+  "max_blocks": 50,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Shelf heading",
+      "default": "The Modernism Shelf"
+    },
+    {
+      "type": "richtext",
+      "id": "introduction",
+      "label": "Shelf introduction",
+      "default": "<p>The artists, movements and ideas that helped shape the way we see the modern world.</p>"
+    },
+    {
+      "type": "url",
+      "id": "fallback_url",
+      "label": "Fallback Bookshop.org link",
+      "info": "Used when an individual book does not yet have its own link."
+    },
+    {
+      "type": "text",
+      "id": "default_link_label",
+      "label": "Default link wording",
+      "default": "Add to your library"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_new_tab",
+      "label": "Open book links in a new tab",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_numbers",
+      "label": "Show book numbers",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_notes",
+      "label": "Show book notes",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_links",
+      "label": "Show Bookshop links",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Books per row — desktop",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "One"
+        },
+        {
+          "value": "2",
+          "label": "Two"
+        },
+        {
+          "value": "3",
+          "label": "Three"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Cover shape",
+      "default": "book",
+      "options": [
+        {
+          "value": "natural",
+          "label": "Natural"
+        },
+        {
+          "value": "portrait",
+          "label": "2:3 portrait"
+        },
+        {
+          "value": "book",
+          "label": "5:8 book"
+        }
+      ]
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading and title font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body and author font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Shelf heading size",
+      "min": 26,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "book_title_size",
+      "label": "Book title size",
+      "min": 18,
+      "max": 38,
+      "step": 1,
+      "unit": "px",
+      "default": 27
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Book note size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "cover_width",
+      "label": "Cover width — desktop",
+      "min": 70,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 104
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Shelf width",
+      "min": 700,
+      "max": 1500,
+      "step": 20,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "color",
+      "id": "background_colour",
+      "label": "Background",
+      "default": "#fdf6e3"
+    },
+    {
+      "type": "color",
+      "id": "text_colour",
+      "label": "Main text",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "muted_colour",
+      "label": "Book notes",
+      "default": "#5f5b53"
+    },
+    {
+      "type": "color",
+      "id": "accent_colour",
+      "label": "Accent and links",
+      "default": "#0047ab"
+    },
+    {
+      "type": "color",
+      "id": "border_colour",
+      "label": "Dividing lines",
+      "default": "#d8d0c3"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Space above shelf",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Space below shelf",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "book",
+      "name": "Book",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "placeholder": "01"
+        },
+        {
+          "type": "image_picker",
+          "id": "cover",
+          "label": "Book cover"
+        },
+        {
+          "type": "text",
+          "id": "kicker",
+          "label": "Optional small label",
+          "placeholder": "A lifelong favourite"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Book title",
+          "default": "Book title"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Author"
+        },
+        {
+          "type": "richtext",
+          "id": "note",
+          "label": "Why it belongs",
+          "default": "<p>A short, warm note about why this book has stayed with us.</p>"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Individual Bookshop.org link"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Optional custom link wording"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Highlight this book",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM Library shelf",
+      "blocks": [
+        {
+          "type": "book"
+        },
+        {
+          "type": "book"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

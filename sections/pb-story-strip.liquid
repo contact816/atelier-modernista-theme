@@ -1,0 +1,237 @@
+{%- assign pt = section.settings.padding_top -%}
+{%- assign pb = section.settings.padding_bottom -%}
+{%- assign bg = section.settings.background_color -%}
+{%- assign fg = section.settings.font_color -%}
+{%- assign width = section.settings.width -%}
+
+<section class="am-story{% if section.settings.layout == 'stacked' %} am-story--stacked{% elsif section.settings.image_position == 'right' %} am-story--image-right{% endif %} am-story--inset am-story--{{ width }}" style="margin-top: {{ pt }}px; margin-bottom: {{ pb }}px; background-color: {{ bg }};">
+  <div class="am-story__image" style="max-height: {{ section.settings.image_height }}px; min-height: {{ section.settings.image_height }}px;">
+    {%- if section.settings.image != blank -%}
+      <img
+        src="{{ section.settings.image | image_url: width: 1200 }}"
+        alt="{{ section.settings.image.alt | escape }}"
+        loading="lazy"
+        width="{{ section.settings.image.width }}"
+        height="{{ section.settings.image.height }}"
+      >
+    {%- else -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'am-story__placeholder' }}
+    {%- endif -%}
+    {%- if section.settings.image_caption != blank -%}
+      <span class="am-story__image-caption" style="color: {{ fg }};">{{ section.settings.image_caption }}</span>
+    {%- endif -%}
+  </div>
+  <div class="am-story__content" style="color: {{ fg }};">
+    {%- if section.settings.eyebrow != blank -%}
+      <div class="am-eyebrow am-eyebrow--yellow">{{ section.settings.eyebrow }}</div>
+    {%- endif -%}
+    <h2 class="am-story__heading" style="color: {{ fg }};">{{ section.settings.heading }}</h2>
+    {%- for block in section.blocks -%}
+      <p class="am-story__body" {{ block.shopify_attributes }} style="color: {{ fg }};">{{ block.settings.text }}</p>
+    {%- endfor -%}
+    {%- if section.settings.show_signature -%}
+      <div class="am-story__sig" style="color: {{ fg }};">{{ section.settings.signature_name }}</div>
+      <div class="am-story__sig-meta" style="color: {{ fg }};">{{ section.settings.signature_title }}</div>
+    {%- endif -%}
+    {%- if section.settings.cta_label != blank -%}
+      <a href="{{ section.settings.cta_url }}" class="am-story__link" style="color: {{ fg }}; border-bottom-color: {{ fg }};">
+        {{ section.settings.cta_label }} →
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "AM — Story Strip",
+  "tag": "section",
+  "class": "am-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Lifestyle image"
+    },
+    {
+      "type": "text",
+      "id": "image_caption",
+      "label": "Image caption",
+      "default": "A piece in the edit"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Image height",
+      "min": 60,
+      "max": 400,
+      "step": 20,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "side", "label": "Image side by side" },
+        { "value": "stacked", "label": "Image on top" }
+      ],
+      "default": "side"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position (side layout only)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        { "value": "narrow", "label": "Narrow" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "wide", "label": "Wide" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background colour",
+      "default": "#1f2c8a"
+    },
+    {
+      "type": "color",
+      "id": "font_color",
+      "label": "Font colour",
+      "default": "#f7eed8"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Thinking"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Less, but better — and in colour."
+    },
+    {
+      "type": "header",
+      "content": "Signature"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_signature",
+      "label": "Show signature",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "signature_name",
+      "label": "Signature name",
+      "default": "Antonia"
+    },
+    {
+      "type": "text",
+      "id": "signature_title",
+      "label": "Signature title",
+      "default": "Founder, Atelier Modernista"
+    },
+    {
+      "type": "header",
+      "content": "CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Link label",
+      "default": "Read the Philosophy"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Space above",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Space below",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "name": "Paragraph",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Story Strip",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "settings": {
+            "text": "Atelier Modernista is a curatorial label for art jewellery in the modernist tradition. The edit is small on purpose: around thirty pieces at a time, chosen for their geometry, their colour, and their conviction. We carry work that treats jewellery the way modernism treated furniture — as a small, considered object, with a point of view."
+          }
+        },
+        {
+          "type": "paragraph",
+          "settings": {
+            "text": "What you'll find here doesn't follow trends and isn't built for them. Limited editions of each piece, drawn from a short list of materials we trust. We'd rather carry thirty pieces well than three hundred at all."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

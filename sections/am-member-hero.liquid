@@ -1,0 +1,254 @@
+<section
+  class="am-member-hero color-{{ section.settings.color_scheme }}"
+  style="
+    --am-accent: {{ section.settings.accent_colour }};
+    --am-padding-top: {{ section.settings.padding_top }}px;
+    --am-padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="page-width">
+
+    <p class="am-member-hero__eyebrow">
+      {{ section.settings.eyebrow }}
+    </p>
+
+    <h1 class="am-member-hero__heading">
+      {% if customer %}
+        Welcome back{% if customer.first_name != blank %}, {{ customer.first_name }}{% endif %}.
+      {% else %}
+        {{ section.settings.guest_heading }}
+      {% endif %}
+    </h1>
+
+    <div class="am-member-hero__card">
+
+      <p class="am-member-hero__label">
+        Your Atelier Points
+      </p>
+
+      <p class="am-member-hero__points">
+        {{ section.settings.preview_points }}
+      </p>
+
+      <div
+        class="am-member-hero__track"
+        role="progressbar"
+        aria-label="Your progress through The Atelier Circle"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="{{ section.settings.progress }}"
+      >
+        <span
+          class="am-member-hero__fill"
+          style="width:{{ section.settings.progress }}%;"
+        ></span>
+      </div>
+
+      <p class="am-member-hero__status">
+        <strong>{{ section.settings.points_remaining }} Atelier Points</strong>
+        until your next Atelier Selection.
+      </p>
+
+      <h2 class="am-member-hero__reward">
+        {{ section.settings.next_reward }}
+      </h2>
+
+      <a
+        href="{{ section.settings.button_link }}"
+        class="am-member-hero__button"
+      >
+        {{ section.settings.button_label }}
+        <span aria-hidden="true">→</span>
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+
+.am-member-hero{
+  padding:var(--am-padding-top) 0 var(--am-padding-bottom);
+}
+
+.am-member-hero__eyebrow{
+  margin:0 0 .8rem;
+  font-size:1.1rem;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.am-member-hero__heading{
+  margin:0;
+  font-family:var(--font-heading-family);
+  font-size:clamp(3.4rem,5vw,5.8rem);
+  line-height:.95;
+  font-weight:500;
+}
+
+.am-member-hero__card{
+  margin-top:3rem;
+  padding:2.4rem 3rem;
+  min-height:auto;
+  border:1px solid rgba(var(--color-foreground),.14);
+}
+
+.am-member-hero__label{
+  margin:0;
+  opacity:.9;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.am-member-hero__points{
+  margin:.3rem 0 1.4rem;
+  font-family:var(--font-heading-family);
+  font-size:clamp(3rem,5vw,5rem);
+}
+
+.am-member-hero__track{
+  width:100%;
+  height:1rem;
+  overflow:hidden;
+  background:rgba(0,71,171,.14);
+  border-radius:999px;
+}
+
+.am-member-hero__fill{
+  display:block;
+  height:100%;
+  background:#0047AB;
+  border-radius:999px;
+  transition:width 600ms ease;
+}
+
+.am-member-hero__status{
+  margin:1.2rem 0 .5rem;
+}
+
+.am-member-hero__reward{
+  margin:.4rem 0 0;
+  font-family:var(--font-heading-family);
+  font-size:clamp(2.8rem,4vw,4.8rem);
+  line-height:1.05;
+}
+
+.am-member-hero__button{
+  display:inline-flex;
+  gap:.7rem;
+  margin-top:2rem;
+  margin-bottom:0;
+  padding-bottom:.2rem;
+  text-decoration:none;
+  border-bottom:1px solid currentColor;
+}
+
+@media screen and (max-width:749px){
+  .am-member-hero__card{
+    padding:2rem 1.6rem;
+  }
+}
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "AM — Member Hero",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "accent_colour",
+      "label": "Accent colour",
+      "default": "#0047AB"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Your Atelier"
+    },
+    {
+      "type": "text",
+      "id": "guest_heading",
+      "label": "Guest heading",
+      "default": "Welcome to The Atelier Circle"
+    },
+    {
+      "type": "range",
+      "id": "preview_points",
+      "label": "Preview points",
+      "min": 0,
+      "max": 5000,
+      "step": 50,
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "progress",
+      "label": "Progress",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "points_remaining",
+      "label": "Points remaining",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "default": 100
+    },
+    {
+      "type": "text",
+      "id": "next_reward",
+      "label": "Next reward",
+      "default": "Choose a Studio Gift"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button",
+      "default": "View your Selection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Member Hero"
+    }
+  ]
+}
+{% endschema %}

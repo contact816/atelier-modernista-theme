@@ -1,0 +1,379 @@
+{%- comment -%}
+  Atelier Modernista — Luxury Gift Wrapping Add-On
+  -------------------------------------------------------
+  SETUP:
+  1. Create a product called "Luxury Gift Wrapping" in Shopify admin
+     - Price: £4.95  |  SKU: AM-GIFT-WRAP  |  Track inventory: off
+     - Add a metafield: product.gift_wrap = true (to identify it in cart)
+  2. Save this file as snippets/gift-wrapping.liquid
+  3. Include on product pages: {% render 'gift-wrapping' %}
+     Place it inside product-form.liquid, below the add-to-cart button.
+  4. Add the <style> block to your theme.liquid <head>, or to assets/base.css
+{%- endcomment -%}
+
+{%- assign gift_wrap_product = all_products['luxury-gift-wrapping'] -%}
+{%- if gift_wrap_product != blank -%}
+  {%- assign gift_wrap_variant = gift_wrap_product.first_available_variant -%}
+
+  <div class="am-gift-wrap" id="am-gift-wrap">
+
+    <div class="am-gift-wrap__header">
+      <div class="am-gift-wrap__icon" aria-hidden="true">
+        {%- render 'icon-gift' -%}
+      </div>
+      <div class="am-gift-wrap__header-text">
+        <p class="am-gift-wrap__eyebrow">Add to your order</p>
+        <h3 class="am-gift-wrap__title">Luxury Gift Wrapping</h3>
+        <p class="am-gift-wrap__subtitle">Violet tissue &middot; branded ribbon &middot; wax seal</p>
+      </div>
+      <span class="am-gift-wrap__price">
+        {{ gift_wrap_variant.price | money }}
+      </span>
+    </div>
+
+    <div class="am-gift-wrap__includes">
+      <p class="am-gift-wrap__includes-label">What&rsquo;s included</p>
+      <ul class="am-gift-wrap__pills" aria-label="Gift wrapping includes">
+        <li>Violet tissue wrap</li>
+        <li>Printed satin ribbon</li>
+        <li>Hand-tied bow</li>
+        <li>Red wax seal</li>
+        <li>AM card envelope</li>
+        <li class="am-gift-wrap__pill--accent">Ships direct to recipient</li>
+      </ul>
+    </div>
+
+    <div class="am-gift-wrap__message-row">
+      <label class="am-gift-wrap__toggle-label" for="am-gift-message-toggle">
+        Add a handwritten gift message
+      </label>
+      <button
+        class="am-gift-wrap__toggle"
+        id="am-gift-message-toggle"
+        role="switch"
+        aria-checked="false"
+        aria-controls="am-gift-message-field"
+        type="button"
+      >
+        <span class="am-gift-wrap__toggle-knob"></span>
+        <span class="visually-hidden">Toggle gift message</span>
+      </button>
+    </div>
+
+    <div class="am-gift-wrap__message-field" id="am-gift-message-field" hidden>
+      <textarea
+        id="am-gift-message-text"
+        name="properties[Gift message]"
+        class="am-gift-wrap__textarea"
+        maxlength="200"
+        rows="4"
+        placeholder="Your message, written in our hand&hellip;"
+        aria-label="Gift message (optional, max 200 characters)"
+      ></textarea>
+      <p class="am-gift-wrap__charcount">
+        <span id="am-gift-message-count">0</span> / 200
+      </p>
+    </div>
+
+    <div class="am-gift-wrap__cta">
+      <button
+        type="button"
+        class="am-gift-wrap__add-btn"
+        id="am-gift-wrap-add"
+        data-variant-id="{{ gift_wrap_variant.id }}"
+        aria-label="Gift wrap this order for {{ gift_wrap_variant.price | money }}"
+      >
+        Add gift wrapping
+      </button>
+    </div>
+
+    <p class="am-gift-wrap__confirmation" id="am-gift-wrap-confirmation" hidden aria-live="polite">
+      Gift wrapping added.
+    </p>
+
+  </div>
+
+{%- endif -%}
+
+
+<style>
+/* ─── Atelier Modernista Gift Wrap — Dawn theme ─────────────────────────── */
+:root {
+  --am-cobalt: #0047AB;
+  --am-red: #c1392b;
+  --am-cream: #fdf6e3;
+  --am-linen: #f7f0e6;
+  --am-text: #1a1a1a;
+  --am-muted: #6b6b6b;
+  --am-border: rgba(26,26,26,0.15);
+  --am-radius: 8px;
+}
+
+.am-gift-wrap {
+  font-family: 'Jost', sans-serif;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 0.5px solid var(--am-border);
+}
+
+.am-gift-wrap__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.am-gift-wrap__icon svg {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.am-gift-wrap__header-text { flex: 1; }
+
+.am-gift-wrap__eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--am-muted);
+  margin: 0 0 4px;
+}
+
+.am-gift-wrap__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--am-text);
+  margin: 0 0 3px;
+  line-height: 1.2;
+}
+
+.am-gift-wrap__subtitle {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--am-muted);
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+
+.am-gift-wrap__price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--am-text);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+.am-gift-wrap__includes { margin-bottom: 1.25rem; }
+
+.am-gift-wrap__includes-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--am-muted);
+  margin: 0 0 0.6rem;
+}
+
+.am-gift-wrap__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.am-gift-wrap__pills li {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  padding: 4px 12px;
+  border: 0.5px solid var(--am-border);
+  border-radius: 20px;
+  color: var(--am-muted);
+  background: var(--am-linen);
+}
+
+.am-gift-wrap__pill--accent {
+  border-color: rgba(193, 57, 43, 0.3) !important;
+  color: var(--am-red) !important;
+  background: rgba(193, 57, 43, 0.05) !important;
+}
+
+.am-gift-wrap__message-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.am-gift-wrap__toggle-label {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--am-muted);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.am-gift-wrap__toggle {
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  border: 0.5px solid var(--am-border);
+  background: #e8e4dc;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.am-gift-wrap__toggle[aria-checked="true"] {
+  background: var(--am-red);
+  border-color: var(--am-red);
+}
+
+.am-gift-wrap__toggle-knob {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 2.5px;
+  left: 2.5px;
+  transition: left 0.2s;
+  pointer-events: none;
+}
+
+.am-gift-wrap__toggle[aria-checked="true"] .am-gift-wrap__toggle-knob {
+  left: 19.5px;
+}
+
+.am-gift-wrap__message-field { margin-bottom: 1rem; }
+
+.am-gift-wrap__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--am-text);
+  background: var(--am-cream);
+  border: 0.5px solid var(--am-border);
+  border-radius: var(--am-radius);
+  resize: none;
+  outline: none;
+  line-height: 1.7;
+  transition: border-color 0.15s;
+}
+
+.am-gift-wrap__textarea:focus {
+  border-color: rgba(26,26,26,0.35);
+}
+
+.am-gift-wrap__charcount {
+  text-align: right;
+  font-size: 10px;
+  color: var(--am-muted);
+  margin: 4px 0 0;
+  letter-spacing: 0.04em;
+}
+
+.am-gift-wrap__cta { margin-top: 1rem; }
+
+.am-gift-wrap__add-btn {
+  width: 100%;
+  padding: 14px 24px;
+  background: var(--am-red);
+  border: none;
+  color: white;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: var(--am-radius);
+  transition: opacity 0.15s;
+}
+
+.am-gift-wrap__add-btn:hover { opacity: 0.88; }
+.am-gift-wrap__add-btn:active { opacity: 0.75; transform: scale(0.99); }
+
+.am-gift-wrap__add-btn[data-added] {
+  background: #2d6a2d;
+  pointer-events: none;
+}
+
+.am-gift-wrap__confirmation {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--am-muted);
+  text-align: center;
+  margin-top: 0.75rem;
+}
+/* ────────────────────────────────────────────────────────────────────────── */
+</style>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var toggle = document.getElementById('am-gift-message-toggle');
+  var field  = document.getElementById('am-gift-message-field');
+  var textarea = document.getElementById('am-gift-message-text');
+  var counter  = document.getElementById('am-gift-message-count');
+  var addBtn   = document.getElementById('am-gift-wrap-add');
+  var confirm  = document.getElementById('am-gift-wrap-confirmation');
+
+  if (!toggle) return;
+
+  // Toggle gift message field
+  toggle.addEventListener('click', function () {
+    var isOpen = toggle.getAttribute('aria-checked') === 'true';
+    toggle.setAttribute('aria-checked', isOpen ? 'false' : 'true');
+    field.hidden = isOpen;
+    if (!isOpen) textarea.focus();
+  });
+
+  // Character counter
+  textarea.addEventListener('input', function () {
+    counter.textContent = textarea.value.length;
+  });
+
+  // Add gift wrap to cart via Ajax
+  addBtn.addEventListener('click', function () {
+    var variantId = parseInt(addBtn.dataset.variantId);
+    var message   = textarea ? textarea.value.trim() : '';
+
+    var properties = { '_gift_wrap': 'true' };
+    if (message) properties['Gift message'] = message;
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+      body: JSON.stringify({
+        items: [{ id: variantId, quantity: 1, properties: properties }]
+      })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function () {
+      addBtn.textContent = 'Wrapping added';
+      addBtn.setAttribute('data-added', 'true');
+      if (confirm) confirm.hidden = false;
+
+      // Trigger Shopify cart drawer update if theme supports it
+      document.dispatchEvent(new CustomEvent('cart:refresh'));
+    })
+    .catch(function (err) {
+      console.error('Gift wrap add error:', err);
+      addBtn.textContent = 'Try again';
+    });
+  });
+});
+</script>

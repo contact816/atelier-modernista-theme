@@ -1,0 +1,70 @@
+<div class="am-featured">
+  <div class="am-featured__head">
+    <div class="am-featured__head-text">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="am-eyebrow">{{ section.settings.eyebrow }}</div>
+      {%- endif -%}
+      <h2 class="am-featured__heading">{{ section.settings.heading }}</h2>
+    </div>
+    {%- if section.settings.view_all_label != blank -%}
+      <a href="{{ section.settings.view_all_url }}" class="am-link-underline">{{ section.settings.view_all_label }} →</a>
+    {%- endif -%}
+  </div>
+
+  <div class="am-product-grid am-product-grid--4">
+    {%- for block in section.blocks -%}
+      {%- assign product = all_products[block.settings.product] -%}
+      {%- if product != empty -%}
+        <a href="{{ product.url }}" class="am-product-card" {{ block.shopify_attributes }}>
+          <div class="am-product-card__image">
+            {%- if block.settings.badge != blank -%}
+              <span class="am-tag{% if block.settings.badge_red %} am-tag--red{% endif %}">{{ block.settings.badge }}</span>
+            {%- endif -%}
+            {%- if product.featured_image -%}
+              <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy" width="600" height="600">
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'am-product-card__placeholder' }}
+            {%- endif -%}
+          </div>
+          <div class="am-product-card__name">{{ product.title }}</div>
+          <div class="am-product-card__meta">{{ product.metafields.custom.subtitle | default: product.type }}</div>
+          <div class="am-product-card__price">{{ product.price | money }}</div>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "AM — Featured Products",
+  "tag": "section",
+  "class": "am-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "This Season" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pieces in colour, chosen with conviction." },
+    { "type": "text", "id": "view_all_label", "label": "View all label", "default": "View All Pieces" },
+    { "type": "url", "id": "view_all_url", "label": "View all link" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "badge", "label": "Badge text (e.g. New, Bestseller)", "info": "Leave blank for no badge" },
+        { "type": "checkbox", "id": "badge_red", "label": "Red badge text", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Featured Products",
+      "blocks": [
+        { "type": "product" }, { "type": "product" }, { "type": "product" }, { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

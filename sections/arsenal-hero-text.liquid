@@ -1,0 +1,203 @@
+{%- liquid
+  assign uid = section.id
+  assign s = section.settings
+-%}
+
+<style>
+  #am-edit-hero-{{ uid }} {
+    background-color: {{ s.bg_colour }};
+    padding-top: {{ s.padding_top }}px;
+    padding-bottom: {{ s.padding_bottom }}px;
+  }
+  #am-edit-hero-{{ uid }} .am-edit-hero__inner {
+    display: flex;
+    gap: {{ s.column_gap }}px;
+    align-items: {{ s.vertical_align }};
+    max-width: {{ s.max_width }}px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* ---- Left column: image + button ---- */
+  #am-edit-hero-{{ uid }} .am-edit-hero__media {
+    flex: 0 0 {{ s.image_column_width }}%;
+    max-width: {{ s.image_column_width }}%;
+    text-align: {{ s.image_align }};
+  }
+  #am-edit-hero-{{ uid }} .am-edit-hero__image {
+    display: block;
+    width: 100%;
+    max-width: {{ s.image_max_width }}px;
+    height: auto;
+    margin-left: {% if s.image_align == 'center' %}auto{% else %}0{% endif %};
+    margin-right: {% if s.image_align == 'center' %}auto{% else %}0{% endif %};
+    border-radius: {{ s.image_radius }}px;
+  }
+  #am-edit-hero-{{ uid }} .am-edit-hero__button {
+    display: {% if s.button_full_width %}block{% else %}inline-block{% endif %};
+    box-sizing: border-box;
+    max-width: {{ s.image_max_width }}px;
+    margin-top: {{ s.button_gap }}px;
+    margin-left: {% if s.image_align == 'center' %}auto{% else %}0{% endif %};
+    margin-right: {% if s.image_align == 'center' %}auto{% else %}0{% endif %};
+    background-color: {{ s.button_bg }};
+    color: {{ s.button_text_colour }};
+    font-family: 'Jost', sans-serif;
+    font-size: {{ s.button_size }}px;
+    letter-spacing: {{ s.button_letter_spacing }}px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    padding: 14px 22px;
+    border-radius: {{ s.button_radius }}px;
+    transition: opacity .2s ease;
+  }
+  #am-edit-hero-{{ uid }} .am-edit-hero__button:hover { opacity: .88; }
+
+  /* ---- Right column: headings + body ---- */
+  #am-edit-hero-{{ uid }} .am-edit-hero__content {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  #am-edit-hero-{{ uid }} .am-edit-hero__h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: {{ s.h1_size }}px;
+    line-height: 1.1;
+    color: {{ s.h1_colour }};
+    letter-spacing: {{ s.h1_letter_spacing }}px;
+    {% if s.h1_uppercase %}text-transform: uppercase;{% endif %}
+    font-weight: {{ s.h1_weight }};
+    margin: 0 0 {{ s.heading_gap }}px 0;
+  }
+  #am-edit-hero-{{ uid }} .am-edit-hero__h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: {{ s.h2_size }}px;
+    line-height: 1.15;
+    color: {{ s.h2_colour }};
+    {% if s.h2_italic %}font-style: italic;{% endif %}
+    font-weight: {{ s.h2_weight }};
+    margin: 0 0 {{ s.body_gap }}px 0;
+  }
+  #am-edit-hero-{{ uid }} .am-edit-hero__body {
+    font-family: 'Jost', sans-serif;
+    font-size: {{ s.body_size }}px;
+    line-height: {{ s.body_line_height | divided_by: 100.0 }};
+    color: {{ s.body_colour }};
+    max-width: {{ s.body_max_width }}px;
+  }
+  #am-edit-hero-{{ uid }} .am-edit-hero__body p { margin: 0 0 1em 0; }
+  #am-edit-hero-{{ uid }} .am-edit-hero__body p:last-child { margin-bottom: 0; }
+
+  /* ---- Mobile: stack image above text ---- */
+  @media screen and (max-width: 749px) {
+    #am-edit-hero-{{ uid }} .am-edit-hero__inner {
+      flex-direction: column;
+      gap: {{ s.column_gap_mobile }}px;
+      align-items: stretch;
+    }
+    #am-edit-hero-{{ uid }} .am-edit-hero__media,
+    #am-edit-hero-{{ uid }} .am-edit-hero__content {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+    #am-edit-hero-{{ uid }} .am-edit-hero__h1 { font-size: {{ s.h1_size | times: 0.72 | round }}px; }
+    #am-edit-hero-{{ uid }} .am-edit-hero__h2 { font-size: {{ s.h2_size | times: 0.78 | round }}px; }
+  }
+</style>
+
+<div id="am-edit-hero-{{ uid }}" class="am-edit-hero">
+  <div class="am-edit-hero__inner">
+
+    <div class="am-edit-hero__media">
+      {%- if s.image != blank -%}
+        <img
+          class="am-edit-hero__image"
+          src="{{ s.image | image_url: width: 1000 }}"
+          alt="{{ s.image.alt | escape }}"
+          width="{{ s.image.width }}"
+          height="{{ s.image.height }}"
+          loading="lazy"
+        >
+      {%- else -%}
+        <div class="am-edit-hero__image">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+      {%- endif -%}
+
+      {%- if s.button_label != blank -%}
+        <a class="am-edit-hero__button" href="{{ s.button_link | default: '#' }}">{{ s.button_label }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="am-edit-hero__content">
+      {%- if s.heading_one != blank -%}
+        <h2 class="am-edit-hero__h1">{{ s.heading_one }}</h2>
+      {%- endif -%}
+      {%- if s.heading_two != blank -%}
+        <h3 class="am-edit-hero__h2">{{ s.heading_two }}</h3>
+      {%- endif -%}
+      {%- if s.body != blank -%}
+        <div class="am-edit-hero__body">{{ s.body }}</div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "AM Edit Hero",
+  "tag": "section",
+  "class": "section am-edit-hero-section",
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    { "type": "color", "id": "bg_colour", "label": "Background colour", "default": "#fdf6e3" },
+    { "type": "range", "id": "max_width", "label": "Section max width", "min": 800, "max": 1600, "step": 20, "unit": "px", "default": 1280 },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "column_gap", "label": "Gap between columns (desktop)", "min": 16, "max": 160, "step": 4, "unit": "px", "default": 64 },
+    { "type": "range", "id": "column_gap_mobile", "label": "Gap between image & text (mobile)", "min": 12, "max": 80, "step": 2, "unit": "px", "default": 28 },
+    { "type": "range", "id": "image_column_width", "label": "Image column width", "min": 20, "max": 55, "step": 1, "unit": "%", "default": 34 },
+    { "type": "select", "id": "vertical_align", "label": "Vertical alignment of columns", "options": [ { "value": "flex-start", "label": "Top" }, { "value": "center", "label": "Centre" } ], "default": "flex-start" },
+
+    { "type": "header", "content": "Image + button (left)" },
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "range", "id": "image_max_width", "label": "Image max width", "min": 200, "max": 700, "step": 10, "unit": "px", "default": 360 },
+    { "type": "range", "id": "image_radius", "label": "Image corner radius", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 },
+    { "type": "select", "id": "image_align", "label": "Image / button alignment", "options": [ { "value": "left", "label": "Left" }, { "value": "center", "label": "Centre" } ], "default": "left" },
+    { "type": "text", "id": "button_label", "label": "Button text", "default": "BUY YOUR 'I ❤️ ARSENAL' NECKLACE" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "checkbox", "id": "button_full_width", "label": "Button fills image width", "default": true },
+    { "type": "range", "id": "button_gap", "label": "Gap above button", "min": 8, "max": 60, "step": 2, "unit": "px", "default": 20 },
+    { "type": "range", "id": "button_size", "label": "Button text size", "min": 10, "max": 22, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "button_letter_spacing", "label": "Button letter spacing", "min": 0, "max": 6, "step": 1, "unit": "px", "default": 2 },
+    { "type": "range", "id": "button_radius", "label": "Button corner radius", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 0 },
+    { "type": "color", "id": "button_bg", "label": "Button background", "default": "#0047AB" },
+    { "type": "color", "id": "button_text_colour", "label": "Button text colour", "default": "#fdf6e3" },
+
+    { "type": "header", "content": "Heading 1 (top)" },
+    { "type": "text", "id": "heading_one", "label": "Heading 1 text", "default": "NORTH LONDON FOREVER" },
+    { "type": "range", "id": "h1_size", "label": "Heading 1 size", "min": 18, "max": 80, "step": 1, "unit": "px", "default": 40 },
+    { "type": "color", "id": "h1_colour", "label": "Heading 1 colour", "default": "#B11116" },
+    { "type": "range", "id": "h1_letter_spacing", "label": "Heading 1 letter spacing", "min": 0, "max": 16, "step": 1, "unit": "px", "default": 6 },
+    { "type": "select", "id": "h1_weight", "label": "Heading 1 weight", "options": [ { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" } ], "default": "500" },
+    { "type": "checkbox", "id": "h1_uppercase", "label": "Uppercase heading 1", "default": true },
+    { "type": "range", "id": "heading_gap", "label": "Gap below heading 1", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 14 },
+
+    { "type": "header", "content": "Heading 2 (below)" },
+    { "type": "text", "id": "heading_two", "label": "Heading 2 text", "default": "'It's in the roots that we inherit...'" },
+    { "type": "range", "id": "h2_size", "label": "Heading 2 size", "min": 16, "max": 72, "step": 1, "unit": "px", "default": 34 },
+    { "type": "color", "id": "h2_colour", "label": "Heading 2 colour", "default": "#B11116" },
+    { "type": "select", "id": "h2_weight", "label": "Heading 2 weight", "options": [ { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "600", "label": "Semibold" } ], "default": "400" },
+    { "type": "checkbox", "id": "h2_italic", "label": "Italic heading 2", "default": true },
+    { "type": "range", "id": "body_gap", "label": "Gap below heading 2", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 24 },
+
+    { "type": "header", "content": "Body text" },
+    { "type": "richtext", "id": "body", "label": "Body text", "default": "<p>From one family of Arsenal fans to another, here's our Arsenal Edit, full of colour, joy, and pieces that feel nearly as good as our boys winning with such magic. These aren't AFC branded pieces, because it's not always feasible to put Arsenal into your everyday work + social life; rather these are Arsenal-red happy pieces to wear your deep Arsenal joy everywhere in your life, from work to parties, barbeques to the Emirates. Made by fantastic Spanish family company Joidart. From The Thornhill to The Hemmy, here is your Arsenal-red collection - fogging enjoy.</p>" },
+    { "type": "range", "id": "body_size", "label": "Body text size", "min": 12, "max": 30, "step": 1, "unit": "px", "default": 18 },
+    { "type": "color", "id": "body_colour", "label": "Body text colour", "default": "#0047AB" },
+    { "type": "range", "id": "body_line_height", "label": "Body line height", "min": 110, "max": 220, "step": 5, "unit": "%", "default": 175 },
+    { "type": "range", "id": "body_max_width", "label": "Body max width", "min": 300, "max": 800, "step": 10, "unit": "px", "default": 620 }
+  ],
+  "presets": [ { "name": "AM Edit Hero" } ]
+}
+{% endschema %}

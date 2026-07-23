@@ -1,0 +1,103 @@
+<div class="collection-banner-wide">
+  <div class="collection-banner-wide__inner">
+
+    <h1 class="collection-banner-wide__heading">
+      {{ collection.title }}
+    </h1>
+
+    {% assign banner_description = section.settings.description | default: collection.description %}
+    {% if banner_description != blank %}
+      <div class="collection-banner-wide__description">
+        {{ banner_description }}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<style>
+  ..collection-banner-wide {
+  background-color: var(--color-background, #F7F0E6);
+  padding: 1.2rem 0;
+}
+
+.collection-banner-wide__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+  padding: 1.2rem 1.6rem;
+  border: 6px double #0047AB;
+}
+  .collection-banner-wide__heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 2.5vw, 3rem);
+    line-height: 2;
+    letter-spacing: -0.01em;
+    color: var(--color-foreground, #1A1A1A);
+    margin: 0 0 1.6rem;
+    text-align: center !important;
+    width: 100%;
+  }
+
+  .collection-banner-wide__description {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 400 !important;
+    line-height: 1.6;
+    color: var(--color-foreground, #1A1A1A);
+    max-width: 100%;
+    margin: 0;
+    text-align: left;
+  }
+
+  .collection-banner-wide__description p {
+    margin: 0 0 0.6em;
+    font-weight: 400 !important;
+    font-family: 'Jost', sans-serif !important;
+  }
+
+  .collection-banner-wide__description p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .collection-banner-wide {
+      padding: 1.2rem 1.6rem;
+    }
+
+    .collection-banner-wide__inner {
+      padding: 1.2rem;
+    }
+
+    .collection-banner-wide__heading {
+      font-size: 2.2rem;
+    }
+
+    .collection-banner-wide__description {
+      display: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collection banner (wide)",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "info": "Overrides the collection description if filled in."
+    }
+  ],
+  "templates": ["collection"],
+  "presets": [
+    {
+      "name": "Collection banner (wide)"
+    }
+  ]
+}
+{% endschema %}

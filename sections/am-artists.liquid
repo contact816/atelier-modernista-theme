@@ -1,0 +1,231 @@
+{%- comment -%}
+  ============================================================
+  ATELIER MODERNISTA — Artists & Designers
+  Section file: sections/am-artists.liquid
+  ------------------------------------------------------------
+  Schema-driven: one "Artist" block per maker (add / reorder
+  / hide in the customiser). Image is optional per block.
+  Design system: cobalt #0047AB · cream #fdf6e3 · linen #f7f0e6
+  · gold #f4c400 · Cormorant Garamond + Jost · 10px root → px only.
+  Styles are scoped under .am-artists and set line-height
+  explicitly to sidestep the global .page-width p override.
+  ============================================================
+{%- endcomment -%}
+
+<section class="am-artists am-artists--{{ section.settings.bg }}" id="am-artists-{{ section.id }}">
+  <div class="am-artists__inner">
+
+    {%- if section.settings.label != blank or section.settings.heading != blank or section.settings.intro != blank -%}
+      <header class="am-artists__intro">
+        {%- if section.settings.label != blank -%}
+          <p class="am-artists__label">{{ section.settings.label }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h1 class="am-artists__heading">{{ section.settings.heading }}</h1>
+        {%- endif -%}
+        {%- if section.settings.intro != blank -%}
+          <div class="am-artists__lede">{{ section.settings.intro }}</div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    <div class="am-artists__list">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'artist' -%}
+          <article
+            class="am-artist{% unless block.settings.image %} am-artist--no-image{% endunless %}"
+            {{ block.shopify_attributes }}>
+
+            <span class="am-artist__index">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+
+            {%- if block.settings.image -%}
+              <div class="am-artist__media">
+                <img
+                  src="{{ block.settings.image | image_url: width: 1000 }}"
+                  srcset="{{ block.settings.image | image_url: width: 400 }} 400w, {{ block.settings.image | image_url: width: 600 }} 600w, {{ block.settings.image | image_url: width: 800 }} 800w, {{ block.settings.image | image_url: width: 1000 }} 1000w"
+                  sizes="(min-width: 750px) 470px, 92vw"
+                  alt="{{ block.settings.artist_name | escape }}"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                  loading="lazy"
+                  class="am-artist__img">
+              </div>
+            {%- endif -%}
+
+            <div class="am-artist__body">
+              {%- if block.settings.studio_name != blank -%}
+                <p class="am-artist__studio">{{ block.settings.studio_name }}</p>
+              {%- endif -%}
+              {%- if block.settings.artist_name != blank -%}
+                <h2 class="am-artist__name">{{ block.settings.artist_name }}</h2>
+              {%- endif -%}
+              {%- if block.settings.location != blank -%}
+                <p class="am-artist__location">{{ block.settings.location }}</p>
+              {%- endif -%}
+              {%- if block.settings.bio != blank -%}
+                <p class="am-artist__bio">{{ block.settings.bio | newline_to_br }}</p>
+              {%- endif -%}
+              {%- if block.settings.link_url != blank and block.settings.link_label != blank -%}
+                <a class="am-artist__link" href="{{ block.settings.link_url }}">{{ block.settings.link_label }}</a>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.signoff != blank -%}
+      <p class="am-artists__signoff">{{ section.settings.signoff }}</p>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% stylesheet %}
+  .am-artists {
+    --amx-cobalt: #0047AB;
+    --amx-cream:  #fdf6e3;
+    --amx-linen:  #f7f0e6;
+    --amx-gold:   #f4c400;
+    --amx-ink:    #1a1a1a;
+    padding: 72px 24px 84px;
+  }
+  .am-artists--cream { background: var(--amx-cream); }
+  .am-artists--linen { background: var(--amx-linen); }
+  .am-artists--white { background: #ffffff; }
+
+  .am-artists__inner { max-width: 1000px; margin: 0 auto; }
+
+  /* Intro */
+  .am-artists__intro { max-width: 600px; margin: 0 auto 56px; text-align: center; }
+  .am-artists__label {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--amx-cobalt); margin: 0 0 14px;
+  }
+  .am-artists__heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 42px; line-height: 1.08 !important; font-weight: 500;
+    color: var(--amx-ink); margin: 0 0 16px;
+  }
+  .am-artists__lede p {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px; line-height: 1.75 !important; color: #333333; margin: 0;
+  }
+
+  /* Two-up condensed grid */
+  .am-artists__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 52px 48px;
+    align-items: start;
+  }
+
+  .am-artist { display: flex; flex-direction: column; }
+
+  .am-artist__index {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 12px; line-height: 1; font-weight: 500;
+    color: var(--amx-cobalt); margin: 0 0 12px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 71, 171, 0.28);
+  }
+
+  .am-artist__media {
+    aspect-ratio: 4 / 3; overflow: hidden;
+    background: var(--amx-linen); margin: 0 0 18px;
+  }
+  .am-artist__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .am-artist__body { display: flex; flex-direction: column; }
+  .am-artist__studio {
+    font-family: 'Jost', sans-serif; font-size: 10.5px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--amx-cobalt); margin: 0 0 6px;
+  }
+  .am-artist__name {
+    font-family: 'Cormorant Garamond', Georgia, serif; font-size: 14px;
+    line-height: 0.8 !important; font-weight: 300; color: var(--amx-cobalt); margin: 0 0 5px;
+  }
+  .am-artist__location {
+    font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 1px;
+    text-transform: uppercase; color: #6b6b6b; margin: 0 0 14px;
+  }
+  .am-artist .am-artist__bio {
+    font-family: 'Jost', sans-serif; font-size: 14px; line-height: 1.7 !important;
+    color: #3a3a3a; margin: 0 0 16px;
+  }
+  .am-artist__link {
+    align-self: flex-start; font-family: 'Jost', sans-serif; font-size: 11px;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--amx-cobalt);
+    text-decoration: none; border-bottom: 1px solid var(--amx-gold);
+    padding-bottom: 3px; transition: color .2s ease, border-color .2s ease;
+  }
+  .am-artist__link:hover { color: var(--amx-ink); border-color: var(--amx-cobalt); }
+
+  
+
+  @media screen and (max-width: 749px) {
+    .am-artists { padding: 54px 20px 64px; }
+    .am-artists__intro { margin-bottom: 24px; }
+    .am-artists__heading { font-size: 14px; }
+    .am-artists__list { grid-template-columns: 1fr; gap: 40px; }
+    .am-artists__signoff { margin-top: 46px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "AM Artists",
+  "tag": "section",
+  "class": "section-am-artists",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Eyebrow label",
+      "default": "Artists & Designers"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The hands behind the pieces"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Introduction"
+    },
+    {
+      "type": "select",
+      "id": "bg",
+      "label": "Background",
+      "options": [
+        { "value": "cream", "label": "Cream" },
+        { "value": "linen", "label": "Linen" },
+        { "value": "white", "label": "White" }
+      ],
+      "default": "cream"
+    },
+
+  ],
+  "blocks": [
+    {
+      "type": "artist",
+      "name": "Artist",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Portrait or work image", "info": "Optional. 4:5 portrait works best." },
+        { "type": "text", "id": "studio_name", "label": "Studio / brand" },
+        { "type": "text", "id": "artist_name", "label": "Artist name" },
+        { "type": "text", "id": "location", "label": "Location / discipline" },
+        { "type": "textarea", "id": "bio", "label": "Biography" },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "View pieces" },
+        { "type": "url", "id": "link_url", "label": "Link (e.g. their collection)" }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    { "name": "AM Artists" }
+  ]
+}
+{% endschema %}

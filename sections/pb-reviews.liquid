@@ -1,0 +1,84 @@
+<div class="am-reviews">
+  <div class="am-reviews__stars">★ ★ ★ ★ ★</div>
+  <div class="am-reviews__count">{{ section.settings.rating }} from {{ section.settings.review_count }} verified reviews</div>
+
+  <div class="am-reviews__grid">
+    {%- for block in section.blocks -%}
+      <div class="am-review-card" {{ block.shopify_attributes }}>
+        <div class="am-review-card__stars">★ ★ ★ ★ ★</div>
+        <div class="am-review-card__text">{{ block.settings.quote }}</div>
+        <div class="am-review-card__author">{{ block.settings.author }}</div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "AM — Reviews",
+  "tag": "section",
+  "class": "am-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Star rating display",
+      "default": "5"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review count display",
+      "default": "47"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review text"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Reviewer name & location",
+          "default": "Helena R., London"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "quote": "Bought the Coda earrings as a gift for my sister and ended up ordering a pair for myself. The cobalt is so much more vivid in person — like wearing a tiny piece of art.",
+            "author": "Helena R., London"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "quote": "Beautiful packaging, beautiful piece. You can tell every detail has been considered. The handwritten note from the atelier was a lovely touch.",
+            "author": "Sarah K., Edinburgh"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "quote": "I get compliments every single time I wear my Red Arc earrings. Nothing else in my collection looks anything like them.",
+            "author": "Imogen T., Bristol"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

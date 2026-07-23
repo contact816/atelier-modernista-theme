@@ -1,0 +1,706 @@
+{% comment %}
+  SECTION: sections/am-hero.liquid
+  Split image + text carousel
+  — Up to 5 slides via schema blocks, each with its own image + copy
+  — First slide (and slide 1 on return) lingers longer
+  — Crossfade transition, dot navigation, touch swipe
+  — Falls back to original text-only layout if no blocks added
+{% endcomment %}
+
+{%- liquid
+  assign badge_1 = section.settings.badge_1 | default: 'Curated in London'
+  assign badge_2 = section.settings.badge_2 | default: 'Small Editions'
+  assign badge_3 = section.settings.badge_3 | default: 'Free UK Delivery'
+-%}
+
+{% if template.suffix != 'am-policy' %}
+<section class="am-hero"
+  id="am-hero-{{ section.id }}"
+  aria-label="Hero"
+  data-first-duration="{{ section.settings.first_slide_duration | times: 1000 }}"
+  data-duration="{{ section.settings.slide_duration | times: 1000 }}"
+  style="--am-hero-h: {{ section.settings.carousel_height }}px; --am-hero-hm: {{ section.settings.mobile_height }}px;">
+
+  <div class="am-hero__track">
+
+    {%- if section.blocks.size > 0 -%}
+
+      {%- for block in section.blocks -%}
+        {%- if forloop.first -%}
+          {%- assign img_loading   = 'eager' -%}
+          {%- assign heading_tag   = 'h1' -%}
+        {%- else -%}
+          {%- assign img_loading   = 'lazy' -%}
+          {%- assign heading_tag   = 'h2' -%}
+        {%- endif -%}
+
+        {%- assign b_eyebrow     = block.settings.eyebrow         | default: section.settings.eyebrow -%}
+        {%- assign b_plain       = block.settings.headline_plain   | default: section.settings.headline_plain -%}
+        {%- assign b_italic      = block.settings.headline_italic  | default: section.settings.headline_italic -%}
+        {%- assign b_subtitle    = block.settings.subtitle         | default: section.settings.subtitle -%}
+        {%- assign b_cta1_label  = block.settings.cta_primary_label   | default: section.settings.cta_primary_label -%}
+        {%- assign b_cta1_url    = block.settings.cta_primary_url     | default: section.settings.cta_primary_url    | default: '/collections/all' -%}
+        {%- assign b_cta2_label  = block.settings.cta_secondary_label | default: section.settings.cta_secondary_label -%}
+        {%- assign b_cta2_url    = block.settings.cta_secondary_url   | default: section.settings.cta_secondary_url  | default: '/pages/atelier' -%}
+
+        <div class="am-hero__slide{% if forloop.first %} is-active{% endif %} am-hero__slide--img-{{ section.settings.image_position | default: 'left' }}"
+             data-index="{{ forloop.index0 }}"
+             {{ block.shopify_attributes }}>
+
+          <div class="am-hero__image">
+            {%- if block.settings.image != blank -%}
+              <a href="{{ b_cta1_url }}" class="am-hero__image-link" aria-label="{{ b_cta1_label | default: 'Shop the collection' }}">
+                {{- block.settings.image
+                  | image_url: width: 1400
+                  | image_tag:
+                    loading: img_loading,
+                    widths: '600, 900, 1100, 1400',
+                    sizes: '(min-width: 990px) 55vw, 100vw',
+                    class: 'am-hero__img',
+                    alt: block.settings.image.alt | default: b_plain -}}
+              </a>
+            {%- endif -%}
+          </div>
+
+
+          <div class="am-hero__content">
+            {%- if b_eyebrow != blank -%}
+              <p class="am-hero__eyebrow">{{ b_eyebrow }}</p>
+            {%- endif -%}
+
+            <{{ heading_tag }} class="am-hero__headline">
+              {%- if b_plain != blank -%}{{ b_plain }} {%- endif -%}
+              {%- if b_italic != blank -%}<em>{{ b_italic }}</em>{%- endif -%}
+            </{{ heading_tag }}>
+
+            {%- if b_subtitle != blank -%}
+              <p class="am-hero__subtitle">{{ b_subtitle }}</p>
+            {%- endif -%}
+
+            <div class="am-hero__ctas">
+              {%- if b_cta1_label != blank -%}
+                <a href="{{ b_cta1_url }}" class="am-hero__cta am-hero__cta--primary">{{ b_cta1_label }}</a>
+              {%- endif -%}
+              {%- if b_cta2_label != blank -%}
+                <a href="{{ b_cta2_url }}" class="am-hero__cta am-hero__cta--secondary">{{ b_cta2_label }}</a>
+              {%- endif -%}
+            </div>
+
+            <ul class="am-hero__badges" role="list" aria-label="Trust signals">
+              {%- if badge_1 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_1 }}</li>{%- endif -%}
+              {%- if badge_2 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_2 }}</li>{%- endif -%}
+              {%- if badge_3 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_3 }}</li>{%- endif -%}
+            </ul>
+          </div>
+
+        </div>
+      {%- endfor -%}
+
+    {%- else -%}
+
+      {%- comment -%} No blocks — render original text-only layout unchanged {%- endcomment -%}
+      <div class="am-hero__slide am-hero__slide--text-only is-active">
+        <div class="am-hero__content am-hero__content--full page-width">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="am-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+          {%- endif -%}
+          <h1 class="am-hero__headline">
+            {%- if section.settings.headline_plain != blank -%}{{ section.settings.headline_plain }} {%- endif -%}
+            {%- if section.settings.headline_italic != blank -%}<em>{{ section.settings.headline_italic }}</em>{%- endif -%}
+          </h1>
+          {%- if section.settings.subtitle != blank -%}
+            <p class="am-hero__subtitle">{{ section.settings.subtitle }}</p>
+          {%- endif -%}
+          <div class="am-hero__ctas">
+            {%- if section.settings.cta_primary_label != blank -%}
+              <a href="{{ section.settings.cta_primary_url | default: '/collections/all' }}" class="am-hero__cta am-hero__cta--primary">{{ section.settings.cta_primary_label }}</a>
+            {%- endif -%}
+            {%- if section.settings.cta_secondary_label != blank -%}
+              <a href="{{ section.settings.cta_secondary_url | default: '/pages/atelier' }}" class="am-hero__cta am-hero__cta--secondary">{{ section.settings.cta_secondary_label }}</a>
+            {%- endif -%}
+          </div>
+          <ul class="am-hero__badges" role="list">
+            {%- if badge_1 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_1 }}</li>{%- endif -%}
+            {%- if badge_2 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_2 }}</li>{%- endif -%}
+            {%- if badge_3 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_3 }}</li>{%- endif -%}
+          </ul>
+        </div>
+      </div>
+
+    {%- endif -%}
+
+  </div>
+
+  {%- if section.blocks.size > 1 -%}
+    <div class="am-hero__dots" id="am-hero-dots-{{ section.id }}" role="tablist" aria-label="Carousel navigation"></div>
+  {%- endif -%}
+
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  var carousel = document.getElementById('am-hero-{{ section.id }}');
+  if (!carousel) return;
+
+  var slides   = Array.from(carousel.querySelectorAll('.am-hero__slide'));
+  var dotsWrap = carousel.querySelector('.am-hero__dots');
+  if (slides.length <= 1) return;
+
+  var FIRST = parseInt(carousel.dataset.firstDuration, 10) || 7000;
+  var DUR   = parseInt(carousel.dataset.duration, 10)      || 4000;
+
+  var current = 0;
+  var timer   = null;
+  var dots    = [];
+
+  if (dotsWrap) {
+    slides.forEach(function (_, i) {
+      var btn = document.createElement('button');
+      btn.className   = 'am-hero__dot' + (i === 0 ? ' is-active' : '');
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-label', 'Slide ' + (i + 1));
+      btn.addEventListener('click', function () { goTo(i); });
+      dotsWrap.appendChild(btn);
+      dots.push(btn);
+    });
+  }
+
+  function goTo(index) {
+    slides[current].classList.remove('is-active');
+    if (dots[current]) dots[current].classList.remove('is-active');
+    current = ((index % slides.length) + slides.length) % slides.length;
+    slides[current].classList.add('is-active');
+    if (dots[current]) dots[current].classList.add('is-active');
+    schedule();
+  }
+
+  function schedule() {
+    clearTimeout(timer);
+    var d = (current === 0) ? FIRST : DUR;
+    timer = setTimeout(function () { goTo(current + 1); }, d);
+  }
+
+  /* Touch swipe */
+  var touchX = null;
+  carousel.addEventListener('touchstart', function (e) { touchX = e.changedTouches[0].clientX; }, { passive: true });
+  carousel.addEventListener('touchend', function (e) {
+    if (touchX === null) return;
+    var diff = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(diff) > 40) { diff < 0 ? goTo(current + 1) : goTo(current - 1); }
+    touchX = null;
+  }, { passive: true });
+
+  /* Pause on hover */
+  carousel.addEventListener('mouseenter', function () { clearTimeout(timer); });
+  carousel.addEventListener('mouseleave', schedule);
+
+  schedule();
+})();
+</script>
+{% endif %}
+
+<style>
+/* ── AM Hero — Split Image/Text Carousel ─────────────────────── */
+
+/* Container */
+.am-hero {
+  position: relative;
+  overflow: hidden;
+  height: var(--am-hero-h, 680px);
+  background-color: #fdf6e3;
+}
+
+/* Track */
+.am-hero__track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Slides ──────────────────────────────────────────────────── */
+.am-hero__slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 55% 45%;
+  opacity: 0;
+  transition: opacity 1.1s ease;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.am-hero__slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+/* Image right variant */
+.am-hero__slide--img-right { grid-template-columns: 45% 55%; }
+.am-hero__slide--img-right .am-hero__image   { order: 2; }
+.am-hero__slide--img-right .am-hero__content { order: 1; }
+
+/* Text-only fallback — full width, original feel */
+.am-hero__slide--text-only {
+  grid-template-columns: 1fr;
+  align-items: center;
+  position: relative;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Image panel ─────────────────────────────────────────────── */
+.am-hero__image {
+  position: relative;
+  overflow: hidden;
+  background-color: #fdf6e3 !important;
+  padding: 24px !important;
+  box-sizing: border-box;
+}
+
+.am-hero__image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.am-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Content panel ───────────────────────────────────────────── */
+.am-hero__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 56px 48px 52px;
+  background-color: #fdf6e3;
+  overflow-y: auto;
+}
+
+.am-hero__content--full {
+  max-width: 900px;
+  padding: clamp(5rem, 12vw, 10rem) 0 clamp(4rem, 8vw, 7rem);
+  justify-content: flex-start;
+}
+
+/* ── Eyebrow ─────────────────────────────────────────────────── */
+.am-hero__eyebrow {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #0047AB;
+  margin: 0 0 18px;
+}
+
+/* ── Headline ────────────────────────────────────────────────── */
+.am-hero .am-hero__headline,
+h1.am-hero__headline,
+h2.am-hero__headline {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: clamp(32px, 4vw, 62px) !important;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.0;
+  color: #1a1a18;
+  margin: 0 0 20px;
+}
+
+/* Full-width text-only keeps the larger original size */
+.am-hero__slide--text-only .am-hero__headline {
+  font-size: clamp(45px, 10vw, 90px) !important;
+}
+
+.am-hero .am-hero__headline em,
+h1.am-hero__headline em,
+h2.am-hero__headline em {
+  font-style: italic;
+  font-weight: 300;
+  color: #0047AB;
+}
+
+/* ── Subtitle ────────────────────────────────────────────────── */
+.am-hero__subtitle {
+  font-family: 'Jost', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #3a3a35;
+  max-width: 48ch;
+  margin: 0 0 28px;
+}
+
+/* ── CTAs ────────────────────────────────────────────────────── */
+.am-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+  align-items: center;
+}
+
+.am-hero__cta {
+  display: inline-block;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 12px 28px;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+  border-radius: 0;
+}
+
+.am-hero__cta--primary {
+  background-color: #0047AB;
+  color: #fdf6e3;
+  border: 1px solid #0047AB;
+}
+
+.am-hero__cta--primary:hover {
+  background-color: #1a1a18;
+  border-color: #1a1a18;
+  color: #fdf6e3;
+}
+
+.am-hero__cta--secondary {
+  background-color: transparent;
+  color: #1a1a18;
+  border-bottom: 1px solid #1a1a18;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.am-hero__cta--secondary:hover {
+  color: #0047AB;
+  border-color: #0047AB;
+}
+
+/* ── Trust badges ────────────────────────────────────────────── */
+.am-hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 28px;
+  list-style: none;
+  margin: 0;
+  padding: 18px 0 0;
+  border-top: 1px solid rgba(26, 26, 24, 0.1);
+}
+
+.am-hero__badge {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9e9a90;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.am-hero__badge-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #0047AB;
+  flex-shrink: 0;
+}
+
+/* ── Dots ────────────────────────────────────────────────────── */
+.am-hero__dots {
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10;
+}
+
+.am-hero__slide--img-right ~ .am-hero__dots {
+  right: auto;
+  left: 0;
+  width: 45%;
+}
+
+.am-hero__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(26, 26, 24, 0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.am-hero__dot.is-active {
+  background: #0047AB;
+  transform: scale(1.4);
+}
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+@media (max-width: 749px) {
+  .am-hero {
+    height: var(--am-hero-hm, 620px);
+  }
+.am-hero__image {
+    padding: 16px;
+  }
+  .am-hero__slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: 42% 58%;
+  }
+
+  .am-hero__slide--img-right .am-hero__image   { order: unset; }
+  .am-hero__slide--img-right .am-hero__content { order: unset; }
+
+  .am-hero__content {
+    padding: 20px 20px 24px;
+    overflow-y: auto;
+  }
+
+  .am-hero__headline,
+  .am-hero .am-hero__headline,
+  h1.am-hero__headline,
+  h2.am-hero__headline {
+    font-size: clamp(24px, 7vw, 36px) !important;
+  }
+
+  .am-hero__dots {
+    width: 100%;
+    right: auto;
+    left: 0;
+    bottom: 8px;
+    justify-content: center;
+  }
+
+  .am-hero__ctas {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .am-hero__cta--primary {
+    width: 100%;
+    text-align: center;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "AM Hero",
+  "tag": "section",
+  "class": "am-section-hero",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Carousel timing"
+    },
+    {
+      "type": "range",
+      "id": "first_slide_duration",
+      "min": 4,
+      "max": 15,
+      "step": 1,
+      "unit": "s",
+      "label": "First slide duration",
+      "default": 7
+    },
+    {
+      "type": "range",
+      "id": "slide_duration",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Other slides duration",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image side",
+      "options": [
+        { "value": "left",  "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "carousel_height",
+      "min": 500,
+      "max": 900,
+      "step": 25,
+      "unit": "px",
+      "label": "Desktop height",
+      "default": 675
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 400,
+      "max": 700,
+      "step": 25,
+      "unit": "px",
+      "label": "Mobile height",
+      "default": 625
+    },
+    {
+      "type": "header",
+      "content": "Default copy (fallback if no slides added)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "A small edit, considered"
+    },
+    {
+      "type": "text",
+      "id": "headline_plain",
+      "label": "Headline — plain part",
+      "default": "Wearable art,"
+    },
+    {
+      "type": "text",
+      "id": "headline_italic",
+      "label": "Headline — italic part",
+      "default": "in the modernist tradition."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "A curated edit of bold enamel jewellery in cobalt, vermilion, and recycled silver. Pieces selected for their geometry, their colour, and the conviction with which they were made."
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_label",
+      "label": "Primary CTA label",
+      "default": "Shop the Edit"
+    },
+    {
+      "type": "url",
+      "id": "cta_primary_url",
+      "label": "Primary CTA URL"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_label",
+      "label": "Secondary CTA label",
+      "default": "The Philosophy"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_url",
+      "label": "Secondary CTA URL"
+    },
+    {
+      "type": "header",
+      "content": "Trust badges"
+    },
+    {
+      "type": "text",
+      "id": "badge_1",
+      "label": "Badge 1",
+      "default": "Curated in London"
+    },
+    {
+      "type": "text",
+      "id": "badge_2",
+      "label": "Badge 2",
+      "default": "Small Editions"
+    },
+    {
+      "type": "text",
+      "id": "badge_3",
+      "label": "Badge 3",
+      "default": "Free UK Delivery"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Portrait ratio works best — the image fills its half of the section"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "info": "Leave blank to use the section default"
+        },
+        {
+          "type": "text",
+          "id": "headline_plain",
+          "label": "Headline — plain part"
+        },
+        {
+          "type": "text",
+          "id": "headline_italic",
+          "label": "Headline — italic part"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "type": "text",
+          "id": "cta_primary_label",
+          "label": "Primary CTA label"
+        },
+        {
+          "type": "url",
+          "id": "cta_primary_url",
+          "label": "Primary CTA link"
+        },
+        {
+          "type": "text",
+          "id": "cta_secondary_label",
+          "label": "Secondary CTA label"
+        },
+        {
+          "type": "url",
+          "id": "cta_secondary_url",
+          "label": "Secondary CTA link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM Hero",
+      "blocks": [
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}

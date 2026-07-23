@@ -1,0 +1,502 @@
+{% doc %}
+  @prompt
+    A small 'Designer's Choice' featured product with image and product info., Make it below the ttles, above the collections cards, in Cormorant Garamon font, with the same colour paette as the header., No Black backround, have it in the same font as 'Art You Can Wear' below, black writing on same cream background, please., make the image smaller please, and give more colour choices, Can you move it all to the left please
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-designers-choice-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
+  }
+
+  .ai-designers-choice-container-{{ ai_gen_id }} {
+    max-width: 800px;
+    margin: 0;
+  }
+
+  .ai-designers-choice-header-{{ ai_gen_id }} {
+    text-align: left;
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-designers-choice-title-{{ ai_gen_id }} {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 400;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-designers-choice-content-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.content_gap }}px;
+    align-items: center;
+  }
+
+  .ai-designers-choice-image-wrapper-{{ ai_gen_id }} {
+    flex: 0 0 {{ block.settings.image_width }}%;
+    max-width: {{ block.settings.image_width }}%;
+  }
+
+  .ai-designers-choice-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-designers-choice-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-designers-choice-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .ai-designers-choice-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .ai-designers-choice-info-{{ ai_gen_id }} {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.info_spacing }}px;
+  }
+
+  .ai-designers-choice-product-title-{{ ai_gen_id }} {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: {{ block.settings.product_title_size }}px;
+    font-weight: 400;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    letter-spacing: 0.3px;
+  }
+
+  .ai-designers-choice-product-title-{{ ai_gen_id }} a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .ai-designers-choice-product-title-{{ ai_gen_id }} a:hover {
+    opacity: 0.7;
+  }
+
+  .ai-designers-choice-vendor-{{ ai_gen_id }} {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: {{ block.settings.vendor_size }}px;
+    color: {{ block.settings.vendor_color }};
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .ai-designers-choice-description-{{ ai_gen_id }} {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-designers-choice-price-{{ ai_gen_id }} {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: {{ block.settings.price_size }}px;
+    color: {{ block.settings.price_color }};
+    font-weight: 500;
+  }
+
+  .ai-designers-choice-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: {{ block.settings.button_background_color }};
+    color: {{ block.settings.button_text_color }};
+    font-family: 'Cormorant Garamond', serif;
+    font-size: {{ block.settings.button_text_size }}px;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: opacity 0.3s ease;
+    text-align: center;
+    border: 1px solid rgba(18, 18, 18, 0.1);
+  }
+
+  .ai-designers-choice-button-{{ ai_gen_id }}:hover {
+    opacity: 0.85;
+  }
+
+  .ai-designers-choice-empty-product-{{ ai_gen_id }} {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: #999;
+    text-align: left;
+    padding: 40px 20px;
+    font-style: italic;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-designers-choice-content-{{ ai_gen_id }} {
+      flex-direction: column;
+    }
+
+    .ai-designers-choice-image-wrapper-{{ ai_gen_id }} {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    .ai-designers-choice-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .ai-designers-choice-product-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.product_title_size | times: 0.85 }}px;
+    }
+  }
+{% endstyle %}
+
+<designers-choice-{{ ai_gen_id }}
+  class="ai-designers-choice-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-designers-choice-container-{{ ai_gen_id }}">
+    {% if block.settings.section_title != blank %}
+      <div class="ai-designers-choice-header-{{ ai_gen_id }}">
+        <h2 class="ai-designers-choice-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+      </div>
+    {% endif %}
+
+    {% if block.settings.featured_product != blank %}
+      {% assign product = block.settings.featured_product %}
+      <div class="ai-designers-choice-content-{{ ai_gen_id }}">
+        <div class="ai-designers-choice-image-wrapper-{{ ai_gen_id }}">
+          {% if product.featured_image %}
+            <img
+              src="{{ product.featured_image | image_url: width: 600 }}"
+              alt="{{ product.featured_image.alt | escape }}"
+              loading="lazy"
+              width="{{ product.featured_image.width }}"
+              height="{{ product.featured_image.height }}"
+              class="ai-designers-choice-image-{{ ai_gen_id }}"
+            >
+          {% else %}
+            <div class="ai-designers-choice-image-placeholder-{{ ai_gen_id }}">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="ai-designers-choice-info-{{ ai_gen_id }}">
+          {% if block.settings.show_vendor and product.vendor != blank %}
+            <div class="ai-designers-choice-vendor-{{ ai_gen_id }}">{{ product.vendor }}</div>
+          {% endif %}
+
+          <h3 class="ai-designers-choice-product-title-{{ ai_gen_id }}">
+            <a href="{{ product.url }}">{{ product.title }}</a>
+          </h3>
+
+          {% if block.settings.show_description and product.description != blank %}
+            <div class="ai-designers-choice-description-{{ ai_gen_id }}">
+              {{ product.description | strip_html | truncate: 150 }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.show_price %}
+            <div class="ai-designers-choice-price-{{ ai_gen_id }}">
+              {{ product.price | money }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.show_button %}
+            <div>
+              <a
+                href="{{ product.url }}"
+                class="ai-designers-choice-button-{{ ai_gen_id }}"
+              >
+                {{ block.settings.button_text }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <div class="ai-designers-choice-empty-product-{{ ai_gen_id }}">
+        Next, select a featured product for Designer's Choice
+      </div>
+    {% endif %}
+  </div>
+</designers-choice-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class DesignersChoice{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('designers-choice-{{ ai_gen_id }}', DesignersChoice{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Designer's choice",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "Designer's Choice"
+    },
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Featured product"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show description",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffebcd"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "vendor_color",
+      "label": "Vendor",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button background",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View Product"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Content gap",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "info_spacing",
+      "label": "Info spacing",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Section title size",
+      "min": 20,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "product_title_size",
+      "label": "Product title size",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "vendor_size",
+      "label": "Vendor size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "label": "Price size",
+      "min": 16,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "label": "Button text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Designer's choice"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,456 @@
+{% doc %}
+  @prompt
+    please create an 8 box image and text grid for Designers make it easy to see, and have all the images be square and the same size. Font Cormorant Garamond please, insert a text box, add 8 boxes as above plus a description and title
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-designer-grid-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-designer-grid__container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-designer-grid__item-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-designer-grid__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
+    background-color: #f4f4f4;
+    margin-bottom: {{ block.settings.image_text_spacing }}px;
+  }
+
+  .ai-designer-grid__image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-designer-grid__image-wrapper-{{ ai_gen_id }} svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-designer-grid__title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+    font-weight: {{ block.settings.title_font.weight }};
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_description_spacing }}px 0;
+  }
+
+  .ai-designer-grid__description-{{ ai_gen_id }} {
+    font-family: {{ block.settings.description_font.family }}, {{ block.settings.description_font.fallback_families }};
+    font-weight: {{ block.settings.description_font.weight }};
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-designer-grid__container-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-designer-grid__container-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.75 }}px;
+    }
+
+    .ai-designer-grid__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.9 }}px;
+    }
+
+    .ai-designer-grid__description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-designer-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-designer-grid__container-{{ ai_gen_id }}">
+    {% for i in (1..8) %}
+      {% liquid
+        assign image_key = 'image_' | append: i
+        assign title_key = 'title_' | append: i
+        assign description_key = 'description_' | append: i
+        
+        assign item_image = block.settings[image_key]
+        assign item_title = block.settings[title_key]
+        assign item_description = block.settings[description_key]
+      %}
+      
+      <div class="ai-designer-grid__item-{{ ai_gen_id }}">
+        <div class="ai-designer-grid__image-wrapper-{{ ai_gen_id }}">
+          {% if item_image %}
+            <img
+              src="{{ item_image | image_url: width: 600 }}"
+              alt="{{ item_image.alt | escape }}"
+              loading="lazy"
+              width="600"
+              height="600"
+              class="ai-designer-grid__image-{{ ai_gen_id }}"
+            >
+          {% else %}
+            {{ 'image' | placeholder_svg_tag }}
+          {% endif %}
+        </div>
+        
+        {% if item_title != blank %}
+          <h3 class="ai-designer-grid__title-{{ ai_gen_id }}">{{ item_title }}</h3>
+        {% endif %}
+        
+        {% if item_description != blank %}
+          <p class="ai-designer-grid__description-{{ ai_gen_id }}">{{ item_description }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Designer grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "image_text_spacing",
+      "label": "Image to text spacing",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "title_description_spacing",
+      "label": "Title to description spacing",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Title style"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Font",
+      "default": "cormorant_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Font size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "Description style"
+    },
+    {
+      "type": "font_picker",
+      "id": "description_font",
+      "label": "Font",
+      "default": "cormorant_n4"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "Designer 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Title",
+      "default": "Designer Name"
+    },
+    {
+      "type": "textarea",
+      "id": "description_1",
+      "label": "Description",
+      "default": "Brief description of the designer"
+    },
+    {
+      "type": "header",
+      "content": "Designer 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Title",
+      "default": "Designer Name"
+    },
+    {
+      "type": "textarea",
+      "id": "description_2",
+      "label": "Description",
+      "default": "Brief description of the designer"
+    },
+    {
+      "type": "header",
+      "content": "Designer 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Title",
+      "default": "Designer Name"
+    },
+    {
+      "type": "textarea",
+      "id": "description_3",
+      "label": "Description",
+      "default": "Brief description of the designer"
+    },
+    {
+      "type": "header",
+      "content": "Designer 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_4",
+      "label": "Title",
+      "default": "Designer Name"
+    },
+    {
+      "type": "textarea",
+      "id": "description_4",
+      "label": "Description",
+      "default": "Brief description of the designer"
+    },
+    {
+      "type": "header",
+      "content": "Designer 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_5",
+      "label": "Title",
+      "default": "Designer Name"
+    },
+    {
+      "type": "textarea",
+      "id": "description_5",
+      "label": "Description",
+      "default": "Brief description of the designer"
+    },
+    {
+      "type": "header",
+      "content": "Designer 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_6",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_6",
+      "label": "Title",
+      "default": "Designer Name"
+    },
+    {
+      "type": "textarea",
+      "id": "description_6",
+      "label": "Description",
+      "default": "Brief description of the designer"
+    },
+    {
+      "type": "header",
+      "content": "Designer 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_7",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_7",
+      "label": "Title",
+      "default": "Designer Name"
+    },
+    {
+      "type": "textarea",
+      "id": "description_7",
+      "label": "Description",
+      "default": "Brief description of the designer"
+    },
+    {
+      "type": "header",
+      "content": "Designer 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_8",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_8",
+      "label": "Title",
+      "default": "Designer Name"
+    },
+    {
+      "type": "textarea",
+      "id": "description_8",
+      "label": "Description",
+      "default": "Brief description of the designer"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Designer grid"
+    }
+  ]
+}
+{% endschema %}

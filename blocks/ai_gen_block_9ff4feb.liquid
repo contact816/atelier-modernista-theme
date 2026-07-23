@@ -1,0 +1,191 @@
+{% doc %}
+  @prompt
+    Create a brand logo image space  with a link embedded to www.ateliermodernista.com. Can you make the logo centred and its  width being controlled. please centre everything. Please add this header to every page on the site., give the logo a link
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-brand-logo-container-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-brand-logo-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .ai-brand-logo-link-{{ ai_gen_id }} {
+    display: inline-block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: {{ block.settings.max_width }}px;
+    text-align: center;
+  }
+
+  .ai-brand-logo-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .ai-brand-logo-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 100px;
+  }
+
+  .ai-brand-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .ai-brand-logo-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-brand-logo-link-{{ ai_gen_id }} {
+      width: {{ block.settings.mobile_width_percent }}%;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-brand-logo-container-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-brand-logo-wrapper-{{ ai_gen_id }}">
+    <a href="{{ block.settings.logo_link }}" class="ai-brand-logo-link-{{ ai_gen_id }}">
+      {% if block.settings.logo %}
+        <img
+          src="{{ block.settings.logo | image_url: width: 1200 }}"
+          alt="{{ block.settings.logo.alt | default: shop.name | escape }}"
+          loading="lazy"
+          width="{{ block.settings.logo.width }}"
+          height="{{ block.settings.logo.height }}"
+          class="ai-brand-logo-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-brand-logo-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-brand-logo-empty-state-{{ ai_gen_id }}">
+            Add your logo
+          </div>
+        </div>
+      {% endif %}
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand logo",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "logo_link",
+      "label": "Logo link",
+      "default": "https://www.ateliermodernista.com"
+    },
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_width_percent",
+      "label": "Mobile width",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 100,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand logo"
+    }
+  ]
+}
+{% endschema %}

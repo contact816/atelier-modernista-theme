@@ -1,0 +1,506 @@
+{% doc %}
+  @prompt
+    ease add a The Cobalt Edition carousel with three image cards which link to a product, day. Have one small image with a link, then three product images all for the same product., make the main left image match in height and width to the product boxes together, make it very petite,  one header image  portrait on the left and three landscape product images aligned t it on the right , can you make it much more condensed, like a left justified portrait and then three landscapes on the right directly aligned with the portait, please make it ONE portrait to the left and three small product boxes to the right of it, aligned
+    
+    make it all aligned to the collection boxes above please, please align the boxs to line up with the two collection boxes above, Please add in a background colour option for the whole block, and make the main picture much smaller and narrower, and the product image much shorter in length, Can you centre all of it and make the product cards half the size please
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-cobalt-carousel-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.block_padding }}px;
+    border-radius: {{ block.settings.block_radius }}px;
+  }
+
+  .ai-cobalt-carousel__wrapper-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-cobalt-carousel__container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: {{ block.settings.portrait_width }}% 1fr;
+    gap: var(--grid-desktop-horizontal-spacing);
+    width: 100%;
+  }
+
+  .ai-cobalt-carousel__portrait-{{ ai_gen_id }} {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .ai-cobalt-carousel__portrait-link-{{ ai_gen_id }} {
+    display: block;
+    text-decoration: none;
+  }
+
+  .ai-cobalt-carousel__portrait-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ block.settings.image_radius }}px;
+  }
+
+  .ai-cobalt-carousel__portrait-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: {{ block.settings.portrait_aspect_width }} / {{ block.settings.portrait_aspect_height }};
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ block.settings.image_radius }}px;
+    position: relative;
+  }
+
+  .ai-cobalt-carousel__portrait-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-cobalt-carousel__products-{{ ai_gen_id }} {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.product_gap }}px;
+  }
+
+  .ai-cobalt-carousel__product-card-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.card_gap }}px;
+    align-items: center;
+    background-color: {{ block.settings.card_bg_color }};
+    padding: {{ block.settings.card_padding }}px;
+    border-radius: {{ block.settings.card_radius }}px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    height: {{ block.settings.product_card_height }}px;
+  }
+
+  .ai-cobalt-carousel__product-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+  }
+
+  .ai-cobalt-carousel__product-image-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.product_image_size }}px;
+    height: {{ block.settings.product_image_size }}px;
+  }
+
+  .ai-cobalt-carousel__product-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: {{ block.settings.product_image_radius }}px;
+  }
+
+  .ai-cobalt-carousel__product-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ block.settings.product_image_radius }}px;
+  }
+
+  .ai-cobalt-carousel__product-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-cobalt-carousel__product-info-{{ ai_gen_id }} {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ai-cobalt-carousel__product-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ai-cobalt-carousel__product-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.product_price_size }}px;
+    color: {{ block.settings.price_color }};
+    margin: 0;
+  }
+
+  .ai-cobalt-carousel__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-cobalt-carousel__container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: var(--grid-mobile-horizontal-spacing);
+    }
+
+    .ai-cobalt-carousel__portrait-{{ ai_gen_id }} {
+      grid-column: 1;
+    }
+
+    .ai-cobalt-carousel__products-{{ ai_gen_id }} {
+      grid-column: 1;
+    }
+
+    .ai-cobalt-carousel__product-card-{{ ai_gen_id }} {
+      padding: {{ block.settings.card_padding | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<cobalt-carousel-{{ ai_gen_id }}
+  class="ai-cobalt-carousel-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-cobalt-carousel__wrapper-{{ ai_gen_id }}">
+    <div class="ai-cobalt-carousel__container-{{ ai_gen_id }}">
+      <div class="ai-cobalt-carousel__portrait-{{ ai_gen_id }}">
+        {% if block.settings.portrait_image %}
+          <a
+            href="{{ block.settings.portrait_link }}"
+            class="ai-cobalt-carousel__portrait-link-{{ ai_gen_id }}"
+          >
+            <img
+              src="{{ block.settings.portrait_image | image_url: width: 800 }}"
+              alt="{{ block.settings.portrait_image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.portrait_image.width }}"
+              height="{{ block.settings.portrait_image.height }}"
+              class="ai-cobalt-carousel__portrait-image-{{ ai_gen_id }}"
+            >
+          </a>
+        {% else %}
+          <div class="ai-cobalt-carousel__portrait-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+            <div class="ai-cobalt-carousel__empty-state-{{ ai_gen_id }}">
+              Add a portrait image
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-cobalt-carousel__products-{{ ai_gen_id }}">
+        {% for i in (1..3) %}
+          {% liquid
+            assign product_key = 'product_' | append: i
+            assign product = block.settings[product_key]
+          %}
+
+          {% if product != blank %}
+            <a
+              href="{{ product.url }}"
+              class="ai-cobalt-carousel__product-card-{{ ai_gen_id }}"
+            >
+              <div class="ai-cobalt-carousel__product-image-{{ ai_gen_id }}">
+                {% if product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 200 }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    loading="lazy"
+                    width="200"
+                    height="200"
+                  >
+                {% else %}
+                  <div class="ai-cobalt-carousel__product-placeholder-{{ ai_gen_id }}">
+                    {{ 'product-1' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+              <div class="ai-cobalt-carousel__product-info-{{ ai_gen_id }}">
+                <h3 class="ai-cobalt-carousel__product-title-{{ ai_gen_id }}">{{ product.title }}</h3>
+                <p class="ai-cobalt-carousel__product-price-{{ ai_gen_id }}">{{ product.price | money }}</p>
+              </div>
+            </a>
+          {% else %}
+            <div class="ai-cobalt-carousel__product-card-{{ ai_gen_id }}">
+              <div class="ai-cobalt-carousel__product-image-{{ ai_gen_id }}">
+                <div class="ai-cobalt-carousel__product-placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              </div>
+              <div class="ai-cobalt-carousel__product-info-{{ ai_gen_id }}">
+                <h3 class="ai-cobalt-carousel__product-title-{{ ai_gen_id }}">Product {{ i }}</h3>
+                <p class="ai-cobalt-carousel__product-price-{{ ai_gen_id }}" style="font-size: 11px; color: #999;">Add product</p>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</cobalt-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CobaltCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('cobalt-carousel-{{ ai_gen_id }}', CobaltCarousel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Cobalt edition carousel",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Block style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "block_padding",
+      "label": "Block padding",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "block_radius",
+      "label": "Block border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 400,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Portrait image"
+    },
+    {
+      "type": "image_picker",
+      "id": "portrait_image",
+      "label": "Portrait image"
+    },
+    {
+      "type": "url",
+      "id": "portrait_link",
+      "label": "Portrait link"
+    },
+    {
+      "type": "range",
+      "id": "portrait_width",
+      "label": "Portrait width",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "%",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "portrait_aspect_width",
+      "label": "Portrait aspect width",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "portrait_aspect_height",
+      "label": "Portrait aspect height",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Portrait image radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product 2"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Product 3"
+    },
+    {
+      "type": "header",
+      "content": "Product card style"
+    },
+    {
+      "type": "range",
+      "id": "product_card_height",
+      "label": "Product card height",
+      "min": 30,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "product_image_size",
+      "label": "Product image size",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "product_title_size",
+      "label": "Title size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "product_price_size",
+      "label": "Price size",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 9
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 2,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "product_image_radius",
+      "label": "Product image radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "product_gap",
+      "label": "Gap between products",
+      "min": 2,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap inside cards",
+      "min": 2,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cobalt edition carousel"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,233 @@
+{% doc %}
+  @prompt
+    have a running announcement saying 'Special Gift With Every Valentine's Day Order'
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-running-announcement-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    overflow: hidden;
+    padding: {{ block.settings.padding }}px 0;
+  }
+
+  .ai-running-announcement-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    width: fit-content;
+    animation: ai-scroll-{{ ai_gen_id }} {{ block.settings.speed }}s linear infinite;
+  }
+
+  .ai-running-announcement-text-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    padding: 0 {{ block.settings.spacing }}px;
+  }
+
+  .ai-running-announcement-separator-{{ ai_gen_id }} {
+    margin: 0 {{ block.settings.spacing }}px;
+    {% if block.settings.separator_type == 'dot' %}
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: {{ block.settings.text_color }};
+    {% elsif block.settings.separator_type == 'star' %}
+      font-size: {{ block.settings.font_size }}px;
+    {% elsif block.settings.separator_type == 'heart' %}
+      font-size: {{ block.settings.font_size }}px;
+    {% elsif block.settings.separator_type == 'dash' %}
+      font-size: {{ block.settings.font_size }}px;
+    {% endif %}
+  }
+
+  @keyframes ai-scroll-{{ ai_gen_id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .ai-running-announcement-{{ ai_gen_id }}:hover .ai-running-announcement-wrapper-{{ ai_gen_id }} {
+    {% if block.settings.pause_on_hover %}
+      animation-play-state: paused;
+    {% endif %}
+  }
+{% endstyle %}
+
+<running-announcement-{{ ai_gen_id }}
+  class="ai-running-announcement-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-running-announcement-wrapper-{{ ai_gen_id }}">
+    {% for i in (1..10) %}
+      <div class="ai-running-announcement-text-{{ ai_gen_id }}">
+        {{ block.settings.announcement_text }}
+      </div>
+      <div class="ai-running-announcement-separator-{{ ai_gen_id }}">
+        {% if block.settings.separator_type == 'star' %}
+          ★
+        {% elsif block.settings.separator_type == 'heart' %}
+          ♥
+        {% elsif block.settings.separator_type == 'dash' %}
+          —
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</running-announcement-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class RunningAnnouncement{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('running-announcement-{{ ai_gen_id }}', RunningAnnouncement{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Running announcement",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Special Gift With Every Valentine's Day Order"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#e13030"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Vertical padding",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "s",
+      "default": 30
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "separator_type",
+      "label": "Separator",
+      "options": [
+        {
+          "value": "dot",
+          "label": "Dot"
+        },
+        {
+          "value": "star",
+          "label": "Star"
+        },
+        {
+          "value": "heart",
+          "label": "Heart"
+        },
+        {
+          "value": "dash",
+          "label": "Dash"
+        }
+      ],
+      "default": "heart"
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "label": "Spacing",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Running announcement"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,214 @@
+{% doc %}
+  @prompt
+    Create a header with a logo that has a link.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-header-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-header-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    display: flex;
+    align-items: {{ block.settings.vertical_alignment }};
+    justify-content: {{ block.settings.horizontal_alignment }};
+  }
+
+  .ai-header-logo-link-{{ ai_gen_id }} {
+    display: inline-block;
+    line-height: 0;
+  }
+
+  .ai-header-logo-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}px;
+    height: auto;
+    display: block;
+  }
+
+  .ai-header-logo-placeholder-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    padding: 20px;
+  }
+
+  .ai-header-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-header-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_vertical | times: 0.7 }}px {{ block.settings.padding_horizontal | times: 0.7 }}px;
+    }
+
+    .ai-header-logo-{{ ai_gen_id }},
+    .ai-header-logo-placeholder-{{ ai_gen_id }} {
+      width: {{ block.settings.logo_width | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<header-logo-{{ ai_gen_id }} class="ai-header-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-header-container-{{ ai_gen_id }}">
+    <a href="{{ block.settings.logo_link }}" class="ai-header-logo-link-{{ ai_gen_id }}">
+      {% if block.settings.logo %}
+        <img
+          src="{{ block.settings.logo | image_url: width: 600 }}"
+          alt="{{ block.settings.logo.alt | default: shop.name | escape }}"
+          width="{{ block.settings.logo.width }}"
+          height="{{ block.settings.logo.height }}"
+          loading="lazy"
+          class="ai-header-logo-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-header-logo-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </a>
+  </div>
+</header-logo-{{ ai_gen_id }}>
+
+{% schema %}
+{
+  "name": "Header with logo",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 150
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "horizontal_alignment",
+      "label": "Horizontal alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Vertical padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header with logo"
+    }
+  ]
+}
+{% endschema %}

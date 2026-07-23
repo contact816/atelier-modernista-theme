@@ -1,0 +1,448 @@
+{% doc %}
+  @prompt
+    A small 'Designer's Choice' featured product with image and product info., Make it below the ttles, above the collections cards, in Cormorant Garamon font, with the same colour paette as the header., No Black backround, have it in the same font as 'Art You Can Wear' below, black writing on same cream background, please.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-designers-choice-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto 40px;
+  }
+
+  .ai-designers-choice-container-{{ ai_gen_id }} {
+    display: flex;
+    gap: 20px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    padding: {{ block.settings.padding }}px;
+    align-items: center;
+  }
+
+  .ai-designers-choice-badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background-color: {{ block.settings.badge_bg_color }};
+    color: {{ block.settings.badge_text_color }};
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 1;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+  }
+
+  .ai-designers-choice-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    flex-shrink: 0;
+    width: {{ block.settings.image_size }}px;
+    height: {{ block.settings.image_size }}px;
+  }
+
+  .ai-designers-choice-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-designers-choice-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-designers-choice-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-designers-choice-info-{{ ai_gen_id }} {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .ai-designers-choice-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    line-height: 1.3;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+  }
+
+  .ai-designers-choice-vendor-{{ ai_gen_id }} {
+    font-size: 13px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.7;
+    margin: 0;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+  }
+
+  .ai-designers-choice-price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.price_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 4px 0;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+  }
+
+  .ai-designers-choice-description-{{ ai_gen_id }} {
+    font-size: 13px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+  }
+
+  .ai-designers-choice-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+    font-family: {{ block.settings.font_family.family }}, {{ block.settings.font_family.fallback_families }};
+  }
+
+  .ai-designers-choice-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+  }
+
+  .ai-designers-choice-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-designers-choice-container-{{ ai_gen_id }} {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .ai-designers-choice-image-wrapper-{{ ai_gen_id }} {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+    }
+
+    .ai-designers-choice-button-{{ ai_gen_id }} {
+      align-self: center;
+    }
+  }
+{% endstyle %}
+
+<designers-choice-{{ ai_gen_id }}
+  class="ai-designers-choice-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-designers-choice-container-{{ ai_gen_id }}">
+    <div class="ai-designers-choice-image-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.show_badge %}
+        <div class="ai-designers-choice-badge-{{ ai_gen_id }}">
+          {{ block.settings.badge_text }}
+        </div>
+      {% endif %}
+
+      {% if block.settings.product != blank and block.settings.product.featured_image %}
+        <img
+          src="{{ block.settings.product.featured_image | image_url: width: 400 }}"
+          alt="{{ block.settings.product.featured_image.alt | escape }}"
+          loading="lazy"
+          width="400"
+          height="400"
+          class="ai-designers-choice-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-designers-choice-placeholder-{{ ai_gen_id }}">
+          {{ 'product-1' | placeholder_svg_tag }}
+          {% if block.settings.product == blank %}
+            <div class="ai-designers-choice-empty-state-{{ ai_gen_id }}">
+              Next, select a product
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-designers-choice-info-{{ ai_gen_id }}">
+      {% if block.settings.product != blank %}
+        {% if block.settings.show_vendor and block.settings.product.vendor != blank %}
+          <p class="ai-designers-choice-vendor-{{ ai_gen_id }}">{{ block.settings.product.vendor }}</p>
+        {% endif %}
+
+        <h3 class="ai-designers-choice-title-{{ ai_gen_id }}">
+          {{ block.settings.product.title }}
+        </h3>
+
+        {% if block.settings.show_price %}
+          <div class="ai-designers-choice-price-{{ ai_gen_id }}">
+            {{ block.settings.product.price | money }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_description and block.settings.product.description != blank %}
+          <p class="ai-designers-choice-description-{{ ai_gen_id }}">
+            {{ block.settings.product.description | strip_html | truncate: 100 }}
+          </p>
+        {% endif %}
+
+        <a
+          href="{{ block.settings.product.url }}"
+          class="ai-designers-choice-button-{{ ai_gen_id }}"
+        >
+          {{ block.settings.button_text }}
+        </a>
+      {% else %}
+        <h3 class="ai-designers-choice-title-{{ ai_gen_id }}">
+          Designer's Choice
+        </h3>
+        <p class="ai-designers-choice-description-{{ ai_gen_id }}">
+          Select a product to feature your designer's choice
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</designers-choice-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class DesignersChoice{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+
+    customElements.define('designers-choice-{{ ai_gen_id }}', DesignersChoice{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Designer's choice",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show description",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Designer's Choice"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge background",
+      "default": "#ffebcd"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View product"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background",
+      "default": "#334fb4"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Font",
+      "default": "cormorant_n4"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffebcd"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_size",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Image size",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "min": 14,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Price size",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Designer's choice"
+    }
+  ]
+}
+{% endschema %}

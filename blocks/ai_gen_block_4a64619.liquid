@@ -1,0 +1,405 @@
+{% doc %}
+  @prompt
+    A product box alongside an image box with a link, with controls the width and height and background colour, with controls for padding. Please make the padidng quite large between blocks. , centre it, can you put a lot of padding between the block above (collection cards) and this, can you make the image taller please, can you make the button text smaller, the button higher and the text Garamond please
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-image-box-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: {{ block.settings.top_padding }}px;
+    padding-bottom: {{ block.settings.bottom_padding }}px;
+  }
+
+  .ai-product-image-box__container-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.gap_between_boxes }}px;
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    align-items: stretch;
+  }
+
+  .ai-product-image-box__product-box-{{ ai_gen_id }},
+  .ai-product-image-box__image-box-{{ ai_gen_id }} {
+    flex: 1;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.box_padding }}px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+  }
+
+  .ai-product-image-box__product-box-{{ ai_gen_id }} {
+    justify-content: center;
+  }
+
+  .ai-product-image-box__product-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+
+  .ai-product-image-box__product-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+
+  .ai-product-image-box__product-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-product-image-box__product-title-{{ ai_gen_id }} {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: {{ block.settings.text_color }};
+    font-family: Garamond, serif;
+  }
+
+  .ai-product-image-box__product-price-{{ ai_gen_id }} {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: {{ block.settings.text_color }};
+    font-family: Garamond, serif;
+  }
+
+  .ai-product-image-box__product-description-{{ ai_gen_id }} {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: {{ block.settings.text_color }};
+    font-family: Garamond, serif;
+  }
+
+  .ai-product-image-box__product-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 16px 32px;
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    font-size: 12px;
+    font-family: Garamond, serif;
+  }
+
+  .ai-product-image-box__product-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+  }
+
+  .ai-product-image-box__image-box-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-product-image-box__image-link-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-product-image-box__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.image_height }}px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .ai-product-image-box__image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.image_height }}px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+
+  .ai-product-image-box__image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-product-image-box__empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+    font-family: Garamond, serif;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-product-image-box__container-{{ ai_gen_id }} {
+      flex-direction: column;
+    }
+
+    .ai-product-image-box__image-{{ ai_gen_id }},
+    .ai-product-image-box__image-placeholder-{{ ai_gen_id }} {
+      height: {{ block.settings.image_height | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<product-image-box-{{ ai_gen_id }}
+  class="ai-product-image-box-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-product-image-box__container-{{ ai_gen_id }}">
+    <div class="ai-product-image-box__product-box-{{ ai_gen_id }}">
+      {% if block.settings.product != blank %}
+        {% if block.settings.product.featured_image %}
+          <img
+            src="{{ block.settings.product.featured_image | image_url: width: 600 }}"
+            alt="{{ block.settings.product.featured_image.alt | escape }}"
+            class="ai-product-image-box__product-image-{{ ai_gen_id }}"
+            loading="lazy"
+            width="600"
+            height="600"
+          >
+        {% else %}
+          <div class="ai-product-image-box__product-image-placeholder-{{ ai_gen_id }}">
+            {{ 'product-1' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+
+        <h3 class="ai-product-image-box__product-title-{{ ai_gen_id }}">
+          {{ block.settings.product.title }}
+        </h3>
+
+        <div class="ai-product-image-box__product-price-{{ ai_gen_id }}">
+          {{ block.settings.product.price | money }}
+        </div>
+
+        {% if block.settings.product.description != blank %}
+          <div class="ai-product-image-box__product-description-{{ ai_gen_id }}">
+            {{ block.settings.product.description | truncate: 150 }}
+          </div>
+        {% endif %}
+
+        <a
+          href="{{ block.settings.product.url }}"
+          class="ai-product-image-box__product-button-{{ ai_gen_id }}"
+        >
+          {{ block.settings.button_text }}
+        </a>
+      {% else %}
+        <div class="ai-product-image-box__product-image-placeholder-{{ ai_gen_id }}">
+          {{ 'product-1' | placeholder_svg_tag }}
+        </div>
+        <h3 class="ai-product-image-box__product-title-{{ ai_gen_id }}">Product title</h3>
+        <div class="ai-product-image-box__product-price-{{ ai_gen_id }}">£0.00</div>
+        <div class="ai-product-image-box__product-description-{{ ai_gen_id }}">
+          Select a product to display here
+        </div>
+        <a href="#" class="ai-product-image-box__product-button-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="ai-product-image-box__image-box-{{ ai_gen_id }}">
+      {% if block.settings.image_link != blank %}
+        <a
+          href="{{ block.settings.image_link }}"
+          class="ai-product-image-box__image-link-{{ ai_gen_id }}"
+        >
+      {% endif %}
+
+      {% if block.settings.image != blank %}
+        <img
+          src="{{ block.settings.image | image_url: width: 1200 }}"
+          alt="{{ block.settings.image.alt | escape }}"
+          class="ai-product-image-box__image-{{ ai_gen_id }}"
+          loading="lazy"
+          width="1200"
+          height="{{ block.settings.image_height }}"
+        >
+      {% else %}
+        <div class="ai-product-image-box__image-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+        <div class="ai-product-image-box__empty-state-{{ ai_gen_id }}">
+          Next, add an image
+        </div>
+      {% endif %}
+
+      {% if block.settings.image_link != blank %}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</product-image-box-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductImageBox{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('product-image-box-{{ ai_gen_id }}', ProductImageBox{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product and image box",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 600,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "gap_between_boxes",
+      "label": "Gap between boxes",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "top_padding",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "bottom_padding",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "box_padding",
+      "label": "Box padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Product box"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View product"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Image box"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Image height",
+      "min": 200,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "url",
+      "id": "image_link",
+      "label": "Image link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffebcd"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121212"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product and image box"
+    }
+  ]
+}
+{% endschema %}

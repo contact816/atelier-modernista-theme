@@ -1,0 +1,186 @@
+{% doc %}
+  @prompt
+    Create a brand logo image space  with a link embedded to www.ateliermodernista.com. Can you make the logo centred and its  width being controlled. please centre everything. Please add this header to every page on the site., give the logo a link
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-brand-logo-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-brand-logo-container-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .ai-brand-logo-link-{{ ai_gen_id }} {
+    display: inline-block;
+    width: {{ block.settings.logo_width }}%;
+    max-width: 100%;
+    text-decoration: none;
+  }
+
+  .ai-brand-logo-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-brand-logo-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 100px;
+  }
+
+  .ai-brand-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+  }
+
+  .ai-brand-logo-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-brand-logo-link-{{ ai_gen_id }} {
+      width: {{ block.settings.logo_width_mobile }}%;
+    }
+  }
+{% endstyle %}
+
+<brand-logo-{{ ai_gen_id }} class="ai-brand-logo-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-brand-logo-container-{{ ai_gen_id }}">
+    <a 
+      href="{{ block.settings.logo_link }}" 
+      class="ai-brand-logo-link-{{ ai_gen_id }}"
+      aria-label="Brand logo"
+    >
+      {% if block.settings.logo %}
+        <img
+        src="{{ block.settings.logo | image_url: width: 600 }}"
+          alt="{{ block.settings.logo.alt | default: 'Brand logo' | escape }}"
+          loading="lazy"
+          width="600"
+          height="{{ block.settings.logo.height }}"
+          class="ai-brand-logo-image-{{ ai_gen_id }}"  
+        >
+      {% else %}
+        <div class="ai-brand-logo-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-brand-logo-empty-state-{{ ai_gen_id }}">
+            Add your brand logo
+          </div>
+        </div>
+      {% endif %}
+    </a>
+  </div>
+</brand-logo-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BrandLogo{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+    customElements.define('brand-logo-{{ ai_gen_id }}', BrandLogo{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Brand logo",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Logo width",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "logo_width_mobile",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Logo width",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand logo"
+    }
+  ]
+}
+{% endschema %}

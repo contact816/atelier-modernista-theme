@@ -1,0 +1,311 @@
+{% doc %}
+  @prompt
+    Can you make a runnine announcement bar for reviews, and above it a static announcement bar for shipping onformation please, yellow background on the reviews, and add 5 stars to each review, delete the stars thanks, small green leaf either side of the shipping text, and in between reviews
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-announcement-bars-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-static-announcement-{{ ai_gen_id }} {
+    background-color: {{ block.settings.static_bg_color }};
+    color: {{ block.settings.static_text_color }};
+    padding: {{ block.settings.static_padding }}px 20px;
+    text-align: center;
+    font-size: {{ block.settings.static_font_size }}px;
+    width: 100%;
+  }
+
+  .ai-static-announcement-content-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .ai-leaf-icon-{{ ai_gen_id }} {
+    font-size: {{ block.settings.leaf_size }}px;
+    line-height: 1;
+  }
+
+  .ai-scrolling-announcement-{{ ai_gen_id }} {
+    background-color: {{ block.settings.scrolling_bg_color }};
+    color: {{ block.settings.scrolling_text_color }};
+    padding: {{ block.settings.scrolling_padding }}px 0;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  .ai-scrolling-track-{{ ai_gen_id }} {
+    display: flex;
+    width: max-content;
+    animation: ai-scroll-{{ ai_gen_id }} {{ block.settings.scroll_speed }}s linear infinite;
+  }
+
+  .ai-scrolling-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: {{ block.settings.scrolling_font_size }}px;
+    padding: 0 20px;
+    gap: 20px;
+  }
+
+  @keyframes ai-scroll-{{ ai_gen_id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .ai-scrolling-announcement-{{ ai_gen_id }}:hover .ai-scrolling-track-{{ ai_gen_id }} {
+    animation-play-state: paused;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-static-announcement-{{ ai_gen_id }} {
+      font-size: {{ block.settings.static_font_size | times: 0.9 }}px;
+      padding: {{ block.settings.static_padding | times: 0.8 }}px 15px;
+    }
+
+    .ai-static-announcement-content-{{ ai_gen_id }} {
+      gap: 8px;
+    }
+
+    .ai-leaf-icon-{{ ai_gen_id }} {
+      font-size: {{ block.settings.leaf_size | times: 0.8 }}px;
+    }
+
+    .ai-scrolling-announcement-{{ ai_gen_id }} {
+      padding: {{ block.settings.scrolling_padding | times: 0.8 }}px 0;
+    }
+
+    .ai-scrolling-item-{{ ai_gen_id }} {
+      font-size: {{ block.settings.scrolling_font_size | times: 0.9 }}px;
+      padding: 0 15px;
+      gap: 15px;
+    }
+  }
+{% endstyle %}
+
+<announcement-bars-{{ ai_gen_id }} class="ai-announcement-bars-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.show_static_bar %}
+    <div class="ai-static-announcement-{{ ai_gen_id }}">
+      <div class="ai-static-announcement-content-{{ ai_gen_id }}">
+        <span class="ai-leaf-icon-{{ ai_gen_id }}">🍃</span>
+        <span>{{ block.settings.static_text }}</span>
+        <span class="ai-leaf-icon-{{ ai_gen_id }}">🍃</span>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if block.settings.show_scrolling_bar %}
+    <div class="ai-scrolling-announcement-{{ ai_gen_id }}">
+      <div class="ai-scrolling-track-{{ ai_gen_id }}">
+        {% for i in (1..2) %}
+          {% for review_num in (1..5) %}
+            {% assign review_key = 'review_' | append: review_num %}
+            {% assign review_text = block.settings[review_key] %}
+            {% if review_text != blank %}
+              <div class="ai-scrolling-item-{{ ai_gen_id }}">
+                <span class="ai-leaf-icon-{{ ai_gen_id }}">🍃</span>
+                <span>{{ review_text }}</span>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</announcement-bars-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AnnouncementBars{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        const track = this.querySelector('.ai-scrolling-track-{{ ai_gen_id }}');
+        if (track) {
+          const items = track.querySelectorAll('.ai-scrolling-item-{{ ai_gen_id }}');
+          if (items.length === 0) {
+            const scrollingBar = this.querySelector('.ai-scrolling-announcement-{{ ai_gen_id }}');
+            if (scrollingBar) {
+              scrollingBar.style.display = 'none';
+            }
+          }
+        }
+      }
+    }
+
+    customElements.define('announcement-bars-{{ ai_gen_id }}', AnnouncementBars{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Announcement bars",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Static announcement bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_static_bar",
+      "label": "Show static bar",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "static_text",
+      "label": "Text",
+      "default": "Free Standard UK Shipping"
+    },
+    {
+      "type": "color",
+      "id": "static_bg_color",
+      "label": "Background color",
+      "default": "#334fb4"
+    },
+    {
+      "type": "color",
+      "id": "static_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "static_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "static_padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "leaf_size",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Leaf size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Scrolling reviews bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scrolling_bar",
+      "label": "Show scrolling bar",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "scrolling_bg_color",
+      "label": "Background color",
+      "default": "#f4bf1a"
+    },
+    {
+      "type": "color",
+      "id": "scrolling_text_color",
+      "label": "Text color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "scrolling_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "scrolling_padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "s",
+      "label": "Scroll speed",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Reviews"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "review_1",
+      "label": "Review 1",
+      "default": "Amazing quality! Highly recommend"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "review_2",
+      "label": "Review 2",
+      "default": "Fast delivery and beautiful products"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "review_3",
+      "label": "Review 3",
+      "default": "Absolutely love my purchase!"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "review_4",
+      "label": "Review 4",
+      "default": "Excellent customer service"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "review_5",
+      "label": "Review 5",
+      "default": "Will definitely order again"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bars"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

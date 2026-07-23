@@ -1,0 +1,276 @@
+{% doc %}
+  @prompt
+    A long title across the top of the collection cards, centred in New York font, saying Atelier Modernista and centred below it in burgundy 'Art You Can Wear' in a mix of caps and lower case. Add in small image upload option one on the left and one on the right of the text. This is important. Thank you. 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-brand-header-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.padding_top }}px 20px {{ block.settings.padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-brand-header-container-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: {{ block.settings.spacing }}px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .ai-brand-header-image-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.image_width }}px;
+    height: auto;
+  }
+
+  .ai-brand-header-image-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .ai-brand-header-image-placeholder-{{ ai_gen_id }} {
+    width: {{ block.settings.image_width }}px;
+    height: {{ block.settings.image_width }}px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ai-brand-header-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 100px;
+    max-height: 100px;
+  }
+
+  .ai-brand-header-text-{{ ai_gen_id }} {
+    text-align: center;
+    flex-grow: 1;
+    max-width: 600px;
+  }
+
+  .ai-brand-header-title-{{ ai_gen_id }} {
+    font-family: 'New York', 'Times New Roman', serif;
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_spacing }}px 0;
+    line-height: 1.2;
+    font-weight: 400;
+  }
+
+  .ai-brand-header-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-brand-header-container-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: {{ block.settings.spacing | times: 0.5 }}px;
+    }
+
+    .ai-brand-header-image-{{ ai_gen_id }},
+    .ai-brand-header-image-placeholder-{{ ai_gen_id }} {
+      width: {{ block.settings.image_width | times: 0.7 }}px;
+    }
+
+    .ai-brand-header-image-placeholder-{{ ai_gen_id }} {
+      height: {{ block.settings.image_width | times: 0.7 }}px;
+    }
+
+    .ai-brand-header-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .ai-brand-header-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-brand-header-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-brand-header-container-{{ ai_gen_id }}">
+    <div class="ai-brand-header-image-{{ ai_gen_id }}">
+      {% if block.settings.left_image %}
+        <img
+          src="{{ block.settings.left_image | image_url: width: 400 }}"
+          alt="{{ block.settings.left_image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.image_width }}"
+          height="auto"
+        >
+      {% else %}
+        <div class="ai-brand-header-image-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-brand-header-text-{{ ai_gen_id }}">
+      <h1 class="ai-brand-header-title-{{ ai_gen_id }}">{{ block.settings.title }}</h1>
+      <p class="ai-brand-header-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+    </div>
+
+    <div class="ai-brand-header-image-{{ ai_gen_id }}">
+      {% if block.settings.right_image %}
+        <img
+          src="{{ block.settings.right_image | image_url: width: 400 }}"
+          alt="{{ block.settings.right_image.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.image_width }}"
+          height="auto"
+        >
+      {% else %}
+        <div class="ai-brand-header-image-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand header",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Atelier Modernista"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Title spacing",
+      "default": 12
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Art You Can Wear"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#800020"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Left image"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right image"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 50,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Image width",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Spacing between elements",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand header"
+    }
+  ]
+}
+{% endschema %}

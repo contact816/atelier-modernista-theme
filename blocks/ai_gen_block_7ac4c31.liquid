@@ -1,0 +1,581 @@
+{% doc %}
+  @prompt
+    can you please add the logo and a link at the top plus a space for testimonials and delivery information and refund information. Thanks, can you put the logo at the top, and the other functionc all below the cart message
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-info-block-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-info-block__logo-section-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .ai-info-block__logo-link-{{ ai_gen_id }} {
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .ai-info-block__logo-{{ ai_gen_id }} {
+    max-width: {{ block.settings.logo_width }}px;
+    height: auto;
+    display: block;
+  }
+
+  .ai-info-block__logo-placeholder-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}px;
+    height: 80px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+
+  .ai-info-block__logo-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 60px;
+  }
+
+  .ai-info-block__cart-message-{{ ai_gen_id }} {
+    padding: 20px;
+    background-color: {{ block.settings.cart_message_background }};
+    border-radius: {{ block.settings.section_border_radius }}px;
+    margin-bottom: 30px;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-info-block__cart-message-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 10px 0;
+  }
+
+  .ai-info-block__cart-message-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+  }
+
+  .ai-info-block__cart-message-text-{{ ai_gen_id }} p {
+    margin: 0 0 10px 0;
+  }
+
+  .ai-info-block__cart-message-text-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-info-block__content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .ai-info-block__section-{{ ai_gen_id }} {
+    padding: 20px;
+    background-color: {{ block.settings.section_background_color }};
+    border-radius: {{ block.settings.section_border_radius }}px;
+  }
+
+  .ai-info-block__section-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 15px 0;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-info-block__section-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-info-block__section-text-{{ ai_gen_id }} p {
+    margin: 0 0 10px 0;
+  }
+
+  .ai-info-block__section-text-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-info-block__testimonials-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .ai-info-block__testimonial-{{ ai_gen_id }} {
+    padding: 15px;
+    background-color: {{ block.settings.testimonial_background_color }};
+    border-left: 3px solid {{ block.settings.testimonial_accent_color }};
+    border-radius: 4px;
+  }
+
+  .ai-info-block__testimonial-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    font-style: italic;
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+  }
+
+  .ai-info-block__testimonial-author-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size | minus: 2 }}px;
+    color: {{ block.settings.text_color }};
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .ai-info-block__empty-state-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-info-block-{{ ai_gen_id }} {
+      width: 100%;
+      padding: {{ block.settings.padding | times: 0.7 }}px;
+    }
+
+    .ai-info-block__logo-{{ ai_gen_id }} {
+      max-width: {{ block.settings.logo_width | times: 0.8 }}px;
+    }
+
+    .ai-info-block__section-title-{{ ai_gen_id }},
+    .ai-info-block__cart-message-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.9 }}px;
+    }
+
+    .ai-info-block__section-text-{{ ai_gen_id }},
+    .ai-info-block__cart-message-text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.text_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-info-block-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-info-block__logo-section-{{ ai_gen_id }}">
+    {% if block.settings.logo_link != blank %}
+      <a href="{{ block.settings.logo_link }}" class="ai-info-block__logo-link-{{ ai_gen_id }}">
+    {% endif %}
+      {% if block.settings.logo %}
+        <img
+          src="{{ block.settings.logo | image_url: width: 600 }}"
+          alt="{{ block.settings.logo.alt | escape }}"
+          class="ai-info-block__logo-{{ ai_gen_id }}"
+          loading="lazy"
+          width="{{ block.settings.logo.width }}"
+          height="{{ block.settings.logo.height }}"
+        >
+      {% else %}
+        <div class="ai-info-block__logo-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    {% if block.settings.logo_link != blank %}
+      </a>
+    {% endif %}
+  </div>
+
+  {% if block.settings.show_cart_message %}
+    <div class="ai-info-block__cart-message-{{ ai_gen_id }}">
+      {% if block.settings.cart_message_title != blank %}
+        <h2 class="ai-info-block__cart-message-title-{{ ai_gen_id }}">{{ block.settings.cart_message_title }}</h2>
+      {% endif %}
+      {% if block.settings.cart_message_text != blank %}
+        <div class="ai-info-block__cart-message-text-{{ ai_gen_id }}">
+          {{ block.settings.cart_message_text }}
+        </div>
+      {% else %}
+        <div class="ai-info-block__empty-state-{{ ai_gen_id }}">
+          Add your cart message here
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="ai-info-block__content-{{ ai_gen_id }}">
+    {% if block.settings.show_testimonials %}
+      <div class="ai-info-block__section-{{ ai_gen_id }}">
+        <h3 class="ai-info-block__section-title-{{ ai_gen_id }}">{{ block.settings.testimonials_title }}</h3>
+        
+        {% assign has_testimonials = false %}
+        {% if block.settings.testimonial_1_text != blank %}
+          {% assign has_testimonials = true %}
+        {% elsif block.settings.testimonial_2_text != blank %}
+          {% assign has_testimonials = true %}
+        {% elsif block.settings.testimonial_3_text != blank %}
+          {% assign has_testimonials = true %}
+        {% endif %}
+
+        {% if has_testimonials %}
+          <div class="ai-info-block__testimonials-{{ ai_gen_id }}">
+            {% if block.settings.testimonial_1_text != blank %}
+              <div class="ai-info-block__testimonial-{{ ai_gen_id }}">
+                <p class="ai-info-block__testimonial-text-{{ ai_gen_id }}">"{{ block.settings.testimonial_1_text }}"</p>
+                {% if block.settings.testimonial_1_author != blank %}
+                  <p class="ai-info-block__testimonial-author-{{ ai_gen_id }}">— {{ block.settings.testimonial_1_author }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if block.settings.testimonial_2_text != blank %}
+              <div class="ai-info-block__testimonial-{{ ai_gen_id }}">
+                <p class="ai-info-block__testimonial-text-{{ ai_gen_id }}">"{{ block.settings.testimonial_2_text }}"</p>
+                {% if block.settings.testimonial_2_author != blank %}
+                  <p class="ai-info-block__testimonial-author-{{ ai_gen_id }}">— {{ block.settings.testimonial_2_author }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if block.settings.testimonial_3_text != blank %}
+              <div class="ai-info-block__testimonial-{{ ai_gen_id }}">
+                <p class="ai-info-block__testimonial-text-{{ ai_gen_id }}">"{{ block.settings.testimonial_3_text }}"</p>
+                {% if block.settings.testimonial_3_author != blank %}
+                  <p class="ai-info-block__testimonial-author-{{ ai_gen_id }}">— {{ block.settings.testimonial_3_author }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        {% else %}
+          <div class="ai-info-block__empty-state-{{ ai_gen_id }}">
+            Add testimonials to showcase customer feedback
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_delivery %}
+      <div class="ai-info-block__section-{{ ai_gen_id }}">
+        <h3 class="ai-info-block__section-title-{{ ai_gen_id }}">{{ block.settings.delivery_title }}</h3>
+        {% if block.settings.delivery_text != blank %}
+          <div class="ai-info-block__section-text-{{ ai_gen_id }}">
+            {{ block.settings.delivery_text }}
+          </div>
+        {% else %}
+          <div class="ai-info-block__empty-state-{{ ai_gen_id }}">
+            Add delivery information for your customers
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.show_refund %}
+      <div class="ai-info-block__section-{{ ai_gen_id }}">
+        <h3 class="ai-info-block__section-title-{{ ai_gen_id }}">{{ block.settings.refund_title }}</h3>
+        {% if block.settings.refund_text != blank %}
+          <div class="ai-info-block__section-text-{{ ai_gen_id }}">
+            {{ block.settings.refund_text }}
+          </div>
+        {% else %}
+          <div class="ai-info-block__empty-state-{{ ai_gen_id }}">
+            Add refund policy information for your customers
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Info block with logo",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 50,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "header",
+      "content": "Cart message"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart_message",
+      "label": "Show cart message",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cart_message_title",
+      "label": "Message title",
+      "default": "Your cart"
+    },
+    {
+      "type": "richtext",
+      "id": "cart_message_text",
+      "label": "Message text",
+      "default": "<p>Thank you for shopping with us! Review your items below.</p>"
+    },
+    {
+      "type": "color",
+      "id": "cart_message_background",
+      "label": "Message background color",
+      "default": "#f0f8ff"
+    },
+    {
+      "type": "header",
+      "content": "Testimonials"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_testimonials",
+      "label": "Show testimonials section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "testimonials_title",
+      "label": "Section title",
+      "default": "What our customers say"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_1_text",
+      "label": "Testimonial 1 text",
+      "default": "Absolutely love the quality and design. Highly recommend!"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_1_author",
+      "label": "Testimonial 1 author",
+      "default": "Sarah M."
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_2_text",
+      "label": "Testimonial 2 text",
+      "default": "Fast shipping and excellent customer service. Will order again."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_2_author",
+      "label": "Testimonial 2 author",
+      "default": "James T."
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_3_text",
+      "label": "Testimonial 3 text",
+      "default": "Beautiful products that exceeded my expectations!"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_3_author",
+      "label": "Testimonial 3 author",
+      "default": "Emma L."
+    },
+    {
+      "type": "header",
+      "content": "Delivery information"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_delivery",
+      "label": "Show delivery section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "delivery_title",
+      "label": "Section title",
+      "default": "Delivery information"
+    },
+    {
+      "type": "richtext",
+      "id": "delivery_text",
+      "label": "Delivery details",
+      "default": "<p>We offer free standard shipping within the UK. Orders are processed within 1-2 business days and typically arrive within 3-5 business days.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Refund information"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_refund",
+      "label": "Show refund section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "refund_title",
+      "label": "Section title",
+      "default": "Refund policy"
+    },
+    {
+      "type": "richtext",
+      "id": "refund_text",
+      "label": "Refund details",
+      "default": "<p>We accept returns within 30 days of purchase. Items must be unused and in original packaging. Refunds are processed within 5-7 business days of receiving your return.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Padding",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background color",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "testimonial_background_color",
+      "label": "Testimonial background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "testimonial_accent_color",
+      "label": "Testimonial accent color",
+      "default": "#9370db"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Block border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "section_border_radius",
+      "label": "Section border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Info block with logo"
+    }
+  ]
+}
+{% endschema %}

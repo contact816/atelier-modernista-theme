@@ -1,0 +1,263 @@
+{% doc %}
+  @prompt
+    Create a brand logo image space , one stacked on top of the other please, only two logos, make the top image much much smaller and can it have a link embedded to www.ateliermodernista.com. Can you make both logos width being controlled. Can you add 'Art You Can Wear' in mixed lower and uppercase underneath the second image, please?, add a link to each  logo and the text please. and make it be Cormorant font., please centre everything.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-brand-logos-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .ai-brand-logos__container-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .ai-brand-logos__logo-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ai-brand-logos__logo-link-{{ ai_gen_id }} {
+    display: block;
+    line-height: 0;
+  }
+
+  .ai-brand-logos__logo-1-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_1_width }}px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .ai-brand-logos__logo-2-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_2_width }}px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .ai-brand-logos__placeholder-{{ ai_gen_id }} {
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-brand-logos__placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .ai-brand-logos__text-link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: {{ block.settings.text_color }};
+    font-family: {{ block.settings.text_font.family }}, {{ block.settings.text_font.fallback_families }};
+    font-weight: {{ block.settings.text_font.weight }};
+    font-style: {{ block.settings.text_font.style }};
+    font-size: {{ block.settings.text_size }}px;
+    display: inline-block;
+  }
+
+  .ai-brand-logos__text-link-{{ ai_gen_id }}:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-brand-logos__logo-1-{{ ai_gen_id }} {
+      width: {{ block.settings.logo_1_width | times: 0.8 }}px;
+    }
+
+    .ai-brand-logos__logo-2-{{ ai_gen_id }} {
+      width: {{ block.settings.logo_2_width | times: 0.8 }}px;
+    }
+
+    .ai-brand-logos__text-link-{{ ai_gen_id }} {
+      font-size: {{ block.settings.text_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<brand-logos-{{ ai_gen_id }} class="ai-brand-logos-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-brand-logos__container-{{ ai_gen_id }}">
+    <div class="ai-brand-logos__logo-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.logo_1_link != blank %}
+        <a href="{{ block.settings.logo_1_link }}" class="ai-brand-logos__logo-link-{{ ai_gen_id }}">
+      {% endif %}
+        {% if block.settings.logo_1 %}
+          <img
+            src="{{ block.settings.logo_1 | image_url: width: 800 }}"
+            alt="{{ block.settings.logo_1.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.logo_1.width }}"
+            height="{{ block.settings.logo_1.height }}"
+            class="ai-brand-logos__logo-1-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-brand-logos__placeholder-{{ ai_gen_id }}" style="width: {{ block.settings.logo_1_width }}px; height: {{ block.settings.logo_1_width | times: 0.5 }}px;">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      {% if block.settings.logo_1_link != blank %}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="ai-brand-logos__logo-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.logo_2_link != blank %}
+        <a href="{{ block.settings.logo_2_link }}" class="ai-brand-logos__logo-link-{{ ai_gen_id }}">
+      {% endif %}
+        {% if block.settings.logo_2 %}
+          <img
+            src="{{ block.settings.logo_2 | image_url: width: 1200 }}"
+            alt="{{ block.settings.logo_2.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.logo_2.width }}"
+            height="{{ block.settings.logo_2.height }}"
+            class="ai-brand-logos__logo-2-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-brand-logos__placeholder-{{ ai_gen_id }}" style="width: {{ block.settings.logo_2_width }}px; height: {{ block.settings.logo_2_width | times: 0.5 }}px;">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      {% if block.settings.logo_2_link != blank %}
+        </a>
+      {% endif %}
+    </div>
+
+    {% if block.settings.tagline_text != blank %}
+      <div class="ai-brand-logos__tagline-{{ ai_gen_id }}">
+        {% if block.settings.tagline_link != blank %}
+          <a href="{{ block.settings.tagline_link }}" class="ai-brand-logos__text-link-{{ ai_gen_id }}">
+            {{ block.settings.tagline_text }}
+          </a>
+        {% else %}
+          <span class="ai-brand-logos__text-link-{{ ai_gen_id }}">
+            {{ block.settings.tagline_text }}
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</brand-logos-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BrandLogos{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+
+    customElements.define('brand-logos-{{ ai_gen_id }}', BrandLogos{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Brand logos",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_1",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_1_width",
+      "min": 50,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 150
+    },
+    {
+      "type": "url",
+      "id": "logo_1_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "header",
+      "content": "Bottom logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_2",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_2_width",
+      "min": 50,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 300
+    },
+    {
+      "type": "url",
+      "id": "logo_2_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "header",
+      "content": "Tagline"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "tagline_text",
+      "label": "Tagline text",
+      "default": "Art You Can Wear"
+    },
+    {
+      "type": "url",
+      "id": "tagline_link",
+      "label": "Tagline link"
+    },
+    {
+      "type": "font_picker",
+      "id": "text_font",
+      "label": "Tagline font",
+      "default": "cormorant_n4"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Tagline size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Tagline color",
+      "default": "#121212"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand logos"
+    }
+  ]
+}
+{% endschema %}

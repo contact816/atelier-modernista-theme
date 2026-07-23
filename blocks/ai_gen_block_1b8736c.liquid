@@ -1,0 +1,612 @@
+{% doc %}
+  @prompt
+    A small looping carousel  connected to a product, can you make it very narrow and align it with the collections cards below please, centre it on the page, could you please add an Alignment button, can you give choices for image size please, make it landscape. Centred Add To Cart button, make it a carousel of six products, individual, make it one product at a time. Cormorant Garamond font please. 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-carousel-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    max-width: {{ block.settings.carousel_width }}px;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+
+  .ai-product-carousel-container-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ai-product-carousel-track-{{ ai_gen_id }} {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .ai-product-carousel-slide-{{ ai_gen_id }} {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: {{ block.settings.alignment }};
+    gap: 16px;
+  }
+
+  .ai-product-carousel-image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-product-carousel-image-wrapper-{{ ai_gen_id }}::before {
+    content: '';
+    display: block;
+    padding-bottom: {{ block.settings.image_aspect_ratio }}%;
+  }
+
+  .ai-product-carousel-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-product-carousel-image-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-product-carousel-image-placeholder-{{ ai_gen_id }} svg {
+    width: 50%;
+    height: 50%;
+    opacity: 0.3;
+  }
+
+  .ai-product-carousel-info-{{ ai_gen_id }} {
+    text-align: {{ block.settings.alignment }};
+    width: 100%;
+  }
+
+  .ai-product-carousel-title-{{ ai_gen_id }} {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: {{ block.settings.title_size }}px;
+    margin: 0 0 8px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-product-carousel-price-{{ ai_gen_id }} {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: {{ block.settings.price_size }}px;
+    margin-bottom: 16px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-product-carousel-add-to-cart-{{ ai_gen_id }} {
+    font-family: 'Cormorant Garamond', serif;
+    padding: 12px 32px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    cursor: pointer;
+    font-size: {{ block.settings.button_font_size }}px;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-product-carousel-add-to-cart-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+  }
+
+  .ai-product-carousel-navigation-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .ai-product-carousel-nav-button-{{ ai_gen_id }} {
+    background-color: {{ block.settings.nav_button_color }};
+    color: {{ block.settings.nav_button_icon_color }};
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-product-carousel-nav-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.nav_button_hover_color }};
+  }
+
+  .ai-product-carousel-nav-button-{{ ai_gen_id }}:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .ai-product-carousel-dots-{{ ai_gen_id }} {
+    display: flex;
+    gap: 8px;
+  }
+
+  .ai-product-carousel-dot-{{ ai_gen_id }} {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: {{ block.settings.dot_color }};
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-product-carousel-dot-{{ ai_gen_id }}.active {
+    opacity: 1;
+  }
+
+  .ai-product-carousel-empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-product-carousel-{{ ai_gen_id }} {
+      max-width: 100%;
+      padding: 20px 16px;
+    }
+  }
+{% endstyle %}
+
+<product-carousel-{{ ai_gen_id }}
+  class="ai-product-carousel-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% assign products_array = '' | split: ',' %}
+  {% for i in (1..6) %}
+    {% assign product_key = 'product_' | append: i %}
+    {% assign product = block.settings[product_key] %}
+    {% if product != blank %}
+      {% assign products_array = products_array | concat: product %}
+    {% endif %}
+  {% endfor %}
+
+  {% if products_array.size > 0 %}
+    <div class="ai-product-carousel-container-{{ ai_gen_id }}">
+      <div class="ai-product-carousel-track-{{ ai_gen_id }}">
+        {% for product in products_array %}
+          <div class="ai-product-carousel-slide-{{ ai_gen_id }}">
+            <div class="ai-product-carousel-image-wrapper-{{ ai_gen_id }}">
+              {% if product.featured_image %}
+                <img
+                  src="{{ product.featured_image | image_url: width: 400 }}"
+                  srcset="{{ product.featured_image | image_url: width: 200 }} 200w,
+                          {{ product.featured_image | image_url: width: 400 }} 400w,
+                          {{ product.featured_image | image_url: width: 800 }} 800w"
+                  sizes="(max-width: 749px) calc(50vw - 20px), 400px"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  class="ai-product-carousel-image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="400"
+                  height="{{ 400 | times: block.settings.image_aspect_ratio | divided_by: 100 }}"
+                >
+              {% else %}
+                <div class="ai-product-carousel-image-placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="ai-product-carousel-info-{{ ai_gen_id }}">
+              <h3 class="ai-product-carousel-title-{{ ai_gen_id }}">{{ product.title }}</h3>
+              <div class="ai-product-carousel-price-{{ ai_gen_id }}">
+                {{ product.price | money }}
+              </div>
+              <button
+                class="ai-product-carousel-add-to-cart-{{ ai_gen_id }}"
+                data-product-id="{{ product.id }}"
+                data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+              >
+                {{ block.settings.button_text }}
+              </button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="ai-product-carousel-navigation-{{ ai_gen_id }}">
+      <button
+        class="ai-product-carousel-nav-button-{{ ai_gen_id }} ai-product-carousel-prev-{{ ai_gen_id }}"
+        aria-label="Previous product"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <div class="ai-product-carousel-dots-{{ ai_gen_id }}">
+        {% for product in products_array %}
+          <span class="ai-product-carousel-dot-{{ ai_gen_id }} {% if forloop.first %}active{% endif %}"></span>
+        {% endfor %}
+      </div>
+
+      <button
+        class="ai-product-carousel-nav-button-{{ ai_gen_id }} ai-product-carousel-next-{{ ai_gen_id }}"
+        aria-label="Next product"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  {% else %}
+    <div class="ai-product-carousel-empty-state-{{ ai_gen_id }}">
+      <p>Next, add products to display in the carousel</p>
+    </div>
+  {% endif %}
+</product-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentIndex = 0;
+        this.autoplayInterval = null;
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('.ai-product-carousel-track-{{ ai_gen_id }}');
+        this.slides = this.querySelectorAll('.ai-product-carousel-slide-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('.ai-product-carousel-prev-{{ ai_gen_id }}');
+        this.nextButton = this.querySelector('.ai-product-carousel-next-{{ ai_gen_id }}');
+        this.dots = this.querySelectorAll('.ai-product-carousel-dot-{{ ai_gen_id }}');
+        this.addToCartButtons = this.querySelectorAll('.ai-product-carousel-add-to-cart-{{ ai_gen_id }}');
+
+        if (this.slides.length === 0) return;
+
+        this.setupEventListeners();
+        this.updateCarousel();
+        this.startAutoplay();
+      }
+
+      setupEventListeners() {
+        if (this.prevButton) {
+          this.prevButton.addEventListener('click', () => this.goToPrevious());
+        }
+
+        if (this.nextButton) {
+          this.nextButton.addEventListener('click', () => this.goToNext());
+        }
+
+        this.dots.forEach((dot, index) => {
+          dot.addEventListener('click', () => this.goToSlide(index));
+        });
+
+        this.addToCartButtons.forEach((button) => {
+          button.addEventListener('click', (e) => this.handleAddToCart(e));
+        });
+
+        this.addEventListener('mouseenter', () => this.stopAutoplay());
+        this.addEventListener('mouseleave', () => this.startAutoplay());
+      }
+
+      goToPrevious() {
+        this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.slides.length - 1;
+        this.updateCarousel();
+      }
+
+      goToNext() {
+        this.currentIndex = this.currentIndex < this.slides.length - 1 ? this.currentIndex + 1 : 0;
+        this.updateCarousel();
+      }
+
+      goToSlide(index) {
+        this.currentIndex = index;
+        this.updateCarousel();
+      }
+
+      updateCarousel() {
+        const offset = -this.currentIndex * 100;
+        this.track.style.transform = `translateX(${offset}%)`;
+
+        this.dots.forEach((dot, index) => {
+          if (index === this.currentIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+
+        if (this.prevButton) {
+          this.prevButton.disabled = false;
+        }
+        if (this.nextButton) {
+          this.nextButton.disabled = false;
+        }
+      }
+
+      startAutoplay() {
+        this.stopAutoplay();
+        this.autoplayInterval = setInterval(() => {
+          this.goToNext();
+        }, 3000);
+      }
+
+      stopAutoplay() {
+        if (this.autoplayInterval) {
+          clearInterval(this.autoplayInterval);
+          this.autoplayInterval = null;
+        }
+      }
+
+      handleAddToCart(event) {
+        const button = event.currentTarget;
+        const variantId = button.dataset.variantId;
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: variantId,
+            quantity: 1
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          window.location.href = '/cart';
+        })
+        .catch(error => {
+          console.error('Error adding to cart:', error);
+        });
+      }
+
+      disconnectedCallback() {
+        this.stopAutoplay();
+      }
+    }
+
+    customElements.define('product-carousel-{{ ai_gen_id }}', ProductCarousel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "carousel_width",
+      "label": "Carousel width",
+      "min": 300,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image size",
+      "options": [
+        {
+          "value": "56",
+          "label": "Landscape (16:9)"
+        },
+        {
+          "value": "66",
+          "label": "Landscape (3:2)"
+        },
+        {
+          "value": "75",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "100",
+          "label": "Square (1:1)"
+        }
+      ],
+      "default": "66"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product 2"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Product 3"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "Product 4"
+    },
+    {
+      "type": "product",
+      "id": "product_5",
+      "label": "Product 5"
+    },
+    {
+      "type": "product",
+      "id": "product_6",
+      "label": "Product 6"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "label": "Price size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "Add to cart button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Add to Collection"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_color",
+      "label": "Navigation button color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_hover_color",
+      "label": "Navigation hover color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_icon_color",
+      "label": "Navigation icon color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Dot color",
+      "default": "#121212"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product carousel"
+    }
+  ]
+}
+{% endschema %}

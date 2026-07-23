@@ -1,0 +1,307 @@
+{% doc %}
+  @prompt
+    Can you add a logo at the top and a space for a link
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-logo-link-block-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.padding }}px;
+    background-color: {{ block.settings.background_color }};
+    text-align: {{ block.settings.alignment }};
+  }
+
+  .ai-logo-link-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: {{ block.settings.alignment }};
+    gap: {{ block.settings.spacing }}px;
+  }
+
+  .ai-logo-container-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}px;
+    max-width: 100%;
+  }
+
+  .ai-logo-container-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-logo-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ai-logo-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+  }
+
+  .ai-link-container-{{ ai_gen_id }} {
+    width: 100%;
+  }
+
+  .ai-link-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    font-size: {{ block.settings.button_font_size }}px;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-link-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-logo-container-{{ ai_gen_id }} {
+      width: {{ block.settings.logo_width | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<logo-link-block-{{ ai_gen_id }}
+  class="ai-logo-link-block-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-logo-link-wrapper-{{ ai_gen_id }}">
+    <div class="ai-logo-container-{{ ai_gen_id }}">
+      {% if block.settings.logo %}
+        <img
+          src="{{ block.settings.logo | image_url: width: 600 }}"
+          alt="{{ block.settings.logo.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.logo.width }}"
+          height="{{ block.settings.logo.height }}"
+        >
+      {% else %}
+        <div class="ai-logo-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-logo-empty-state-{{ ai_gen_id }}">
+            Add your logo
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.link_url != blank and block.settings.link_text != blank %}
+      <div class="ai-link-container-{{ ai_gen_id }}">
+        <a
+          href="{{ block.settings.link_url }}"
+          class="ai-link-button-{{ ai_gen_id }}"
+        >
+          {{ block.settings.link_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</logo-link-block-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class LogoLinkBlock{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+
+    customElements.define('logo-link-block-{{ ai_gen_id }}', LogoLinkBlock{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Logo with link",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 50,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "header",
+      "content": "Link"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "label": "Button vertical padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "Button horizontal padding",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button background",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover background",
+      "default": "#9370db"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "spacing",
+      "label": "Space between logo and link",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "label": "Block padding",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffebcd"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo with link"
+    }
+  ]
+}
+{% endschema %}

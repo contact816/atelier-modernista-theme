@@ -1,0 +1,221 @@
+{% doc %}
+  @prompt
+    can you add the logo here and embed a link back to the homepage please
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-logo-link-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+  }
+
+  .ai-logo-link-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: {{ block.settings.alignment }};
+    align-items: center;
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-logo-link-anchor-{{ ai_gen_id }} {
+    display: inline-block;
+    line-height: 0;
+  }
+
+  .ai-logo-link-image-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}px;
+    height: auto;
+    display: block;
+  }
+
+  .ai-logo-link-placeholder-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_width }}px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .ai-logo-link-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: auto;
+    max-width: {{ block.settings.logo_width }}px;
+  }
+
+  .ai-logo-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-logo-link-image-{{ ai_gen_id }},
+    .ai-logo-link-placeholder-{{ ai_gen_id }} {
+      width: {{ block.settings.logo_width | times: 0.8 }}px;
+    }
+
+    .ai-logo-link-placeholder-{{ ai_gen_id }} svg {
+      max-width: {{ block.settings.logo_width | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<logo-link-{{ ai_gen_id }}
+  class="ai-logo-link-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-logo-link-wrapper-{{ ai_gen_id }}">
+    <a
+      href="{{ block.settings.logo_link }}"
+      class="ai-logo-link-anchor-{{ ai_gen_id }}"
+      aria-label="Go to homepage"
+    >
+      {% if block.settings.logo %}
+        <img
+          src="{{ block.settings.logo | image_url: width: 600 }}"
+          alt="{{ block.settings.logo.alt | default: shop.name | escape }}"
+          loading="lazy"
+          width="{{ block.settings.logo.width }}"
+          height="{{ block.settings.logo.height }}"
+          class="ai-logo-link-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-logo-link-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <div class="ai-logo-empty-state-{{ ai_gen_id }}">
+            Add your logo
+          </div>
+        </div>
+      {% endif %}
+    </a>
+  </div>
+</logo-link-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class LogoLink{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+
+    customElements.define('logo-link-{{ ai_gen_id }}', LogoLink{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Logo with link",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 150
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo with link"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,282 @@
+{% doc %}
+  @prompt
+    Create a customizable text block for product pages with the following features:
+    - Rich text content editor
+    - Font size control (small, medium, large options)
+    - Text alignment options (left, center, right)
+    - Text color picker
+    - Background color option
+    - Padding/spacing controls
+    - Option to display as bullet points or regular text
+    - Line height adjustment
+    - Border and border radius options
+    
+    The block should be flexible enough to display product features, shipping information, or any custom text content with full styling control.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-custom-text-block-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px {{ block.settings.padding_horizontal }}px;
+    border: {{ block.settings.border_thickness }}px solid {{ block.settings.border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-custom-text-content-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    text-align: {{ block.settings.text_alignment }};
+    line-height: {{ block.settings.line_height }};
+  }
+
+  {% if block.settings.font_size == 'small' %}
+    .ai-custom-text-content-{{ ai_gen_id }} {
+      font-size: 14px;
+    }
+  {% elsif block.settings.font_size == 'medium' %}
+    .ai-custom-text-content-{{ ai_gen_id }} {
+      font-size: 16px;
+    }
+  {% elsif block.settings.font_size == 'large' %}
+    .ai-custom-text-content-{{ ai_gen_id }} {
+      font-size: 20px;
+    }
+  {% endif %}
+
+  .ai-custom-text-content-{{ ai_gen_id }} p {
+    margin: 0 0 12px 0;
+  }
+
+  .ai-custom-text-content-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-custom-text-content-{{ ai_gen_id }} ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+  }
+
+  .ai-custom-text-content-{{ ai_gen_id }} li {
+    margin-bottom: 8px;
+  }
+
+  .ai-custom-text-content-{{ ai_gen_id }} li:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-custom-text-block-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_top | times: 0.7 }}px {{ block.settings.padding_horizontal | times: 0.7 }}px {{ block.settings.padding_bottom | times: 0.7 }}px {{ block.settings.padding_horizontal | times: 0.7 }}px;
+    }
+
+    {% if block.settings.font_size == 'small' %}
+      .ai-custom-text-content-{{ ai_gen_id }} {
+        font-size: 13px;
+      }
+    {% elsif block.settings.font_size == 'medium' %}
+      .ai-custom-text-content-{{ ai_gen_id }} {
+        font-size: 15px;
+      }
+    {% elsif block.settings.font_size == 'large' %}
+      .ai-custom-text-content-{{ ai_gen_id }} {
+        font-size: 18px;
+      }
+    {% endif %}
+  }
+{% endstyle %}
+
+<div class="ai-custom-text-block-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.display_as_bullets %}
+    <div class="ai-custom-text-content-{{ ai_gen_id }}">
+      <ul>
+        {% assign lines = block.settings.text_content | newline_to_br | split: '<br />' %}
+        {% for line in lines %}
+          {% assign trimmed_line = line | strip %}
+          {% if trimmed_line != blank %}
+            <li>{{ trimmed_line }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+    <div class="ai-custom-text-content-{{ ai_gen_id }}">
+      {{ block.settings.text_content }}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Custom text block",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "text_content",
+      "label": "Text content",
+      "default": "<p>Add your custom text content here. Perfect for product features, shipping information, or any other details you want to highlight.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_as_bullets",
+      "label": "Display as bullet points",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "select",
+      "id": "font_size",
+      "label": "Font size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.5
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Border"
+    },
+    {
+      "type": "range",
+      "id": "border_thickness",
+      "label": "Border thickness",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom text block"
+    }
+  ]
+}
+{% endschema %}

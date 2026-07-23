@@ -1,0 +1,658 @@
+{% doc %}
+  @prompt
+    Can you create a grid for a Designers Page please, to include small boxes for a small image and some text, please 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-designer-grid-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-designer-grid__container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    width: 100%;
+  }
+
+  .ai-designer-grid__item-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_radius }}px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: {{ block.settings.card_border_thickness }}px solid {{ block.settings.card_border_color }};
+  }
+
+  .ai-designer-grid__item-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-designer-grid__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    background-color: #f4f4f4;
+  }
+
+  .ai-designer-grid__image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-designer-grid__image-wrapper-{{ ai_gen_id }} svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-designer-grid__content-{{ ai_gen_id }} {
+    padding: {{ block.settings.card_padding }}px;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-designer-grid__name-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.name_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+  }
+
+  .ai-designer-grid__description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  .ai-designer-grid__link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .ai-designer-grid__empty-state-{{ ai_gen_id }} {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-designer-grid__container-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    }
+  }
+{% endstyle %}
+
+<designer-grid-{{ ai_gen_id }}
+  class="ai-designer-grid-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-designer-grid__container-{{ ai_gen_id }}">
+    {% liquid
+      assign has_content = false
+      for i in (1..12)
+        assign image_key = 'designer_' | append: i | append: '_image'
+        assign name_key = 'designer_' | append: i | append: '_name'
+        assign description_key = 'designer_' | append: i | append: '_description'
+        assign link_key = 'designer_' | append: i | append: '_link'
+        
+        assign designer_image = block.settings[image_key]
+        assign designer_name = block.settings[name_key]
+        assign designer_description = block.settings[description_key]
+        assign designer_link = block.settings[link_key]
+        
+        if designer_image != blank or designer_name != blank or designer_description != blank
+          assign has_content = true
+        endif
+      endfor
+    %}
+
+    {% if has_content %}
+      {% for i in (1..12) %}
+        {% liquid
+          assign image_key = 'designer_' | append: i | append: '_image'
+          assign name_key = 'designer_' | append: i | append: '_name'
+          assign description_key = 'designer_' | append: i | append: '_description'
+          assign link_key = 'designer_' | append: i | append: '_link'
+          
+          assign designer_image = block.settings[image_key]
+          assign designer_name = block.settings[name_key]
+          assign designer_description = block.settings[description_key]
+          assign designer_link = block.settings[link_key]
+        %}
+
+        {% if designer_image != blank or designer_name != blank or designer_description != blank %}
+          <div class="ai-designer-grid__item-{{ ai_gen_id }}">
+            {% if designer_link != blank %}
+              <a href="{{ designer_link }}" class="ai-designer-grid__link-{{ ai_gen_id }}">
+            {% endif %}
+
+            <div class="ai-designer-grid__image-wrapper-{{ ai_gen_id }}">
+              {% if designer_image %}
+                <img
+                  src="{{ designer_image | image_url: width: 400 }}"
+                  alt="{{ designer_image.alt | escape }}"
+                  loading="lazy"
+                  width="400"
+                  height="400"
+                  class="ai-designer-grid__image-{{ ai_gen_id }}"
+                >
+              {% else %}
+                {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
+
+            <div class="ai-designer-grid__content-{{ ai_gen_id }}">
+              {% if designer_name != blank %}
+                <h3 class="ai-designer-grid__name-{{ ai_gen_id }}">{{ designer_name }}</h3>
+              {% endif %}
+              {% if designer_description != blank %}
+                <p class="ai-designer-grid__description-{{ ai_gen_id }}">{{ designer_description }}</p>
+              {% endif %}
+            </div>
+
+            {% if designer_link != blank %}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <div class="ai-designer-grid__empty-state-{{ ai_gen_id }}">
+        Add designer images and information to display your grid
+      </div>
+    {% endif %}
+  </div>
+</designer-grid-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class DesignerGrid{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupAccessibility();
+      }
+
+      setupAccessibility() {
+        const links = this.querySelectorAll('.ai-designer-grid__link-{{ ai_gen_id }}');
+        links.forEach(link => {
+          const name = link.querySelector('.ai-designer-grid__name-{{ ai_gen_id }}');
+          if (name && !link.getAttribute('aria-label')) {
+            link.setAttribute('aria-label', 'View ' + name.textContent.trim());
+          }
+        });
+      }
+    }
+
+    customElements.define('designer-grid-{{ ai_gen_id }}', DesignerGrid{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Designer grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_border_thickness",
+      "label": "Border thickness",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Border color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "name_size",
+      "label": "Name size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "Designer 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_1_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_1_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Designer 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_2_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_2_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Designer 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_3_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_3_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Designer 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_4_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_4_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Designer 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_5_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_5_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_5_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_5_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Designer 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_6_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_6_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_6_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_6_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Designer 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_7_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_7_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_7_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_7_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Designer 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_8_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_8_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_8_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_8_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Designer 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_9_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_9_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_9_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_9_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Designer 10"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_10_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_10_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_10_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_10_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Designer 11"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_11_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_11_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_11_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_11_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Designer 12"
+    },
+    {
+      "type": "image_picker",
+      "id": "designer_12_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "designer_12_name",
+      "label": "Name"
+    },
+    {
+      "type": "textarea",
+      "id": "designer_12_description",
+      "label": "Description"
+    },
+    {
+      "type": "url",
+      "id": "designer_12_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Designer grid"
+    }
+  ]
+}
+{% endschema %}

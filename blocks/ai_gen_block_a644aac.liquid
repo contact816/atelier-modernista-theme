@@ -1,0 +1,439 @@
+{% doc %}
+  @prompt
+    create six small collection cards please, three stacked on three with round edges and a header above saying 'Atelier Modernista Art You Can Wear' in centred text, Please make Atelier Modernista as a big heading in elegant New York font, with Art You Can Wear smaller underneath it please., much bigger and much much more refined text please
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-cards-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    padding: {{ block.settings.section_padding }}px 20px;
+  }
+
+  .ai-collection-cards__header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-collection-cards__main-title-{{ ai_gen_id }} {
+    font-family: 'New York', Georgia, 'Times New Roman', serif;
+    font-size: {{ block.settings.main_heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 {{ block.settings.subtitle_spacing }}px 0;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    font-style: normal;
+  }
+
+  .ai-collection-cards__subtitle-{{ ai_gen_id }} {
+    font-family: 'New York', Georgia, 'Times New Roman', serif;
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .ai-collection-cards__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ block.settings.card_gap }}px;
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-collection-card-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ block.settings.border_radius }}px;
+    background-color: {{ block.settings.card_background }};
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: block;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .ai-collection-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .ai-collection-card__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: {{ block.settings.image_aspect_ratio }}%;
+    overflow: hidden;
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-collection-card__image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .ai-collection-card-{{ ai_gen_id }}:hover .ai-collection-card__image-{{ ai_gen_id }} {
+    transform: scale(1.05);
+  }
+
+  .ai-collection-card__placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-collection-card__placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-collection-card__overlay-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: {{ block.settings.overlay_padding }}px;
+    background: {{ block.settings.overlay_background }};
+    text-align: center;
+  }
+
+  .ai-collection-card__title-{{ ai_gen_id }} {
+    font-family: 'New York', Georgia, 'Times New Roman', serif;
+    font-size: {{ block.settings.card_title_size }}px;
+    color: {{ block.settings.card_title_color }};
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-collection-cards__grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: {{ block.settings.card_gap | times: 0.75 }}px;
+    }
+
+    .ai-collection-cards__main-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.main_heading_size | times: 0.6 }}px;
+    }
+
+    .ai-collection-cards__subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.75 }}px;
+    }
+
+    .ai-collection-card__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.card_title_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<collection-cards-{{ ai_gen_id }} class="ai-collection-cards-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-collection-cards__header-{{ ai_gen_id }}">
+    {% if block.settings.main_heading != blank %}
+      <h2 class="ai-collection-cards__main-title-{{ ai_gen_id }}">{{ block.settings.main_heading }}</h2>
+    {% endif %}
+    {% if block.settings.subtitle != blank %}
+      <p class="ai-collection-cards__subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+    {% endif %}
+  </div>
+
+  <div class="ai-collection-cards__grid-{{ ai_gen_id }}">
+    {% for i in (1..6) %}
+      {% liquid
+        assign collection_key = 'collection_' | append: i
+        assign collection = block.settings[collection_key]
+      %}
+
+      {% if collection != blank %}
+        <a href="{{ collection.url }}" class="ai-collection-card-{{ ai_gen_id }}">
+          <div class="ai-collection-card__image-wrapper-{{ ai_gen_id }}">
+            {% if collection.featured_image %}
+              <img
+                src="{{ collection.featured_image | image_url: width: 400 }}"
+srcset="{{ collection.featured_image | image_url: width: 200 }} 200w,
+        {{ collection.featured_image | image_url: width: 400 }} 400w,
+        {{ collection.featured_image | image_url: width: 600 }} 600w"
+sizes="(max-width: 749px) calc(50vw - 20px), 300px"
+                alt="{{ collection.featured_image.alt | escape }}"
+                width="600"
+                height="{{ 600 | times: block.settings.image_aspect_ratio | divided_by: 100 }}"
+                loading="{% if forloop.index == 1 %}eager{% else %}lazy{% endif %}"
+                fetchpriority="{% if forloop.index == 1 %}high{% else %}auto{% endif %}"
+                class="ai-collection-card__image-{{ ai_gen_id }}"
+              >
+            {% else %}
+              <div class="ai-collection-card__placeholder-{{ ai_gen_id }}">
+                {{ 'collection-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+            {% if block.settings.show_overlay %}
+              <div class="ai-collection-card__overlay-{{ ai_gen_id }}">
+                <h3 class="ai-collection-card__title-{{ ai_gen_id }}">{{ collection.title }}</h3>
+              </div>
+            {% endif %}
+          </div>
+        </a>
+      {% else %}
+        <div class="ai-collection-card-{{ ai_gen_id }}">
+          <div class="ai-collection-card__image-wrapper-{{ ai_gen_id }}">
+            <div class="ai-collection-card__placeholder-{{ ai_gen_id }}">
+              {{ 'collection-1' | placeholder_svg_tag }}
+            </div>
+            {% if block.settings.show_overlay %}
+              <div class="ai-collection-card__overlay-{{ ai_gen_id }}">
+                <h3 class="ai-collection-card__title-{{ ai_gen_id }}">Collection {{ i }}</h3>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</collection-cards-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CollectionCards{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+    }
+    customElements.define('collection-cards-{{ ai_gen_id }}', CollectionCards{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collection cards",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main heading",
+      "default": "Atelier Modernista"
+    },
+    {
+      "type": "range",
+      "id": "main_heading_size",
+      "min": 32,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Main heading size",
+      "default": 72
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Art You Can Wear"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "subtitle_spacing",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Space between headings",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Main heading color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Spacing below heading",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Collections"
+    },
+    {
+      "type": "collection",
+      "id": "collection_1",
+      "label": "Collection 1"
+    },
+    {
+      "type": "collection",
+      "id": "collection_2",
+      "label": "Collection 2"
+    },
+    {
+      "type": "collection",
+      "id": "collection_3",
+      "label": "Collection 3"
+    },
+    {
+      "type": "collection",
+      "id": "collection_4",
+      "label": "Collection 4"
+    },
+    {
+      "type": "collection",
+      "id": "collection_5",
+      "label": "Collection 5"
+    },
+    {
+      "type": "collection",
+      "id": "collection_6",
+      "label": "Collection 6"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "image_aspect_ratio",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "label": "Image aspect ratio",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Card overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Show title overlay",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "overlay_background",
+      "label": "Overlay background",
+      "default": "rgba(0, 0, 0, 0.5)"
+    },
+    {
+      "type": "range",
+      "id": "overlay_padding",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "label": "Overlay padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1400,
+      "step": 100,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1000
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection cards"
+    }
+  ]
+}
+{% endschema %}

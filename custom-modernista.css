@@ -1103,15 +1103,6 @@ section[id*="newsletter"],
     gap: 1.2rem !important;
   }
 
-  /* Stack quick-add always visible on mobile (no hover) */
-  .quick-add,
-  .quick-add__submit,
-  .card__quick-add {
-    opacity: 1 !important;
-    position: static !important;
-    margin-top: 0.75rem !important;
-  }
-
   /* Breadcrumb â€” shorter on mobile */
   nav.breadcrumbs,
   .breadcrumbs {
@@ -1573,68 +1564,6 @@ html body .btn-primary {
   z-index: 4;
 }
 
-@media (max-width: 749px) {
-  .am-product-card__atb-form,
-  .am-product-card .am-quick-add {
-    display: none !important;
-  }
-}
-/* MOBILE FIX: stop Add to Bag covering product cards */
-@media screen and (max-width: 749px) {
-  .card-wrapper .quick-add,
-  .card-wrapper quick-add-modal,
-  .card-wrapper product-form,
-  .card-wrapper .product-form,
-  .card-wrapper form[action*="/cart/add"] {
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-
-  .card-wrapper a,
-  .card-wrapper .card__heading a,
-  .card-wrapper .card__media a,
-  .card-wrapper .full-unstyled-link {
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 10 !important;
-  }
-}
-
-/* MOBILE PRODUCT CARD FIX */
-@media screen and (max-width: 749px) {
-  /* Keep quick add hidden on mobile */
-  .card-wrapper .quick-add,
-  .card-wrapper quick-add-modal,
-  .card-wrapper product-form,
-  .card-wrapper .product-form,
-  .card-wrapper form[action*="/cart/add"] {
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-
-  /* Let Dawn's title link overlay make image/card clickable */
-  .card-wrapper .card__heading a.full-unstyled-link::after {
-    content: "";
-    position: absolute !important;
-    inset: 0 !important;
-    z-index: 5 !important;
-  }
-
-  .card-wrapper .card__heading a.full-unstyled-link {
-    position: static !important;
-  }
-
-  .card-wrapper .card__content {
-    position: relative !important;
-    z-index: 6 !important;
-  }
-
-  .card-wrapper .card__inner {
-    position: relative !important;
-  }
-}
 .product-grid .card__inner,
 .product-grid .card__media,
 .product-grid .media {

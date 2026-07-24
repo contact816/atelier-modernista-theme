@@ -91,7 +91,6 @@ main {
   --color-base-accent-2: 0, 71, 171;
   --color-border: 26, 26, 24;
   --gradient-background: var(--am-cream);
-  background-color: var(--am-cream);
 }
 
 
@@ -1444,7 +1443,7 @@ section[id*="newsletter"],
   width: auto;
   margin-top: 12px;
   padding: 10px 24px;
-  font-family: var(--am-font-sans);
+  font-family: var(--am-sans);
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -1458,7 +1457,7 @@ section[id*="newsletter"],
   transition: background 0.2s ease;
 }
 .am-quick-add:hover {
-  background: var(--am-cobalt-deep, #003a8c);
+  background: var(--am-cobalt-dark, #003080);
   color: var(--am-cream);
 }
 
@@ -1542,8 +1541,7 @@ html body .btn-primary {
   letter-spacing: 0.14em !important;
 }
 /* Product card links and quick add */
-.am-product-card__link,
-.am-product-card__link * {
+.am-product-card__link {
   pointer-events: auto !important;
   position: relative;
   z-index: 3;
@@ -1566,16 +1564,13 @@ html body .btn-primary {
 
 .product-grid .card__inner,
 .product-grid .card__media,
-.product-grid .media {
-  background: #FFEBCD !important;
-}
-/* Product cards â€” white ground behind product images (removes taupe scheme fill) */
+.product-grid .media,
 .product-card-wrapper .card__inner,
 .product-card-wrapper .card__media,
 .product-card-wrapper .card__media .media {
-  background-color: #FFEBCD!important;
-  background-image: none !important;
+  background: #FFEBCD !important;
 }
+/* Product cards â€” white ground behind product images (removes taupe scheme fill) */
 
 
 /* ============================================================
@@ -1901,8 +1896,6 @@ a[href*="build-your-look"] {
    ============================================================ */
 
 /* Product description */
-.product__description,
-.product__description p,
 .product .rte {
   font-size: 16px !important;
   line-height: 1.8 !important;

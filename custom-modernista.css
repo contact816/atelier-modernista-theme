@@ -2729,24 +2729,6 @@ html body aside.am-circle-invite {
   border-radius: 5px !important;
   box-shadow: none !important;
 
-  text-align: /* ============================================================
-   PRODUCT PAGE ATELIER CIRCLE — CENTRED FINAL DESIGN
-   ============================================================ */
-
-html body .product__info-container aside.am-circle-invite,
-html body .product__info-wrapper aside.am-circle-invite,
-html body aside.am-circle-invite {
-  display: block !important;
-  width: 100% !important;
-  max-width: 760px !important;
-  margin: 44px auto 0 !important;
-  padding: 38px 44px 34px !important;
-
-  background: transparent !important;
-  border: 1px solid rgba(0, 71, 171, 0.32) !important;
-  border-radius: 5px !important;
-  box-shadow: none !important;
-
   text-align: center !important;
 }
 
@@ -2762,12 +2744,6 @@ html body .am-circle-invite .am-circle-invite__eyebrow {
   text-transform: uppercase !important;
   text-align: center !important;
 
-.am-circle-invite__eyebrow{
-    display:block;
-    width:100%;
-    text-align:center !important;
-    margin:0 auto 18px !important;
-}
   color: var(--am-cobalt, #0047ab) !important;
 }
 
@@ -2977,7 +2953,7 @@ html body .am-circle-invite .am-circle-form__privacy {
   }
 
   html body .am-circle-invite .am-circle-benefits span {
-    justify-content: cente !important;
+    justify-content: center !important;
   }
 
   html body .am-circle-invite .am-circle-benefits span:not(:last-child)::after {
@@ -2989,7 +2965,6 @@ html body .am-circle-invite .am-circle-form__privacy {
     padding-left: 22px !important;
     padding-right: 22px !important;
   }
-} !important;
 }
 
 /* Eyebrow */

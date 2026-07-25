@@ -635,10 +635,16 @@ h1.am-hero__headline p {
    ============================================================================= */
 
 .am-product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   text-decoration: none;
   color: inherit;
-  display: block;
   cursor: pointer;
+}
+
+.am-product-card .quick-add {
+  margin-top: auto;
 }
 
 .am-product-card__image {

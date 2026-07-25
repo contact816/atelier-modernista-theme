@@ -568,6 +568,8 @@
             {%- assign gw_in_cart = true -%}
           {%- endif -%}
         {%- endfor -%}
+        {%- assign gw_product = all_products['luxury-gift-wrapping'] -%}
+        {%- assign gw_variant = gw_product.first_available_variant -%}
 
         {%- unless gw_in_cart -%}
         <div class="am-gw-cart-upsell">
@@ -576,7 +578,7 @@
               <span class="am-gw-cart-upsell__icon">✦</span>
               <div>
                 <p class="am-gw-cart-upsell__title"></p>
-                <p class="am-gw-cart-upsell__subtitle">Ribbon, wax seal & gift message — £5.00</p>
+                <p class="am-gw-cart-upsell__subtitle">Ribbon, wax seal & gift message — {{ gw_variant.price | money }}</p>
               </div>
             </div>
             <button type="button" class="am-gw-cart-upsell__btn" id="am-gw-add-btn">

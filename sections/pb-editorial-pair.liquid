@@ -6,7 +6,13 @@
   <section class="am-editorial-banner{% if section.settings.image_position_1 == 'right' %} am-editorial-banner--image-right{% endif %} am-editorial-banner--inset">
     <div class="am-editorial-banner__image">
       {%- if section.settings.image_1 != blank -%}
-        <img src="{{ section.settings.image_1 | image_url: width: 900 }}" alt="{{ section.settings.image_1.alt | escape }}" loading="lazy">
+        <img
+          src="{{ section.settings.image_1 | image_url: width: 900 }}"
+          alt="{{ section.settings.image_1.alt | escape }}"
+          width="{{ section.settings.image_1.width }}"
+          height="{{ section.settings.image_1.height }}"
+          loading="lazy"
+        >
       {%- else -%}
         {{ 'collection-1' | placeholder_svg_tag: 'am-editorial-banner__placeholder' }}
       {%- endif -%}
@@ -30,7 +36,13 @@
   <section class="am-editorial-banner{% if section.settings.image_position_2 == 'right' %} am-editorial-banner--image-right{% endif %} am-editorial-banner--inset">
     <div class="am-editorial-banner__image">
       {%- if section.settings.image_2 != blank -%}
-        <img src="{{ section.settings.image_2 | image_url: width: 800 }}" alt="{{ section.settings.image_2.alt | escape }}" loading="lazy">
+        <img
+          src="{{ section.settings.image_2 | image_url: width: 800 }}"
+          alt="{{ section.settings.image_2.alt | escape }}"
+          width="{{ section.settings.image_2.width }}"
+          height="{{ section.settings.image_2.height }}"
+          loading="lazy"
+        >
       {%- else -%}
         {{ 'collection-2' | placeholder_svg_tag: 'am-editorial-banner__placeholder' }}
       {%- endif -%}

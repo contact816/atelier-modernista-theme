@@ -52,6 +52,8 @@
                   {%- if featured_1.featured_image -%}
                     <img src="{{ featured_1.featured_image | image_url: width: 1200 }}"
                          alt="{{ featured_1.featured_image.alt | escape | default: featured_1.title }}"
+                         width="{{ featured_1.featured_image.width }}"
+                         height="{{ featured_1.featured_image.height }}"
                          loading="lazy">
                   {%- endif -%}
                 </div>
@@ -86,6 +88,8 @@
                   {%- if featured_2.featured_image -%}
                     <img src="{{ featured_2.featured_image | image_url: width: 1200 }}"
                          alt="{{ featured_2.featured_image.alt | escape | default: featured_2.title }}"
+                         width="{{ featured_2.featured_image.width }}"
+                         height="{{ featured_2.featured_image.height }}"
                          loading="lazy">
                          
                   {%- endif -%}

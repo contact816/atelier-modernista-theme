@@ -3,7 +3,13 @@
 <div class="am-curatorial-split">
   {%- if note_image != blank -%}
     <div class="am-curatorial-split__image">
-      <img src="{{ note_image | image_url: width: 800 }}" alt="Curatorial note" loading="lazy">
+      <img
+        src="{{ note_image | image_url: width: 800 }}"
+        alt="Curatorial note"
+        width="{{ note_image.width }}"
+        height="{{ note_image.height }}"
+        loading="lazy"
+      >
     </div>
   {%- endif -%}
   <div class="am-curatorial-split__content{% unless note_image != blank %} am-curatorial-split__content--full{% endunless %}">

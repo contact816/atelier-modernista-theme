@@ -177,6 +177,8 @@
                             <img
                               src="{{ cn_image | image_url: width: 1200 }}"
                               alt="{{ cn_image.alt | default: 'Curatorial image' }}"
+                              width="{{ cn_image.width }}"
+                              height="{{ cn_image.height }}"
                               loading="lazy"
                               style="width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;"
                             >

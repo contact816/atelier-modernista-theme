@@ -493,8 +493,7 @@ nav.am-breadcrumbs {
 
 /* Active filter pills */
 .active-facets__button,
-.facets__tag,
-.active-facets a {
+.facets__tag {
   font-family: var(--am-sans) !important;
   font-size: 0.68rem !important;
   font-weight: 400 !important;
@@ -518,7 +517,7 @@ nav.am-breadcrumbs {
 }
 
 /* Clear all */
-.active-facets__button-remove-all,
+.active-facets__button-remove,
 .facets__reset {
   font-family: var(--am-sans) !important;
   font-size: 0.68rem !important;

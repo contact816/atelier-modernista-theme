@@ -539,6 +539,38 @@ nav.am-breadcrumbs {
   padding: 0 !important;
 }
 
+/* Cart line-item remove control — visible text link, matching the "Clear all" quiet-link pattern */
+cart-remove-button .button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0.4rem 0 !important;
+  font-family: var(--am-sans) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--am-mid-grey) !important;
+  background: none !important;
+  border: none !important;
+}
+
+cart-remove-button .button:hover {
+  color: var(--am-cobalt) !important;
+}
+
+cart-remove-button .icon-remove {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.cart-remove-button__label {
+  text-decoration: underline !important;
+}
+
 /* Sort select */
 .facets__sort,
 .facet-filters__sort select,

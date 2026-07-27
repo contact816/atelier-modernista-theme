@@ -294,6 +294,7 @@
     "cart": {
       "title": "Your Bag",
       "caption": "Items in your Bag",
+      "remove": "Remove",
       "remove_title": "Remove {{ title }}",
       "estimated_total": "Estimated total",
       "new_estimated_total": "New estimated total",

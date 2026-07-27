@@ -138,6 +138,10 @@
                   {{ content_for_additional_checkout_buttons }}
                 </div>
               {%- endif -%}
+
+              <p class="cart__continue-shopping caption">
+                <a href="/collections/all">{{ 'sections.cart.continue_shopping_prompt' | t }}</a>
+              </p>
           {%- endcase -%}
         {% endfor %}
 

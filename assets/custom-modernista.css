@@ -571,6 +571,22 @@ cart-remove-button .icon-remove {
   text-decoration: underline !important;
 }
 
+.cart__continue-shopping {
+  margin-top: 1rem !important;
+  text-align: center !important;
+  color: var(--am-mid-grey) !important;
+}
+
+.cart__continue-shopping a {
+  color: var(--am-mid-grey) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2px !important;
+}
+
+.cart__continue-shopping a:hover {
+  color: var(--am-ink) !important;
+}
+
 /* Sort select */
 .facets__sort,
 .facet-filters__sort select,

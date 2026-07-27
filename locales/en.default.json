@@ -296,6 +296,7 @@
       "caption": "Items in your Bag",
       "remove": "Remove",
       "remove_title": "Remove {{ title }}",
+      "continue_shopping_prompt": "Not ready? Continue shopping",
       "estimated_total": "Estimated total",
       "new_estimated_total": "New estimated total",
       "note": "Order special instructions",

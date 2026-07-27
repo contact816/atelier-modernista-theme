@@ -152,6 +152,10 @@ label,
   color: var(--am-ink-light);
 }
 
+.search-results-count {
+  font-size: 16px !important;
+}
+
 /* Small caps / eyebrow labels */
 .eyebrow,
 .section-label,

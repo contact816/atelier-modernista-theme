@@ -515,6 +515,10 @@ nav.am-breadcrumbs {
   transition: background-color var(--am-duration-fast) var(--am-ease) !important;
 }
 
+.active-facets__button-inner {
+  color: var(--am-cream) !important;
+}
+
 .active-facets__button:hover,
 .facets__tag:hover {
   background-color: var(--am-cobalt) !important;

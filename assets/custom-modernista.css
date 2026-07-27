@@ -499,11 +499,11 @@ nav.am-breadcrumbs {
 .active-facets__button,
 .facets__tag {
   font-family: var(--am-sans) !important;
-  font-size: 0.68rem !important;
+  font-size: 12px !important;
   font-weight: 400 !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
-  background-color: var(--am-ink) !important;
+  background-color: var(--am-cobalt) !important;
   color: var(--am-cream) !important;
   border: none !important;
   padding: 0.3rem 0.75rem !important;
@@ -521,14 +521,14 @@ nav.am-breadcrumbs {
 
 .active-facets__button:hover,
 .facets__tag:hover {
-  background-color: var(--am-cobalt) !important;
+  background-color: var(--am-cobalt-dark) !important;
 }
 
 /* Clear all */
 .active-facets__button-remove,
 .facets__reset {
   font-family: var(--am-sans) !important;
-  font-size: 0.68rem !important;
+  font-size: 12px !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
   color: var(--am-mid-grey) !important;

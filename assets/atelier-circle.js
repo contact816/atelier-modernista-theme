@@ -88,7 +88,7 @@
         return null;
       }
 
-      if (!this.consentInput.checked) {
+      if (this.consentInput && !this.consentInput.checked) {
         this.showError(
           "Please confirm that you would like to receive Atelier Circle emails."
         );

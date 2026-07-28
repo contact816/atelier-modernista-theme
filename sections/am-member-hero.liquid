@@ -53,13 +53,15 @@
         {{ section.settings.next_reward }}
       </h2>
 
-      <a
-        href="{{ section.settings.button_link }}"
-        class="am-member-hero__button"
-      >
-        {{ section.settings.button_label }}
-        <span aria-hidden="true">→</span>
-      </a>
+      {%- if section.settings.button_link != blank -%}
+        <a
+          href="{{ section.settings.button_link }}"
+          class="am-member-hero__button"
+        >
+          {{ section.settings.button_label }}
+          <span aria-hidden="true">→</span>
+        </a>
+      {%- endif -%}
 
     </div>
 

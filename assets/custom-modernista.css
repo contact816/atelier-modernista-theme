@@ -2775,3 +2775,19 @@ html body .am-circle-invite .am-circle-invite__heading {
     font-size: 28px !important;
   }
 }
+
+/* Cart shipping-policy note and Atelier Points lines — darken + enlarge for readability */
+.tax-note {
+  font-size: 14px !important;
+  color: var(--am-ink-light) !important;
+}
+
+.am-cart-points__line {
+  font-size: 14px !important;
+  color: var(--am-ink-light) !important;
+}
+
+.am-product-points__text {
+  font-size: 14px !important;
+  color: var(--am-ink-light) !important;
+}

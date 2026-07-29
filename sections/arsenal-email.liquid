@@ -110,6 +110,25 @@
     position: absolute; left: -9999px;
     width: 1px; height: 1px; overflow: hidden;
   }
+  #ArsenalEmail-{{ uid }} .ae__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex-basis: 100%;
+    margin-top: 14px;
+    text-align: left;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: {{ section.settings.text_color }} !important;
+    cursor: pointer;
+  }
+  #ArsenalEmail-{{ uid }} .ae__consent-input {
+    width: 18px;
+    height: 18px;
+    margin: 2px 0 0;
+    flex-shrink: 0;
+    accent-color: {{ section.settings.button_bg }};
+  }
   /* success state */
   #ArsenalEmail-{{ uid }}.is-done .ae__form,
   #ArsenalEmail-{{ uid }}.is-done .ae__disclaimer { display: none; }
@@ -159,6 +178,11 @@
         </label>
       </div>
 
+      <label class="ae__consent">
+        <input type="checkbox" class="ae__consent-input" required>
+        <span>{{ section.settings.consent_text | escape }}</span>
+      </label>
+
       <button class="ae__button" type="submit">{{ section.settings.button_label | escape }}</button>
     </form>
 
@@ -178,6 +202,7 @@
     var form    = root.querySelector(".ae__form");
     var input   = root.querySelector(".ae__input");
     var hp      = root.querySelector('input[name="company"]');
+    var consent = root.querySelector(".ae__consent-input");
     var button  = root.querySelector(".ae__button");
     var status  = root.querySelector(".ae__status");
 
@@ -243,6 +268,12 @@
 
       var email = (input.value || "").trim();
       if (!EMAIL_RE.test(email)) { setStatus("Please enter a valid email address.", "error"); input.focus(); return; }
+
+      if (!consent || !consent.checked) {
+        setStatus("Please confirm you would like to receive our emails.", "error");
+        if (consent) consent.focus();
+        return;
+      }
 
       if (!companyId || !listId) {
         setStatus(errorMsg, "error");
@@ -343,6 +374,12 @@
       "id": "disclaimer",
       "label": "Small print (optional)",
       "default": "We'll only email about new pieces and editions. Unsubscribe anytime."
+    },
+    {
+      "type": "text",
+      "id": "consent_text",
+      "label": "Consent checkbox text",
+      "default": "I would like to receive occasional Atelier Circle emails. I can unsubscribe at any time."
     },
     {
       "type": "header",

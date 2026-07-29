@@ -75,6 +75,28 @@
     border-color: {{ block.settings.button_hover_border_color }};
   }
 
+  .ai-newsletter-consent-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+    max-width: {{ block.settings.form_max_width }}px;
+    margin: 14px auto 0;
+    text-align: left;
+    font-size: 13px;
+    line-height: 1.5;
+    color: {{ block.settings.heading_color }};
+    cursor: pointer;
+  }
+
+  .ai-newsletter-consent-input-{{ ai_gen_id }} {
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    accent-color: {{ block.settings.button_border_color }};
+  }
+
   .ai-newsletter-success-{{ ai_gen_id }} {
     color: {{ block.settings.success_color }};
     margin-top: 16px;
@@ -145,6 +167,11 @@
           {{ block.settings.button_text }}
         </button>
       </div>
+
+      <label class="ai-newsletter-consent-{{ ai_gen_id }}">
+        <input type="checkbox" class="ai-newsletter-consent-input-{{ ai_gen_id }}" required>
+        <span>{{ block.settings.consent_text }}</span>
+      </label>
 
       {%- if form.errors -%}
         <div
@@ -287,6 +314,12 @@
       "unit": "px",
       "label": "Gap between input and button",
       "default": 10
+    },
+    {
+      "type": "text",
+      "id": "consent_text",
+      "label": "Consent checkbox text",
+      "default": "I would like to receive marketing emails from Atelier Modernista. I can unsubscribe at any time."
     },
     {
       "type": "header",

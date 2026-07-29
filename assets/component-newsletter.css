@@ -69,3 +69,23 @@
 .newsletter-form__button .icon {
   width: 1.5rem;
 }
+
+.newsletter-form__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+}
+
+.newsletter-form__consent-input {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+  accent-color: rgb(var(--color-foreground));
+}

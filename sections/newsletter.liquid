@@ -91,6 +91,12 @@
                   </small>
                 {%- endif -%}
               </div>
+
+              <label class="newsletter-form__consent">
+                <input type="checkbox" class="newsletter-form__consent-input" required>
+                <span>{{ block.settings.consent_text | escape }}</span>
+              </label>
+
               {%- if form.posted_successfully? -%}
                 <h3
                   class="newsletter-form__message newsletter-form__message--success form__message"
@@ -219,7 +225,15 @@
     {
       "type": "email_form",
       "name": "t:sections.newsletter.blocks.email_form.name",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "consent_text",
+          "label": "Consent checkbox text",
+          "default": "I would like to receive marketing emails from Atelier Modernista. I can unsubscribe at any time."
+        }
+      ]
     },
     {
       "type": "@app"

@@ -504,6 +504,28 @@
   box-shadow: none;
 }
 
+.alil-email__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  max-width: 480px;
+  margin-top: 0.85rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--am-ink-mid);
+  cursor: pointer;
+}
+
+.alil-email__consent-input {
+  width: 16px;
+  height: 16px;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+  accent-color: var(--am-cobalt);
+}
+
 .alil-email__promise {
   display: flex;
   align-items: center;

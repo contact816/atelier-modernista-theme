@@ -18,7 +18,7 @@
 
     <div class="am-giveaway__main">
 
-      <!-- LEFT: INTRODUCTION AND IMAGE -->
+      <!-- LEFT SIDE -->
       <div class="am-giveaway__left">
 
         <div class="am-giveaway__intro">
@@ -37,6 +37,13 @@
           <div class="am-giveaway__lede rte">
             {{ section.settings.intro }}
           </div>
+
+          <a
+            class="am-giveaway__button"
+            href="#am-giveaway-entry-{{ section.id }}"
+          >
+            {{ section.settings.button_label | default: 'ENTER THE GIVEAWAY' | escape }}
+          </a>
 
           <p class="am-giveaway__micro">
             Free entry · UK residents · 18+ · One entry per person
@@ -77,12 +84,13 @@
 
       </div>
 
-      <!-- RIGHT: ENTRY FORM -->
+      <!-- RIGHT SIDE: KLAVIYO FORM -->
       <aside
         class="am-giveaway__entry"
         id="am-giveaway-entry-{{ section.id }}"
-        aria-labelledby="am-giveaway-entry-title-{{ section.id }}"
+        aria-label="Giveaway entry form"
       >
+
         <div class="am-giveaway__form">
 
           {%- if form_id != blank -%}
@@ -155,19 +163,25 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
-      "default": "THE ART YOU CAN WEAR GIVEAWAY"
+      "default": "THE ATELIER MODERNISTA GIVEAWAY"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Win the piece you love the most."
+      "default": "Win the piece you love the most!"
     },
     {
       "type": "richtext",
       "id": "intro",
       "label": "Introduction",
       "default": "<p>One winner. One available Atelier Modernista piece of their choice. Up to £100.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "ENTER THE GIVEAWAY"
     },
     {
       "type": "image_picker",

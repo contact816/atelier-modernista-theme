@@ -1,1 +1,29 @@
-{"name":"t:sections.footer.name","type":"footer","sections":{"footer":{"type":"am-footer-wrap","custom_css":[],"settings":{"brand_description":"A London-based curatorial label for art jewellery in the Modernist tradition.","shop_menu":"shop-1","atelier_menu":"atelier","help_menu":"help"}}},"order":["footer"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "am-footer-wrap",
+      "disabled": true,
+      "custom_css": [],
+      "settings": {
+        "brand_description": "A London-based curatorial label for art jewellery in the Modernist tradition.",
+        "shop_menu": "shop-1",
+        "atelier_menu": "atelier",
+        "help_menu": "help"
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

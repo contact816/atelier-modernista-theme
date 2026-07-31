@@ -402,8 +402,3 @@
   }
 }
 
-/* HIDE THE STANDARD SHOPIFY HEADER ON THIS LANDING PAGE */
-
-body:has(.am-giveaway) .shopify-section-group-header-group {
-  display: none !important;
-}

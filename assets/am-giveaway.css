@@ -326,7 +326,7 @@
 
 @media screen and (min-width: 990px) {
   .am-giveaway__main {
-    grid-template-columns: minmax(0, 58%) minmax(0, 42%);
+    grid-template-columns: minmax(0, 59%) minmax(0, 42%);
   }
 
   .am-giveaway__entry {
@@ -472,7 +472,7 @@
     width: 120px;
     height: 120px;
     margin: 0 0 24px auto;
-    transform: rotate(+6deg);
+    transform: rotate(-6deg);
   }
 
   .am-giveaway__intro .am-giveaway__prize-stamp span {

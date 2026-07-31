@@ -439,3 +439,47 @@
     transition: none;
   }
 }
+/* BADGE IN UPPER-RIGHT OF INTRODUCTION */
+
+.am-giveaway__intro {
+  position: relative;
+}
+
+.am-giveaway__intro .am-giveaway__prize-stamp {
+  top: 46px;
+  right: 46px;
+  bottom: auto;
+  width: 150px;
+  height: 150px;
+  margin: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .am-giveaway__intro {
+    padding-right: 230px;
+  }
+}
+
+/* MOBILE: PLACE BADGE BETWEEN EYEBROW AND HEADLINE */
+
+@media screen and (max-width: 749px) {
+  .am-giveaway__intro {
+    padding-right: 24px;
+  }
+
+  .am-giveaway__intro .am-giveaway__prize-stamp {
+    position: static;
+    width: 120px;
+    height: 120px;
+    margin: 0 0 24px auto;
+    transform: rotate(-6deg);
+  }
+
+  .am-giveaway__intro .am-giveaway__prize-stamp span {
+    font-size: 13px;
+  }
+
+  .am-giveaway__intro .am-giveaway__prize-stamp strong {
+    font-size: 19px;
+  }
+}

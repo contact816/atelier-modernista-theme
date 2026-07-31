@@ -9,6 +9,77 @@
  */
 {
   "sections": {
+    "pb_colour_edit_bJy89W": {
+      "type": "pb-colour-edit",
+      "blocks": {
+        "colour_m9ygAD": {
+          "type": "colour",
+          "settings": {
+            "label": "Cobalt",
+            "piece_count": "",
+            "use_gradient": false,
+            "colour_hex": "#1f2c8a",
+            "gradient_css": "linear-gradient(135deg, #d72d1f 33%, #0047AB 33% 66%, #f5c518 66%)",
+            "text_colour_hex": "#f7eed8",
+            "colour_key": "blue",
+            "url": "https://ateliermodernista.com/collections/the-atelier-collection?filter.v.price.gte=&filter.v.price.lte=&filter.v.t.shopify.color-pattern=gid%3A%2F%2Fshopify%2FMetaobject%2F307256230225&sort_by=manual"
+          }
+        },
+        "colour_9MnP6D": {
+          "type": "colour",
+          "settings": {
+            "label": "Citrus",
+            "piece_count": "",
+            "use_gradient": false,
+            "colour_hex": "#f4bb10",
+            "gradient_css": "linear-gradient(135deg, #d72d1f 33%, #0047AB 33% 66%, #f5c518 66%)",
+            "text_colour_hex": "#334fb4",
+            "colour_key": "Citrus",
+            "url": "https://ateliermodernista.com/collections/the-atelier-collection?filter.v.price.gte=&filter.v.price.lte=&filter.v.t.shopify.color-pattern=gid%3A%2F%2Fshopify%2FMetaobject%2F406628172113&sort_by=manual"
+          }
+        },
+        "colour_7LmQnq": {
+          "type": "colour",
+          "settings": {
+            "label": "Red",
+            "piece_count": "",
+            "use_gradient": false,
+            "colour_hex": "#f61f1f",
+            "gradient_css": "linear-gradient(135deg, #d72d1f 33%, #0047AB 33% 66%, #f5c518 66%)",
+            "text_colour_hex": "#feedd5",
+            "colour_key": "red",
+            "url": "https://ateliermodernista.com/collections/the-atelier-collection?filter.v.price.gte=&filter.v.price.lte=&filter.v.t.shopify.color-pattern=gid%3A%2F%2Fshopify%2FMetaobject%2F307395985745&sort_by=manual"
+          }
+        },
+        "colour_GP6RMq": {
+          "type": "colour",
+          "settings": {
+            "label": "Multicolour",
+            "piece_count": "",
+            "use_gradient": false,
+            "colour_hex": "#9370db",
+            "gradient_css": "linear-gradient(135deg, #d72d1f 33%, #0047AB 33% 66%, #f5c518 66%)",
+            "text_colour_hex": "#f7eed8",
+            "colour_key": "green",
+            "url": "https://ateliermodernista.com/collections/the-atelier-collection?filter.v.price.gte=&filter.v.price.lte=&filter.v.t.shopify.color-pattern=gid%3A%2F%2Fshopify%2FMetaobject%2F307246891345&sort_by=manual"
+          }
+        }
+      },
+      "block_order": [
+        "colour_m9ygAD",
+        "colour_9MnP6D",
+        "colour_7LmQnq",
+        "colour_GP6RMq"
+      ],
+      "name": "AM — Colour Edit",
+      "settings": {
+        "eyebrow": "Atelier Modernista",
+        "heading": "Explore by Colour",
+        "body": "The magnificence of jewellery in a colour-rich world.",
+        "cta_label": "Explore Your favourite Colour",
+        "cta_url": "shopify://collections/the-colour-edit"
+      }
+    },
     "pb_hero_MJ4EMh": {
       "type": "pb-hero",
       "custom_css": [],
@@ -93,77 +164,6 @@
         "heading": "The Miró Collection",
         "view_all_label": "Own A Miró",
         "view_all_url": "shopify://collections/the-miro-collection"
-      }
-    },
-    "pb_colour_edit_bJy89W": {
-      "type": "pb-colour-edit",
-      "blocks": {
-        "colour_m9ygAD": {
-          "type": "colour",
-          "settings": {
-            "label": "Cobalt",
-            "piece_count": "",
-            "use_gradient": false,
-            "colour_hex": "#1f2c8a",
-            "gradient_css": "linear-gradient(135deg, #d72d1f 33%, #0047AB 33% 66%, #f5c518 66%)",
-            "text_colour_hex": "#f7eed8",
-            "colour_key": "blue",
-            "url": "https://ateliermodernista.com/collections/the-atelier-collection?filter.v.price.gte=&filter.v.price.lte=&filter.v.t.shopify.color-pattern=gid%3A%2F%2Fshopify%2FMetaobject%2F307256230225&sort_by=manual"
-          }
-        },
-        "colour_9MnP6D": {
-          "type": "colour",
-          "settings": {
-            "label": "Citrus",
-            "piece_count": "",
-            "use_gradient": false,
-            "colour_hex": "#f4bb10",
-            "gradient_css": "linear-gradient(135deg, #d72d1f 33%, #0047AB 33% 66%, #f5c518 66%)",
-            "text_colour_hex": "#334fb4",
-            "colour_key": "Citrus",
-            "url": "https://ateliermodernista.com/collections/the-atelier-collection?filter.v.price.gte=&filter.v.price.lte=&filter.v.t.shopify.color-pattern=gid%3A%2F%2Fshopify%2FMetaobject%2F406628172113&sort_by=manual"
-          }
-        },
-        "colour_7LmQnq": {
-          "type": "colour",
-          "settings": {
-            "label": "Red",
-            "piece_count": "",
-            "use_gradient": false,
-            "colour_hex": "#f61f1f",
-            "gradient_css": "linear-gradient(135deg, #d72d1f 33%, #0047AB 33% 66%, #f5c518 66%)",
-            "text_colour_hex": "#feedd5",
-            "colour_key": "red",
-            "url": "https://ateliermodernista.com/collections/the-atelier-collection?filter.v.price.gte=&filter.v.price.lte=&filter.v.t.shopify.color-pattern=gid%3A%2F%2Fshopify%2FMetaobject%2F307395985745&sort_by=manual"
-          }
-        },
-        "colour_GP6RMq": {
-          "type": "colour",
-          "settings": {
-            "label": "Multicolour",
-            "piece_count": "",
-            "use_gradient": false,
-            "colour_hex": "#9370db",
-            "gradient_css": "linear-gradient(135deg, #d72d1f 33%, #0047AB 33% 66%, #f5c518 66%)",
-            "text_colour_hex": "#f7eed8",
-            "colour_key": "green",
-            "url": "https://ateliermodernista.com/collections/the-atelier-collection?filter.v.price.gte=&filter.v.price.lte=&filter.v.t.shopify.color-pattern=gid%3A%2F%2Fshopify%2FMetaobject%2F307246891345&sort_by=manual"
-          }
-        }
-      },
-      "block_order": [
-        "colour_m9ygAD",
-        "colour_9MnP6D",
-        "colour_7LmQnq",
-        "colour_GP6RMq"
-      ],
-      "name": "AM — Colour Edit",
-      "settings": {
-        "eyebrow": "Atelier Modernista",
-        "heading": "Explore by Colour",
-        "body": "The magnificence of a colour-rich world.",
-        "cta_label": "Explore Your favourite Colour",
-        "cta_url": "shopify://collections/the-colour-edit"
       }
     },
     "pb_featured_products_ji63Ur": {
@@ -458,6 +458,7 @@
         "success_message": "You're in. Welcome to the Atelier Circle!",
         "error_message": "Something went wrong — please try again.",
         "disclaimer": "We'll only email about interesting things! You can unsubscribe anytime.",
+        "consent_text": "I would like to receive occasional Atelier Circle emails. I can unsubscribe at any time.",
         "bg_color": "#2b20a4",
         "heading_color": "#ffffff",
         "text_color": "#fdf6e3",
@@ -626,10 +627,10 @@
     }
   },
   "order": [
+    "pb_colour_edit_bJy89W",
     "pb_hero_MJ4EMh",
     "arsenal_bars_chyBtz",
     "pb_featured_products_QydhwQ",
-    "pb_colour_edit_bJy89W",
     "pb_featured_products_ji63Ur",
     "pb_editorial_pair_wKmfbG",
     "pb_featured_products_TtK6DD",

@@ -343,11 +343,67 @@
   }
 }
 
+/* LARGER GIVEAWAY EYEBROW */
+
+.am-giveaway__eyebrow {
+  margin-bottom: 1.15rem;
+  color: #0047ab;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1.35;
+}
+
+/* TOP ENTRY BUTTON */
+
+.am-giveaway__button {
+  display: inline-flex;
+  min-height: 3.25rem;
+  margin-top: 1.75rem;
+  padding: 0.95rem 1.4rem;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: #0047ab;
+  border: 1px solid #0047ab;
+  font-family: var(--font-body-family, Arial, sans-serif);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.am-giveaway__button:hover,
+.am-giveaway__button:focus-visible {
+  color: #0047ab;
+  background: #ffffff;
+  outline: 2px solid #0047ab;
+  outline-offset: 2px;
+}
+
+@media screen and (max-width: 749px) {
+  .am-giveaway__button {
+    width: 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .am-giveaway__prize-stamp {
     transform: none;
   }
+
+  .am-giveaway__button {
+    transition: none;
+  }
 }
+
+/* HIDE THE STANDARD SHOPIFY HEADER ON THIS LANDING PAGE */
+
 body:has(.am-giveaway) .shopify-section-group-header-group {
   display: none !important;
 }

@@ -409,13 +409,13 @@
 
 .am-giveaway__fact span {
   margin-bottom: 0.4rem;
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   font-weight: 800;
   letter-spacing: 0.14em;
 }
 
 .am-giveaway__fact strong {
-  font-size: 1rem;
+  font-size: 1.5rem;
   line-height: 1.35;
 }
 
@@ -424,12 +424,12 @@
 }
 
 .am-giveaway__terms a {
-  font-size: 0.82rem;
+  font-size: 1.5rem;
   font-weight: 800;
   line-height: 1.35;
 }
 
 .am-giveaway__privacy {
-  font-size: 0.82rem;
+  font-size: 1.4rem;
   line-height: 1.5;
 }

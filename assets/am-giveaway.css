@@ -472,7 +472,7 @@
     width: 120px;
     height: 120px;
     margin: 0 0 24px auto;
-    transform: rotate(-6deg);
+    transform: rotate(+6deg);
   }
 
   .am-giveaway__intro .am-giveaway__prize-stamp span {

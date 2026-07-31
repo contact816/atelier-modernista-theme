@@ -15,124 +15,145 @@
   </div>
 
   <div class="am-giveaway__shell">
-    <header class="am-giveaway__hero">
-      <div class="am-giveaway__hero-copy">
-        <p class="am-giveaway__eyebrow">{{ section.settings.eyebrow | escape }}</p>
-
-        <h1 class="am-giveaway__title" id="am-giveaway-title-{{ section.id }}">
-          {{ section.settings.heading | escape }}
-        </h1>
-
-        <div class="am-giveaway__lede rte">
-          {{ section.settings.intro }}
-        </div>
-
-        <a class="am-giveaway__button" href="#am-giveaway-entry-{{ section.id }}">
-          {{ section.settings.button_label | escape }}
-        </a>
-
-        <p class="am-giveaway__micro">
-          Free entry · UK residents · 18+ · One entry per person
-        </p>
-      </div>
-
-      <div class="am-giveaway__visual">
-        {%- if section.settings.image != blank -%}
-          {{
-            section.settings.image
-            | image_url: width: 1600
-            | image_tag:
-              class: 'am-giveaway__image',
-              widths: '480, 720, 960, 1200, 1600',
-              sizes: '(min-width: 990px) 50vw, 100vw',
-              loading: 'eager',
-              fetchpriority: 'high',
-              alt: section.settings.image.alt
-          }}
-        {%- else -%}
-          <div class="am-giveaway__image-placeholder">
-            <span>ADD GIVEAWAY IMAGE</span>
-          </div>
-        {%- endif -%}
-
-        <div class="am-giveaway__prize-stamp">
-          <span>YOUR CHOICE</span>
-          <strong>UP TO £100</strong>
-        </div>
-      </div>
-    </header>
-
-    <div class="am-giveaway__facts" aria-label="Giveaway dates">
-      <div>
-        <span>OPENS</span>
-        <strong>3 AUGUST 2026</strong>
-      </div>
-      <div>
-        <span>CLOSES</span>
-        <strong>23 AUGUST · 11:59 PM</strong>
-      </div>
-      <div>
-        <span>DRAW</span>
-        <strong>24 AUGUST 2026</strong>
-      </div>
-    </div>
 
     <div class="am-giveaway__main">
-      <div class="am-giveaway__story">
-        <p class="am-giveaway__kicker">ONE PIECE. ENTIRELY YOUR POINT OF VIEW.</p>
-        <h2>Choose the work that belongs with you.</h2>
-        <p>
-          Win one available Atelier Modernista piece of your choice, worth up to £100.
-          Geometric, expressive and made by an independent artist: not simply jewellery,
-          but art you can wear.
-        </p>
 
-        <ol class="am-giveaway__steps">
-          <li>
-            <span>01</span>
-            <div><strong>Enter once</strong><p>Complete the form with your name and email address.</p></div>
-          </li>
-          <li>
-            <span>02</span>
-            <div><strong>We draw at random</strong><p>One valid entry will be selected on 24 August.</p></div>
-          </li>
-          <li>
-            <span>03</span>
-            <div><strong>You choose the art</strong><p>Select any available piece priced at £100 or less.</p></div>
-          </li>
-        </ol>
+      <!-- LEFT: INTRODUCTION AND IMAGE -->
+      <div class="am-giveaway__left">
+
+        <div class="am-giveaway__intro">
+
+          <p class="am-giveaway__eyebrow">
+            {{ section.settings.eyebrow | escape }}
+          </p>
+
+          <h1
+            class="am-giveaway__title"
+            id="am-giveaway-title-{{ section.id }}"
+          >
+            {{ section.settings.heading | escape }}
+          </h1>
+
+          <div class="am-giveaway__lede rte">
+            {{ section.settings.intro }}
+          </div>
+
+          <p class="am-giveaway__micro">
+            Free entry · UK residents · 18+ · One entry per person
+          </p>
+
+        </div>
+
+        <div class="am-giveaway__visual">
+
+          {%- if section.settings.image != blank -%}
+
+            {{
+              section.settings.image
+              | image_url: width: 1600
+              | image_tag:
+                class: 'am-giveaway__image',
+                widths: '480, 720, 960, 1200, 1600',
+                sizes: '(min-width: 990px) 58vw, 100vw',
+                loading: 'eager',
+                fetchpriority: 'high',
+                alt: section.settings.image.alt
+            }}
+
+          {%- else -%}
+
+            <div class="am-giveaway__image-placeholder">
+              <span>ADD GIVEAWAY IMAGE</span>
+            </div>
+
+          {%- endif -%}
+
+          <div class="am-giveaway__prize-stamp">
+            <span>YOUR CHOICE</span>
+            <strong>UP TO £100</strong>
+          </div>
+
+        </div>
+
       </div>
 
+      <!-- RIGHT: ENTRY FORM -->
       <aside
         class="am-giveaway__entry"
         id="am-giveaway-entry-{{ section.id }}"
         aria-labelledby="am-giveaway-entry-title-{{ section.id }}"
       >
-        <p class="am-giveaway__entry-number">01 / ONE WINNER</p>
-        <h2 id="am-giveaway-entry-title-{{ section.id }}">Enter the draw</h2>
+
+        <p class="am-giveaway__entry-number">
+          01 / ONE WINNER
+        </p>
+
+        <h2 id="am-giveaway-entry-title-{{ section.id }}">
+          Enter the draw
+        </h2>
+
         <p class="am-giveaway__entry-copy">
-          Add your details below. No purchase is necessary.
+          Choose any available Atelier Modernista piece worth up to £100.
         </p>
 
         <div class="am-giveaway__form">
+
           {%- if form_id != blank -%}
+
             <div class="klaviyo-form-{{ form_id | escape }}"></div>
+
           {%- else -%}
+
             <div class="am-giveaway__form-placeholder">
+
               <strong>Klaviyo form space</strong>
-              <p>Add your Klaviyo embed form ID in this section’s Theme editor settings.</p>
+
+              <p>
+                Add your Klaviyo embed form ID in the Theme Editor.
+              </p>
+
             </div>
+
           {%- endif -%}
+
         </div>
 
         <p class="am-giveaway__privacy">
-          We use your details to administer the draw. Marketing emails are optional and
-          require separate consent. See our
+          We use your details to administer the draw.
+          Marketing emails require separate consent.
+          See our
           <a href="/pages/privacy-policy">Privacy Policy</a>.
         </p>
+
       </aside>
+
     </div>
 
+    <!-- DATES AND TERMS -->
+    <footer class="am-giveaway__footer">
+
+      <div class="am-giveaway__fact">
+        <span>OPENS</span>
+        <strong>3 AUGUST 2026</strong>
+      </div>
+
+      <div class="am-giveaway__fact">
+        <span>CLOSES</span>
+        <strong>23 AUGUST · 11:59 PM</strong>
+      </div>
+
+      <div class="am-giveaway__fact">
+        <span>DRAW</span>
+        <strong>24 AUGUST 2026</strong>
+      </div>
+
+      <div class="am-giveaway__terms">
+        <a href="{{ terms_url }}">
+          FULL GIVEAWAY TERMS
+        </a>
+      </div>
+
+    </footer>
 
   </div>
 </section>
@@ -162,12 +183,6 @@
       "default": "<p>One winner. One available Atelier Modernista piece of their choice. Up to £100.</p>"
     },
     {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button label",
-      "default": "ENTER THE GIVEAWAY"
-    },
-    {
       "type": "image_picker",
       "id": "image",
       "label": "Giveaway image"
@@ -191,4 +206,3 @@
   ]
 }
 {% endschema %}
-

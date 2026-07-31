@@ -473,3 +473,67 @@
     min-height: 36rem;
   }
 }
+/* MINIMUM 1.2REM TEXT SIZE THROUGHOUT GIVEAWAY */
+
+.am-giveaway__rail,
+.am-giveaway__eyebrow,
+.am-giveaway__lede,
+.am-giveaway__micro,
+.am-giveaway__button,
+.am-giveaway__entry-copy,
+.am-giveaway__privacy,
+.am-giveaway__fact span,
+.am-giveaway__fact strong,
+.am-giveaway__terms a,
+.am-giveaway__form-placeholder,
+.am-giveaway__prize-stamp span,
+.am-giveaway__prize-stamp strong {
+  font-size: 1.2rem !important;
+}
+
+/* KLAVIYO FORM TEXT */
+
+.am-giveaway__form label,
+.am-giveaway__form input,
+.am-giveaway__form select,
+.am-giveaway__form textarea,
+.am-giveaway__form button,
+.am-giveaway__form p,
+.am-giveaway__form span {
+  font-size: 1.2rem !important;
+  line-height: 1.45 !important;
+}
+
+/* RETAIN LARGE HEADLINES */
+
+.am-giveaway__title {
+  font-size: clamp(3rem, 8vw, 6rem) !important;
+}
+
+.am-giveaway__entry h2 {
+  font-size: clamp(2.6rem, 5vw, 4.75rem) !important;
+}
+
+/* ENLARGE BADGE TO ACCOMMODATE BIGGER TEXT */
+
+.am-giveaway__prize-stamp {
+  width: 10.5rem;
+  height: 10.5rem;
+  padding: 1.25rem;
+}
+
+.am-giveaway__prize-stamp span {
+  line-height: 1.2 !important;
+}
+
+.am-giveaway__prize-stamp strong {
+  margin-top: 0.45rem;
+  line-height: 1.05 !important;
+}
+
+@media screen and (max-width: 749px) {
+  .am-giveaway__prize-stamp {
+    width: 9.5rem;
+    height: 9.5rem;
+  }
+}

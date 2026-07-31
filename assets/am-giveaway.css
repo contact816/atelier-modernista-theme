@@ -268,7 +268,7 @@
 
 .am-giveaway__terms a {
   color: var(--am-giveaway-blue);
-  font-size: 0.68rem;
+  font-size: 1rem;
   font-weight: 750;
   letter-spacing: 0.12em;
   text-underline-offset: 0.25em;

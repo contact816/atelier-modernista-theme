@@ -444,6 +444,7 @@
 
 .am-giveaway__footer {
   color: #feedd3;
+  font-weight: 800;
   background: #0047ab;
   border-bottom: 1px solid #feedd3;
 }
@@ -451,6 +452,7 @@
 .am-giveaway__fact,
 .am-giveaway__terms {
   color: #feedd3;
+  font-weight: 800;
   background: #0047ab;
   border-color: rgba(254, 237, 211, 0.55);
 }
@@ -458,10 +460,12 @@
 .am-giveaway__fact span,
 .am-giveaway__fact strong,
 .am-giveaway__terms a {
+  font-weight: 800;
   color: #feedd3;
 }
 
 .am-giveaway__terms a {
+  font-weight: 800;
   text-decoration-color: #feedd3;
 }
 
@@ -469,6 +473,7 @@
 
 @media screen and (max-width: 749px) {
   .am-giveaway__visual {
+    font-weight: 800;
     height: 36rem;
     min-height: 36rem;
   }

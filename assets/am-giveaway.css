@@ -348,3 +348,6 @@
     transform: none;
   }
 }
+body:has(.am-giveaway) .shopify-section-group-header-group {
+  display: none !important;
+}

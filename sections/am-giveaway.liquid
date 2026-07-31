@@ -14,11 +14,37 @@
     JEWELLERY WITH A MIND OF ITS OWN · ATELIER MODERNISTA · ART YOU CAN WEAR ·
   </div>
 
-  <div class="am-giveaway__shell">
+ <div class="am-giveaway__shell">
 
-    <div class="am-giveaway__main">
+  <!-- IMPORTANT GIVEAWAY INFORMATION -->
+  <div class="am-giveaway__footer">
 
-      <!-- LEFT SIDE -->
+    <div class="am-giveaway__fact">
+      <span>OPENS</span>
+      <strong>3 AUGUST 2026</strong>
+    </div>
+
+    <div class="am-giveaway__fact">
+      <span>CLOSES</span>
+      <strong>23 AUGUST · 11:59 PM</strong>
+    </div>
+
+    <div class="am-giveaway__fact">
+      <span>DRAW</span>
+      <strong>24 AUGUST 2026</strong>
+    </div>
+
+    <div class="am-giveaway__terms">
+      <a href="{{ terms_url }}">
+        FULL GIVEAWAY TERMS
+      </a>
+    </div>
+
+  </div>
+
+  <div class="am-giveaway__main">
+
+      <!-- LEFT: INTRODUCTION AND IMAGE -->
       <div class="am-giveaway__left">
 
         <div class="am-giveaway__intro">
@@ -37,13 +63,6 @@
           <div class="am-giveaway__lede rte">
             {{ section.settings.intro }}
           </div>
-
-          <a
-            class="am-giveaway__button"
-            href="#am-giveaway-entry-{{ section.id }}"
-          >
-            {{ section.settings.button_label | default: 'ENTER THE GIVEAWAY' | escape }}
-          </a>
 
           <p class="am-giveaway__micro">
             Free entry · UK residents · 18+ · One entry per person
@@ -84,13 +103,12 @@
 
       </div>
 
-      <!-- RIGHT SIDE: KLAVIYO FORM -->
+      <!-- RIGHT: ENTRY FORM -->
       <aside
         class="am-giveaway__entry"
         id="am-giveaway-entry-{{ section.id }}"
-        aria-label="Giveaway entry form"
+        aria-labelledby="am-giveaway-entry-title-{{ section.id }}"
       >
-
         <div class="am-giveaway__form">
 
           {%- if form_id != blank -%}
@@ -163,25 +181,19 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
-      "default": "THE ATELIER MODERNISTA GIVEAWAY"
+      "default": "THE ART YOU CAN WEAR GIVEAWAY"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Win the piece you love the most!"
+      "default": "Win the piece you love the most."
     },
     {
       "type": "richtext",
       "id": "intro",
       "label": "Introduction",
       "default": "<p>One winner. One available Atelier Modernista piece of their choice. Up to £100.</p>"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button label",
-      "default": "ENTER THE GIVEAWAY"
     },
     {
       "type": "image_picker",

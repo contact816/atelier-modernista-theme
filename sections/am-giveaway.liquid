@@ -69,12 +69,29 @@
             {{ section.settings.intro }}
           </div>
 
-          <a
-            class="am-giveaway__button"
-            href="#am-giveaway-entry-{{ section.id }}"
-          >
-            {{ section.settings.button_label | default: 'ENTER THE GIVEAWAY' | escape }}
-          </a>
+          <div class="am-giveaway__actions">
+  <a
+    class="am-giveaway__button"
+    href="/collections/the-atelier-collection"
+    target="_blank"
+    rel="noopener"
+  >
+    Explore The Collection <span aria-hidden="true">→</span>
+  </a>
+
+  <a
+    class="am-giveaway__form-arrow"
+    href="#am-giveaway-entry-{{ section.id }}"
+  >
+    <span class="am-giveaway__form-arrow--desktop">
+      ENTER THE DRAW →
+    </span>
+
+    <span class="am-giveaway__form-arrow--mobile">
+      ENTER THE DRAW ↓
+    </span>
+  </a>
+</div>
 
           <p class="am-giveaway__micro">
             Free entry · UK residents · 18+ · One entry per person

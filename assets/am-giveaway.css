@@ -85,7 +85,7 @@
 .am-giveaway__lede {
   max-width: 38rem;
   margin-top: 1.25rem;
-  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  font-size: clamp(1.5rem, 1.7vw, 1.25rem);
 }
 
 .am-giveaway__lede p {

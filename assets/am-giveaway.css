@@ -433,3 +433,43 @@
   font-size: 1.4rem;
   line-height: 1.5;
 }
+/* LARGER GIVEAWAY IMAGE — 50% TALLER */
+
+.am-giveaway__visual {
+  height: clamp(30rem, 66vw, 54rem);
+  min-height: 30rem;
+}
+
+/* COBALT INFORMATION STRIP WITH CREAM TEXT */
+
+.am-giveaway__footer {
+  color: #feedd3;
+  background: #0047ab;
+  border-bottom: 1px solid #feedd3;
+}
+
+.am-giveaway__fact,
+.am-giveaway__terms {
+  color: #feedd3;
+  background: #0047ab;
+  border-color: rgba(254, 237, 211, 0.55);
+}
+
+.am-giveaway__fact span,
+.am-giveaway__fact strong,
+.am-giveaway__terms a {
+  color: #feedd3;
+}
+
+.am-giveaway__terms a {
+  text-decoration-color: #feedd3;
+}
+
+/* MOBILE IMAGE */
+
+@media screen and (max-width: 749px) {
+  .am-giveaway__visual {
+    height: 36rem;
+    min-height: 36rem;
+  }
+}

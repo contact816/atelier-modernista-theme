@@ -74,7 +74,7 @@
       "name": "AM — Colour Edit",
       "settings": {
         "eyebrow": "Atelier Modernista",
-        "heading": "Explore by Colour",
+        "heading": "Explore By Colour",
         "body": "The magnificence of jewellery in a colour-rich world.",
         "cta_label": "Explore Your favourite Colours",
         "cta_url": "shopify://collections/the-colour-edit"
@@ -210,7 +210,7 @@
       ],
       "name": "AM — Featured Products",
       "settings": {
-        "eyebrow": "This Season",
+        "eyebrow": "This Summer",
         "heading": "Bauhaus Colours",
         "view_all_label": "discover yours",
         "view_all_url": "shopify://collections/the-colour-edit"

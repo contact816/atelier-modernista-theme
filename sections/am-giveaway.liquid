@@ -50,11 +50,12 @@
             {{ section.settings.eyebrow | escape }}
           </p>
 
-<div class="am-giveaway__prize-stamp">
-  <span>CHOOSE ANY PIECE</span>
-  <span>UP TO</span> 
-  <strong>£100</strong>
-</div>
+          <div class="am-giveaway__prize-stamp">
+            <span>CHOOSE ANY PIECE</span>
+            <span>UP TO</span>
+            <strong>£100</strong>
+          </div>
+
           <h1
             class="am-giveaway__title"
             id="am-giveaway-title-{{ section.id }}"
@@ -66,7 +67,7 @@
             {{ section.settings.intro }}
           </div>
 
-          <a
+          
             class="am-giveaway__button"
             href="#am-giveaway-entry-{{ section.id }}"
           >
@@ -76,28 +77,32 @@
           <p class="am-giveaway__micro">
             Free entry · UK residents · 18+ · One entry per person
           </p>
+
           <p
-  class="am-giveaway__countdown"
-  data-am-countdown
-  data-open="2026-08-03T00:00:00+01:00"
-  data-close="2026-08-23T23:59:00+01:00"
-  aria-live="polite"
->
-  <span class="am-giveaway__countdown-label">Closes in</span>
-  <span class="am-giveaway__countdown-value">—</span>
-</p>
-<aclass="am-giveaway__social"
-  href="https://www.instagram.com/ateliermodernista"
-  target="_blank"
-  rel="noopener"
->
-  <svg class="am-giveaway__social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-    <rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/>
-    <circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
-    <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/>
-  </svg>
-  <span>@ateliermodernista</span>
-</a>
+            class="am-giveaway__countdown"
+            data-am-countdown
+            data-open="2026-08-03T00:00:00+01:00"
+            data-close="2026-08-23T23:59:00+01:00"
+            aria-live="polite"
+          >
+            <span class="am-giveaway__countdown-label">Closes in</span>
+            <span class="am-giveaway__countdown-value">—</span>
+          </p>
+
+          
+            class="am-giveaway__social"
+            href="https://www.instagram.com/ateliermodernista"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg class="am-giveaway__social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+              <circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+              <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/>
+            </svg>
+            <span>@ateliermodernista</span>
+          </a>
+
         </div>
 
         <div class="am-giveaway__visual">
@@ -166,58 +171,79 @@
         </div>
 
         <p class="am-giveaway__privacy">
-  We use your details to administer the draw.
-  If you opt in, we’ll also send occasional Atelier Modernista emails.
-  Unsubscribe any time.
-  See our
-  <a href="/pages/privacy-policy">Privacy Policy</a>.
-</p>
+          We use your details to administer the draw.
+          If you opt in, we’ll also send occasional Atelier Modernista emails.
+          Unsubscribe any time.
+          See our
+          <a href="/pages/privacy-policy">Privacy Policy</a>.
+        </p>
 
       </aside>
 
     </div>
 
   </div>
+
   <script>
-(function () {
-  var el = document.querySelector('#am-giveaway-{{ section.id }} [data-am-countdown]');
-  if (!el) return;
+  (function () {
+    var root = document.querySelector('#am-giveaway-{{ section.id }}');
+    if (!root) return;
 
-  var openDate = new Date(el.dataset.open);
-  var closeDate = new Date(el.dataset.close);
-  var labelEl = el.querySelector('.am-giveaway__countdown-label');
-  var valueEl = el.querySelector('.am-giveaway__countdown-value');
+    var countdownEl = root.querySelector('[data-am-countdown]');
+    var lockEl = root.querySelector('[data-am-form-lock]');
+    var formEl = root.querySelector('.am-giveaway__form');
+    var lockMsgEl = lockEl ? lockEl.querySelector('[data-am-form-lock-message]') : null;
+    if (!countdownEl) return;
 
-  function format(ms) {
-    var totalMinutes = Math.floor(ms / 60000);
-    var days = Math.floor(totalMinutes / 1440);
-    var hours = Math.floor((totalMinutes % 1440) / 60);
-    var minutes = totalMinutes % 60;
-    if (days > 0) return days + 'd ' + hours + 'h ' + minutes + 'm';
-    if (hours > 0) return hours + 'h ' + minutes + 'm';
-    return minutes + 'm';
-  }
+    var openDate = new Date(countdownEl.dataset.open);
+    var closeDate = new Date(countdownEl.dataset.close);
+    var labelEl = countdownEl.querySelector('.am-giveaway__countdown-label');
+    var valueEl = countdownEl.querySelector('.am-giveaway__countdown-value');
 
-  function tick() {
-    var now = new Date();
-    if (now < openDate) {
-      labelEl.textContent = 'Opens in';
-      valueEl.textContent = format(openDate - now);
-      return;
+    function format(ms) {
+      var totalMinutes = Math.floor(ms / 60000);
+      var days = Math.floor(totalMinutes / 1440);
+      var hours = Math.floor((totalMinutes % 1440) / 60);
+      var minutes = totalMinutes % 60;
+      if (days > 0) return days + 'd ' + hours + 'h ' + minutes + 'm';
+      if (hours > 0) return hours + 'h ' + minutes + 'm';
+      return minutes + 'm';
     }
-    if (now < closeDate) {
-      labelEl.textContent = 'Closes in';
-      valueEl.textContent = format(closeDate - now);
-      return;
-    }
-    labelEl.textContent = 'Entries closed';
-    valueEl.textContent = '';
-  }
 
-  tick();
-  setInterval(tick, 60000);
-})();
-</script>
+    function setLock(isLocked, message) {
+      if (!lockEl || !formEl) return;
+      lockEl.hidden = !isLocked;
+      formEl.classList.toggle('is-locked', isLocked);
+      if (isLocked && lockMsgEl) lockMsgEl.textContent = message;
+    }
+
+    function tick() {
+      var now = new Date();
+
+      if (now < openDate) {
+        labelEl.textContent = 'Opens in';
+        valueEl.textContent = format(openDate - now);
+        setLock(true, 'Entries open 3 August 2026.');
+        return;
+      }
+
+      if (now < closeDate) {
+        labelEl.textContent = 'Closes in';
+        valueEl.textContent = format(closeDate - now);
+        setLock(false, '');
+        return;
+      }
+
+      labelEl.textContent = 'Entries closed';
+      valueEl.textContent = '';
+      setLock(true, 'Entries have closed. Thank you for your interest.');
+    }
+
+    tick();
+    setInterval(tick, 60000);
+  })();
+  </script>
+
 </section>
 
 {% schema %}

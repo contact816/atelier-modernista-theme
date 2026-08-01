@@ -159,6 +159,46 @@
     </div>
 
   </div>
+  <script>
+(function () {
+  var el = document.querySelector('#am-giveaway-{{ section.id }} [data-am-countdown]');
+  if (!el) return;
+
+  var openDate = new Date(el.dataset.open);
+  var closeDate = new Date(el.dataset.close);
+  var labelEl = el.querySelector('.am-giveaway__countdown-label');
+  var valueEl = el.querySelector('.am-giveaway__countdown-value');
+
+  function format(ms) {
+    var totalMinutes = Math.floor(ms / 60000);
+    var days = Math.floor(totalMinutes / 1440);
+    var hours = Math.floor((totalMinutes % 1440) / 60);
+    var minutes = totalMinutes % 60;
+    if (days > 0) return days + 'd ' + hours + 'h ' + minutes + 'm';
+    if (hours > 0) return hours + 'h ' + minutes + 'm';
+    return minutes + 'm';
+  }
+
+  function tick() {
+    var now = new Date();
+    if (now < openDate) {
+      labelEl.textContent = 'Opens in';
+      valueEl.textContent = format(openDate - now);
+      return;
+    }
+    if (now < closeDate) {
+      labelEl.textContent = 'Closes in';
+      valueEl.textContent = format(closeDate - now);
+      return;
+    }
+    labelEl.textContent = 'Entries closed';
+    valueEl.textContent = '';
+  }
+
+  tick();
+  setInterval(tick, 60000);
+})();
+</script>
 </section>
 
 {% schema %}

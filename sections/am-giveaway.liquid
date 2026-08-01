@@ -124,25 +124,33 @@
         aria-label="Giveaway entry form"
       >
 
-        <div class="am-giveaway__form">
+        <div class="am-giveaway__form-wrap">
 
-          {%- if form_id != blank -%}
+          <div class="am-giveaway__form">
 
-            <div class="klaviyo-form-{{ form_id | escape }}"></div>
+            {%- if form_id != blank -%}
 
-          {%- else -%}
+              <div class="klaviyo-form-{{ form_id | escape }}"></div>
 
-            <div class="am-giveaway__form-placeholder">
+            {%- else -%}
 
-              <strong>Klaviyo form space</strong>
+              <div class="am-giveaway__form-placeholder">
 
-              <p>
-                Add your Klaviyo embed form ID in the Theme Editor.
-              </p>
+                <strong>Klaviyo form space</strong>
 
-            </div>
+                <p>
+                  Add your Klaviyo embed form ID in the Theme Editor.
+                </p>
 
-          {%- endif -%}
+              </div>
+
+            {%- endif -%}
+
+          </div>
+
+          <div class="am-giveaway__form-lock" data-am-form-lock hidden>
+            <p data-am-form-lock-message></p>
+          </div>
 
         </div>
 

@@ -9,6 +9,41 @@
  */
 {
   "sections": {
+    "pb_hero_MJ4EMh": {
+      "type": "pb-hero",
+      "custom_css": [],
+      "name": "AM — Hero",
+      "settings": {
+        "hero_image": "shopify://shop_images/M9999AR063200-F_adl_213979b9-674c-4cce-beb5-9b338f55a940.jpg",
+        "eyebrow": "Atelier Modernista",
+        "headline_plain": "Jewellery",
+        "headline_italic": "with a mind of its own.",
+        "subheading": "Contemporary jewellery in the Modernist style, defined by rich colours,  architectural lines and a powerfully sculptural aesthetic.",
+        "primary_cta_label": "Shop the Edit",
+        "primary_cta_url": "shopify://collections/the-colour-edit",
+        "secondary_cta_label": "Shop the Ideas",
+        "secondary_cta_url": "https://ateliermodernista.com/pages/the-atelier-modernista-library",
+        "show_trust_strip": true,
+        "trust_1": "Curated in London",
+        "trust_2": "Luxury Gift Wrapping",
+        "trust_3": "Free Shipping with The Atelier Circle"
+      }
+    },
+    "arsenal_bars_chyBtz": {
+      "type": "arsenal-bars",
+      "disabled": true,
+      "name": "Arsenal Bars",
+      "settings": {
+        "show_announcement": false,
+        "announcement_text": "Shop the arsenal collection!",
+        "code_eyebrow": "",
+        "discount_code": "",
+        "discount_line": "",
+        "cta_text": "Shop the Arsenal Edit like the Champions we are!",
+        "cta_link": "shopify://pages/north-london-forever",
+        "validity": ""
+      }
+    },
     "pb_colour_edit_bJy89W": {
       "type": "pb-colour-edit",
       "blocks": {
@@ -78,41 +113,6 @@
         "body": "The magnificence of jewellery in a colour-rich world.",
         "cta_label": "Explore Your favourite Colours",
         "cta_url": "shopify://collections/the-colour-edit"
-      }
-    },
-    "pb_hero_MJ4EMh": {
-      "type": "pb-hero",
-      "custom_css": [],
-      "name": "AM — Hero",
-      "settings": {
-        "hero_image": "shopify://shop_images/Model_3_-_red-purple-green-bauhaus-earrings_2026-03-31_12-00-13_719e572b_copy_2.jpg",
-        "eyebrow": "Atelier Modernista",
-        "headline_plain": "Jewellery",
-        "headline_italic": "with a mind of its own.",
-        "subheading": "Contemporary jewellery in the Modernist style, defined by rich colours,  architectural lines and a powerfully sculptural aesthetic.",
-        "primary_cta_label": "Shop the Edit",
-        "primary_cta_url": "shopify://collections/the-colour-edit",
-        "secondary_cta_label": "Shop the Ideas",
-        "secondary_cta_url": "https://ateliermodernista.com/pages/the-atelier-modernista-library",
-        "show_trust_strip": true,
-        "trust_1": "Curated in London",
-        "trust_2": "Luxury Gift Wrapping",
-        "trust_3": "Free Shipping with The Atelier Circle"
-      }
-    },
-    "arsenal_bars_chyBtz": {
-      "type": "arsenal-bars",
-      "disabled": true,
-      "name": "Arsenal Bars",
-      "settings": {
-        "show_announcement": false,
-        "announcement_text": "Shop the arsenal collection!",
-        "code_eyebrow": "",
-        "discount_code": "",
-        "discount_line": "",
-        "cta_text": "Shop the Arsenal Edit like the Champions we are!",
-        "cta_link": "shopify://pages/north-london-forever",
-        "validity": ""
       }
     },
     "pb_featured_products_QydhwQ": {
@@ -627,9 +627,9 @@
     }
   },
   "order": [
-    "pb_colour_edit_bJy89W",
     "pb_hero_MJ4EMh",
     "arsenal_bars_chyBtz",
+    "pb_colour_edit_bJy89W",
     "pb_featured_products_QydhwQ",
     "pb_featured_products_ji63Ur",
     "pb_editorial_pair_wKmfbG",

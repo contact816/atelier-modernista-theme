@@ -29,6 +29,25 @@
         "trust_3": "Free Shipping with The Atelier Circle"
       }
     },
+    "pb_collection_showcase_qqYFip": {
+      "type": "pb-collection-showcase",
+      "name": "AM — Collection Showcase",
+      "settings": {
+        "image": "shopify://shop_images/Femme-devant-le-soleil_adl.jpg",
+        "image_position": "right",
+        "eyebrow": "Atelier Modernista",
+        "heading": "The Miró Collection",
+        "description": "The Miró Collection is inspired by the work of Joan Miró, and licensed by Successió Miró.\n\nThe colours are deep and rich, offering a capsule collection full of elegance, artistic heritage, and an exuberant sense of joy and presence.",
+        "meta_1_label": "From",
+        "meta_1_value": "£75",
+        "meta_2_label": "",
+        "meta_2_value": "",
+        "cta_label": "View The Miró Collection",
+        "cta_url": "shopify://collections/the-miro-collection",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "arsenal_bars_chyBtz": {
       "type": "arsenal-bars",
       "disabled": true,
@@ -164,25 +183,6 @@
         "heading": "The Miró Collection",
         "view_all_label": "Own A Miró",
         "view_all_url": "shopify://collections/the-miro-collection"
-      }
-    },
-    "pb_collection_showcase_qqYFip": {
-      "type": "pb-collection-showcase",
-      "name": "AM — Collection Showcase",
-      "settings": {
-        "image": "shopify://shop_images/Femme-devant-le-soleil_adl.jpg",
-        "image_position": "right",
-        "eyebrow": "Atelier Modernista",
-        "heading": "The Miró Collection",
-        "description": "The Miró Collection is inspired by the work of Joan Miró, and licensed by Successió Miró.\n\nThe colours are deep and rich, offering a capsule collection full of elegance, artistic heritage, and an exuberant sense of joy and presence.",
-        "meta_1_label": "From",
-        "meta_1_value": "£75",
-        "meta_2_label": "",
-        "meta_2_value": "",
-        "cta_label": "View The Miró Collection",
-        "cta_url": "shopify://collections/the-miro-collection",
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     },
     "pb_featured_products_ji63Ur": {
@@ -627,10 +627,10 @@
   },
   "order": [
     "pb_hero_MJ4EMh",
+    "pb_collection_showcase_qqYFip",
     "arsenal_bars_chyBtz",
     "pb_colour_edit_bJy89W",
     "pb_featured_products_QydhwQ",
-    "pb_collection_showcase_qqYFip",
     "pb_featured_products_ji63Ur",
     "pb_editorial_pair_wKmfbG",
     "pb_featured_products_TtK6DD",

@@ -16,7 +16,7 @@
       "settings": {
         "logo_position": "top-center",
         "mobile_logo_position": "center",
-        "menu": "",
+        "menu": "atelier",
         "menu_type_desktop": "drawer",
         "sticky_header_type": "reduce-logo-size",
         "show_line_separator": false,

@@ -35,7 +35,7 @@
       "settings": {
         "announcement_text": "· COMPLIMENTARY UK DELIVERY FOR ATELIER CIRCLE MEMBERS · JOIN BELOW FOR FREE ·",
         "announcement_link_label": "JOIN HERE",
-        "announcement_link": "",
+        "announcement_link": "https://ateliermodernista.com/pages/atelier-circle",
         "logo": "shopify://shop_images/Transparemt_Logo.png",
         "menu": "main-menu"
       }

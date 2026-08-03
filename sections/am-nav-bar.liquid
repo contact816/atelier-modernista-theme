@@ -1,349 +1,602 @@
 <style>
-  .am-header { font-family: 'Jost', sans-serif; }
+  .am-header-section {
+    display: block !important;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 
-  /* Announcement bar */
-  .am-header__announcement {
-    background-color: #1f2c8a;
-    color: #fdf6e3;
+  .am-site-header,
+  .am-site-header * {
+    box-sizing: border-box;
+  }
+
+  .am-site-header {
+    position: relative;
+    z-index: 100;
+    width: 100%;
+    font-family: 'Jost', sans-serif;
+  }
+
+  /* ATELIER CIRCLE ANNOUNCEMENT */
+
+  .am-site-header__announcement {
+    padding: 10px 20px;
+    color: #ffffff;
+    background: #0047ab;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.35;
     text-align: center;
-    padding: 10px 1rem;
-    font-size: 1.2rem;
-    font-weight: 400;
-    letter-spacing: 0.2em;
     text-transform: uppercase;
   }
-  .am-announcement-link {
-    color: #fdf6e3;
+
+  .am-site-header__announcement a {
+    color: inherit;
     text-decoration: underline;
     text-underline-offset: 3px;
-    margin: 0 0.3rem;
-    transition: opacity 0.15s ease;
-  }
-  .am-announcement-link:hover {
-    opacity: 0.75;
   }
 
-  /* Nav bar */
-  .am-header__nav-bar {
-    background-color: #fdf6e3;
+  /* MAIN NAVIGATION */
+
+  .am-site-header__nav {
     display: flex;
+    min-height: 68px;
+    padding: 0 40px;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2.5rem;
-    height: 72px;
-    position: relative;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0, 71, 171, 0.18);
   }
 
-  /* Left nav */
-  .am-header__left {
+  .am-site-header__desktop-menu {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
+    gap: 32px;
   }
-  .am-header__left a {
-    font-family: var(--am-serif);
-    font-size: 1.6rem;
+
+  .am-site-header__desktop-menu a,
+  .am-site-header__menu-button,
+  .am-site-header__utilities a {
+    color: #111111;
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: 1.2rem;
     font-weight: 400;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.08em;
     text-decoration: none;
-    color: #1a1a1a;
-    transition: color 0.15s;
   }
-  .am-header__left a:hover { color: #1f2c8a; }
 
-  /* Logo banner (own row, below nav bar) */
-  .am-header__logo-banner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1.5rem 0;
-    background-color: #fdf6e3;
+  .am-site-header__desktop-menu a:hover,
+  .am-site-header__menu-button:hover,
+  .am-site-header__utilities a:hover {
+    color: #0047ab;
   }
- .am-header__logo-banner img {
-  height: 22rem;   /* ~320px — big, closer to a hero-style logo */
-  width: auto;
-  display: block;
-}
 
-  /* Right icons */
-  .am-header__right {
+  .am-site-header__menu-button {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .am-site-header__utilities {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 26px;
   }
-  .am-header__right a {
-    font-family: var(--am-serif);
-    font-size: 1.6rem;
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    text-decoration: none;
-    color: #1a1a1a;
-    transition: color 0.15s;
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-  }
-  .am-header__right a:hover { color: #1f2c8a; }
 
-  /* Cart bubble */
-  .am-cart-count {
-    background: #1f2c8a;
-    color: #fff;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    font-size: 0.65rem;
-    gap: 0.4rem;
-    font-weight: 500;
+  .am-site-header__cart-count {
     display: inline-flex;
+    width: 22px;
+    height: 22px;
+    margin-left: 5px;
     align-items: center;
     justify-content: center;
+    color: #ffffff;
+    background: #0047ab;
+    border-radius: 50%;
+    font-family: Arial, sans-serif;
+    font-size: 0.75rem;
     line-height: 1;
   }
 
-  /* Collections dropdown toggle */
-  .am-header__dd {
-    position: relative;
-  }
-  .am-header__dd-toggle {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
+  /* MOBILE HAMBURGER */
+
+  .am-site-header__hamburger {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 5px;
-    font-family: var(--am-serif) !important;
-    font-size: 1.4rem;
-    font-weight: 400 !important;
-    letter-spacing: 0.15em;
-    color: #1a1a1a;
-    transition: color 0.15s;
-  }
-  .am-header__dd-toggle:hover { color: #1f2c8a; }
-  .am-dd-chevron {
-    width: 5px;
-    height: 5px;
-    border-right: 1.5px solid currentColor;
-    border-bottom: 1.5px solid currentColor;
-    transform: rotate(45deg);
-    display: inline-block;
-    margin-top: -2px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
   }
 
-  /* Sidebar */
-  .am-sidebar-overlay {
+  .am-site-header__hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #111111;
+  }
+
+  /* LOGO */
+
+  .am-site-header__mobile-logo {
+    display: none;
+  }
+
+  .am-site-header__logo-banner {
+    display: flex;
+    min-height: 210px;
+    padding: 28px;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    text-decoration: none;
+  }
+
+  .am-site-header__logo-banner img {
+    display: block;
+    width: auto;
+    height: 170px;
+    object-fit: contain;
+  }
+
+  .am-site-header__fallback-logo {
+    color: #0047ab;
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: 2rem;
+  }
+
+  /* DRAWER */
+
+  .am-site-header__overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.35);
-    z-index: 998;
-    opacity: 0;
+    z-index: 9998;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    background: rgba(0, 0, 0, 0.42);
+    opacity: 0;
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s ease;
   }
-  .am-sidebar-overlay.open { opacity: 1; visibility: visible; }
-  .am-sidebar {
+
+  .am-site-header__overlay.is-open {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .am-site-header__drawer {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 320px;
-    max-width: 85vw;
-    background: #fdf6e3;
-    z-index: 999;
-    transform: translateX(-100%);
-    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-    padding: 3rem 2.5rem;
-    box-sizing: border-box;
+    z-index: 9999;
     display: flex;
+    width: min(88vw, 360px);
+    height: 100%;
+    padding: 76px 28px 36px;
     flex-direction: column;
+    overflow-y: auto;
+    background: #ffffff;
+    transform: translateX(-105%);
+    transition: transform 0.3s ease;
   }
-  .am-sidebar.open { transform: translateX(0); }
-  .am-sidebar__close {
+
+  .am-site-header__drawer.is-open {
+    transform: translateX(0);
+  }
+
+  .am-site-header__close {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: none;
-    border: none;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+    color: #111111;
+    background: transparent;
+    border: 0;
     cursor: pointer;
-    padding: 0.5rem;
-    color: #3C3228;
   }
-  .am-sidebar__close svg {
-    width: 18px;
-    height: 18px;
-    stroke: currentColor;
-    stroke-width: 1.5;
+
+  .am-site-header__close svg {
+    width: 100%;
+    height: 100%;
     fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
   }
-  .am-sidebar__heading {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
+
+  .am-site-header__drawer-heading {
+    margin: 20px 0 8px;
+    padding-bottom: 8px;
+    color: #0047ab;
+    border-bottom: 1px solid #0047ab;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: #6B5B4E;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(60,50,40,0.15);
   }
-  .am-sidebar__link {
+
+  .am-site-header__drawer-link {
     display: block;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    color: #3C3228;
+    padding: 8px 0;
+    color: #111111;
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: 1.5rem;
+    line-height: 1.25;
     text-decoration: none;
-    padding: 0.4rem 0;
-    transition: color 0.15s, padding-left 0.15s;
-    line-height: 1.3;
-  }
-  .am-sidebar__link:hover { color: #1f2c8a; padding-left: 0.5rem; }
-  .am-sidebar__divider {
-    border: none;
-    border-top: 1px solid rgba(60,50,40,0.15);
-    margin: 1rem 0;
   }
 
-  .am-header-section { padding: 0 !important; margin: 0 !important; }
-
-  /* ── HAMBURGER (hidden on desktop) ── */
-  .am-header__hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 4px;
-    width: 28px;
-    height: 28px;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
+  .am-site-header__drawer-link:hover {
+    color: #0047ab;
   }
-  .am-header__hamburger span {
-    display: block;
-    width: 22px;
-    height: 1.5px;
-    background: #1a1a1a;
-    transition: background 0.15s;
-  }
-  .am-header__hamburger:hover span { background: #1f2c8a; }
 
-  /* ── MOBILE ── */
+  .am-site-header__drawer-divider {
+    width: 100%;
+    margin: 16px 0;
+    border: 0;
+    border-top: 1px solid rgba(0, 71, 171, 0.35);
+  }
+
+  /* MOBILE */
+
   @media screen and (max-width: 749px) {
-    .am-header__nav-bar {
-      padding: 0 1.25rem;
-      min-height: 60px;
-      height: auto;
-      justify-content: space-between;
-    }
-    .am-header__hamburger { display: flex; }
-    .am-header__left { display: none; }
-    .am-header__logo-banner { padding: 1.5rem 0; }
-    .am-header__logo-banner img { height: 3.5rem; }
-    .am-header__right { gap: 0; }
-    .am-header__right a[href*="search"],
-    .am-header__right a[href*="account"] { display: none; }
-    .am-header__right a[href*="cart"] {
-      font-size: 1.2rem;
+    .am-site-header__announcement {
+      padding: 8px 12px;
+      font-size: 0.78rem;
       letter-spacing: 0.06em;
     }
-    .am-header__announcement {
-      font-size: 0.95rem;
-      letter-spacing: 0.12em;
-      padding: 8px 1rem;
+
+    .am-site-header__nav {
+      display: grid !important;
+      min-height: 66px;
+      padding: 0 14px;
+      grid-template-columns: 48px 1fr auto;
+      gap: 10px;
+    }
+
+    .am-site-header__hamburger {
+      display: flex !important;
+    }
+
+    .am-site-header__desktop-menu {
+      display: none !important;
+    }
+
+    .am-site-header__mobile-logo {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .am-site-header__mobile-logo img {
+      display: block;
+      width: auto;
+      max-width: 150px;
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .am-site-header__utilities {
+      gap: 0;
+    }
+
+    .am-site-header__utilities a:not(.am-site-header__mobile-cart) {
+      display: none;
+    }
+
+    .am-site-header__mobile-cart {
+      display: flex;
+      align-items: center;
+      font-size: 1rem !important;
+      letter-spacing: 0.03em !important;
+    }
+
+    .am-site-header__logo-banner {
+      display: none !important;
     }
   }
 
-  /* Neutralise the leftover hidden Dawn header */
-  #shopify-section-sections--30221351354705__header {
+  @media (prefers-reduced-motion: reduce) {
+    .am-site-header__drawer,
+    .am-site-header__overlay {
+      transition: none;
+    }
+  }
+</style>
+
+<section
+  class="am-site-header"
+  data-am-site-header="{{ section.id }}"
+>
+  {%- if section.settings.announcement_text != blank -%}
+    <div class="am-site-header__announcement">
+      {{ section.settings.announcement_text | escape }}
+
+      {%- if section.settings.announcement_link != blank -%}
+        <a href="{{ section.settings.announcement_link }}">
+          {{ section.settings.announcement_link_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <nav class="am-site-header__nav" aria-label="Main navigation">
+    <button
+      class="am-site-header__hamburger"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="am-mobile-menu-{{ section.id }}"
+      data-am-menu-open
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="am-site-header__desktop-menu">
+      {%- for link in section.settings.menu.links -%}
+        {%- if link.links != blank -%}
+          <button
+            class="am-site-header__menu-button"
+            type="button"
+            data-am-menu-open
+          >
+            {{ link.title | escape }} ↓
+          </button>
+        {%- else -%}
+          <a href="{{ link.url }}">
+            {{ link.title | escape }}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <a
+      class="am-site-header__mobile-logo"
+      href="{{ routes.root_url }}"
+      aria-label="{{ shop.name | escape }}"
+    >
+      {%- if section.settings.logo != blank -%}
+        {{
+          section.settings.logo
+          | image_url: width: 320
+          | image_tag:
+            loading: 'eager',
+            alt: shop.name
+        }}
+      {%- else -%}
+        {{ shop.name | escape }}
+      {%- endif -%}
+    </a>
+
+    <div class="am-site-header__utilities">
+      <a href="{{ routes.search_url }}">Search</a>
+
+      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">
+        Account
+      </a>
+
+      <a
+        class="am-site-header__mobile-cart"
+        href="{{ routes.cart_url }}"
+      >
+        Bag
+        <span class="am-site-header__cart-count">
+          {{ cart.item_count }}
+        </span>
+      </a>
+    </div>
+  </nav>
+
+  <a
+    class="am-site-header__logo-banner"
+    href="{{ routes.root_url }}"
+    aria-label="{{ shop.name | escape }}"
+  >
+    {%- if section.settings.logo != blank -%}
+      {{
+        section.settings.logo
+        | image_url: width: 600
+        | image_tag:
+          loading: 'eager',
+          alt: shop.name
+      }}
+    {%- else -%}
+      <span class="am-site-header__fallback-logo">
+        {{ shop.name | escape }}
+      </span>
+    {%- endif -%}
+  </a>
+    <div
+    class="am-site-header__overlay"
+    data-am-menu-overlay
+    aria-hidden="true"
+  ></div>
+
+  <aside
+    class="am-site-header__drawer"
+    id="am-mobile-menu-{{ section.id }}"
+    data-am-menu-drawer
+    aria-label="Site menu"
+    aria-hidden="true"
+  >
+    <button
+      class="am-site-header__close"
+      type="button"
+      aria-label="Close menu"
+      data-am-menu-close
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    {%- for link in section.settings.menu.links -%}
+      {%- if link.links != blank -%}
+        <p class="am-site-header__drawer-heading">
+          {{ link.title | escape }}
+        </p>
+
+        {%- for childlink in link.links -%}
+          <a
+            class="am-site-header__drawer-link"
+            href="{{ childlink.url }}"
+          >
+            {{ childlink.title | escape }}
+          </a>
+
+          {%- if childlink.links != blank -%}
+            {%- for grandchildlink in childlink.links -%}
+              <a
+                class="am-site-header__drawer-link"
+                href="{{ grandchildlink.url }}"
+                style="padding-left: 1rem; font-size: 1.25rem;"
+              >
+                {{ grandchildlink.title | escape }}
+              </a>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        <hr class="am-site-header__drawer-divider">
+      {%- else -%}
+        <a
+          class="am-site-header__drawer-link"
+          href="{{ link.url }}"
+        >
+          {{ link.title | escape }}
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <hr class="am-site-header__drawer-divider">
+
+    <a
+      class="am-site-header__drawer-link"
+      href="{{ routes.search_url }}"
+    >
+      Search
+    </a>
+
+    <a
+      class="am-site-header__drawer-link"
+      href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+    >
+      {% if customer %}
+        My account
+      {% else %}
+        Sign in
+      {% endif %}
+    </a>
+
+    <a
+      class="am-site-header__drawer-link"
+      href="{{ routes.cart_url }}"
+    >
+      Bag ({{ cart.item_count }})
+    </a>
+  </aside>
+</section>
+
+<style>
+  /*
+    The AM Nav Bar replaces Dawn’s standard header.
+    This hides only Dawn’s original header inside the same header group.
+  */
+  .shopify-section-group-header-group:has(.am-site-header) .header-wrapper {
     display: none !important;
   }
 </style>
 
-<!-- Announcement bar -->
-<div class="am-header__announcement">
-  FREE UK DELIVERY FOR ATELIER CIRCLE MEMBERS ·
-  <a href="/pages/atelier-circle" class="am-announcement-link">
-    JOIN HERE
-  </a>
-  ·
-</div>
+<script>
+  (function () {
+    var header = document.querySelector(
+      '[data-am-site-header="{{ section.id }}"]'
+    );
 
-<!-- Nav bar -->
-<div class="am-header__nav-bar am-header">
+    if (!header || header.dataset.menuReady === 'true') return;
 
-  <!-- Hamburger (mobile only) -->
-  <button class="am-header__hamburger" aria-label="Open menu"
-    onclick="document.getElementById('am-sidebar').classList.add('open');document.getElementById('am-overlay').classList.add('open')">
-    <span></span><span></span><span></span>
-  </button>
+    header.dataset.menuReady = 'true';
 
-  <!-- Left nav links -->
-  <div class="am-header__left">
-    {%- for link in section.settings.menu.links -%}
-      {%- if link.links != blank -%}
-        <div class="am-header__dd">
-          <button class="am-header__dd-toggle" onclick="document.getElementById('am-sidebar').classList.toggle('open');document.getElementById('am-overlay').classList.toggle('open')">
-            {{ link.title }}&nbsp;<span class="am-dd-chevron"></span>
-          </button>
-        </div>
-      {%- else -%}
-        <a href="{{ link.url }}">{{ link.title }}</a>
-      {%- endif -%}
-    {%- endfor -%}
-  </div>
+    var drawer = header.querySelector('[data-am-menu-drawer]');
+    var overlay = header.querySelector('[data-am-menu-overlay]');
+    var openButtons = header.querySelectorAll('[data-am-menu-open]');
+    var closeButton = header.querySelector('[data-am-menu-close]');
 
-  <!-- Right icons -->
-  <div class="am-header__right">
-    <a href="{{ routes.search_url }}">Search</a>
-    <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}">Account</a>
-    <a href="{{ routes.cart_url }}">
-      Bag
-      <span class="am-cart-count">{{ cart.item_count }}</span>
-    </a>
-  </div>
+    if (!drawer || !overlay) return;
 
-</div>
+    function openMenu() {
+      drawer.classList.add('is-open');
+      overlay.classList.add('is-open');
 
-<!-- Logo banner (own row, below nav bar) -->
-<a href="{{ routes.root_url }}" class="am-header__logo-banner">
-  {%- if section.settings.logo != blank -%}
-    {{ section.settings.logo | image_url: width: 400 | image_tag: loading: 'eager', alt: shop.name }}
-  {%- else -%}
-    <span style="font-family: var(--am-serif); font-size: 1.8rem; letter-spacing: 0.1em;">{{ shop.name }}</span>
-  {%- endif -%}
-</a>
+      drawer.setAttribute('aria-hidden', 'false');
+      overlay.setAttribute('aria-hidden', 'false');
 
-<!-- Sidebar overlay -->
-<div class="am-sidebar-overlay" id="am-overlay" onclick="document.getElementById('am-sidebar').classList.remove('open');this.classList.remove('open')"></div>
+      openButtons.forEach(function (button) {
+        button.setAttribute('aria-expanded', 'true');
+      });
 
-<!-- Sidebar -->
-<div class="am-sidebar" id="am-sidebar">
-  <button class="am-sidebar__close" onclick="document.getElementById('am-sidebar').classList.remove('open');document.getElementById('am-overlay').classList.remove('open')" aria-label="Close menu">
-    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-  </button>
+      document.body.style.overflow = 'hidden';
 
-  {%- for link in section.settings.menu.links -%}
-    {%- if link.links != blank -%}
-      <p class="am-sidebar__heading">{{ link.title }}</p>
-      {%- for childlink in link.links -%}
-        <a class="am-sidebar__link" href="{{ childlink.url }}">{{ childlink.title }}</a>
-      {%- endfor -%}
-      <hr class="am-sidebar__divider">
-    {%- endif -%}
-  {%- endfor -%}
+      if (closeButton) {
+        closeButton.focus();
+      }
+    }
 
-  {%- for link in section.settings.menu.links -%}
-    {%- unless link.links != blank -%}
-      <a class="am-sidebar__link" href="{{ link.url }}">{{ link.title }}</a>
-    {%- endunless -%}
-  {%- endfor -%}
-  {%- comment -%} Mobile-only extras {%- endcomment -%}
-  <hr class="am-sidebar__divider">
-  <a class="am-sidebar__link" href="{{ routes.search_url }}">Search</a>
-  <a class="am-sidebar__link" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}">Account</a>
-</div>
+    function closeMenu() {
+      drawer.classList.remove('is-open');
+      overlay.classList.remove('is-open');
+
+      drawer.setAttribute('aria-hidden', 'true');
+      overlay.setAttribute('aria-hidden', 'true');
+
+      openButtons.forEach(function (button) {
+        button.setAttribute('aria-expanded', 'false');
+      });
+
+      document.body.style.overflow = '';
+
+      if (openButtons.length) {
+        openButtons[0].focus();
+      }
+    }
+
+    openButtons.forEach(function (button) {
+      button.addEventListener('click', openMenu);
+    });
+
+    if (closeButton) {
+      closeButton.addEventListener('click', closeMenu);
+    }
+
+    overlay.addEventListener('click', closeMenu);
+
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (
+        event.key === 'Escape' &&
+        drawer.classList.contains('is-open')
+      ) {
+        closeMenu();
+      }
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -355,7 +608,18 @@
       "type": "text",
       "id": "announcement_text",
       "label": "Announcement text",
-      "default": "FREE UK DELIVERY ON ALL ORDERS ·"
+      "default": "FREE UK DELIVERY FOR ATELIER CIRCLE MEMBERS ·"
+    },
+    {
+      "type": "text",
+      "id": "announcement_link_label",
+      "label": "Announcement link label",
+      "default": "JOIN HERE"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link"
     },
     {
       "type": "image_picker",

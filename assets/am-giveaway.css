@@ -546,8 +546,3 @@ body:has(.am-giveaway) .smile-launcher-frame-container,
 body:has(.am-giveaway) iframe[src*="smile.io"] {
   display: none !important;
 }
-body:has(.am-giveaway) iframe[src*="chatway"],
-body:has(.am-giveaway) [id*="chatway"],
-body:has(.am-giveaway) [class*="chatway"] {
-  display: none !important;
-}

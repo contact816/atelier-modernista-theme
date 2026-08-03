@@ -182,8 +182,8 @@ nav.breadcrumbs,
   font-weight: 400 !important;
   letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
-  background-color: var(--am-ink) !important;
-  color: var(--am-cream) !important;
+  background-color: #f7eed8 !important;
+  color: #0047AB !important;
 }
 
 

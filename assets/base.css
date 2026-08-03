@@ -3595,12 +3595,12 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
-/* FIXED GIVEAWAY SIDE BADGE */
+/* FIXED CIRCULAR GIVEAWAY BADGE */
 
 .utility-bar {
   position: fixed !important;
   top: 42% !important;
-  right: 0 !important;
+  right: 22px !important;
   z-index: 40 !important;
   width: auto !important;
   min-height: 0 !important;
@@ -3622,29 +3622,45 @@ details-disclosure > details {
 }
 
 .utility-bar .announcement-bar__link {
+  position: relative !important;
   display: flex !important;
-  width: 170px !important;
-  min-height: 110px !important;
+  width: 148px !important;
+  height: 148px !important;
+  min-height: 148px !important;
   margin: 0 !important;
-  padding: 20px 18px !important;
+  padding: 22px !important;
   align-items: center !important;
   justify-content: center !important;
   color: #ffffff !important;
   background: #0047ab !important;
-  border: 2px solid #0047ab !important;
-  border-right: 0 !important;
-  border-radius: 24px 0 0 24px !important;
-  box-shadow: 0 10px 30px rgba(0, 71, 171, 0.18) !important;
+  border: 3px solid #ffffff !important;
+  border-radius: 50% !important;
+  box-shadow:
+    0 0 0 4px #0047ab,
+    0 12px 30px rgba(0, 71, 171, 0.28) !important;
   text-decoration: none !important;
+  transform: rotate(-6deg);
+  animation: am-giveaway-pulse 2.8s ease-in-out infinite;
   transition:
-    width 0.2s ease,
-    background-color 0.2s ease !important;
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease !important;
+}
+
+.utility-bar .announcement-bar__link::after {
+  position: absolute;
+  inset: -9px;
+  border: 2px solid rgba(0, 71, 171, 0.35);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
 }
 
 .utility-bar .announcement-bar__message,
 .utility-bar .announcement-bar__link span,
 .utility-bar .announcement-bar__link p {
   width: auto !important;
+  max-width: 105px !important;
   margin: 0 !important;
   padding: 0 !important;
   color: #ffffff !important;
@@ -3653,18 +3669,19 @@ details-disclosure > details {
   background-image: none !important;
   font-size: 16px !important;
   font-weight: 800 !important;
-  letter-spacing: 0.08em !important;
-  line-height: 1.4 !important;
+  letter-spacing: 0.07em !important;
+  line-height: 1.35 !important;
   text-align: center !important;
 }
 
 .utility-bar .announcement-bar__link:hover,
 .utility-bar .announcement-bar__link:focus-visible {
-  width: 185px !important;
   color: #0047ab !important;
   background: #ffffff !important;
-  outline: 2px solid #0047ab !important;
-  outline-offset: -2px !important;
+  border-color: #0047ab !important;
+  outline: 0 !important;
+  transform: rotate(0deg) scale(1.06);
+  animation-play-state: paused;
 }
 
 .utility-bar .announcement-bar__link:hover *,
@@ -3673,42 +3690,59 @@ details-disclosure > details {
   background: transparent !important;
 }
 
-/* It is redundant on the giveaway landing page */
+/* Do not show it on the giveaway itself */
 
 body:has(.am-giveaway) .utility-bar {
   display: none !important;
+}
+
+@keyframes am-giveaway-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 4px #0047ab,
+      0 12px 30px rgba(0, 71, 171, 0.24);
+    transform: rotate(-6deg) scale(1);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 9px rgba(0, 71, 171, 0.18),
+      0 15px 34px rgba(0, 71, 171, 0.34);
+    transform: rotate(-4deg) scale(1.035);
+  }
 }
 
 /* MOBILE */
 
 @media screen and (max-width: 749px) {
   .utility-bar {
-    top: 48% !important;
+    top: 44% !important;
+    right: 12px !important;
   }
 
   .utility-bar .announcement-bar__link {
-    width: 118px !important;
-    min-height: 86px !important;
-    padding: 14px 11px !important;
-    border-radius: 18px 0 0 18px !important;
+    width: 108px !important;
+    height: 108px !important;
+    min-height: 108px !important;
+    padding: 14px !important;
+    border-width: 2px !important;
   }
 
   .utility-bar .announcement-bar__message,
   .utility-bar .announcement-bar__link span,
   .utility-bar .announcement-bar__link p {
-    font-size: 13px !important;
-    letter-spacing: 0.05em !important;
-    line-height: 1.35 !important;
-  }
-
-  .utility-bar .announcement-bar__link:hover,
-  .utility-bar .announcement-bar__link:focus-visible {
-    width: 128px !important;
+    max-width: 82px !important;
+    font-size: 12px !important;
+    letter-spacing: 0.04em !important;
+    line-height: 1.3 !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .utility-bar .announcement-bar__link {
+    animation: none !important;
+    transform: none !important;
     transition: none !important;
   }
 }

@@ -39,36 +39,10 @@
         "logo": "shopify://shop_images/Transparemt_Logo.png",
         "menu": "main-menu"
       }
-    },
-    "announcement_bar_pkLgQm": {
-      "type": "announcement-bar",
-      "blocks": {
-        "announcement_qbDdwR": {
-          "type": "announcement",
-          "settings": {
-            "text": "WIN AN AM  PIECE UP TO £100 Enter",
-            "link": "/pages/art-you-can-wear-giveaway"
-          }
-        }
-      },
-      "block_order": [
-        "announcement_qbDdwR"
-      ],
-      "name": "t:sections.announcement-bar.presets.name",
-      "settings": {
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "color_scheme": "scheme-b2d5fc5e-66e0-41bc-b017-9a6bcda8befb",
-        "show_line_separator": true,
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false
-      }
     }
   },
   "order": [
     "header",
-    "am_nav_bar",
-    "announcement_bar_pkLgQm"
+    "am_nav_bar"
   ]
 }

@@ -533,61 +533,87 @@
   }
   /* MOBILE GIVEAWAY BUTTON */
 
+/* GIVEAWAY BUTTON — DESKTOP AND MOBILE */
+
 .am-mobile-giveaway {
-  display: none;
+  position: fixed;
+  top: 104px;
+  right: 28px;
+  z-index: 1000;
+
+  display: flex;
+  width: 112px;
+  height: 112px;
+  padding: 13px;
+  box-sizing: border-box;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+
+  color: #ffffff;
+  background: #0047ab;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(0, 71, 171, 0.28);
+
+  font-family: var(--font-body-family, Garamond, sans-serif);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
+  text-align: center;
+  text-decoration: none;
+
+  transform: rotate(6deg);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
+
+.am-mobile-giveaway strong {
+  color: inherit;
+  font-family: var(--font-heading-family, Garamond, serif);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.am-mobile-giveaway:hover,
+.am-mobile-giveaway:focus-visible {
+  color: #0047ab;
+  background: #ffffff;
+  border-color: #0047ab;
+  outline: none;
+  transform: rotate(8deg) scale(1.04);
+}
+
+/* MOBILE */
 
 @media screen and (max-width: 749px) {
   .am-mobile-giveaway {
-    position: fixed;
     top: 96px;
     right: 10px;
-    z-index: 90;
+    z-index: 1000;
 
-    display: flex;
     width: 92px;
     height: 92px;
     padding: 10px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: 2px;
 
-    color: #ffffff;
-    background: #0047ab;
-    border: 3px solid #ffffff;
-    border-radius: 50%;
-    box-shadow: 0 8px 24px rgba(0, 71, 171, 0.28);
-
-    font-family: var(--font-body-family, Garamond, sans-serif);
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    line-height: 1.1;
-    text-align: center;
-    text-decoration: none;
-
-    transform: rotate(6deg);
-    transition:
-      transform 0.2s ease,
-      background-color 0.2s ease;
+    font-size: 0.85rem;
   }
 
   .am-mobile-giveaway strong {
-    color: inherit;
-    font-family: var(--font-heading-family, Garamond, serif);
-    font-size: 1.0rem;
-    font-weight: 800;
-    line-height: 1.05;
+    font-size: 0.82rem;
   }
+}
 
-  .am-mobile-giveaway:active,
-  .am-mobile-giveaway:focus-visible {
-    color: #0047ab;
-    background: #ffffff;
-    border-color: #0047ab;
-    outline: none;
-    transform: rotate(8deg) scale(1.04);
+@media (prefers-reduced-motion: reduce) {
+  .am-mobile-giveaway {
+    transition: none;
   }
 }
 

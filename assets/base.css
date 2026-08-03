@@ -3639,7 +3639,7 @@ details-disclosure > details {
     0 0 0 4px #0047ab,
     0 12px 30px rgba(0, 71, 171, 0.28) !important;
   text-decoration: none !important;
-  transform: rotate(-6deg);
+  transform: rotate(6deg);
   animation: am-giveaway-pulse 2.8s ease-in-out infinite;
   transition:
     color 0.2s ease,
@@ -3709,7 +3709,7 @@ body:has(.am-giveaway) .utility-bar {
     box-shadow:
       0 0 0 9px rgba(0, 71, 171, 0.18),
       0 15px 34px rgba(0, 71, 171, 0.34);
-    transform: rotate(-4deg) scale(1.035);
+    transform: rotate(8deg) scale(1.04);
   }
 }
 

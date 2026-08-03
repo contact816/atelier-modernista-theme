@@ -572,3 +572,11 @@
   background-color: #0047ab !important;
   opacity: 1 !important;
 }
+/* RESPECT THE GIVEAWAY FORM LOCK'S HIDDEN STATE */
+
+.am-giveaway__form-lock[hidden] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}

@@ -39,33 +39,8 @@
         "menu": "main-menu"
       }
     },
-    "announcement_bar_CqQckw": {
-      "type": "announcement-bar",
-      "name": "t:sections.announcement-bar.presets.name",
-      "settings": {
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "color_scheme": "scheme-3",
-        "show_line_separator": true,
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false
-      }
-    },
     "announcement_bar_pkLgQm": {
       "type": "announcement-bar",
-      "blocks": {
-        "announcement_x9nXyJ": {
-          "type": "announcement",
-          "settings": {
-            "text": "Enter Our Summer Competition! - WIN  ONE PIECE OF YOUR CHOICE UP TO £100 · ENTER FREE HERE→",
-            "link": "/pages/art-you-can-wear-giveaway"
-          }
-        }
-      },
-      "block_order": [
-        "announcement_x9nXyJ"
-      ],
       "name": "t:sections.announcement-bar.presets.name",
       "settings": {
         "auto_rotate": false,
@@ -76,12 +51,22 @@
         "enable_country_selector": false,
         "enable_language_selector": false
       }
+    },
+    "custom_liquid_P6dUVP": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "/* GIVEAWAY BADGE */\n\n.utility-bar {\n  min-height: 0;\n  padding: 12px 16px;\n  background: #ffffff !important;\n  border: 0 !important;\n}\n\n.announcement-bar,\n.announcement-bar-slider {\n  background: transparent !important;\n}\n\n.announcement-bar__link {\n  display: flex !important;\n  width: fit-content !important;\n  max-width: calc(100vw - 32px);\n  min-height: 48px;\n  margin: 0 auto;\n  padding: 12px 24px;\n  align-items: center;\n  justify-content: center;\n  color: #ffffff !important;\n  background: #0047ab !important;\n  border: 2px solid #0047ab;\n  border-radius: 999px;\n  text-decoration: none;\n  box-shadow: none;\n  transition:\n    color 0.2s ease,\n    background-color 0.2s ease;\n}\n\n.announcement-bar__message {\n  margin: 0;\n  padding: 0 !important;\n  color: inherit !important;\n  font-size: 1.2rem;\n  font-weight: 800;\n  letter-spacing: 0.1em;\n  line-height: 1.3;\n  text-align: center;\n}\n\n.announcement-bar__link:hover,\n.announcement-bar__link:focus-visible {\n  color: #0047ab !important;\n  background: #ffffff !important;\n  outline: 2px solid #0047ab;\n  outline-offset: 3px;\n}\n\n@media screen and (max-width: 749px) {\n  .utility-bar {\n    padding: 10px 12px;\n  }\n\n  .announcement-bar__link {\n    min-height: 44px;\n    padding: 10px 18px;\n  }\n\n  .announcement-bar__message {\n    font-size: 1rem;\n    letter-spacing: 0.06em;\n  }\n}",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
     "header",
     "am_nav_bar",
-    "announcement_bar_CqQckw",
-    "announcement_bar_pkLgQm"
+    "announcement_bar_pkLgQm",
+    "custom_liquid_P6dUVP"
   ]
 }

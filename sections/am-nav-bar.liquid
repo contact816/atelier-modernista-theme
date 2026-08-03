@@ -508,6 +508,17 @@
       Bag ({{ cart.item_count }})
     </a>
   </aside>
+  {%- unless request.path == '/pages/art-you-can-wear-giveaway' -%}
+  <a
+    class="am-mobile-giveaway"
+    href="/pages/art-you-can-wear-giveaway"
+    aria-label="Enter the Atelier Modernista giveaway"
+  >
+    <span>WIN ANY</span>
+    <strong>PIECE UP<br>TO £100</strong>
+    <span aria-hidden="true">→</span>
+  </a>
+{%- endunless -%}
 </section>
 
 <style>

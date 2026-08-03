@@ -3746,3 +3746,24 @@ body:has(.am-giveaway) .utility-bar {
     transition: none !important;
   }
 }
+/* POSITION GIVEAWAY BADGE BELOW HEADER */
+
+.utility-bar {
+  top: 300px !important;
+  right: 22px !important;
+  transform: none !important;
+}
+
+@media screen and (max-width: 749px) {
+  .utility-bar {
+    top: 280px !important;
+    right: 10px !important;
+    transform: none !important;
+  }
+
+  .utility-bar .announcement-bar__link {
+    width: 100px !important;
+    height: 100px !important;
+    min-height: 100px !important;
+  }
+}

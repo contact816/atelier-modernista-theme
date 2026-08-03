@@ -2,7 +2,7 @@
 
 {%- liquid
   assign form_id = section.settings.klaviyo_form_id | strip
-  assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveaway-full-terms'
+  assign terms_url = section.settings.terms_url | default: '/pages/art-you-can-wear-giveaway-full-terms'
   assign explore_url = section.settings.button_link | default: '/collections/the-atelier-collection'
 -%}
 
@@ -359,10 +359,10 @@
       "info": "Enter the six-character form ID only, for example AbC123."
     },
     {
-      "type": "url",
-      "id": "terms_url",
-      "label": "Full terms page"
-    }
+  "type": "url",
+  "id": "terms_url",
+  "label": "Full terms page"
+}
   ],
   "presets": [
     {

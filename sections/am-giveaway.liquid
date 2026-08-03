@@ -1,9 +1,6 @@
 {{ 'am-giveaway.css' | asset_url | stylesheet_tag }}
 
-{%- liquid
-  assign terms_url = section.settings.terms_url | default: '/pages/art-you-can-wear-giveaway-terms'
-  assign form_id = section.settings.klaviyo_form_id | strip
--%}
+assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveaway-full-terms'
 
 <section
   class="am-giveaway"

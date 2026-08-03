@@ -1,13 +1,16 @@
 {{ 'am-giveaway.css' | asset_url | stylesheet_tag }}
 
-assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveaway-full-terms'
+{%- liquid
+  assign form_id = section.settings.klaviyo_form_id | strip
+  assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveaway-full-terms'
+  assign explore_url = section.settings.button_link | default: '/collections/the-atelier-collection'
+-%}
 
 <section
   class="am-giveaway"
   id="am-giveaway-{{ section.id }}"
   aria-labelledby="am-giveaway-title-{{ section.id }}"
 >
-
   <div class="am-giveaway__shell">
 
     <!-- IMPORTANT GIVEAWAY INFORMATION -->
@@ -29,7 +32,11 @@ assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveawa
       </div>
 
       <div class="am-giveaway__terms">
-        <a href="{{ terms_url }}">
+        <a
+          href="{{ terms_url }}"
+          target="_blank"
+          rel="noopener"
+        >
           FULL GIVEAWAY TERMS
         </a>
       </div>
@@ -48,7 +55,7 @@ assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveawa
           </p>
 
           <div class="am-giveaway__prize-stamp">
-            <span>CHOOSE ANY PIECE</span>
+            <span>CHOOSE ANY AVAILABLE PIECE</span>
             <span>UP TO</span>
             <strong>£100</strong>
           </div>
@@ -64,13 +71,32 @@ assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveawa
             {{ section.settings.intro }}
           </div>
 
-          
+          <div class="am-giveaway__actions">
+
             <a
               class="am-giveaway__button"
+              href="{{ explore_url }}"
+              target="_blank"
+              rel="noopener"
+            >
+              {{ section.settings.button_label | default: 'EXPLORE THE COLLECTION' | escape }}
+              <span aria-hidden="true">→</span>
+            </a>
+
+            <a
+              class="am-giveaway__form-arrow"
               href="#am-giveaway-entry-{{ section.id }}"
-          >
-            {{ section.settings.button_label | default: 'ENTER THE GIVEAWAY' | escape }}
-          </a>
+            >
+              <span class="am-giveaway__form-arrow--desktop">
+                ENTER THE DRAW →
+              </span>
+
+              <span class="am-giveaway__form-arrow--mobile">
+                ENTER THE DRAW ↓
+              </span>
+            </a>
+
+          </div>
 
           <p class="am-giveaway__micro">
             Free entry · UK residents · 18+ · One entry per person
@@ -86,17 +112,45 @@ assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveawa
             <span class="am-giveaway__countdown-label">Closes in</span>
             <span class="am-giveaway__countdown-value">—</span>
           </p>
-            <a
-              class="am-giveaway__social"
+
+          <a
+            class="am-giveaway__social"
             href="https://www.instagram.com/ateliermodernista"
             target="_blank"
             rel="noopener"
           >
-            <svg class="am-giveaway__social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/>
-              <circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
-              <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/>
+            <svg
+              class="am-giveaway__social-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <rect
+                x="2.5"
+                y="2.5"
+                width="19"
+                height="19"
+                rx="5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="4.4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              />
+              <circle
+                cx="17.4"
+                cy="6.6"
+                r="1.1"
+                fill="currentColor"
+              />
             </svg>
+
             <span>@ateliermodernista</span>
           </a>
 
@@ -105,7 +159,6 @@ assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveawa
         <div class="am-giveaway__visual">
 
           {%- if section.settings.image != blank -%}
-
             {{
               section.settings.image
               | image_url: width: 1600
@@ -117,13 +170,10 @@ assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveawa
                 fetchpriority: 'high',
                 alt: section.settings.image.alt
             }}
-
           {%- else -%}
-
             <div class="am-giveaway__image-placeholder">
               <span>ADD GIVEAWAY IMAGE</span>
             </div>
-
           {%- endif -%}
 
         </div>
@@ -142,26 +192,24 @@ assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveawa
           <div class="am-giveaway__form">
 
             {%- if form_id != blank -%}
-
               <div class="klaviyo-form-{{ form_id | escape }}"></div>
-
             {%- else -%}
-
               <div class="am-giveaway__form-placeholder">
-
                 <strong>Klaviyo form space</strong>
 
                 <p>
                   Add your Klaviyo embed form ID in the Theme Editor.
                 </p>
-
               </div>
-
             {%- endif -%}
 
           </div>
 
-          <div class="am-giveaway__form-lock" data-am-form-lock hidden>
+          <div
+            class="am-giveaway__form-lock"
+            data-am-form-lock
+            hidden
+          >
             <p data-am-form-lock-message></p>
           </div>
 
@@ -182,63 +230,84 @@ assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveawa
   </div>
 
   <script>
-  (function () {
-    var root = document.querySelector('#am-giveaway-{{ section.id }}');
-    if (!root) return;
+    (function () {
+      var root = document.querySelector('#am-giveaway-{{ section.id }}');
+      if (!root) return;
 
-    var countdownEl = root.querySelector('[data-am-countdown]');
-    var lockEl = root.querySelector('[data-am-form-lock]');
-    var formEl = root.querySelector('.am-giveaway__form');
-    var lockMsgEl = lockEl ? lockEl.querySelector('[data-am-form-lock-message]') : null;
-    if (!countdownEl) return;
+      var countdownEl = root.querySelector('[data-am-countdown]');
+      var lockEl = root.querySelector('[data-am-form-lock]');
+      var formEl = root.querySelector('.am-giveaway__form');
+      var lockMsgEl = lockEl
+        ? lockEl.querySelector('[data-am-form-lock-message]')
+        : null;
 
-    var openDate = new Date(countdownEl.dataset.open);
-    var closeDate = new Date(countdownEl.dataset.close);
-    var labelEl = countdownEl.querySelector('.am-giveaway__countdown-label');
-    var valueEl = countdownEl.querySelector('.am-giveaway__countdown-value');
+      if (!countdownEl) return;
 
-    function format(ms) {
-      var totalMinutes = Math.floor(ms / 60000);
-      var days = Math.floor(totalMinutes / 1440);
-      var hours = Math.floor((totalMinutes % 1440) / 60);
-      var minutes = totalMinutes % 60;
-      if (days > 0) return days + 'd ' + hours + 'h ' + minutes + 'm';
-      if (hours > 0) return hours + 'h ' + minutes + 'm';
-      return minutes + 'm';
-    }
+      var openDate = new Date(countdownEl.dataset.open);
+      var closeDate = new Date(countdownEl.dataset.close);
+      var labelEl = countdownEl.querySelector(
+        '.am-giveaway__countdown-label'
+      );
+      var valueEl = countdownEl.querySelector(
+        '.am-giveaway__countdown-value'
+      );
 
-    function setLock(isLocked, message) {
-      if (!lockEl || !formEl) return;
-      lockEl.hidden = !isLocked;
-      formEl.classList.toggle('is-locked', isLocked);
-      if (isLocked && lockMsgEl) lockMsgEl.textContent = message;
-    }
+      function format(ms) {
+        var totalMinutes = Math.floor(ms / 60000);
+        var days = Math.floor(totalMinutes / 1440);
+        var hours = Math.floor((totalMinutes % 1440) / 60);
+        var minutes = totalMinutes % 60;
 
-    function tick() {
-      var now = new Date();
+        if (days > 0) {
+          return days + 'd ' + hours + 'h ' + minutes + 'm';
+        }
 
-      if (now < openDate) {
-        labelEl.textContent = 'Opens in';
-        valueEl.textContent = format(openDate - now);
-        setLock(true, 'Entries open 3 August 2026.');
-        return;
+        if (hours > 0) {
+          return hours + 'h ' + minutes + 'm';
+        }
+
+        return minutes + 'm';
       }
 
-      if (now < closeDate) {
-        labelEl.textContent = 'Closes in';
-        valueEl.textContent = format(closeDate - now);
-        setLock(false, '');
-        return;
+      function setLock(isLocked, message) {
+        if (!lockEl || !formEl) return;
+
+        lockEl.hidden = !isLocked;
+        formEl.classList.toggle('is-locked', isLocked);
+
+        if (lockMsgEl) {
+          lockMsgEl.textContent = isLocked ? message : '';
+        }
       }
 
-      labelEl.textContent = 'Entries closed';
-      valueEl.textContent = '';
-      setLock(true, 'Entries have closed. Thank you for your interest.');
-    }
+      function tick() {
+        var now = new Date();
 
-    tick();
-    setInterval(tick, 60000);
-  })();
+        if (now < openDate) {
+          labelEl.textContent = 'Opens in';
+          valueEl.textContent = format(openDate - now);
+          setLock(true, 'Entries open 3 August 2026.');
+          return;
+        }
+
+        if (now < closeDate) {
+          labelEl.textContent = 'Closes in';
+          valueEl.textContent = format(closeDate - now);
+          setLock(false, '');
+          return;
+        }
+
+        labelEl.textContent = 'Entries closed';
+        valueEl.textContent = '';
+        setLock(
+          true,
+          'Entries have closed. Thank you for your interest.'
+        );
+      }
+
+      tick();
+      setInterval(tick, 60000);
+    })();
   </script>
 
 </section>
@@ -265,13 +334,18 @@ assign terms_url = 'https://ateliermodernista.com/pages/art-you-can-wear-giveawa
       "type": "richtext",
       "id": "intro",
       "label": "Introduction",
-      "default": "<p>One winner can choose their favourite available Atelier Modernista piece of their choice, up to £100.</p>"
+      "default": "<p>One winner can choose their favourite available Atelier Modernista piece, up to £100.</p>"
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Button label",
-      "default": "ENTER THE GIVEAWAY"
+      "label": "Explore button label",
+      "default": "EXPLORE THE COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Explore button link"
     },
     {
       "type": "image_picker",

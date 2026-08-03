@@ -531,6 +531,71 @@
   .shopify-section-group-header-group:has(.am-site-header) .header-wrapper {
     display: none !important;
   }
+  /* MOBILE GIVEAWAY BUTTON */
+
+.am-mobile-giveaway {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .am-mobile-giveaway {
+    position: fixed;
+    top: 142px;
+    right: 12px;
+    z-index: 90;
+
+    display: flex;
+    width: 108px;
+    height: 108px;
+    padding: 13px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+
+    color: #ffffff;
+    background: #0047ab;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(0, 71, 171, 0.28);
+
+    font-family: var(--font-body-family, Arial, sans-serif);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    line-height: 1.1;
+    text-align: center;
+    text-decoration: none;
+
+    transform: rotate(6deg);
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .am-mobile-giveaway strong {
+    color: inherit;
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.05;
+  }
+
+  .am-mobile-giveaway:active,
+  .am-mobile-giveaway:focus-visible {
+    color: #0047ab;
+    background: #ffffff;
+    border-color: #0047ab;
+    outline: none;
+    transform: rotate(8deg) scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .am-mobile-giveaway {
+    transition: none;
+  }
+}
 </style>
 
 <script>

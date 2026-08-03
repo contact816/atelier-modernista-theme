@@ -12,13 +12,13 @@
     "am_giveaway_main": {
       "type": "am-giveaway",
       "settings": {
-        "eyebrow": "THE ATELIER MODERNISTA GIVEAWAY",
+        "eyebrow": "THE ATELIER MODERNISTA SUMMER GIVEAWAY!",
         "heading": "Win the piece you love the most!",
         "intro": "<p>One winner can choose a favourite available Atelier Modernista piece of their choice, up to £100.</p>",
         "button_label": "Explore The Collection",
+        "button_link": "shopify://collections/the-colour-edit",
         "image": "shopify://shop_images/COLLAGE_COVER_for_Best_Loved_Pieces.png",
-        "klaviyo_form_id": "Vp6LGt",
-        "terms_url": "https://ateliermodernista.com/pages/art-you-can-wear-giveaway-full-terms"
+        "klaviyo_form_id": "Vp6LGt"
       }
     }
   },

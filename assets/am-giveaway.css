@@ -580,3 +580,22 @@
   pointer-events: none !important;
   opacity: 0 !important;
 }
+/* SHOW ONLY THE CORRECT ENTER-THE-DRAW LINK */
+
+.am-giveaway__form-arrow--desktop {
+  display: inline !important;
+}
+
+.am-giveaway__form-arrow--mobile {
+  display: none !important;
+}
+
+@media screen and (max-width: 749px) {
+  .am-giveaway__form-arrow--desktop {
+    display: none !important;
+  }
+
+  .am-giveaway__form-arrow--mobile {
+    display: inline !important;
+  }
+}

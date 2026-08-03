@@ -3595,18 +3595,26 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
-/* GIVEAWAY ANNOUNCEMENT BADGE */
+/* FIXED GIVEAWAY SIDE BADGE */
 
 .utility-bar {
+  position: fixed !important;
+  top: 42% !important;
+  right: 0 !important;
+  z-index: 40 !important;
+  width: auto !important;
   min-height: 0 !important;
-  padding: 10px 16px !important;
-  background: #ffffff !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
   border: 0 !important;
+  transform: translateY(-50%);
 }
 
 .utility-bar .announcement-bar,
 .utility-bar .announcement-bar-slider,
 .utility-bar .slideshow__slide {
+  width: auto !important;
   min-height: 0 !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -3615,19 +3623,22 @@ details-disclosure > details {
 
 .utility-bar .announcement-bar__link {
   display: flex !important;
-  width: fit-content !important;
-  max-width: calc(100vw - 32px) !important;
-  min-height: 46px !important;
-  margin: 0 auto !important;
-  padding: 10px 30px !important;
+  width: 170px !important;
+  min-height: 110px !important;
+  margin: 0 !important;
+  padding: 20px 18px !important;
   align-items: center !important;
   justify-content: center !important;
-  color: #feedd3 !important;
+  color: #ffffff !important;
   background: #0047ab !important;
-  border: 0 !important;
-  border-radius: 999px !important;
-  box-shadow: none !important;
+  border: 2px solid #0047ab !important;
+  border-right: 0 !important;
+  border-radius: 24px 0 0 24px !important;
+  box-shadow: 0 10px 30px rgba(0, 71, 171, 0.18) !important;
   text-decoration: none !important;
+  transition:
+    width 0.2s ease,
+    background-color 0.2s ease !important;
 }
 
 .utility-bar .announcement-bar__message,
@@ -3636,48 +3647,68 @@ details-disclosure > details {
   width: auto !important;
   margin: 0 !important;
   padding: 0 !important;
-  color: #feedd3 !important;
+  color: #ffffff !important;
   background: transparent !important;
   background-color: transparent !important;
   background-image: none !important;
-  font-size: 15px !important;
+  font-size: 16px !important;
   font-weight: 800 !important;
-  letter-spacing: 0.11em !important;
-  line-height: 1.3 !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.4 !important;
   text-align: center !important;
 }
 
 .utility-bar .announcement-bar__link:hover,
 .utility-bar .announcement-bar__link:focus-visible {
-  color: #ffffff !important;
-  background: #00398a !important;
+  width: 185px !important;
+  color: #0047ab !important;
+  background: #ffffff !important;
   outline: 2px solid #0047ab !important;
-  outline-offset: 2px !important;
+  outline-offset: -2px !important;
 }
 
 .utility-bar .announcement-bar__link:hover *,
 .utility-bar .announcement-bar__link:focus-visible * {
-  color: #ffffff !important;
+  color: #0047ab !important;
   background: transparent !important;
 }
 
+/* It is redundant on the giveaway landing page */
+
+body:has(.am-giveaway) .utility-bar {
+  display: none !important;
+}
+
+/* MOBILE */
+
 @media screen and (max-width: 749px) {
   .utility-bar {
-    padding: 8px !important;
+    top: 48% !important;
   }
 
   .utility-bar .announcement-bar__link {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: 44px !important;
-    padding: 9px 14px !important;
-    border-radius: 12px !important;
+    width: 118px !important;
+    min-height: 86px !important;
+    padding: 14px 11px !important;
+    border-radius: 18px 0 0 18px !important;
   }
 
   .utility-bar .announcement-bar__message,
   .utility-bar .announcement-bar__link span,
   .utility-bar .announcement-bar__link p {
     font-size: 13px !important;
-    letter-spacing: 0.06em !important;
+    letter-spacing: 0.05em !important;
+    line-height: 1.35 !important;
+  }
+
+  .utility-bar .announcement-bar__link:hover,
+  .utility-bar .announcement-bar__link:focus-visible {
+    width: 128px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .utility-bar .announcement-bar__link {
+    transition: none !important;
   }
 }

@@ -3767,3 +3767,48 @@ body:has(.am-giveaway) .utility-bar {
     min-height: 100px !important;
   }
 }
+/* FORCE FLOATING GIVEAWAY BADGE ON MOBILE */
+
+@media screen and (max-width: 989px) {
+  body .am-floating-giveaway {
+    position: fixed !important;
+    top: clamp(300px, 38vh, 380px) !important;
+    right: 10px !important;
+    bottom: auto !important;
+    left: auto !important;
+    z-index: 99999 !important;
+
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+
+    width: 104px !important;
+    height: 104px !important;
+    min-width: 104px !important;
+    min-height: 104px !important;
+    padding: 13px !important;
+
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    color: #ffffff !important;
+    background: #0047ab !important;
+    border-radius: 50% !important;
+  }
+
+  body .am-floating-giveaway span {
+    display: block !important;
+    visibility: visible !important;
+    color: #ffffff !important;
+    font-size: 10px !important;
+  }
+
+  body .am-floating-giveaway strong {
+    display: block !important;
+    visibility: visible !important;
+    color: #ffffff !important;
+    font-size: 16px !important;
+  }
+}

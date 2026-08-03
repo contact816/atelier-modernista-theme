@@ -41,6 +41,18 @@
     },
     "announcement_bar_pkLgQm": {
       "type": "announcement-bar",
+      "blocks": {
+        "announcement_qbDdwR": {
+          "type": "announcement",
+          "settings": {
+            "text": "enter our SUMMER COMPETITION! WIN ANY PIECE YOU LIKE UP TO £100 ·closes aug 31st  ENTER HERE!",
+            "link": "/pages/art-you-can-wear-giveaway"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_qbDdwR"
+      ],
       "name": "t:sections.announcement-bar.presets.name",
       "settings": {
         "auto_rotate": false,

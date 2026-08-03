@@ -2862,7 +2862,7 @@ html body .am-circle-invite .am-circle-invite__heading {
 .announcement-bar__link:hover,
 .announcement-bar__link:focus-visible {
   color: #0047ab !important;
-  background: #ffffff !important;
+  background: #e8d559ff !important;
   outline: 2px solid #0047ab;
   outline-offset: 3px;
 }

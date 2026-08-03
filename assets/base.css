@@ -3702,7 +3702,7 @@ body:has(.am-giveaway) .utility-bar {
     box-shadow:
       0 0 0 4px #0047ab,
       0 12px 30px rgba(0, 71, 171, 0.24);
-    transform: rotate(-6deg) scale(1);
+    transform: rotate(6deg) scale(1);
   }
 
   50% {

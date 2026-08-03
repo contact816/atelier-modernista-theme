@@ -178,9 +178,9 @@ nav.breadcrumbs,
 .announcement-bar__message,
 .announcement-bar p {
   font-family: var(--am-sans) !important;
-  font-size: 0.7rem !important;
+  font-size: 1.2rem !important;
   font-weight: 400 !important;
-  letter-spacing: 0.1em !important;
+  letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
   background-color: var(--am-ink) !important;
   color: var(--am-cream) !important;

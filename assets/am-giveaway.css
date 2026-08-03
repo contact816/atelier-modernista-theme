@@ -539,10 +539,3 @@
     transition: none;
   }
 }
-/* KEEP THE GIVEAWAY FORM CLEAR OF FLOATING WIDGETS */
-
-body:has(.am-giveaway) #smile-ui-container,
-body:has(.am-giveaway) .smile-launcher-frame-container,
-body:has(.am-giveaway) iframe[src*="smile.io"] {
-  display: none !important;
-}

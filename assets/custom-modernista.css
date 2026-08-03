@@ -2814,36 +2814,3 @@ html body .am-circle-invite .am-circle-invite__heading {
   font-size: 14px !important;
   color: var(--am-ink-light) !important;
 }
-/* KLAVIYO EMBED — REMOVE UNWANTED FADED STATE */
-
-.am-giveaway__form,
-.am-giveaway__form > div,
-.am-giveaway__form form,
-.am-giveaway__form form *,
-.am-giveaway__form [class*="klaviyo"],
-.am-giveaway__form [data-testid] {
-  opacity: 1 !important;
-  filter: none !important;
-}
-
-.am-giveaway__form label,
-.am-giveaway__form p,
-.am-giveaway__form input,
-.am-giveaway__form textarea,
-.am-giveaway__form select {
-  color: #111111 !important;
-}
-
-.am-giveaway__form input:not([type="checkbox"]):not([type="radio"]),
-.am-giveaway__form textarea,
-.am-giveaway__form select {
-  background-color: #ffffff !important;
-  border-color: #606a72 !important;
-}
-
-.am-giveaway__form button,
-.am-giveaway__form button * {
-  color: #ffffff !important;
-  background-color: #0047ab !important;
-  opacity: 1 !important;
-}

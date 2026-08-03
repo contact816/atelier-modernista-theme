@@ -54,11 +54,23 @@
     },
     "announcement_bar_pkLgQm": {
       "type": "announcement-bar",
+      "blocks": {
+        "announcement_x9nXyJ": {
+          "type": "announcement",
+          "settings": {
+            "text": "Enter Our Summer Competition! - WIN  ONE PIECE OF YOUR CHOICE UP TO £100 · ENTER FREE HERE→",
+            "link": "/pages/art-you-can-wear-giveaway"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_x9nXyJ"
+      ],
       "name": "t:sections.announcement-bar.presets.name",
       "settings": {
         "auto_rotate": false,
         "change_slides_speed": 5,
-        "color_scheme": "",
+        "color_scheme": "scheme-b2d5fc5e-66e0-41bc-b017-9a6bcda8befb",
         "show_line_separator": true,
         "show_social": false,
         "enable_country_selector": false,

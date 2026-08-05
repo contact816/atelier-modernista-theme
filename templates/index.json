@@ -638,6 +638,7 @@
         "text_wNNmFf",
         "button_KzqghL"
       ],
+      "custom_css": [],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/Screenshot_2026-08-05_at_14.50.45.png",
@@ -704,9 +705,9 @@
     "image_with_text_NMgRYF",
     "custom_liquid_Cc8kti",
     "blocks_pCY4Yr",
+    "custom_liquid_E3EimC",
     "blocks_Ew4x7P",
     "image_with_text_Kpxc3D",
-    "17835973092b47e3f7",
-    "custom_liquid_E3EimC"
+    "17835973092b47e3f7"
   ]
 }

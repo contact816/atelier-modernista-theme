@@ -607,6 +607,54 @@
       "name": "Header with logo",
       "settings": {}
     },
+    "image_with_text_Kpxc3D": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_dCRXeg": {
+          "type": "heading",
+          "settings": {
+            "heading": "Meet The Maker",
+            "heading_size": "h1"
+          }
+        },
+        "text_wNNmFf": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Emily's jewellery has a strong sculptural aesthetic. Pared back line, texture, pattern and colour are central to her practice.<br/></p><p>Emily has exhibited her work widely, from Goldsmiths’ Fair to MAD About Jewelry in New York. In addition to Atelier Modernista, her jewellery has been stocked by TOAST, San Francisco MOMA, Contemporary Applied Arts and the Scottish Gallery,.</p><p><strong>MATERIALS</strong></p><p>Working with 100% recycled silver and gold, Emily is known for combining these with colourful laminate, which started when she discovered samples of it in the Materials Collection at Central Saint Martins library in 2013. She also uses wood, paint, resin, precious stones and Keum Boo to add extra details. Laminate is paper and resin formed under extremely high pressure. Emily uses the brand Formica which you may be used to seeing on table tops and kitchens. It can have quite a mid-century modern feel, has a wonderful matt finish and the colour doesn’t fade. </p><p><strong>PROCESS</strong></p><p>Emily uses traditional jewellery and silversmithing techniques when working with precious metals.  Every piece is made and finished by hand.</p>",
+            "text_style": "subtitle"
+          }
+        },
+        "button_KzqghL": {
+          "type": "button",
+          "settings": {
+            "button_label": "Buy Emily's ORB Earrings",
+            "button_link": "https://admin.shopify.com/store/sitkwe-ez/products/11001214533969",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_dCRXeg",
+        "text_wNNmFf",
+        "button_KzqghL"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/Screenshot_2026-08-05_at_14.50.45.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "17835973092b47e3f7": {
       "type": "apps",
       "blocks": {
@@ -657,6 +705,7 @@
     "custom_liquid_Cc8kti",
     "blocks_pCY4Yr",
     "blocks_Ew4x7P",
+    "image_with_text_Kpxc3D",
     "17835973092b47e3f7",
     "custom_liquid_E3EimC"
   ]

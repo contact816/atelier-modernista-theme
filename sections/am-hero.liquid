@@ -218,11 +218,15 @@
   margin-right: -50vw;
 }
 
-/* Track */
+/* Track — background bleeds full width via .am-hero, but the actual
+   image + text content is capped so it doesn't stretch thin on wide
+   monitors. Bump max-width if you want it wider on ultra-wide screens. */
 .am-hero__track {
   position: relative;
   width: 100%;
   height: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
 }
 
 /* ── Slides ──────────────────────────────────────────────────── */
@@ -273,8 +277,11 @@
 }
 
 /* object-fit: contain — shows the whole image, uncropped, letterboxed
-   in the panel's own background colour rather than cutting off the shot */
-.am-hero__img {
+   in the panel's own background colour rather than cutting off the shot.
+   Selector is deliberately .am-hero .am-hero__image img (two classes +
+   element) to outrank pb-global.css's .am-hero__image img rule, which
+   sets object-fit: cover globally and was silently winning before. */
+.am-hero .am-hero__image img.am-hero__img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -714,4 +721,3 @@ h2.am-hero__headline em {
   ]
 }
 {% endschema %}
-

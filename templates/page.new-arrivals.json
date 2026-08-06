@@ -11,80 +11,55 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "custom_css": [],
       "settings": {
         "padding_top": 0,
         "padding_bottom": 0
       }
     },
-    "featured_product_ewRG7H": {
-      "type": "featured-product",
+    "rich_text_kpXkYg": {
+      "type": "rich-text",
       "blocks": {
-        "text_VyNHgD": {
+        "heading_MtrjXn": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Orb Earrings Are Here",
+            "heading_size": "h2"
+          }
+        },
+        "text_QVXnWC": {
           "type": "text",
           "settings": {
-            "text": "{{ section.settings.product.vendor }}",
-            "text_style": "uppercase"
+            "text": "<h4>Colourful, swinging, Calderesque earrings in bright fire-engine red or vivid yellow.</h4><h4></h4><h4>Made by artist Emily Kidson in London. </h4>"
           }
         },
-        "title_ie3HKT": {
-          "type": "title",
+        "button_tUJ8M4": {
+          "type": "button",
+          "disabled": true,
           "settings": {
-            "heading_size": "h1"
-          }
-        },
-        "price_A7cQD9": {
-          "type": "price",
-          "settings": {}
-        },
-        "variant_picker_4WFBMa": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "circle"
-          }
-        },
-        "quantity_selector_hRyXUe": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons_PiKFrm": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
-          }
-        },
-        "share_X4g6wH": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
           }
         }
       },
       "block_order": [
-        "text_VyNHgD",
-        "title_ie3HKT",
-        "price_A7cQD9",
-        "variant_picker_4WFBMa",
-        "quantity_selector_hRyXUe",
-        "buy_buttons_PiKFrm",
-        "share_X4g6wH"
+        "heading_MtrjXn",
+        "text_QVXnWC",
+        "button_tUJ8M4"
       ],
-      "name": "t:sections.featured-product.presets.name",
+      "name": "t:sections.rich-text.presets.name",
       "settings": {
-        "product": "red-orb-kidson-earrings",
+        "desktop_content_position": "center",
+        "content_alignment": "center",
         "color_scheme": "",
-        "secondary_background": false,
-        "media_size": "medium",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": false,
-        "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
       }
     },
     "featured_product_wQzDWt": {
@@ -156,11 +131,82 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "featured_product_ewRG7H": {
+      "type": "featured-product",
+      "blocks": {
+        "text_Eyn4QW": {
+          "type": "text",
+          "settings": {
+            "text": "Text block",
+            "text_style": "body"
+          }
+        },
+        "text_VyNHgD": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_ie3HKT": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_A7cQD9": {
+          "type": "price",
+          "settings": {}
+        },
+        "quantity_selector_hRyXUe": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_PiKFrm": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_X4g6wH": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_Eyn4QW",
+        "text_VyNHgD",
+        "title_ie3HKT",
+        "price_A7cQD9",
+        "quantity_selector_hRyXUe",
+        "buy_buttons_PiKFrm",
+        "share_X4g6wH"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "red-orb-kidson-earrings",
+        "color_scheme": "",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
-    "featured_product_ewRG7H",
-    "featured_product_wQzDWt"
+    "rich_text_kpXkYg",
+    "featured_product_wQzDWt",
+    "featured_product_ewRG7H"
   ]
 }

@@ -121,6 +121,46 @@
         "trust_3": "Free Shipping with The Atelier Circle"
       }
     },
+    "am_hero_carousel_mAGHzJ": {
+      "type": "am-hero-carousel",
+      "blocks": {
+        "slide_TijUnU": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2026-04-29_at_17.33.08.png",
+            "heading": "The Atelier Modernista Bookshop",
+            "subheading": "Explore the artists and writers who've influenced our approach.",
+            "button_text": "Visit The Atelier Modernista Bookshop",
+            "button_link": "https://ateliermodernista.com/pages/the-atelier-modernista-library",
+            "text_color": "light",
+            "overlay_opacity": 0
+          }
+        },
+        "slide_mAeUef": {
+          "type": "slide",
+          "settings": {
+            "heading": "",
+            "subheading": "",
+            "button_text": "",
+            "button_link": "",
+            "text_color": "light",
+            "overlay_opacity": 25
+          }
+        }
+      },
+      "block_order": [
+        "slide_TijUnU",
+        "slide_mAeUef"
+      ],
+      "name": "AM Hero Carousel",
+      "settings": {
+        "carousel_height": 700,
+        "mobile_height": 500,
+        "carousel_width": 70,
+        "first_slide_duration": 7,
+        "slide_duration": 4
+      }
+    },
     "pb_featured_products_ji63Ur": {
       "type": "pb-featured-products",
       "blocks": {
@@ -347,46 +387,6 @@
         "heading": "Shine Like An Arclight",
         "view_all_label": "View Vermeil",
         "view_all_url": "shopify://collections/the-vermeil-edit"
-      }
-    },
-    "am_hero_carousel_mAGHzJ": {
-      "type": "am-hero-carousel",
-      "blocks": {
-        "slide_TijUnU": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Screenshot_2026-04-29_at_17.33.08.png",
-            "heading": "The Atelier Modernista Bookshop",
-            "subheading": "Explore the artists and writers who've influenced our approach.",
-            "button_text": "Visit The Atelier Modernista Bookshop",
-            "button_link": "https://ateliermodernista.com/pages/the-atelier-modernista-library",
-            "text_color": "light",
-            "overlay_opacity": 0
-          }
-        },
-        "slide_mAeUef": {
-          "type": "slide",
-          "settings": {
-            "heading": "",
-            "subheading": "",
-            "button_text": "",
-            "button_link": "",
-            "text_color": "light",
-            "overlay_opacity": 25
-          }
-        }
-      },
-      "block_order": [
-        "slide_TijUnU",
-        "slide_mAeUef"
-      ],
-      "name": "AM Hero Carousel",
-      "settings": {
-        "carousel_height": 700,
-        "mobile_height": 500,
-        "carousel_width": 70,
-        "first_slide_duration": 7,
-        "slide_duration": 4
       }
     },
     "pb_editorial_pair_mJMapp": {
@@ -665,13 +665,13 @@
     "am_hero_eVpdrq",
     "pb_featured_products_QydhwQ",
     "pb_hero_MJ4EMh",
+    "am_hero_carousel_mAGHzJ",
     "pb_featured_products_ji63Ur",
     "pb_collection_showcase_qqYFip",
     "arsenal_bars_chyBtz",
     "pb_colour_edit_bJy89W",
     "pb_editorial_pair_wKmfbG",
     "pb_featured_products_TtK6DD",
-    "am_hero_carousel_mAGHzJ",
     "pb_editorial_pair_mJMapp",
     "am_hero_carousel_HpbGAx",
     "pb_newsletter_kqjr68",

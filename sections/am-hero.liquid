@@ -204,12 +204,18 @@
 <style>
 /* ── AM Hero — Split Image/Text Carousel ─────────────────────── */
 
-/* Container */
+/* Container — breaks out to full viewport width regardless of any
+   parent page-width wrapper the theme applies around sections */
 .am-hero {
   position: relative;
   overflow: hidden;
   height: var(--am-hero-h, 680px);
   background-color: #fdf6e3;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 /* Track */
@@ -266,10 +272,13 @@
   height: 100%;
 }
 
+/* object-fit: contain — shows the whole image, uncropped, letterboxed
+   in the panel's own background colour rather than cutting off the shot */
 .am-hero__img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: center;
   display: block;
 }
 
@@ -285,7 +294,8 @@
 
 .am-hero__content--full {
   max-width: 900px;
-  padding: clamp(5rem, 12vw, 10rem) 0 clamp(4rem, 8vw, 7rem);
+  margin: 0 auto;
+  padding: clamp(5rem, 12vw, 10rem) 24px clamp(4rem, 8vw, 7rem);
   justify-content: flex-start;
 }
 
@@ -704,3 +714,4 @@ h2.am-hero__headline em {
   ]
 }
 {% endschema %}
+

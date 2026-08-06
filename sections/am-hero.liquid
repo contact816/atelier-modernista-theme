@@ -1,5 +1,5 @@
 {% comment %}
-  SECTION: sections/am-hero.liquid
+  SECTION: sections/amh.liquid
   Split image + text carousel
   — Up to 5 slides via schema blocks, each with its own image + copy
   — First slide (and slide 1 on return) lingers longer
@@ -14,14 +14,14 @@
 -%}
 
 {% if template.suffix != 'am-policy' %}
-<section class="am-hero"
-  id="am-hero-{{ section.id }}"
+<section class="amh"
+  id="amh-{{ section.id }}"
   aria-label="Hero"
   data-first-duration="{{ section.settings.first_slide_duration | times: 1000 }}"
   data-duration="{{ section.settings.slide_duration | times: 1000 }}"
-  style="--am-hero-h: {{ section.settings.carousel_height }}px; --am-hero-hm: {{ section.settings.mobile_height }}px;">
+  style="--amh-h: {{ section.settings.carousel_height }}px; --amh-hm: {{ section.settings.mobile_height }}px;">
 
-  <div class="am-hero__track">
+  <div class="amh__track">
 
     {%- if section.blocks.size > 0 -%}
 
@@ -43,53 +43,53 @@
         {%- assign b_cta2_label  = block.settings.cta_secondary_label | default: section.settings.cta_secondary_label -%}
         {%- assign b_cta2_url    = block.settings.cta_secondary_url   | default: section.settings.cta_secondary_url  | default: '/pages/atelier' -%}
 
-        <div class="am-hero__slide{% if forloop.first %} is-active{% endif %} am-hero__slide--img-{{ section.settings.image_position | default: 'left' }}"
+        <div class="amh__slide{% if forloop.first %} is-active{% endif %} amh__slide--img-{{ section.settings.image_position | default: 'left' }}"
              data-index="{{ forloop.index0 }}"
              {{ block.shopify_attributes }}>
 
-          <div class="am-hero__image">
+          <div class="amh__image">
             {%- if block.settings.image != blank -%}
-              <a href="{{ b_cta1_url }}" class="am-hero__image-link" aria-label="{{ b_cta1_label | default: 'Shop the collection' }}">
+              <a href="{{ b_cta1_url }}" class="amh__image-link" aria-label="{{ b_cta1_label | default: 'Shop the collection' }}">
                 {{- block.settings.image
                   | image_url: width: 1400
                   | image_tag:
                     loading: img_loading,
                     widths: '600, 900, 1100, 1400',
                     sizes: '(min-width: 990px) 55vw, 100vw',
-                    class: 'am-hero__img',
+                    class: 'amh__img',
                     alt: block.settings.image.alt | default: b_plain -}}
               </a>
             {%- endif -%}
           </div>
 
 
-          <div class="am-hero__content">
+          <div class="amh__content">
             {%- if b_eyebrow != blank -%}
-              <p class="am-hero__eyebrow">{{ b_eyebrow }}</p>
+              <p class="amh__eyebrow">{{ b_eyebrow }}</p>
             {%- endif -%}
 
-            <{{ heading_tag }} class="am-hero__headline">
+            <{{ heading_tag }} class="amh__headline">
               {%- if b_plain != blank -%}{{ b_plain }} {%- endif -%}
               {%- if b_italic != blank -%}<em>{{ b_italic }}</em>{%- endif -%}
             </{{ heading_tag }}>
 
             {%- if b_subtitle != blank -%}
-              <p class="am-hero__subtitle">{{ b_subtitle }}</p>
+              <p class="amh__subtitle">{{ b_subtitle }}</p>
             {%- endif -%}
 
-            <div class="am-hero__ctas">
+            <div class="amh__ctas">
               {%- if b_cta1_label != blank -%}
-                <a href="{{ b_cta1_url }}" class="am-hero__cta am-hero__cta--primary">{{ b_cta1_label }}</a>
+                <a href="{{ b_cta1_url }}" class="amh__cta amh__cta--primary">{{ b_cta1_label }}</a>
               {%- endif -%}
               {%- if b_cta2_label != blank -%}
-                <a href="{{ b_cta2_url }}" class="am-hero__cta am-hero__cta--secondary">{{ b_cta2_label }}</a>
+                <a href="{{ b_cta2_url }}" class="amh__cta amh__cta--secondary">{{ b_cta2_label }}</a>
               {%- endif -%}
             </div>
 
-            <ul class="am-hero__badges" role="list" aria-label="Trust signals">
-              {%- if badge_1 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_1 }}</li>{%- endif -%}
-              {%- if badge_2 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_2 }}</li>{%- endif -%}
-              {%- if badge_3 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_3 }}</li>{%- endif -%}
+            <ul class="amh__badges" role="list" aria-label="Trust signals">
+              {%- if badge_1 != blank -%}<li class="amh__badge"><span class="amh__badge-dot" aria-hidden="true"></span>{{ badge_1 }}</li>{%- endif -%}
+              {%- if badge_2 != blank -%}<li class="amh__badge"><span class="amh__badge-dot" aria-hidden="true"></span>{{ badge_2 }}</li>{%- endif -%}
+              {%- if badge_3 != blank -%}<li class="amh__badge"><span class="amh__badge-dot" aria-hidden="true"></span>{{ badge_3 }}</li>{%- endif -%}
             </ul>
           </div>
 
@@ -99,30 +99,30 @@
     {%- else -%}
 
       {%- comment -%} No blocks — render original text-only layout unchanged {%- endcomment -%}
-      <div class="am-hero__slide am-hero__slide--text-only is-active">
-        <div class="am-hero__content am-hero__content--full page-width">
+      <div class="amh__slide amh__slide--text-only is-active">
+        <div class="amh__content amh__content--full page-width">
           {%- if section.settings.eyebrow != blank -%}
-            <p class="am-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+            <p class="amh__eyebrow">{{ section.settings.eyebrow }}</p>
           {%- endif -%}
-          <h1 class="am-hero__headline">
+          <h1 class="amh__headline">
             {%- if section.settings.headline_plain != blank -%}{{ section.settings.headline_plain }} {%- endif -%}
             {%- if section.settings.headline_italic != blank -%}<em>{{ section.settings.headline_italic }}</em>{%- endif -%}
           </h1>
           {%- if section.settings.subtitle != blank -%}
-            <p class="am-hero__subtitle">{{ section.settings.subtitle }}</p>
+            <p class="amh__subtitle">{{ section.settings.subtitle }}</p>
           {%- endif -%}
-          <div class="am-hero__ctas">
+          <div class="amh__ctas">
             {%- if section.settings.cta_primary_label != blank -%}
-              <a href="{{ section.settings.cta_primary_url | default: '/collections/all' }}" class="am-hero__cta am-hero__cta--primary">{{ section.settings.cta_primary_label }}</a>
+              <a href="{{ section.settings.cta_primary_url | default: '/collections/all' }}" class="amh__cta amh__cta--primary">{{ section.settings.cta_primary_label }}</a>
             {%- endif -%}
             {%- if section.settings.cta_secondary_label != blank -%}
-              <a href="{{ section.settings.cta_secondary_url | default: '/pages/atelier' }}" class="am-hero__cta am-hero__cta--secondary">{{ section.settings.cta_secondary_label }}</a>
+              <a href="{{ section.settings.cta_secondary_url | default: '/pages/atelier' }}" class="amh__cta amh__cta--secondary">{{ section.settings.cta_secondary_label }}</a>
             {%- endif -%}
           </div>
-          <ul class="am-hero__badges" role="list">
-            {%- if badge_1 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_1 }}</li>{%- endif -%}
-            {%- if badge_2 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_2 }}</li>{%- endif -%}
-            {%- if badge_3 != blank -%}<li class="am-hero__badge"><span class="am-hero__badge-dot" aria-hidden="true"></span>{{ badge_3 }}</li>{%- endif -%}
+          <ul class="amh__badges" role="list">
+            {%- if badge_1 != blank -%}<li class="amh__badge"><span class="amh__badge-dot" aria-hidden="true"></span>{{ badge_1 }}</li>{%- endif -%}
+            {%- if badge_2 != blank -%}<li class="amh__badge"><span class="amh__badge-dot" aria-hidden="true"></span>{{ badge_2 }}</li>{%- endif -%}
+            {%- if badge_3 != blank -%}<li class="amh__badge"><span class="amh__badge-dot" aria-hidden="true"></span>{{ badge_3 }}</li>{%- endif -%}
           </ul>
         </div>
       </div>
@@ -132,7 +132,7 @@
   </div>
 
   {%- if section.blocks.size > 1 -%}
-    <div class="am-hero__dots" id="am-hero-dots-{{ section.id }}" role="tablist" aria-label="Carousel navigation"></div>
+    <div class="amh__dots" id="amh-dots-{{ section.id }}" role="tablist" aria-label="Carousel navigation"></div>
   {%- endif -%}
 
 </section>
@@ -141,11 +141,11 @@
 (function () {
   'use strict';
 
-  var carousel = document.getElementById('am-hero-{{ section.id }}');
+  var carousel = document.getElementById('amh-{{ section.id }}');
   if (!carousel) return;
 
-  var slides   = Array.from(carousel.querySelectorAll('.am-hero__slide'));
-  var dotsWrap = carousel.querySelector('.am-hero__dots');
+  var slides   = Array.from(carousel.querySelectorAll('.amh__slide'));
+  var dotsWrap = carousel.querySelector('.amh__dots');
   if (slides.length <= 1) return;
 
   var FIRST = parseInt(carousel.dataset.firstDuration, 10) || 7000;
@@ -158,7 +158,7 @@
   if (dotsWrap) {
     slides.forEach(function (_, i) {
       var btn = document.createElement('button');
-      btn.className   = 'am-hero__dot' + (i === 0 ? ' is-active' : '');
+      btn.className   = 'amh__dot' + (i === 0 ? ' is-active' : '');
       btn.setAttribute('role', 'tab');
       btn.setAttribute('aria-label', 'Slide ' + (i + 1));
       btn.addEventListener('click', function () { goTo(i); });
@@ -206,10 +206,10 @@
 
 /* Container — breaks out to full viewport width regardless of any
    parent page-width wrapper the theme applies around sections */
-.am-hero {
+.amh {
   position: relative;
   overflow: hidden;
-  height: var(--am-hero-h, 680px);
+  height: var(--amh-h, 680px);
   background-color: #fdf6e3;
   width: 100vw;
   left: 50%;
@@ -218,10 +218,10 @@
   margin-right: -50vw;
 }
 
-/* Track — background bleeds full width via .am-hero, but the actual
+/* Track — background bleeds full width via .amh, but the actual
    image + text content is capped so it doesn't stretch thin on wide
    monitors. Bump max-width if you want it wider on ultra-wide screens. */
-.am-hero__track {
+.amh__track {
   position: relative;
   width: 100%;
   height: 100%;
@@ -230,7 +230,7 @@
 }
 
 /* ── Slides ──────────────────────────────────────────────────── */
-.am-hero__slide {
+.amh__slide {
   position: absolute;
   inset: 0;
   display: grid;
@@ -241,19 +241,19 @@
   will-change: opacity;
 }
 
-.am-hero__slide.is-active {
+.amh__slide.is-active {
   opacity: 1;
   pointer-events: auto;
   z-index: 1;
 }
 
 /* Image right variant */
-.am-hero__slide--img-right { grid-template-columns: 45% 55%; }
-.am-hero__slide--img-right .am-hero__image   { order: 2; }
-.am-hero__slide--img-right .am-hero__content { order: 1; }
+.amh__slide--img-right { grid-template-columns: 45% 55%; }
+.amh__slide--img-right .amh__image   { order: 2; }
+.amh__slide--img-right .amh__content { order: 1; }
 
 /* Text-only fallback — full width, original feel */
-.am-hero__slide--text-only {
+.amh__slide--text-only {
   grid-template-columns: 1fr;
   align-items: center;
   position: relative;
@@ -262,7 +262,7 @@
 }
 
 /* ── Image panel ─────────────────────────────────────────────── */
-.am-hero__image {
+.amh__image {
   position: relative;
   overflow: hidden;
   background-color: #fdf6e3 !important;
@@ -270,7 +270,7 @@
   box-sizing: border-box;
 }
 
-.am-hero__image-link {
+.amh__image-link {
   display: block;
   width: 100%;
   height: 100%;
@@ -278,10 +278,10 @@
 
 /* object-fit: contain — shows the whole image, uncropped, letterboxed
    in the panel's own background colour rather than cutting off the shot.
-   Selector is deliberately .am-hero .am-hero__image img (two classes +
-   element) to outrank pb-global.css's .am-hero__image img rule, which
+   Selector is deliberately .amh .amh__image img (two classes +
+   element) to outrank pb-global.css's .amh__image img rule, which
    sets object-fit: cover globally and was silently winning before. */
-.am-hero .am-hero__image img.am-hero__img {
+.amh .amh__image img.amh__img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -290,7 +290,7 @@
 }
 
 /* ── Content panel ───────────────────────────────────────────── */
-.am-hero__content {
+.amh__content {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -299,7 +299,7 @@
   overflow-y: auto;
 }
 
-.am-hero__content--full {
+.amh__content--full {
   max-width: 900px;
   margin: 0 auto;
   padding: clamp(5rem, 12vw, 10rem) 24px clamp(4rem, 8vw, 7rem);
@@ -307,7 +307,7 @@
 }
 
 /* ── Eyebrow ─────────────────────────────────────────────────── */
-.am-hero__eyebrow {
+.amh__eyebrow {
   font-family: 'Jost', 'Helvetica Neue', sans-serif;
   font-size: 11px;
   font-weight: 400;
@@ -318,9 +318,9 @@
 }
 
 /* ── Headline ────────────────────────────────────────────────── */
-.am-hero .am-hero__headline,
-h1.am-hero__headline,
-h2.am-hero__headline {
+.amh .amh__headline,
+h1.amh__headline,
+h2.amh__headline {
   font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: clamp(32px, 4vw, 62px) !important;
   font-weight: 400;
@@ -331,20 +331,20 @@ h2.am-hero__headline {
 }
 
 /* Full-width text-only keeps the larger original size */
-.am-hero__slide--text-only .am-hero__headline {
+.amh__slide--text-only .amh__headline {
   font-size: clamp(45px, 10vw, 90px) !important;
 }
 
-.am-hero .am-hero__headline em,
-h1.am-hero__headline em,
-h2.am-hero__headline em {
+.amh .amh__headline em,
+h1.amh__headline em,
+h2.amh__headline em {
   font-style: italic;
   font-weight: 300;
   color: #0047AB;
 }
 
 /* ── Subtitle ────────────────────────────────────────────────── */
-.am-hero__subtitle {
+.amh__subtitle {
   font-family: 'Jost', 'Helvetica Neue', sans-serif;
   font-size: 14px;
   font-weight: 300;
@@ -355,7 +355,7 @@ h2.am-hero__headline em {
 }
 
 /* ── CTAs ────────────────────────────────────────────────────── */
-.am-hero__ctas {
+.amh__ctas {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -363,7 +363,7 @@ h2.am-hero__headline em {
   align-items: center;
 }
 
-.am-hero__cta {
+.amh__cta {
   display: inline-block;
   font-family: 'Jost', sans-serif;
   font-size: 11px;
@@ -376,19 +376,19 @@ h2.am-hero__headline em {
   border-radius: 0;
 }
 
-.am-hero__cta--primary {
+.amh__cta--primary {
   background-color: #0047AB;
   color: #fdf6e3;
   border: 1px solid #0047AB;
 }
 
-.am-hero__cta--primary:hover {
+.amh__cta--primary:hover {
   background-color: #1a1a18;
   border-color: #1a1a18;
   color: #fdf6e3;
 }
 
-.am-hero__cta--secondary {
+.amh__cta--secondary {
   background-color: transparent;
   color: #1a1a18;
   border-bottom: 1px solid #1a1a18;
@@ -399,13 +399,13 @@ h2.am-hero__headline em {
   padding-right: 0;
 }
 
-.am-hero__cta--secondary:hover {
+.amh__cta--secondary:hover {
   color: #0047AB;
   border-color: #0047AB;
 }
 
 /* ── Trust badges ────────────────────────────────────────────── */
-.am-hero__badges {
+.amh__badges {
   display: flex;
   flex-wrap: wrap;
   gap: 6px 28px;
@@ -415,7 +415,7 @@ h2.am-hero__headline em {
   border-top: 1px solid rgba(26, 26, 24, 0.1);
 }
 
-.am-hero__badge {
+.amh__badge {
   font-family: 'Jost', sans-serif;
   font-size: 10px;
   font-weight: 400;
@@ -427,7 +427,7 @@ h2.am-hero__headline em {
   gap: 6px;
 }
 
-.am-hero__badge-dot {
+.amh__badge-dot {
   display: inline-block;
   width: 5px;
   height: 5px;
@@ -437,7 +437,7 @@ h2.am-hero__headline em {
 }
 
 /* ── Dots ────────────────────────────────────────────────────── */
-.am-hero__dots {
+.amh__dots {
   position: absolute;
   bottom: 20px;
   right: 0;
@@ -448,13 +448,13 @@ h2.am-hero__headline em {
   z-index: 10;
 }
 
-.am-hero__slide--img-right ~ .am-hero__dots {
+.amh__slide--img-right ~ .amh__dots {
   right: auto;
   left: 0;
   width: 45%;
 }
 
-.am-hero__dot {
+.amh__dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -465,40 +465,40 @@ h2.am-hero__headline em {
   transition: background 0.3s, transform 0.3s;
 }
 
-.am-hero__dot.is-active {
+.amh__dot.is-active {
   background: #0047AB;
   transform: scale(1.4);
 }
 
 /* ── Mobile ──────────────────────────────────────────────────── */
 @media (max-width: 749px) {
-  .am-hero {
-    height: var(--am-hero-hm, 620px);
+  .amh {
+    height: var(--amh-hm, 620px);
   }
-.am-hero__image {
+.amh__image {
     padding: 16px;
   }
-  .am-hero__slide {
+  .amh__slide {
     grid-template-columns: 1fr;
     grid-template-rows: 42% 58%;
   }
 
-  .am-hero__slide--img-right .am-hero__image   { order: unset; }
-  .am-hero__slide--img-right .am-hero__content { order: unset; }
+  .amh__slide--img-right .amh__image   { order: unset; }
+  .amh__slide--img-right .amh__content { order: unset; }
 
-  .am-hero__content {
+  .amh__content {
     padding: 20px 20px 24px;
     overflow-y: auto;
   }
 
-  .am-hero__headline,
-  .am-hero .am-hero__headline,
-  h1.am-hero__headline,
-  h2.am-hero__headline {
+  .amh__headline,
+  .amh .amh__headline,
+  h1.amh__headline,
+  h2.amh__headline {
     font-size: clamp(24px, 7vw, 36px) !important;
   }
 
-  .am-hero__dots {
+  .amh__dots {
     width: 100%;
     right: auto;
     left: 0;
@@ -506,12 +506,12 @@ h2.am-hero__headline em {
     justify-content: center;
   }
 
-  .am-hero__ctas {
+  .amh__ctas {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .am-hero__cta--primary {
+  .amh__cta--primary {
     width: 100%;
     text-align: center;
   }

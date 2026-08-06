@@ -9,8 +9,100 @@
  */
 {
   "sections": {
+    "am_hero_eVpdrq": {
+      "type": "am-hero",
+      "blocks": {
+        "slide_V3gxci": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/7E7D8EA9-9C90-4971-AF92-8E4BE19C4874.png",
+            "eyebrow": "The Orb earrings drop",
+            "headline_plain": "The Orb Earrings are",
+            "headline_italic": "here!",
+            "subtitle": "Here they are, the most joyful earrings you may ever find. The ORB Earrings, a wearable sculpture straight from artist Emily Kidson's studio. \n\nIf you want presence, joy, and elegance in one go, these are for you. The ORB Earrings - in very, very limited supply but infinitely wonderful.",
+            "cta_primary_label": "Buy Red Orbs",
+            "cta_primary_url": "shopify://products/red-orb-kidson-earrings",
+            "cta_secondary_label": "Buy Yellow ORBS",
+            "cta_secondary_url": "shopify://products/yellow-kidson-orb-earrings"
+          }
+        }
+      },
+      "block_order": [
+        "slide_V3gxci"
+      ],
+      "name": "AM Hero",
+      "settings": {
+        "first_slide_duration": 7,
+        "slide_duration": 4,
+        "image_position": "left",
+        "carousel_height": 675,
+        "mobile_height": 625,
+        "eyebrow": "A small edit, considered",
+        "headline_plain": "Wearable art,",
+        "headline_italic": "in the modernist tradition.",
+        "subtitle": "A curated edit of bold enamel jewellery in cobalt, vermilion, and recycled silver. Pieces selected for their geometry, their colour, and the conviction with which they were made.",
+        "cta_primary_label": "Shop the Edit",
+        "cta_primary_url": "",
+        "cta_secondary_label": "The Philosophy",
+        "cta_secondary_url": "",
+        "badge_1": "Curated in London",
+        "badge_2": "Small Editions",
+        "badge_3": "Free UK Delivery"
+      }
+    },
+    "pb_featured_products_QydhwQ": {
+      "type": "pb-featured-products",
+      "blocks": {
+        "product_iX43hr": {
+          "type": "product",
+          "settings": {
+            "product": "miro-spanish-dancer-earrings",
+            "badge": "New",
+            "badge_red": false
+          }
+        },
+        "product_4aYi9E": {
+          "type": "product",
+          "settings": {
+            "product": "miro-blue-necklace",
+            "badge": "New",
+            "badge_red": false
+          }
+        },
+        "product_eMtp9a": {
+          "type": "product",
+          "settings": {
+            "product": "miro-femme-et-oiseaux-golden-necklace",
+            "badge": "New",
+            "badge_red": false
+          }
+        },
+        "product_jW3ng6": {
+          "type": "product",
+          "settings": {
+            "product": "miro-red-enamel-gold-drop-earrings",
+            "badge": "New",
+            "badge_red": false
+          }
+        }
+      },
+      "block_order": [
+        "product_iX43hr",
+        "product_4aYi9E",
+        "product_eMtp9a",
+        "product_jW3ng6"
+      ],
+      "name": "AM — Featured Products",
+      "settings": {
+        "eyebrow": "Licensed by Successió Miró",
+        "heading": "Own A Miró",
+        "view_all_label": "The Miró Collection",
+        "view_all_url": "shopify://collections/the-miro-collection"
+      }
+    },
     "pb_hero_MJ4EMh": {
       "type": "pb-hero",
+      "disabled": true,
       "custom_css": [],
       "name": "AM — Hero",
       "settings": {
@@ -89,7 +181,7 @@
         "heading": "The Miró Collection",
         "description": "The Miró Collection is inspired by the work of Joan Miró, and licensed by Successió Miró.\n\nThe colours are deep and rich, offering a capsule collection full of elegance, artistic heritage, and an exuberant sense of joy and presence.",
         "meta_1_label": "From",
-        "meta_1_value": "£75",
+        "meta_1_value": "£55",
         "meta_2_label": "",
         "meta_2_value": "",
         "cta_label": "View The Miró Collection",
@@ -182,57 +274,6 @@
         "body": "The magnificence of jewellery in a colour-rich world.",
         "cta_label": "Explore Your favourite Colours",
         "cta_url": "shopify://collections/the-colour-edit"
-      }
-    },
-    "pb_featured_products_QydhwQ": {
-      "type": "pb-featured-products",
-      "blocks": {
-        "product_iX43hr": {
-          "type": "product",
-          "settings": {
-            "product": "miro-etrangere-earrings-red-blue-gold",
-            "badge": "New",
-            "badge_red": false
-          }
-        },
-        "product_4aYi9E": {
-          "type": "product",
-          "settings": {
-            "product": "miro-red-circle-earrings",
-            "badge": "New",
-            "badge_red": false
-          }
-        },
-        "product_eMtp9a": {
-          "type": "product",
-          "settings": {
-            "product": "miro-joyous-red-pendant",
-            "badge": "New",
-            "badge_red": false
-          }
-        },
-        "product_jW3ng6": {
-          "type": "product",
-          "settings": {
-            "product": "miro-red-enamel-gold-drop-earrings",
-            "badge": "New",
-            "badge_red": false
-          }
-        }
-      },
-      "block_order": [
-        "product_iX43hr",
-        "product_4aYi9E",
-        "product_eMtp9a",
-        "product_jW3ng6"
-      ],
-      "disabled": true,
-      "name": "AM — Featured Products",
-      "settings": {
-        "eyebrow": "Licensed by Successió Miró",
-        "heading": "The Miró Collection",
-        "view_all_label": "Own A Miró",
-        "view_all_url": "shopify://collections/the-miro-collection"
       }
     },
     "pb_editorial_pair_wKmfbG": {
@@ -621,12 +662,13 @@
     }
   },
   "order": [
+    "am_hero_eVpdrq",
+    "pb_featured_products_QydhwQ",
     "pb_hero_MJ4EMh",
     "pb_featured_products_ji63Ur",
     "pb_collection_showcase_qqYFip",
     "arsenal_bars_chyBtz",
     "pb_colour_edit_bJy89W",
-    "pb_featured_products_QydhwQ",
     "pb_editorial_pair_wKmfbG",
     "pb_featured_products_TtK6DD",
     "am_hero_carousel_mAGHzJ",

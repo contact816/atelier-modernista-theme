@@ -13,7 +13,6 @@
   "sections": {
     "footer": {
       "type": "am-footer-wrap",
-      "disabled": true,
       "custom_css": [],
       "settings": {
         "brand_description": "A London-based curatorial label for art jewellery in the Modernist tradition.",

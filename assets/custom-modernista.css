@@ -783,9 +783,9 @@ input[type="checkbox"].facets__checkbox {
 }
 
 .product-form__input--pill input[type="radio"]:checked + label {
-  background-color: var(--am-ink) !important;
+  background-color: var(--am-cobalt) !important;
   color: var(--am-cream) !important;
-  border-color: var(--am-ink) !important;
+  border-color: var(--am-cobalt) !important;
 }
 
 /* ADD TO CART button â€” the primary CTA */

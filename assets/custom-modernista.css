@@ -782,6 +782,12 @@ input[type="checkbox"].facets__checkbox {
   border-color: var(--am-ink) !important;
 }
 
+.product-form__input--pill input[type="radio"]:checked + label {
+  background-color: var(--am-ink) !important;
+  color: var(--am-cream) !important;
+  border-color: var(--am-ink) !important;
+}
+
 /* ADD TO CART button â€” the primary CTA */
 .product-form__submit,
 button[name="add"],

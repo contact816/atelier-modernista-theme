@@ -477,7 +477,7 @@
     "custom-inspires": {
       "type": "custom-inspires",
       "custom_css": [
-        "h2 {font-size: 26px; font-weight: 400;}"
+        "h2 {font-size: 20px; font-weight: 400;}"
       ],
       "settings": {
         "image": "shopify://shop_images/330px-Sophie_Taeuber-Arp__Aubette_198.jpg",

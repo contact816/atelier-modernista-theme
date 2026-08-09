@@ -42,13 +42,13 @@
   --am-sans:    'Jost', 'Helvetica Neue', sans-serif;
 
   /* Scale */
-  --am-hero-size:       clamp(2.8rem, 6vw, 5.5rem);
-  --am-h1-size:         clamp(2.4rem, 4.5vw, 4.2rem);
-  --am-h2-size:         clamp(2.4rem, 4vw, 4.2rem);
-  --am-h3-size:         clamp(1.3rem, 2vw, 1.8rem);
-  --am-body-size:       1rem;
-  --am-caption-size:    0.75rem;
-  --am-label-tracking:  0.12em;
+--am-hero-size:      clamp(45px, 6vw, 88px);
+--am-h1-size:        clamp(38px, 4.5vw, 67px);
+--am-h2-size:        clamp(38px, 4vw, 67px);
+--am-h3-size:        clamp(21px, 2vw, 29px);
+--am-body-size:      16px;
+--am-caption-size:   12px;
+--am-label-tracking: 0.12em;
 
   /* Spacing */
   --am-section-pad:     clamp(4rem, 8vw, 8rem);

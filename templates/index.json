@@ -211,6 +211,47 @@
         "view_all_url": "shopify://collections/the-colour-edit"
       }
     },
+    "collection_list_WrH6mQ": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_zpb6GB": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "75-150-copy"
+          }
+        },
+        "featured_collection_BJbRGK": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "under-75"
+          }
+        },
+        "featured_collection_QjXmFa": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_zpb6GB",
+        "featured_collection_BJbRGK",
+        "featured_collection_QjXmFa"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Collections",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "pb_colour_edit_bJy89W": {
       "type": "pb-colour-edit",
       "blocks": {
@@ -667,6 +708,7 @@
     "pb_hero_MJ4EMh",
     "am_hero_carousel_mAGHzJ",
     "pb_featured_products_ji63Ur",
+    "collection_list_WrH6mQ",
     "pb_colour_edit_bJy89W",
     "pb_collection_showcase_qqYFip",
     "arsenal_bars_chyBtz",

@@ -15,7 +15,7 @@
         "slide_V3gxci": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/7E7D8EA9-9C90-4971-AF92-8E4BE19C4874.jpg",
+            "image": "shopify://shop_images/MODEL_-_Silver_Bracelet_and_Yellow_Orbs_e0f4dfab-ad6d-46df-b927-560299231c91.jpg",
             "eyebrow": "The Orb Earrings drop",
             "headline_plain": "The Orb Earrings",
             "headline_italic": "have landed...",
@@ -30,7 +30,6 @@
       "block_order": [
         "slide_V3gxci"
       ],
-      "disabled": true,
       "name": "AM Hero",
       "settings": {
         "first_slide_duration": 7,

@@ -30,6 +30,7 @@
       "block_order": [
         "slide_V3gxci"
       ],
+      "disabled": true,
       "name": "AM Hero",
       "settings": {
         "first_slide_duration": 7,

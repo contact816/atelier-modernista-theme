@@ -325,9 +325,7 @@
     document.documentElement.classList.add('shopify-design-mode');
   }
 </script>
-{%- if template == 'index' -%}
-  {{ 'pb-global.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
+{{ 'pb-global.css' | asset_url | stylesheet_tag }}
 {{ 'custom-modernista.css' | asset_url | stylesheet_tag }}
 
 <script async src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=T6P3Rt"></script>

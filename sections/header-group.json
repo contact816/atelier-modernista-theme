@@ -33,7 +33,7 @@
     "am_nav_bar": {
       "type": "am-nav-bar",
       "settings": {
-        "announcement_text": "Your AM experiencs: 'lovely and great quality, delivered quickly' - 'Everything felt luxurious from the start, the unique selection range, the packaging and of course the earrings themselves",
+        "announcement_text": "",
         "announcement_link_label": "JOIN HERE",
         "announcement_link": "https://ateliermodernista.com/pages/atelier-circle",
         "logo": "shopify://shop_images/Transparemt_Logo.png",
@@ -43,6 +43,13 @@
     "announcement_bar_eTEQFF": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_f6GXCE": {
+          "type": "announcement",
+          "settings": {
+            "text": "Your AM experiencs: 'lovely and great quality, delivered quickly' -",
+            "link": ""
+          }
+        },
         "announcement_rmVdFH": {
           "type": "announcement",
           "settings": {
@@ -52,6 +59,7 @@
         }
       },
       "block_order": [
+        "announcement_f6GXCE",
         "announcement_rmVdFH"
       ],
       "name": "t:sections.announcement-bar.presets.name",

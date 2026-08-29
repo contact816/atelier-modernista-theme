@@ -42,42 +42,6 @@
     },
     "announcement_bar_eTEQFF": {
       "type": "announcement-bar",
-      "blocks": {
-        "announcement_mpJ9yA": {
-          "type": "announcement",
-          "settings": {
-            "text": "'Love love love Atelier Modernista! I’ve recommended it to all my friends.'",
-            "link": ""
-          }
-        },
-        "announcement_3bP3bE": {
-          "type": "announcement",
-          "settings": {
-            "text": "'Beautiful modern jewellery'",
-            "link": ""
-          }
-        },
-        "announcement_f6GXCE": {
-          "type": "announcement",
-          "settings": {
-            "text": "Your AM experiencs: 'lovely and great quality, delivered quickly' -",
-            "link": ""
-          }
-        },
-        "announcement_rmVdFH": {
-          "type": "announcement",
-          "settings": {
-            "text": "'Everything felt luxurious from the start'",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "announcement_mpJ9yA",
-        "announcement_3bP3bE",
-        "announcement_f6GXCE",
-        "announcement_rmVdFH"
-      ],
       "name": "t:sections.announcement-bar.presets.name",
       "settings": {
         "auto_rotate": true,

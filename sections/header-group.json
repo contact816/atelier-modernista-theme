@@ -52,11 +52,36 @@
         "enable_country_selector": false,
         "enable_language_selector": false
       }
+    },
+    "blocks_e7TwBa": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_8ec9d0f_wDBrbw": {
+          "type": "ai_gen_block_8ec9d0f",
+          "settings": {
+            "message_before": "25% off with",
+            "promo_code": "Happy2026",
+            "message_after": "",
+            "background_color": "#334fb4",
+            "text_color": "#ffffff",
+            "font_size": 16,
+            "padding_vertical": 12,
+            "desktop_width_percent": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_8ec9d0f_wDBrbw"
+      ],
+      "name": "Promo banner",
+      "settings": {}
     }
   },
   "order": [
     "header",
     "am_nav_bar",
-    "announcement_bar_eTEQFF"
+    "announcement_bar_eTEQFF",
+    "blocks_e7TwBa"
   ]
 }

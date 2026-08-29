@@ -43,6 +43,13 @@
     "announcement_bar_eTEQFF": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_3bP3bE": {
+          "type": "announcement",
+          "settings": {
+            "text": "'Gorgeous statement jewellery, beautifully wrapped. Thank you.'",
+            "link": ""
+          }
+        },
         "announcement_f6GXCE": {
           "type": "announcement",
           "settings": {
@@ -59,6 +66,7 @@
         }
       },
       "block_order": [
+        "announcement_3bP3bE",
         "announcement_f6GXCE",
         "announcement_rmVdFH"
       ],

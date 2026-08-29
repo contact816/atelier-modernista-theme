@@ -33,16 +33,42 @@
     "am_nav_bar": {
       "type": "am-nav-bar",
       "settings": {
-        "announcement_text": "·  COMPLIMENTARY UK DELIVERY FOR ATELIER CIRCLE MEMBERS ·",
+        "announcement_text": "Your AM experiencs: 'lovely and great quality, delivered quickly' - 'Everything felt luxurious from the start, the unique selection range, the packaging and of course the earrings themselves",
         "announcement_link_label": "JOIN HERE",
         "announcement_link": "https://ateliermodernista.com/pages/atelier-circle",
         "logo": "shopify://shop_images/Transparemt_Logo.png",
         "menu": "main-menu"
       }
+    },
+    "announcement_bar_eTEQFF": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_rmVdFH": {
+          "type": "announcement",
+          "settings": {
+            "text": "'Everything felt luxurious from the start'",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_rmVdFH"
+      ],
+      "name": "t:sections.announcement-bar.presets.name",
+      "settings": {
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "color_scheme": "",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
     }
   },
   "order": [
     "header",
-    "am_nav_bar"
+    "am_nav_bar",
+    "announcement_bar_eTEQFF"
   ]
 }

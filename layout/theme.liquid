@@ -31,10 +31,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="font" type="font/woff2" 
-  href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjQAllF4Q.woff2" 
+    <link rel="preload" as="font" type="font/woff2"
+  href="https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjQAllF4Q.woff2"
   crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap"></noscript>
 
     <title>
       {{ page_title }}
@@ -73,6 +74,15 @@
     %}
 
     {% style %}
+      /* Critical: hide the default Dawn header instantly so it never flashes
+         visible before custom-modernista.css (deferred below) hides it for
+         real — am-nav-bar is the header that actually renders. */
+      .section-header,
+      .shopify-section-header-sticky,
+      header-drawer {
+        display: none !important;
+      }
+
       {{ settings.type_body_font | font_face: font_display: 'swap' }}
       {{ body_font_bold | font_face: font_display: 'swap' }}
       {{ body_font_italic | font_face: font_display: 'swap' }}
@@ -316,17 +326,18 @@
         onload="this.media='all'"
       >
     {%- endif -%}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
 
 <script>
   if (Shopify.designMode) {
     document.documentElement.classList.add('shopify-design-mode');
   }
 </script>
-{{ 'pb-global.css' | asset_url | stylesheet_tag }}
-{{ 'custom-modernista.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'pb-global.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'pb-global.css' | asset_url | stylesheet_tag }}</noscript>
+<link rel="stylesheet" href="{{ 'custom-modernista.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'custom-modernista.css' | asset_url | stylesheet_tag }}</noscript>
 
 <script async src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=T6P3Rt"></script>
 

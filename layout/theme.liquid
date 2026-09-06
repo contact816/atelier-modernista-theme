@@ -74,15 +74,6 @@
     %}
 
     {% style %}
-      /* Critical: hide the default Dawn header instantly so it never flashes
-         visible before custom-modernista.css (deferred below) hides it for
-         real — am-nav-bar is the header that actually renders. */
-      .section-header,
-      .shopify-section-header-sticky,
-      header-drawer {
-        display: none !important;
-      }
-
       {{ settings.type_body_font | font_face: font_display: 'swap' }}
       {{ body_font_bold | font_face: font_display: 'swap' }}
       {{ body_font_italic | font_face: font_display: 'swap' }}

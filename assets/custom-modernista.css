@@ -266,13 +266,6 @@ header {
   box-shadow: 0 8px 32px rgba(26,26,24,0.08) !important;
 }
 
-/* Hide Dawn header completely â€” am-nav-bar takes over */
-.section-header,
-.shopify-section-header-sticky,
-header-drawer {
-  display: none !important;
-}
-
 /* ============================================================
    4. BREADCRUMBS
    ============================================================ */

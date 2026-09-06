@@ -3,6 +3,8 @@
     class="am-editorial-banner__image"
     {%- if section.settings.image != blank -%}
       style="background-image: url('{{ section.settings.image | image_url: width: 1200 }}');"
+      role="img"
+      aria-label="{{ section.settings.image_alt | default: section.settings.heading | escape }}"
     {%- endif -%}
   >
     {%- if section.settings.image == blank -%}
@@ -41,6 +43,12 @@
       "type": "image_picker",
       "id": "image",
       "label": "Banner image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text",
+      "info": "Describe what's visible in the banner image for accessibility and search. Falls back to the collection heading if left blank."
     },
     {
       "type": "text",

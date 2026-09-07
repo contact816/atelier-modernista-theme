@@ -821,10 +821,87 @@
       else
         assign seo_media = product.featured_media
       endif
+
+      assign schema_variant = product.selected_or_first_available_variant
+      assign schema_description = product.description | strip_html | strip_newlines
+      assign schema_image_url = seo_media | image_url: width: 1600 | prepend: 'https:'
+      assign schema_product_url = request.origin | append: product.url
+
+      assign schema_material = product.metafields.general.materials.value
+      if schema_material == blank
+        assign schema_material_slug = product.metafields['shopify']['jewelry-material'].value
+        if schema_material_slug != blank
+          assign schema_material_words = schema_material_slug | replace: '-', ' ' | split: ' '
+          assign schema_material = ''
+          for word in schema_material_words
+            assign schema_material_word = word | capitalize
+            assign schema_material = schema_material | append: schema_material_word | append: ' '
+          endfor
+          assign schema_material = schema_material | strip
+        endif
+      endif
+
+      assign schema_rating = product.metafields.reviews.rating.value
+      assign schema_rating_count = product.metafields.reviews.rating_count
+
+      if schema_variant.available
+        assign schema_availability = 'https://schema.org/InStock'
+      else
+        assign schema_availability = 'https://schema.org/OutOfStock'
+      endif
     -%}
 
+    {%- comment -%}
+      Product schema (JSON-LD). Built by hand rather than the stock
+      {{ product | structured_data }} filter so we can guarantee brand
+      is always "Atelier Modernista" (not product.vendor, which varies
+      by artist/designer) and include material when we have it. Two
+      Product-type JSON-LD blocks on one URL is a duplicate-schema
+      anti-pattern, so this replaces the stock filter rather than
+      sitting alongside it — the aggregateRating block below exists to
+      not regress the rich-snippet eligibility the stock filter gave us
+      from the same reviews.rating / reviews.rating_count metafields
+      already rendered on-page above.
+
+      Material priority: product.metafields.general.materials (free text,
+      ~65/249 products filled in) first, then product.metafields.shopify.
+      jewelry-material (Shopify's taxonomy field, slug-formatted e.g.
+      "925-sterling-silver", ~98/249 products filled in) cleaned up into
+      title case. Same priority order used for the product alt text, so
+      the two stay consistent. Omitted entirely — not defaulted or
+      guessed — when neither is filled in.
+    {%- endcomment -%}
     <script type="application/ld+json">
-      {{ product | structured_data }}
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": {{ product.title | json }},
+        "image": {{ schema_image_url | json }},
+        "description": {{ schema_description | json }},
+        {%- if schema_material != blank -%}
+        "material": {{ schema_material | json }},
+        {%- endif -%}
+        {%- if schema_rating != blank and schema_rating_count != blank and schema_rating_count > 0 -%}
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": {{ schema_rating.rating | json }},
+          "bestRating": {{ schema_rating.scale_max | json }},
+          "reviewCount": {{ schema_rating_count | json }}
+        },
+        {%- endif -%}
+        "sku": {{ schema_variant.sku | json }},
+        "brand": {
+          "@type": "Brand",
+          "name": "Atelier Modernista"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": {{ schema_product_url | json }},
+          "priceCurrency": "GBP",
+          "price": {{ schema_variant.price | money_without_currency | strip_html | json }},
+          "availability": {{ schema_availability | json }}
+        }
+      }
     </script>
   </div>
 </product-info>

@@ -55,12 +55,6 @@
     {%- if collection.description != blank -%}
       <div class="am-collection-hero__description">{{ collection.description }}</div>
     {%- endif -%}
-    {%- if collection.handle == 'miro' -%}
-      <div class="am-collection-hero__description am-collection-hero__miro-facts">
-        <p>Joidart is a fourth-generation jewellery house based in Barcelona, founded in 1981, working within a lineage connected to Joan Miró and Antoni Gaudí.</p>
-        <p><strong>Is this real Miró art you can wear?</strong> Yes. Each piece reproduces an authorised Miró design under direct licence from Successió Miró, the artist's estate. Joidart manufactures the collection with the estate's consent — these are not interpretations or homages, but licensed reproductions of Miró's own forms.</p>
-      </div>
-    {%- endif -%}
     <div class="am-collection-hero__meta">
       {%- if collection.metafields['custom']['am_collection_from'] != blank -%}
         <div class="am-collection-hero__meta-item">

@@ -11,29 +11,18 @@
   "sections": {
     "main": {
       "type": "gift-guide",
-      "blocks": {
-        "product_matisse": {
-          "type": "product",
-          "settings": {
-            "product": "matisse-necklace-in-cobalt-blue",
-            "curatorial_line": "A single, saturated note of cobalt, named for Matisse's own use of the colour."
-          }
-        },
-        "product_cobalt_edition": {
-          "type": "product",
-          "settings": {
-            "product": "the-cobalt-edition-necklace",
-            "curatorial_line": "Our signature cobalt, distilled into one necklace."
-          }
-        }
-      },
-      "block_order": [
-        "product_matisse",
-        "product_cobalt_edition"
-      ],
       "settings": {
         "heading": "Cobalt Blue Jewellery Gifts",
         "intro": "A cobalt blue necklace edit, built around our signature colour. Each piece links through to its full details, materials, and price.",
+        "christmas_intro": "Cobalt remains the season's most requested colour here — a fixed point in a gift list that otherwise changes every year.",
+        "delivery_line": "Standard orders dispatch within 1–2 days and arrive within 1–4 days of dispatch; express delivery is available for £7.95 where timing matters more than cost.",
+        "gift_wrap_line": "Luxury Gift Wrapping is available as an add-on at checkout.",
+        "gift_wrap_url": "shopify://products/luxury-gift-wrapping",
+        "gift_wrap_link_label": "Details",
+        "source_collection": "the-atelier-collection",
+        "filter_by_color": true,
+        "color_metaobject_id": "307256230225",
+        "max_products": 8,
         "hub_link_label": "← Back to Gift Guides",
         "hub_link_url": "shopify://pages/gift-guides",
         "padding_top": 36,

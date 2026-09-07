@@ -23,14 +23,36 @@
     color: #1a1a18;
     margin: 0 0 16px;
   }
-  .am-gift-guide__intro {
+  .am-gift-guide__intro,
+  .am-gift-guide__christmas-intro {
     font-family: 'Jost', sans-serif;
     font-size: 15px;
     font-weight: 300;
     line-height: 1.8;
     color: rgba(26, 26, 24, 0.75);
     max-width: 65ch;
+    margin: 0 0 20px;
+  }
+  .am-gift-guide__notices {
+    max-width: 65ch;
     margin: 0 0 48px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(26, 26, 24, 0.12);
+  }
+  .am-gift-guide__notice {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(26, 26, 24, 0.65);
+    margin: 0 0 8px;
+  }
+  .am-gift-guide__notice:last-child {
+    margin-bottom: 0;
+  }
+  .am-gift-guide__notice a {
+    color: #0047AB;
+    text-decoration: underline;
   }
   .am-gift-guide__list {
     display: grid;
@@ -63,22 +85,26 @@
     color: #1a1a18;
     margin: 0 0 6px;
   }
-  .am-gift-guide__item-line {
-    font-family: 'Jost', sans-serif;
-    font-size: 13px;
-    font-weight: 300;
-    line-height: 1.6;
-    color: rgba(26, 26, 24, 0.7);
-    margin: 0;
-  }
   .am-gift-guide__item-price {
     font-family: 'Jost', sans-serif;
     font-size: 13px;
     font-weight: 400;
     color: #1a1a18;
-    margin: 6px 0 0;
+    margin: 0;
+  }
+  .am-gift-guide__empty {
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    color: rgba(26, 26, 24, 0.55);
+    font-style: italic;
   }
 {%- endstyle -%}
+
+{%- liquid
+  assign source = collections[section.settings.source_collection]
+  assign max_products = section.settings.max_products
+  assign shown = 0
+-%}
 
 <div class="am-gift-guide">
   {%- if section.settings.hub_link_url != blank -%}
@@ -91,34 +117,68 @@
   {%- if section.settings.intro != blank -%}
     <div class="am-gift-guide__intro">{{ section.settings.intro }}</div>
   {%- endif -%}
+  {%- if section.settings.christmas_intro != blank -%}
+    <div class="am-gift-guide__christmas-intro">{{ section.settings.christmas_intro }}</div>
+  {%- endif -%}
 
-  <ul class="am-gift-guide__list" role="list">
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'product' and block.settings.product != blank -%}
-        {%- assign p = block.settings.product -%}
-        <li {{ block.shopify_attributes }}>
-          <a class="am-gift-guide__item" href="{{ p.url }}">
-            {%- if p.featured_media -%}
-              <div class="am-gift-guide__item-image">
-                <img
-                  src="{{ p.featured_media | image_url: width: 500 }}"
-                  alt="{{ p.featured_media.alt | escape | default: p.title }}"
-                  loading="lazy"
-                  width="{{ p.featured_media.width }}"
-                  height="{{ p.featured_media.height }}"
-                >
-              </div>
-            {%- endif -%}
-            <h2 class="am-gift-guide__item-title">{{ p.title | escape }}</h2>
-            {%- if block.settings.curatorial_line != blank -%}
-              <p class="am-gift-guide__item-line">{{ block.settings.curatorial_line | escape }}</p>
-            {%- endif -%}
-            <p class="am-gift-guide__item-price">{{ p.price | money }}</p>
-          </a>
-        </li>
+  {%- if section.settings.delivery_line != blank or section.settings.gift_wrap_line != blank -%}
+    <div class="am-gift-guide__notices">
+      {%- if section.settings.delivery_line != blank -%}
+        <p class="am-gift-guide__notice">{{ section.settings.delivery_line }}</p>
       {%- endif -%}
-    {%- endfor -%}
-  </ul>
+      {%- if section.settings.gift_wrap_line != blank -%}
+        <p class="am-gift-guide__notice">
+          {{ section.settings.gift_wrap_line }}
+          {%- if section.settings.gift_wrap_url != blank -%}
+            <a href="{{ section.settings.gift_wrap_url }}">{{ section.settings.gift_wrap_link_label | default: 'Details' }}</a>
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if source != blank -%}
+    <ul class="am-gift-guide__list" role="list">
+      {%- for product in source.products -%}
+        {%- assign include_product = true -%}
+        {%- if section.settings.filter_by_color and section.settings.color_metaobject_id != blank -%}
+          {%- assign include_product = false -%}
+          {%- assign color_refs = product.metafields.shopify['color-pattern'].value -%}
+          {%- for color_ref in color_refs -%}
+            {%- assign color_ref_id_string = color_ref.id | append: '' -%}
+            {%- if color_ref_id_string contains section.settings.color_metaobject_id -%}
+              {%- assign include_product = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+        {%- if include_product and shown < max_products -%}
+          {%- assign shown = shown | plus: 1 -%}
+          <li>
+            <a class="am-gift-guide__item" href="{{ product.url }}">
+              {%- if product.featured_media -%}
+                <div class="am-gift-guide__item-image">
+                  <img
+                    src="{{ product.featured_media | image_url: width: 500 }}"
+                    alt="{{ product.featured_media.alt | escape | default: product.title }}"
+                    loading="lazy"
+                    width="{{ product.featured_media.width }}"
+                    height="{{ product.featured_media.height }}"
+                  >
+                </div>
+              {%- endif -%}
+              <h2 class="am-gift-guide__item-title">{{ product.title | escape }}</h2>
+              <p class="am-gift-guide__item-price">{{ product.price | money }}</p>
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+    {%- if shown == 0 -%}
+      <p class="am-gift-guide__empty">No products are currently assigned to this guide.</p>
+    {%- endif -%}
+  {%- else -%}
+    <p class="am-gift-guide__empty">Source collection not found — check the collection handle in Theme Customiser.</p>
+  {%- endif -%}
 </div>
 
 {% schema %}
@@ -136,6 +196,68 @@
       "type": "textarea",
       "id": "intro",
       "label": "Intro text"
+    },
+    {
+      "type": "textarea",
+      "id": "christmas_intro",
+      "label": "Christmas framing line",
+      "info": "Seasonal intro line, shown below the main intro."
+    },
+    {
+      "type": "text",
+      "id": "delivery_line",
+      "label": "Delivery line"
+    },
+    {
+      "type": "text",
+      "id": "gift_wrap_line",
+      "label": "Gift wrapping line"
+    },
+    {
+      "type": "url",
+      "id": "gift_wrap_url",
+      "label": "Gift wrapping link URL"
+    },
+    {
+      "type": "text",
+      "id": "gift_wrap_link_label",
+      "label": "Gift wrapping link label",
+      "default": "Details"
+    },
+    {
+      "type": "header",
+      "content": "Product source"
+    },
+    {
+      "type": "text",
+      "id": "source_collection",
+      "label": "Source collection handle",
+      "info": "The collection to pull products from, e.g. \"miro\" or \"the-atelier-collection\"."
+    },
+    {
+      "type": "checkbox",
+      "id": "filter_by_color",
+      "label": "Filter by Shopify colour metafield",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "color_metaobject_id",
+      "label": "Colour metaobject ID",
+      "info": "The numeric ID from the colour's metaobject GID, e.g. 307256230225 for Cobalt (see the Colour Edit section's swatch settings for reference IDs)."
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "label": "Maximum products shown",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Hub link"
     },
     {
       "type": "text",
@@ -169,34 +291,9 @@
       "default": 48
     }
   ],
-  "blocks": [
-    {
-      "type": "product",
-      "name": "Product",
-      "settings": [
-        {
-          "type": "product",
-          "id": "product",
-          "label": "Product"
-        },
-        {
-          "type": "text",
-          "id": "curatorial_line",
-          "label": "Curatorial line",
-          "info": "One short line — not a full description. Links back to the full product page."
-        }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "AM — Gift Guide",
-      "blocks": [
-        { "type": "product" },
-        { "type": "product" },
-        { "type": "product" },
-        { "type": "product" }
-      ]
+      "name": "AM — Gift Guide"
     }
   ]
 }

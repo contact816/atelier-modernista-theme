@@ -11,45 +11,18 @@
   "sections": {
     "main": {
       "type": "gift-guide",
-      "blocks": {
-        "product_miro_blue": {
-          "type": "product",
-          "settings": {
-            "product": "miro-blue-necklace",
-            "curatorial_line": "Miró's blue, in a single uninterrupted line."
-          }
-        },
-        "product_miro_femme": {
-          "type": "product",
-          "settings": {
-            "product": "miro-femme-et-oiseaux-golden-necklace",
-            "curatorial_line": "Femme et Oiseaux in gold — one of Miró's most recognised forms."
-          }
-        },
-        "product_miro_dancer": {
-          "type": "product",
-          "settings": {
-            "product": "miro-spanish-dancer-earrings",
-            "curatorial_line": "Movement rendered in enamel, drawn from a Miró motif."
-          }
-        },
-        "product_miro_red": {
-          "type": "product",
-          "settings": {
-            "product": "miro-red-enamel-gold-drop-earrings",
-            "curatorial_line": "Red enamel and gold, from Miró's own palette."
-          }
-        }
-      },
-      "block_order": [
-        "product_miro_blue",
-        "product_miro_femme",
-        "product_miro_dancer",
-        "product_miro_red"
-      ],
       "settings": {
         "heading": "Gifts Inspired by Miró",
         "intro": "Officially licensed Miró jewellery, produced by Joidart under direct licence from Successió Miró. Each piece links through to its full details, materials, and price.",
+        "christmas_intro": "This year's case for a Miró gift is straightforward: nothing else on the list carries an official licence from the artist's own estate.",
+        "delivery_line": "Standard orders dispatch within 1–2 days and arrive within 1–4 days of dispatch; express delivery is available for £7.95 where timing matters more than cost.",
+        "gift_wrap_line": "Luxury Gift Wrapping is available as an add-on at checkout.",
+        "gift_wrap_url": "shopify://products/luxury-gift-wrapping",
+        "gift_wrap_link_label": "Details",
+        "source_collection": "miro",
+        "filter_by_color": false,
+        "color_metaobject_id": "",
+        "max_products": 8,
         "hub_link_label": "← Back to Gift Guides",
         "hub_link_url": "shopify://pages/gift-guides",
         "padding_top": 36,

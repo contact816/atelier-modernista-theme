@@ -10,6 +10,26 @@
   <span>{{ collection.title }}</span>
 </nav>
 
+{%- liquid
+  assign crumb_home = 'Home'
+  assign crumb_home_url = request.origin
+  assign crumb_collections = 'Collections'
+  assign crumb_collections_url = request.origin | append: '/collections'
+  assign crumb_current = collection.title
+  assign crumb_current_url = request.origin | append: collection.url
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":{{ crumb_home | json }},"item":{{ crumb_home_url | json }}},
+    {"@type":"ListItem","position":2,"name":{{ crumb_collections | json }},"item":{{ crumb_collections_url | json }}},
+    {"@type":"ListItem","position":3,"name":{{ crumb_current | json }},"item":{{ crumb_current_url | json }}}
+  ]
+}
+</script>
+
 <div class="am-collection-hero{% if collection.image %} am-collection-hero--with-image{% endif %}">
 
   {%- if collection.image -%}
@@ -27,12 +47,20 @@
   <div class="am-collection-hero__content">
     <p class="am-collection-hero__eyebrow">Artists Made These</p>
     <h1 class="am-collection-hero__title">{{ collection.title | escape }}</h1>
+    {%- if collection.handle == 'miro' -%}
+      <div class="am-collection-hero__statement">This collection is officially licensed by Successió Miró and produced by Joidart.</div>
+    {%- else -%}
+      <div class="am-collection-hero__statement"></div>
+    {%- endif -%}
     {%- if collection.description != blank -%}
       <div class="am-collection-hero__description">{{ collection.description }}</div>
     {%- endif -%}
-    <div class="am-collection-hero__statement">
-  
-</div>
+    {%- if collection.handle == 'miro' -%}
+      <div class="am-collection-hero__description am-collection-hero__miro-facts">
+        <p>Joidart is a fourth-generation jewellery house based in Barcelona, founded in 1981, working within a lineage connected to Joan Miró and Antoni Gaudí.</p>
+        <p><strong>Is this real Miró art you can wear?</strong> Yes. Each piece reproduces an authorised Miró design under direct licence from Successió Miró, the artist's estate. Joidart manufactures the collection with the estate's consent — these are not interpretations or homages, but licensed reproductions of Miró's own forms.</p>
+      </div>
+    {%- endif -%}
     <div class="am-collection-hero__meta">
       {%- if collection.metafields['custom']['am_collection_from'] != blank -%}
         <div class="am-collection-hero__meta-item">

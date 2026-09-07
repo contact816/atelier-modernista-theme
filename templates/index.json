@@ -172,54 +172,6 @@
         "view_all_url": "shopify://collections/colour-edit"
       }
     },
-    "collection_list_WrH6mQ": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_QjXmFa": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "under-75-copy"
-          }
-        },
-        "featured_collection_zpb6GB": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "75-150-copy"
-          }
-        },
-        "featured_collection_ULzb9J": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "150-300-copy"
-          }
-        },
-        "featured_collection_edqXG4": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "luxury-art-jewellery-250-plus"
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_QjXmFa",
-        "featured_collection_zpb6GB",
-        "featured_collection_ULzb9J",
-        "featured_collection_edqXG4"
-      ],
-      "name": "t:sections.collection-list.presets.name",
-      "settings": {
-        "title": "Collections",
-        "heading_size": "h1",
-        "image_ratio": "square",
-        "columns_desktop": 3,
-        "color_scheme": "",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "pb_colour_edit_bJy89W": {
       "type": "pb-colour-edit",
       "blocks": {
@@ -291,6 +243,54 @@
         "cta_url": "shopify://collections/colour-edit"
       }
     },
+    "collection_list_WrH6mQ": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_QjXmFa": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "under-75-copy"
+          }
+        },
+        "featured_collection_zpb6GB": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "75-150-copy"
+          }
+        },
+        "featured_collection_ULzb9J": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "150-300-copy"
+          }
+        },
+        "featured_collection_edqXG4": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "luxury-art-jewellery-250-plus"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_QjXmFa",
+        "featured_collection_zpb6GB",
+        "featured_collection_ULzb9J",
+        "featured_collection_edqXG4"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Collections",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "am_hero_carousel_mAGHzJ": {
       "type": "am-hero-carousel",
       "blocks": {
@@ -310,6 +310,7 @@
         "slide_mAeUef": {
           "type": "slide",
           "settings": {
+            "image_alt": "",
             "heading": "",
             "subheading": "",
             "button_text": "",
@@ -336,7 +337,7 @@
       "type": "pb-collection-showcase",
       "name": "AM — Collection Showcase",
       "settings": {
-        "image": "shopify://shop_images/Femme-devant-le-soleil_adl.jpg",
+        "image": "shopify://shop_images/M9999AR013200-VP_adl_cb5a8a97-4ae4-4efb-8de8-578549c2be0a.jpg",
         "image_position": "right",
         "eyebrow": "Atelier Modernista",
         "heading": "The Miró Collection",

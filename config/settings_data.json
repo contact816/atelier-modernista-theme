@@ -164,11 +164,6 @@
         "disabled": false,
         "settings": {}
       },
-      "8970570646067211390": {
-        "type": "shopify://apps/chatway-live-chat-ai-chatbot/blocks/chatway/b98feb50-a1d2-42c7-be3b-c24d75144246",
-        "disabled": true,
-        "settings": {}
-      },
       "12120936241911852800": {
         "type": "shopify://apps/judge-me-reviews/blocks/reviews_tab/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
         "disabled": true,
@@ -208,6 +203,11 @@
           "mobile_side_margin": 16,
           "mobile_bottom_margin": 46
         }
+      },
+      "8970570646067211390": {
+        "type": "shopify://apps/chatway-live-chat-ai-chatbot/blocks/chatway/b98feb50-a1d2-42c7-be3b-c24d75144246",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {

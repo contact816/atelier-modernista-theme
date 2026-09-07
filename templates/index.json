@@ -16,6 +16,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Model_Sea_Orbs_Silver_8ece285b-401a-47f2-aefc-8fed7bfcc4e1.jpg",
+            "image_alt": "Model wearing silver sculptural orb drop earrings by the sea – Atelier Modernista",
             "eyebrow": "The Orb Earrings drop",
             "headline_plain": "The Orb Earrings",
             "headline_italic": "are here...",
@@ -297,6 +298,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Screenshot_2026-04-29_at_17.33.08.png",
+            "image_alt": "The Atelier Modernista Bookshop – a curated reading list of artists and writers",
             "heading": "The Atelier Modernista Bookshop",
             "subheading": "Explore the artists and writers who've influenced our approach.",
             "button_text": "Visit The Atelier Modernista Bookshop",
@@ -466,6 +468,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/TANK_TOP_Warm_Light_Cobalt_Edition_Duet.jpg",
+            "image_alt": "Model wearing the Cobalt Edition jewellery duet in warm light – Atelier Modernista",
             "heading": "A Cobalt Summer",
             "subheading": "",
             "button_text": "Get the Set",
@@ -500,6 +503,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Model_9_Cobalt_Edition_Duet.jpg",
+            "image_alt": "Model wearing the Cobalt Edition jewellery duet, including the Matisse cobalt blue necklace – Atelier Modernista",
             "heading": "",
             "subheading": ".",
             "button_text": "Shop Matisse",
@@ -604,6 +608,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/ruby-earrings_2026-04-01_16-46-07_4a63910b.jpg",
+            "image_alt": "Close-up of ruby and 14ct gold vermeil jewellery – Atelier Modernista",
             "heading": "",
             "subheading": "",
             "button_text": "ruby + gold",

@@ -35,6 +35,7 @@
                 widths: '375, 750, 1100, 1500, 2000',
                 sizes: '100vw',
                 class: 'am-carousel__img',
+                alt: block.settings.image_alt | default: block.settings.image.alt | default: block.settings.heading,
                 fetchpriority: forloop.first | default: 'auto' -}}
           </div>
 
@@ -410,6 +411,12 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt text",
+          "info": "Describe what's visible in the photo for accessibility and search. Falls back to the image's own alt text, then the heading, if left blank."
         },
         {
           "type": "text",

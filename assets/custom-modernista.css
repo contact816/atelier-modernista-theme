@@ -266,19 +266,6 @@ header {
   box-shadow: 0 8px 32px rgba(26,26,24,0.08) !important;
 }
 
-/* Hide Dawn header completely â€” am-nav-bar takes over */
-.section-header,
-.shopify-section-header-sticky,
-header-drawer {
-  display: none !important;
-}
-
-/* AM nav bar padding */
-.am-header__nav-bar {
-  padding: 0 5% !important;
-}
-
-
 /* ============================================================
    4. BREADCRUMBS
    ============================================================ */
@@ -1435,70 +1422,6 @@ section[id*="newsletter"],
 }
 
 
-/* ============================================================
-   23. BYL SUMMARY â€” cobalt panel
-   ============================================================ */
-
-.byl-summary,
-.byl-summary *:not(.byl-summary__button) {
-  color: #fff !important;
-}
-.byl-summary.byl-summary .byl-summary__label {
-  font-size: 14px !important;
-  color: rgba(255,255,255,0.5) !important;
-}
-
-.byl-summary.byl-summary .byl-summary__row span:first-child {
-  color: rgba(255,255,255,0.7) !important;
-  font-size: 20px !important;
-  line-height: 1.2 !important;
-  max-width: 68%;
-}
-
-.byl-summary .byl-summary__row--saving span:first-child,
-.byl-summary .byl-summary__row--saving span:last-child,
-.byl-summary [data-byl-saving] {
-  color: #f4c400 !important;
-}
-
-.byl-summary [data-byl-subtotal-individual] {
-  color: rgba(255,255,255,0.35) !important;
-  font-size: 24px !important;
-  white-space: nowrap !important;
-}
-
-.byl-summary [data-byl-bundle-total-preview] {
-  font-size: 24px !important;
-  white-space: nowrap !important;
-}
-
-.byl-summary.byl-summary .byl-summary__total-label {
-  color: rgba(255,255,255,0.45) !important;
-  font-size: 14px !important;
-}
-
-.byl-summary .byl-summary__button {
-  color: #0047AB !important;
-}
-
-.byl-summary__row {
-  gap: 14px !important;
-}
-
-.byl-summary [data-byl-main-price],
-.byl-summary [data-byl-look-total],
-.byl-summary [data-byl-saving] {
-  font-size: 28px !important;
-  white-space: nowrap !important;
-}
-
-.byl-individual__prices {
-  min-width: 120px !important;
-}
-
-.byl-summary__total {
-  font-size: 42px !important;
-}
 .am-quick-add {
   display: inline-block;
   width: auto;
@@ -1808,27 +1731,6 @@ html body .btn-primary {
   box-shadow: 10px 10px 0 rgba(230, 178, 60, 0.18) !important;
 }
 
-/* Prevent a custom logo/nav wrapper from acquiring page-height dimensions. */
-.am-header__nav-bar,
-.am-header__inner,
-.am-nav-bar {
-  min-height: 0 !important;
-  height: auto !important;
-}
-
-.am-header__nav-bar {
-  padding-top: 18px !important;
-  padding-bottom: 18px !important;
-}
-
-.am-header__logo img,
-.am-header__brand img,
-.am-nav-bar img {
-  max-height: 82px !important;
-  width: auto !important;
-  object-fit: contain !important;
-}
-
 @media screen and (max-width: 749px) {
   .template-product .product,
   .template-product .product.grid {
@@ -1955,12 +1857,6 @@ html body .btn-primary {
   color: rgba(26, 26, 24, 0.72) !important;
 }
 
-/* Hide Build Your Look link until the feature is live */
-.byl-build-own,
-.byl-own-look,
-a[href*="build-your-look"] {
-  display: none !important;
-}
 /* ============================================================
    PRODUCT PAGE TYPOGRAPHY REFINEMENT
    ============================================================ */
@@ -2000,76 +1896,6 @@ a[href*="build-your-look"] {
   font-size: 15px !important;
   line-height: 1.75 !important;
   color: rgba(26,26,24,0.78) !important;
-}
-/* ============================================================
-   BUILD YOUR LOOK / COMPLETE THE COMPOSITION
-   ============================================================ */
-
-/* Transparent product cards */
-.byl-product-card,
-.byl-product,
-.byl-card,
-.byl-item {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-}
-
-/* Remove white image panels */
-.byl-product-card .media,
-.byl-product-card .card,
-.byl-product-card .card__inner,
-.byl-product-card .card__media,
-.byl-product-card .card__content {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: 0 !important;
-}
-
-/* Product title */
-.byl-product-card .card__heading,
-.byl-product-card .card__heading a,
-.byl-product-card h3 {
-  font-size: 1.7rem !important;
-  font-weight: 400 !important;
-  line-height: 1.35 !important;
-}
-
-/* Price */
-.byl-product-card .price {
-  font-size: 1.5rem !important;
-}
-
-/* Smaller body text */
-.byl-product-card p,
-.byl-product-card .card__information {
-  font-size: 1.4rem !important;
-  line-height: 1.6 !important;
-}
-
-/* Cobalt CTA */
-.byl-product-card .button,
-.byl-product-card button,
-.byl-product-card button[name="add"],
-.byl-summary__button {
-  background: var(--am-cobalt, #0047AB) !important;
-  border-color: var(--am-cobalt, #0047AB) !important;
-  color: #fff !important;
-}
-
-.byl-product-card .button:hover,
-.byl-product-card button:hover,
-.byl-summary__button:hover {
-  background: var(--am-cobalt-dark, #003080) !important;
-  border-color: var(--am-cobalt-dark, #003080) !important;
-}
-
-/* Remove Dawn's inner outline */
-.byl-product-card .button::before,
-.byl-product-card .button::after,
-.byl-summary__button::before,
-.byl-summary__button::after {
-  display: none !important;
 }
 /* ============================================================
    YOU MAY ALSO LIKE

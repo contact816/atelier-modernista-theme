@@ -841,9 +841,6 @@
         endif
       endif
 
-      assign schema_rating = product.metafields.reviews.rating.value
-      assign schema_rating_count = product.metafields.reviews.rating_count
-
       if schema_variant.available
         assign schema_availability = 'https://schema.org/InStock'
       else
@@ -858,10 +855,16 @@
       by artist/designer) and include material when we have it. Two
       Product-type JSON-LD blocks on one URL is a duplicate-schema
       anti-pattern, so this replaces the stock filter rather than
-      sitting alongside it — the aggregateRating block below exists to
-      not regress the rich-snippet eligibility the stock filter gave us
-      from the same reviews.rating / reviews.rating_count metafields
-      already rendered on-page above.
+      sitting alongside it.
+
+      No aggregateRating here on purpose: the stock filter would have
+      emitted one from product.metafields.reviews.rating / rating_count,
+      but that couldn't be verified against what Judge.me actually shows
+      on-page in this session (no live product data or storefront access
+      available), and unverified rating data in schema markup risks a
+      Google manual action. Add it back once someone can confirm the
+      metafield values match the live Judge.me widget on a few real
+      products.
 
       Material priority: product.metafields.general.materials (free text,
       ~65/249 products filled in) first, then product.metafields.shopify.
@@ -880,14 +883,6 @@
         "description": {{ schema_description | json }},
         {%- if schema_material != blank -%}
         "material": {{ schema_material | json }},
-        {%- endif -%}
-        {%- if schema_rating != blank and schema_rating_count != blank and schema_rating_count > 0 -%}
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": {{ schema_rating.rating | json }},
-          "bestRating": {{ schema_rating.scale_max | json }},
-          "reviewCount": {{ schema_rating_count | json }}
-        },
         {%- endif -%}
         "sku": {{ schema_variant.sku | json }},
         "brand": {

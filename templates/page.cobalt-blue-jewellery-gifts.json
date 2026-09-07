@@ -1,0 +1,36 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "gift-guide",
+      "settings": {
+        "heading": "Cobalt Blue Jewellery Gifts",
+        "intro": "A cobalt blue necklace edit, built around our signature colour. Each piece links through to its full details, materials, and price.",
+        "christmas_intro": "Cobalt remains the season's most requested colour here — a fixed point in a gift list that otherwise changes every year.",
+        "delivery_line": "Standard orders dispatch within 1–2 days and arrive within 1–4 days of dispatch; express delivery is available for £7.95 where timing matters more than cost.",
+        "gift_wrap_line": "Luxury Gift Wrapping is available as an add-on at checkout.",
+        "gift_wrap_url": "shopify://products/luxury-gift-wrapping",
+        "gift_wrap_link_label": "Details",
+        "source_collection": "the-atelier-collection",
+        "filter_by_color": true,
+        "color_metaobject_id": "307256230225",
+        "max_products": 8,
+        "hub_link_label": "← Back to Gift Guides",
+        "hub_link_url": "shopify://pages/gift-guides",
+        "padding_top": 36,
+        "padding_bottom": 48
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

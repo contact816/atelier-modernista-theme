@@ -1,0 +1,49 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "gift-guide-hub",
+      "blocks": {
+        "guide_miro": {
+          "type": "guide",
+          "settings": {
+            "image": "shopify://shop_images/M9999AR013200-VP_adl_cb5a8a97-4ae4-4efb-8de8-578549c2be0a.jpg",
+            "title": "Gifts Inspired by Miró",
+            "description": "Officially licensed Miró jewellery, chosen as gifts.",
+            "link": "shopify://pages/gifts-inspired-by-miro"
+          }
+        },
+        "guide_cobalt": {
+          "type": "guide",
+          "settings": {
+            "image": "",
+            "title": "Cobalt Blue Jewellery Gifts",
+            "description": "A cobalt blue necklace edit, and other pieces in our signature colour.",
+            "link": "shopify://pages/cobalt-blue-jewellery-gifts"
+          }
+        }
+      },
+      "block_order": [
+        "guide_miro",
+        "guide_cobalt"
+      ],
+      "settings": {
+        "heading": "Gift Guides",
+        "intro": "Curated edits, built around a theme, each linking through to the full piece.",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

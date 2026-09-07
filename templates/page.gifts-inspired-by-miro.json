@@ -1,0 +1,36 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "gift-guide",
+      "settings": {
+        "heading": "Gifts Inspired by Miró",
+        "intro": "Officially licensed Miró jewellery, produced by Joidart under direct licence from Successió Miró. Each piece links through to its full details, materials, and price.",
+        "christmas_intro": "This year's case for a Miró gift is straightforward: nothing else on the list carries an official licence from the artist's own estate.",
+        "delivery_line": "Standard orders dispatch within 1–2 days and arrive within 1–4 days of dispatch; express delivery is available for £7.95 where timing matters more than cost.",
+        "gift_wrap_line": "Luxury Gift Wrapping is available as an add-on at checkout.",
+        "gift_wrap_url": "shopify://products/luxury-gift-wrapping",
+        "gift_wrap_link_label": "Details",
+        "source_collection": "miro",
+        "filter_by_color": false,
+        "color_metaobject_id": "",
+        "max_products": 8,
+        "hub_link_label": "← Back to Gift Guides",
+        "hub_link_url": "shopify://pages/gift-guides",
+        "padding_top": 36,
+        "padding_bottom": 48
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

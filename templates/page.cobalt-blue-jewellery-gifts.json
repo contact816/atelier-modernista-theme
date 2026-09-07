@@ -1,0 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "gift-guide",
+      "blocks": {
+        "product_matisse": {
+          "type": "product",
+          "settings": {
+            "product": "matisse-necklace-in-cobalt-blue",
+            "curatorial_line": "A single, saturated note of cobalt, named for Matisse's own use of the colour."
+          }
+        },
+        "product_cobalt_edition": {
+          "type": "product",
+          "settings": {
+            "product": "the-cobalt-edition-necklace",
+            "curatorial_line": "Our signature cobalt, distilled into one necklace."
+          }
+        }
+      },
+      "block_order": [
+        "product_matisse",
+        "product_cobalt_edition"
+      ],
+      "settings": {
+        "heading": "Cobalt Blue Jewellery Gifts",
+        "intro": "A cobalt blue necklace edit, built around our signature colour. Each piece links through to its full details, materials, and price.",
+        "hub_link_label": "← Back to Gift Guides",
+        "hub_link_url": "shopify://pages/gift-guides",
+        "padding_top": 36,
+        "padding_bottom": 48
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

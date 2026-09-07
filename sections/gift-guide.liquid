@@ -1,0 +1,203 @@
+{%- style -%}
+  .am-gift-guide {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
+  }
+  .am-gift-guide__back {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: rgba(26, 26, 24, 0.6);
+    text-decoration: none;
+    margin-bottom: 24px;
+  }
+  .am-gift-guide__back:hover {
+    color: #0047AB;
+  }
+  .am-gift-guide__heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 400;
+    color: #1a1a18;
+    margin: 0 0 16px;
+  }
+  .am-gift-guide__intro {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(26, 26, 24, 0.75);
+    max-width: 65ch;
+    margin: 0 0 48px;
+  }
+  .am-gift-guide__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .am-gift-guide__item {
+    display: block;
+    text-decoration: none;
+  }
+  .am-gift-guide__item-image {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: #e8e2d4;
+    margin-bottom: 16px;
+  }
+  .am-gift-guide__item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .am-gift-guide__item-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: #1a1a18;
+    margin: 0 0 6px;
+  }
+  .am-gift-guide__item-line {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(26, 26, 24, 0.7);
+    margin: 0;
+  }
+  .am-gift-guide__item-price {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #1a1a18;
+    margin: 6px 0 0;
+  }
+{%- endstyle -%}
+
+<div class="am-gift-guide">
+  {%- if section.settings.hub_link_url != blank -%}
+    <a class="am-gift-guide__back" href="{{ section.settings.hub_link_url }}">
+      {{ section.settings.hub_link_label | default: '← Back to Gift Guides' }}
+    </a>
+  {%- endif -%}
+
+  <h1 class="am-gift-guide__heading">{{ section.settings.heading | escape }}</h1>
+  {%- if section.settings.intro != blank -%}
+    <div class="am-gift-guide__intro">{{ section.settings.intro }}</div>
+  {%- endif -%}
+
+  <ul class="am-gift-guide__list" role="list">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'product' and block.settings.product != blank -%}
+        {%- assign p = block.settings.product -%}
+        <li {{ block.shopify_attributes }}>
+          <a class="am-gift-guide__item" href="{{ p.url }}">
+            {%- if p.featured_media -%}
+              <div class="am-gift-guide__item-image">
+                <img
+                  src="{{ p.featured_media | image_url: width: 500 }}"
+                  alt="{{ p.featured_media.alt | escape | default: p.title }}"
+                  loading="lazy"
+                  width="{{ p.featured_media.width }}"
+                  height="{{ p.featured_media.height }}"
+                >
+              </div>
+            {%- endif -%}
+            <h2 class="am-gift-guide__item-title">{{ p.title | escape }}</h2>
+            {%- if block.settings.curatorial_line != blank -%}
+              <p class="am-gift-guide__item-line">{{ block.settings.curatorial_line | escape }}</p>
+            {%- endif -%}
+            <p class="am-gift-guide__item-price">{{ p.price | money }}</p>
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "AM — Gift Guide",
+  "tag": "section",
+  "class": "am-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro text"
+    },
+    {
+      "type": "text",
+      "id": "hub_link_label",
+      "label": "Hub link label",
+      "default": "← Back to Gift Guides"
+    },
+    {
+      "type": "url",
+      "id": "hub_link_url",
+      "label": "Hub link URL"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Space above",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Space below",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "curatorial_line",
+          "label": "Curatorial line",
+          "info": "One short line — not a full description. Links back to the full product page."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Gift Guide",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,63 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "gift-guide",
+      "blocks": {
+        "product_miro_blue": {
+          "type": "product",
+          "settings": {
+            "product": "miro-blue-necklace",
+            "curatorial_line": "Miró's blue, in a single uninterrupted line."
+          }
+        },
+        "product_miro_femme": {
+          "type": "product",
+          "settings": {
+            "product": "miro-femme-et-oiseaux-golden-necklace",
+            "curatorial_line": "Femme et Oiseaux in gold — one of Miró's most recognised forms."
+          }
+        },
+        "product_miro_dancer": {
+          "type": "product",
+          "settings": {
+            "product": "miro-spanish-dancer-earrings",
+            "curatorial_line": "Movement rendered in enamel, drawn from a Miró motif."
+          }
+        },
+        "product_miro_red": {
+          "type": "product",
+          "settings": {
+            "product": "miro-red-enamel-gold-drop-earrings",
+            "curatorial_line": "Red enamel and gold, from Miró's own palette."
+          }
+        }
+      },
+      "block_order": [
+        "product_miro_blue",
+        "product_miro_femme",
+        "product_miro_dancer",
+        "product_miro_red"
+      ],
+      "settings": {
+        "heading": "Gifts Inspired by Miró",
+        "intro": "Officially licensed Miró jewellery, produced by Joidart under direct licence from Successió Miró. Each piece links through to its full details, materials, and price.",
+        "hub_link_label": "← Back to Gift Guides",
+        "hub_link_url": "shopify://pages/gift-guides",
+        "padding_top": 36,
+        "padding_bottom": 48
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

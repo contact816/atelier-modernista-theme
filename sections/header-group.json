@@ -23,7 +23,6 @@
     },
     "announcement_bar_eTEQFF": {
       "type": "announcement-bar",
-      "disabled": true,
       "name": "t:sections.announcement-bar.presets.name",
       "settings": {
         "auto_rotate": true,
@@ -56,6 +55,7 @@
       "block_order": [
         "ai_gen_block_8ec9d0f_wDBrbw"
       ],
+      "disabled": true,
       "name": "Promo banner",
       "settings": {}
     }

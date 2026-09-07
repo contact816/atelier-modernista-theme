@@ -12,10 +12,10 @@
     "main": {
       "type": "atelier-circle",
       "settings": {
-        "eyebrow": "You are invited to",
+        "eyebrow": "",
         "heading": "",
         "statement": "",
-        "intro": "<p>Join us for Atelier Points, complimentary UK delivery, early access to new collections and occasional notes from the Atelier.</p>",
+        "intro": "",
         "inbox_note": "",
         "membership_heading": "Atelier Circle Membership is free, and includes:",
         "circle_benefit_one": "Free UK delivery for Atelier Circle members",
@@ -25,7 +25,7 @@
         "circle_benefit_five": "",
         "show_existing_points_link": true,
         "existing_points_link_label": "Already collecting points? See How Many You Have",
-        "form_label": "Welcome to the conversation",
+        "form_label": "You are invited to",
         "form_heading": "The Atelier Circle",
         "form_text": "",
         "email_label": "",

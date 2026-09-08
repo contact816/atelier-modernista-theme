@@ -515,7 +515,7 @@ nav.am-breadcrumbs {
 .active-facets__button-remove,
 .facets__reset {
   font-family: var(--am-sans) !important;
-  font-size: 12px !important;
+  font-size: 14px !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
   color: var(--am-mid-grey) !important;
@@ -917,7 +917,7 @@ a.button {
   color: var(--am-cobalt) !important;
   border: 1px solid var(--am-border-strong) !important;
   padding: 0.9rem 2rem !important;
-  font-size: 0.72rem !important;
+  font-size: 1.4rem !important;
   transition: background-color var(--am-duration-fast), color var(--am-duration-fast) !important;
 }
 
@@ -1104,7 +1104,7 @@ section[id*="newsletter"],
 .pagination .button {
   border-radius: 0 !important;
   font-family: var(--am-sans) !important;
-  font-size: 0.72rem !important;
+  font-size: 1.4rem !important;
   letter-spacing: 0.1em !important;
 }
 
@@ -1235,7 +1235,7 @@ section[id*="newsletter"],
 }
 
 :is(.am-hero) :is(.am-hero__content) :is(.am-btn-primary) {
-  font-size: 0.72rem !important;
+  font-size: 1.4rem !important;
   font-weight: 500 !important;
   letter-spacing: 0.14em !important;
   padding: 1rem 2.4rem !important;
@@ -1245,7 +1245,7 @@ section[id*="newsletter"],
 }
 
 :is(.am-hero) :is(.am-hero__content) :is(.am-btn-secondary) {
-  font-size: 0.72rem !important;
+  font-size: 1.4rem !important;
   font-weight: 500 !important;
   letter-spacing: 0.14em !important;
   padding: 0.25rem 0 !important;
@@ -1357,7 +1357,7 @@ section[id*="newsletter"],
   margin-right: 0 !important;
   white-space: nowrap !important;
   text-align: left !important;
-  font-size: 11px !important;
+  font-size: 14px !important;
   letter-spacing: 0.1em !important;
   text-transform: uppercase !important;
   border: 1px solid rgba(0, 71, 171, 0.25) !important;
@@ -1428,7 +1428,7 @@ section[id*="newsletter"],
   margin-top: 12px;
   padding: 10px 24px;
   font-family: var(--am-sans);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -1455,7 +1455,7 @@ section[id*="newsletter"],
   margin-top: 12px !important;
   padding: 10px 24px !important;
   font-family: var(--am-sans) !important;
-  font-size: 10px !important;
+  font-size: 14px !important;
   letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
   font-weight: 500 !important;
@@ -1629,7 +1629,7 @@ html body .btn-primary {
 .template-product button[name="add"] {
   min-height: 54px !important;
   padding: 14px 24px !important;
-  font-size: 12px !important;
+  font-size: 14px !important;
   letter-spacing: 0.16em !important;
   background: var(--am-cobalt) !important;
   color: #fff !important;

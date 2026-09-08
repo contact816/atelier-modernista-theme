@@ -75,7 +75,7 @@
   color: #C8102E;
   padding: 18px 44px;
   font-family: 'Jost', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   text-decoration: none;
@@ -493,7 +493,7 @@
   .arsenal-code { padding: 18px 24px; }
   .arsenal-code-code { font-size: 26px; letter-spacing: 0.03em; }
   .arsenal-code-discount { font-size: 19px; margin-bottom: 32px; }
-  .arsenal-code-cta { padding: 16px 32px; font-size: 11px; letter-spacing: 0.28em; }
+  .arsenal-code-cta { padding: 16px 32px; font-size: 14px; letter-spacing: 0.28em; }
   .arsenal-note {
     grid-template-columns: 1fr;
     padding: 56px 24px;

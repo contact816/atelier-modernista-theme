@@ -231,7 +231,7 @@ a {
   color: var(--am-cream);
   padding: 17px 40px;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -252,7 +252,7 @@ a {
   color: var(--am-ink);
   padding: 16px 32px;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -272,7 +272,7 @@ a {
   text-decoration: none;
   border-bottom: 1px solid var(--am-cobalt);
   padding-bottom: 4px;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 500;
@@ -283,7 +283,7 @@ a {
   text-decoration: none;
   border-bottom: 1px solid var(--am-yellow);
   padding-bottom: 4px;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -689,7 +689,7 @@ h1.am-hero__headline p {
   color: var(--am-cream);
   border: none;
   padding: 11px;
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 500;
@@ -1132,7 +1132,7 @@ h1.am-hero__headline p {
   color: var(--am-cream);
   border: none;
   font-family: var(--am-font-sans);
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -1867,24 +1867,6 @@ h1.am-hero__headline p {
   border-top: 1px solid var(--am-line);
 }
 
-.am-accordion-trigger {
-  width: 100%;
-  background: transparent;
-  border: none;
-  padding: 22px 0;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--am-ink);
-  transition: color var(--am-transition);
-  cursor: pointer;
-}
-
 .am-accordion-trigger:hover {
   color: var(--am-cobalt);
 }
@@ -1900,7 +1882,7 @@ h1.am-hero__headline p {
   align-items: center;
 
   font-family: var(--am-sans);
-  font-size: 1rem;
+  font-size: 1.4rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 300;
@@ -2161,7 +2143,7 @@ h1.am-hero__headline p {
   background: var(--am-cream);
   color: var(--am-ink);
   border: 1px solid var(--am-cream);
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;

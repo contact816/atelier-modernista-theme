@@ -401,6 +401,12 @@
   color: #2458a8;
 }
 
+.atelier-circle__success-link--static {
+  cursor: default;
+  color: #777067;
+  text-decoration: none;
+}
+
 /* Member state */
 
 .atelier-circle__member-status {
@@ -563,6 +569,13 @@
 .atelier-circle__button:hover {
   border-color: #003080;
   background: #003080;
+}
+
+.atelier-circle__button--static,
+.atelier-circle__button--static:hover {
+  cursor: default;
+  border-color: #0047ab;
+  background: #0047ab;
 }
 
 .atelier-circle__membership {

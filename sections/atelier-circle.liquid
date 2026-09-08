@@ -65,9 +65,9 @@
               <div class="atelier-circle__panel-copy rte">{{ section.settings.member_text }}</div>
             {%- endif -%}
 
-            <a class="atelier-circle__button" href="#smile-home">
+            <span class="atelier-circle__button atelier-circle__button--static">
               {{ section.settings.member_points_button_label | escape }}
-            </a>
+            </span>
 
             {%- if section.settings.show_account_link -%}
               <a class="atelier-circle__success-link" href="{{ routes.account_url }}">
@@ -169,9 +169,9 @@
               </ul>
 
               {%- if section.settings.show_existing_points_link -%}
-                <a class="atelier-circle__success-link" href="#smile-home">
+                <span class="atelier-circle__success-link atelier-circle__success-link--static">
                   {{ section.settings.existing_points_link_label | escape }}
-                </a>
+                </span>
               {%- endif -%}
             </div>
           </div>

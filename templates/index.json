@@ -32,6 +32,22 @@
     "pb_featured_products_WLmgn6": {
       "type": "pb-featured-products",
       "blocks": {
+        "product_kBJN3U": {
+          "type": "product",
+          "settings": {
+            "product": "miro-1924-red-gold-earrings",
+            "badge": "Bestseller",
+            "badge_red": false
+          }
+        },
+        "product_4UgHKh": {
+          "type": "product",
+          "settings": {
+            "product": "miro-spanish-dancer-earrings",
+            "badge": "Bestseller",
+            "badge_red": false
+          }
+        },
         "product_xqnr66": {
           "type": "product",
           "settings": {
@@ -66,6 +82,8 @@
         }
       },
       "block_order": [
+        "product_kBJN3U",
+        "product_4UgHKh",
         "product_xqnr66",
         "product_cVmj76",
         "product_ejKpkQ",

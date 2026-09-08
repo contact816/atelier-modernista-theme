@@ -29,6 +29,56 @@
         "trust_3": "Free Shipping with The Atelier Circle"
       }
     },
+    "pb_featured_products_WLmgn6": {
+      "type": "pb-featured-products",
+      "blocks": {
+        "product_xqnr66": {
+          "type": "product",
+          "settings": {
+            "product": "architect-enamel-copper-earrings",
+            "badge": "Bestseller",
+            "badge_red": false
+          }
+        },
+        "product_cVmj76": {
+          "type": "product",
+          "settings": {
+            "product": "bauhaus-purple-red-earrings",
+            "badge": "Bestseller",
+            "badge_red": false
+          }
+        },
+        "product_ejKpkQ": {
+          "type": "product",
+          "settings": {
+            "product": "the-cobalt-edition-necklace",
+            "badge": "Bestseller",
+            "badge_red": false
+          }
+        },
+        "product_NE7rPU": {
+          "type": "product",
+          "settings": {
+            "product": "cobalt-blue-edition-earrings",
+            "badge": "Bestseller",
+            "badge_red": false
+          }
+        }
+      },
+      "block_order": [
+        "product_xqnr66",
+        "product_cVmj76",
+        "product_ejKpkQ",
+        "product_NE7rPU"
+      ],
+      "name": "AM — Featured Products",
+      "settings": {
+        "eyebrow": "This Season",
+        "heading": "Bestsellers",
+        "view_all_label": "Find Your New Favourite",
+        "view_all_url": "shopify://collections/bestsellers"
+      }
+    },
     "pb_featured_products_QydhwQ": {
       "type": "pb-featured-products",
       "blocks": {
@@ -670,10 +720,32 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "gift_guide_XNX8Tz": {
+      "type": "gift-guide",
+      "name": "AM — Gift Guide",
+      "settings": {
+        "heading": "",
+        "intro": "",
+        "christmas_intro": "",
+        "delivery_line": "",
+        "gift_wrap_line": "",
+        "gift_wrap_url": "",
+        "gift_wrap_link_label": "Details",
+        "source_collection": "",
+        "filter_by_color": false,
+        "color_metaobject_id": "",
+        "max_products": 8,
+        "hub_link_label": "← Back to Gift Guides",
+        "hub_link_url": "",
+        "padding_top": 36,
+        "padding_bottom": 48
+      }
     }
   },
   "order": [
     "pb_hero_MJ4EMh",
+    "pb_featured_products_WLmgn6",
     "pb_featured_products_QydhwQ",
     "pb_featured_products_ji63Ur",
     "pb_colour_edit_bJy89W",
@@ -694,6 +766,7 @@
     "image_with_text_NMgRYF",
     "custom_liquid_Cc8kti",
     "blocks_Ew4x7P",
-    "17835973092b47e3f7"
+    "17835973092b47e3f7",
+    "gift_guide_XNX8Tz"
   ]
 }

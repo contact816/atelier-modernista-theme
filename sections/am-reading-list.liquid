@@ -6,7 +6,7 @@
 
   Requires:
   - assets/am-reading-list.css   (editorial layout styling — unchanged, still loads)
-  - Tally script added once before </head> in theme.liquid:
+  - Tally script in theme.liquid, scoped to `template == 'page.reading-list'`:
     <script async src="https://tally.so/widgets/embed.js"></script>
 
   Grid-mode styling is self-contained in the <style> block below, so it

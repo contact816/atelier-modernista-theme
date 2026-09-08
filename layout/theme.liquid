@@ -1,6 +1,8 @@
 <!doctype html>
 <html class="js" lang="{{ request.locale.iso_code }}">
-  <script async src="https://tally.so/widgets/embed.js"></script>
+  {%- if template == 'page.reading-list' -%}
+    <script async src="https://tally.so/widgets/embed.js"></script>
+  {%- endif -%}
   <head>
     <meta name="facebook-domain-verification" content="xxdhuffzpbpqj5e3fchj9rnojnswjw" />
 
@@ -329,8 +331,6 @@
 <noscript>{{ 'pb-global.css' | asset_url | stylesheet_tag }}</noscript>
 <link rel="stylesheet" href="{{ 'custom-modernista.css' | asset_url }}" media="print" onload="this.media='all'">
 <noscript>{{ 'custom-modernista.css' | asset_url | stylesheet_tag }}</noscript>
-
-<script async src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=T6P3Rt"></script>
 
 </head>
 

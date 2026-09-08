@@ -231,7 +231,7 @@ a {
   color: var(--am-cream);
   padding: 17px 40px;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -252,7 +252,7 @@ a {
   color: var(--am-ink);
   padding: 16px 32px;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -272,7 +272,7 @@ a {
   text-decoration: none;
   border-bottom: 1px solid var(--am-cobalt);
   padding-bottom: 4px;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 500;
@@ -283,7 +283,7 @@ a {
   text-decoration: none;
   border-bottom: 1px solid var(--am-yellow);
   padding-bottom: 4px;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -383,17 +383,6 @@ a {
   background: var(--am-cream);
   position: relative;
   z-index: 50;
-}
-
-.am-nav-left,
-.am-nav-right {
-  display: flex;
-  gap: 32px;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  flex: 1;
-  font-weight: 400;
 }
 
 .am-nav-right {
@@ -689,7 +678,7 @@ h1.am-hero__headline p {
   color: var(--am-cream);
   border: none;
   padding: 11px;
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 500;
@@ -707,7 +696,7 @@ h1.am-hero__headline p {
 
 .am-product-card__name {
   font-family: var(--am-font-serif);
-  font-size: 21px;
+  font-size: 16px;
   font-weight: 500;
   margin-bottom: 4px;
   line-height: 1.2;
@@ -721,7 +710,7 @@ h1.am-hero__headline p {
 }
 
 .am-product-card__price {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--am-ink);
 }
@@ -1132,7 +1121,7 @@ h1.am-hero__headline p {
   color: var(--am-cream);
   border: none;
   font-family: var(--am-font-sans);
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -1867,24 +1856,6 @@ h1.am-hero__headline p {
   border-top: 1px solid var(--am-line);
 }
 
-.am-accordion-trigger {
-  width: 100%;
-  background: transparent;
-  border: none;
-  padding: 22px 0;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--am-ink);
-  transition: color var(--am-transition);
-  cursor: pointer;
-}
-
 .am-accordion-trigger:hover {
   color: var(--am-cobalt);
 }
@@ -1900,7 +1871,7 @@ h1.am-hero__headline p {
   align-items: center;
 
   font-family: var(--am-sans);
-  font-size: 1rem;
+  font-size: 1.4rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 300;
@@ -2161,7 +2132,7 @@ h1.am-hero__headline p {
   background: var(--am-cream);
   color: var(--am-ink);
   border: 1px solid var(--am-cream);
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -2219,7 +2190,7 @@ h1.am-hero__headline p {
 
 .am-piece-card__name {
   font-family: var(--am-font-serif);
-  font-size: 19px;
+  font-size: 16px;
   line-height: 1.2;
   margin-bottom: 4px;
   font-weight: 500;
@@ -2233,7 +2204,7 @@ h1.am-hero__headline p {
 }
 
 .am-piece-card__price {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
 }
 

@@ -9,6 +9,26 @@
  */
 {
   "sections": {
+    "pb_hero_MJ4EMh": {
+      "type": "pb-hero",
+      "custom_css": [],
+      "name": "AM — Hero",
+      "settings": {
+        "hero_image": "shopify://shop_images/7E7D8EA9-9C90-4971-AF92-8E4BE19C4874.png",
+        "eyebrow": "Atelier Modernista",
+        "headline_plain": "Jewellery",
+        "headline_italic": "with a mind of its own.",
+        "subheading": "Contemporary jewellery in the Modernist style, defined by rich colours,  architectural lines and a powerfully sculptural aesthetic.",
+        "primary_cta_label": "Shop the Edit",
+        "primary_cta_url": "shopify://collections/colour-edit",
+        "secondary_cta_label": "Shop the Ideas",
+        "secondary_cta_url": "https://ateliermodernista.com/pages/the-atelier-modernista-library",
+        "show_trust_strip": true,
+        "trust_1": "Curated in London",
+        "trust_2": "Luxury Gift Wrapping",
+        "trust_3": "Free Shipping with The Atelier Circle"
+      }
+    },
     "pb_featured_products_QydhwQ": {
       "type": "pb-featured-products",
       "blocks": {
@@ -57,26 +77,6 @@
         "heading": "Own A Miró",
         "view_all_label": "The Miró Collection",
         "view_all_url": "shopify://collections/miro"
-      }
-    },
-    "pb_hero_MJ4EMh": {
-      "type": "pb-hero",
-      "custom_css": [],
-      "name": "AM — Hero",
-      "settings": {
-        "hero_image": "shopify://shop_images/7E7D8EA9-9C90-4971-AF92-8E4BE19C4874.png",
-        "eyebrow": "Atelier Modernista",
-        "headline_plain": "Jewellery",
-        "headline_italic": "with a mind of its own.",
-        "subheading": "Contemporary jewellery in the Modernist style, defined by rich colours,  architectural lines and a powerfully sculptural aesthetic.",
-        "primary_cta_label": "Shop the Edit",
-        "primary_cta_url": "shopify://collections/colour-edit",
-        "secondary_cta_label": "Shop the Ideas",
-        "secondary_cta_url": "https://ateliermodernista.com/pages/the-atelier-modernista-library",
-        "show_trust_strip": true,
-        "trust_1": "Curated in London",
-        "trust_2": "Luxury Gift Wrapping",
-        "trust_3": "Free Shipping with The Atelier Circle"
       }
     },
     "pb_featured_products_ji63Ur": {

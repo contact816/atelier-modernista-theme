@@ -221,20 +221,6 @@ header {
   align-items: center !important;
 }
 
-/* Nav links */
-.header__navigation a,
-.list-menu__item--link,
-.header__menu-item {
-  font-family: var(--am-sans) !important;
-  font-size: 0.72rem !important;
-  font-weight: 400 !important;
-  letter-spacing: 0.1em !important;
-  text-transform: uppercase !important;
-  color: var(--am-ink) !important;
-  text-decoration: none !important;
-  transition: color var(--am-duration-fast) var(--am-ease) !important;
-}
-
 .header__navigation a:hover,
 .list-menu__item--link:hover,
 .header__menu-item:hover {
@@ -515,7 +501,7 @@ nav.am-breadcrumbs {
 .active-facets__button-remove,
 .facets__reset {
   font-family: var(--am-sans) !important;
-  font-size: 12px !important;
+  font-size: 14px !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
   color: var(--am-mid-grey) !important;
@@ -708,7 +694,7 @@ input[type="checkbox"].facets__checkbox {
 .product__price .price,
 .product-form__price .price-item {
   font-family: var(--am-sans) !important;
-  font-size: 1.15rem !important;
+  font-size: 1.8rem !important;
   font-weight: 400 !important;
   color: var(--am-ink) !important;
   letter-spacing: 0.02em !important;
@@ -917,7 +903,7 @@ a.button {
   color: var(--am-cobalt) !important;
   border: 1px solid var(--am-border-strong) !important;
   padding: 0.9rem 2rem !important;
-  font-size: 0.72rem !important;
+  font-size: 1.4rem !important;
   transition: background-color var(--am-duration-fast), color var(--am-duration-fast) !important;
 }
 
@@ -957,7 +943,7 @@ a.button {
 
 .cart-item__price {
   font-family: var(--am-sans) !important;
-  font-size: 0.85rem !important;
+  font-size: 1.4rem !important;
   color: var(--am-ink) !important;
 }
 
@@ -1104,7 +1090,7 @@ section[id*="newsletter"],
 .pagination .button {
   border-radius: 0 !important;
   font-family: var(--am-sans) !important;
-  font-size: 0.72rem !important;
+  font-size: 1.4rem !important;
   letter-spacing: 0.1em !important;
 }
 
@@ -1235,7 +1221,7 @@ section[id*="newsletter"],
 }
 
 :is(.am-hero) :is(.am-hero__content) :is(.am-btn-primary) {
-  font-size: 0.72rem !important;
+  font-size: 1.4rem !important;
   font-weight: 500 !important;
   letter-spacing: 0.14em !important;
   padding: 1rem 2.4rem !important;
@@ -1245,7 +1231,7 @@ section[id*="newsletter"],
 }
 
 :is(.am-hero) :is(.am-hero__content) :is(.am-btn-secondary) {
-  font-size: 0.72rem !important;
+  font-size: 1.4rem !important;
   font-weight: 500 !important;
   letter-spacing: 0.14em !important;
   padding: 0.25rem 0 !important;
@@ -1357,7 +1343,7 @@ section[id*="newsletter"],
   margin-right: 0 !important;
   white-space: nowrap !important;
   text-align: left !important;
-  font-size: 11px !important;
+  font-size: 14px !important;
   letter-spacing: 0.1em !important;
   text-transform: uppercase !important;
   border: 1px solid rgba(0, 71, 171, 0.25) !important;
@@ -1428,7 +1414,7 @@ section[id*="newsletter"],
   margin-top: 12px;
   padding: 10px 24px;
   font-family: var(--am-sans);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 500;
@@ -1455,7 +1441,7 @@ section[id*="newsletter"],
   margin-top: 12px !important;
   padding: 10px 24px !important;
   font-family: var(--am-sans) !important;
-  font-size: 10px !important;
+  font-size: 14px !important;
   letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
   font-weight: 500 !important;
@@ -1629,7 +1615,7 @@ html body .btn-primary {
 .template-product button[name="add"] {
   min-height: 54px !important;
   padding: 14px 24px !important;
-  font-size: 12px !important;
+  font-size: 14px !important;
   letter-spacing: 0.16em !important;
   background: var(--am-cobalt) !important;
   color: #fff !important;
@@ -1922,14 +1908,14 @@ html body .btn-primary {
 /* Smaller product title */
 .related-products .card__heading,
 .related-products .card__heading a {
-    font-size: 1.9rem !important;
+    font-size: 1.6rem !important;
     line-height: 1.35 !important;
     font-weight: 400 !important;
 }
 
 /* Smaller price */
 .related-products .price {
-    font-size: 1.6rem !important;
+    font-size: 1.4rem !important;
 }
 
 /* Cobalt Add to Bag */
@@ -2537,28 +2523,6 @@ html body .product__info-container .am-circle-form__checkbox {
 
   list-style: none !important;
   border-top: 1px solid rgba(38, 35, 31, 0.17) !important;
-}
-
-/* Each benefit becomes its own row */
-.atelier-circle .atelier-circle__membership
-.atelier-circle__benefit {
-  position: relative !important;
-  display: block !important;
-  width: 100% !important;
-
-  margin: 0 !important;
-  padding: 18px 12px 18px 34px !important;
-
-  border-right: 0 !important;
-  border-bottom: 1px solid rgba(38, 35, 31, 0.17) !important;
-
-  font-family: Jost, sans-serif !important;
-  font-size: 1.4rem !important;
-  font-weight: 400 !important;
-  line-height: 1.55 !important;
-  text-align: left !important;
-
-  color: #34302b !important;
 }
 
 .atelier-circle .atelier-circle__membership

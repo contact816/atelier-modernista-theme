@@ -69,7 +69,7 @@
 .alil-btn {
   display: inline-block;
   font-family: 'Jost', sans-serif;
-  font-size: 0.72rem;
+  font-size: 1.4rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -292,7 +292,7 @@
 
 .alil-product-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.05rem;
+  font-size: 1.6rem;
   font-weight: 400;
   color: var(--am-ink);
   margin: 0 0 0.2rem;
@@ -320,7 +320,7 @@
 
 .alil-product-price {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: 400;
   color: var(--am-cobalt);
   margin: 0 0 0.9rem;
@@ -754,7 +754,7 @@
 
 .alil-byl__look-name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   font-weight: 300;
   color: #fff;
   line-height: 1.2;

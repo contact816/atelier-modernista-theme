@@ -1621,12 +1621,6 @@ html body .btn-primary {
   color: #fff !important;
 }
 
-.template-product .accordion summary,
-.template-product details.accordion summary {
-  font-size: 12px !important;
-  padding: 16px 0 !important;
-}
-
 .template-product .accordion__content,
 .template-product details.accordion .rte,
 .template-product details.accordion .rte p {

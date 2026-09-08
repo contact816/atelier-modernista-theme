@@ -1500,35 +1500,6 @@ h1.am-hero__headline p {
   border-top: 1px solid var(--am-line);
 }
 
-.am-faq-trigger {
-  width: 100%;
-  background: transparent;
-  border: none;
-  padding: 26px 0;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: var(--am-font-serif);
-  font-size: 22px;
-  color: var(--am-ink);
-  font-weight: 500;
-  transition: color var(--am-transition);
-  cursor: pointer;
-}
-
-.am-faq-trigger:hover {
-  color: var(--am-cobalt);
-}
-
-.am-faq-trigger__icon {
-  font-family: var(--am-font-serif);
-  font-size: 24px;
-  color: var(--am-cobalt);
-  transition: transform 0.3s;
-  line-height: 1;
-}
-
 .am-faq-item.open .am-faq-trigger__icon {
   transform: rotate(45deg);
 }
@@ -1858,27 +1829,6 @@ h1.am-hero__headline p {
 
 .am-accordion-trigger:hover {
   color: var(--am-cobalt);
-}
-
-.am-accordion-trigger {
-  width: 100%;
-  background: transparent;
-  border: none;
-  padding: 22px 0;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  font-family: var(--am-sans);
-  font-size: 1.4rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 300;
-  color: var(--am-ink);
-
-  transition: color var(--am-transition);
-  cursor: pointer;
 }
 
 

@@ -827,7 +827,27 @@
       assign schema_image_url = seo_media | image_url: width: 1600 | prepend: 'https:'
       assign schema_product_url = request.origin | append: product.url
 
-      assign schema_material = product.metafields.general.materials.value
+      assign schema_material = ''
+      assign schema_material_field = product.metafields.general.materials
+      if schema_material_field.type == 'metaobject_reference'
+        assign schema_mo = schema_material_field.value
+        assign schema_material = schema_mo.fields.display_name.value | default: schema_mo.fields.name.value | default: schema_mo.fields.title.value
+      elsif schema_material_field.type == 'list.metaobject_reference'
+        assign schema_material_list = ''
+        for schema_mo in schema_material_field.value
+          assign schema_mo_name = schema_mo.fields.display_name.value | default: schema_mo.fields.name.value | default: schema_mo.fields.title.value
+          if schema_mo_name != blank
+            assign schema_material_list = schema_material_list | append: schema_mo_name
+            unless forloop.last
+              assign schema_material_list = schema_material_list | append: ', '
+            endunless
+          endif
+        endfor
+        assign schema_material = schema_material_list
+      else
+        assign schema_material = schema_material_field.value
+      endif
+
       if schema_material == blank
         assign schema_material_slug = product.metafields['shopify']['jewelry-material'].value
         if schema_material_slug != blank

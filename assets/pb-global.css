@@ -385,17 +385,6 @@ a {
   z-index: 50;
 }
 
-.am-nav-left,
-.am-nav-right {
-  display: flex;
-  gap: 32px;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  flex: 1;
-  font-weight: 400;
-}
-
 .am-nav-right {
   justify-content: flex-end;
 }
@@ -707,7 +696,7 @@ h1.am-hero__headline p {
 
 .am-product-card__name {
   font-family: var(--am-font-serif);
-  font-size: 21px;
+  font-size: 16px;
   font-weight: 500;
   margin-bottom: 4px;
   line-height: 1.2;
@@ -721,7 +710,7 @@ h1.am-hero__headline p {
 }
 
 .am-product-card__price {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--am-ink);
 }
@@ -2201,7 +2190,7 @@ h1.am-hero__headline p {
 
 .am-piece-card__name {
   font-family: var(--am-font-serif);
-  font-size: 19px;
+  font-size: 16px;
   line-height: 1.2;
   margin-bottom: 4px;
   font-weight: 500;
@@ -2215,7 +2204,7 @@ h1.am-hero__headline p {
 }
 
 .am-piece-card__price {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
 }
 

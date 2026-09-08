@@ -324,7 +324,7 @@
 .arsenal-product-title {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-style: italic;
-  font-size: 19px;
+  font-size: 16px;
   color: #0047AB;
   margin-bottom: 4px;
   font-weight: 400;
@@ -342,7 +342,7 @@
 
 .arsenal-product-price {
   font-family: 'Jost', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.04em;
   color: #3a3a3a;
 }

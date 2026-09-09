@@ -748,6 +748,7 @@
       "blocks": {
         "judge_me_reviews_reviews_grid_widget_gKCDgn": {
           "type": "shopify://apps/judge-me-reviews/blocks/reviews_grid_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
           "settings": {
             "show_sample_reviews": true,
             "review_selection": "all",
@@ -767,17 +768,17 @@
             "show_stars": true,
             "show_reviewer_name": false,
             "show_review_title_on_hover_desktop": false,
-            "max_width": 300,
+            "max_width": 600,
             "corner_styling": "soft",
             "card_spacing": "medium",
-            "header_text_color": "#000000",
+            "header_text_color": "#4A4696",
             "star_and_reviewer_name_color": "#F9F9F9",
-            "drop_shadow_color": "#000000",
+            "drop_shadow_color": "#4A4696",
             "overlay_and_background_color": "#4A4696",
             "content_color": "#F9F9F9",
             "header_text": "Your Atelier Modernista Experience",
             "show_average_rating": true,
-            "rating_display": "show_nothing"
+            "rating_display": "default"
           }
         }
       },

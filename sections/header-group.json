@@ -21,19 +21,6 @@
         "menu": "main-menu"
       }
     },
-    "announcement_bar_eTEQFF": {
-      "type": "announcement-bar",
-      "name": "t:sections.announcement-bar.presets.name",
-      "settings": {
-        "auto_rotate": true,
-        "change_slides_speed": 5,
-        "color_scheme": "",
-        "show_line_separator": true,
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false
-      }
-    },
     "blocks_e7TwBa": {
       "type": "_blocks",
       "blocks": {
@@ -62,7 +49,6 @@
   },
   "order": [
     "am_nav_bar",
-    "announcement_bar_eTEQFF",
     "blocks_e7TwBa"
   ]
 }

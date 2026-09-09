@@ -850,10 +850,7 @@
 
       if schema_material == blank
         assign schema_slug_field = product.metafields['shopify']['jewelry-material']
-        if schema_slug_field.value.fields
-          assign schema_slug_mo = schema_slug_field.value
-          assign schema_material = schema_slug_mo.fields.display_name.value | default: schema_slug_mo.fields.name.value | default: schema_slug_mo.fields.title.value
-        elsif schema_slug_field.value.first.fields
+        if schema_slug_field.type == 'list.metaobject_reference'
           assign schema_slug_list = ''
           for schema_slug_mo in schema_slug_field.value
             assign schema_slug_mo_name = schema_slug_mo.fields.display_name.value | default: schema_slug_mo.fields.name.value | default: schema_slug_mo.fields.title.value

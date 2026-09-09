@@ -97,106 +97,6 @@
         "view_all_url": "shopify://collections/bestsellers"
       }
     },
-    "pb_featured_products_QydhwQ": {
-      "type": "pb-featured-products",
-      "blocks": {
-        "product_iX43hr": {
-          "type": "product",
-          "settings": {
-            "product": "miro-spanish-dancer-earrings",
-            "badge": "New",
-            "badge_red": false
-          }
-        },
-        "product_4aYi9E": {
-          "type": "product",
-          "settings": {
-            "product": "miro-blue-necklace",
-            "badge": "New",
-            "badge_red": false
-          }
-        },
-        "product_eMtp9a": {
-          "type": "product",
-          "settings": {
-            "product": "miro-femme-et-oiseaux-golden-necklace",
-            "badge": "New",
-            "badge_red": false
-          }
-        },
-        "product_jW3ng6": {
-          "type": "product",
-          "settings": {
-            "product": "miro-red-enamel-gold-drop-earrings",
-            "badge": "New",
-            "badge_red": false
-          }
-        }
-      },
-      "block_order": [
-        "product_iX43hr",
-        "product_4aYi9E",
-        "product_eMtp9a",
-        "product_jW3ng6"
-      ],
-      "name": "AM — Featured Products",
-      "settings": {
-        "eyebrow": "Licensed by Successió Miró",
-        "heading": "Own A Miró",
-        "view_all_label": "The Miró Collection",
-        "view_all_url": "shopify://collections/miro"
-      }
-    },
-    "pb_featured_products_ji63Ur": {
-      "type": "pb-featured-products",
-      "blocks": {
-        "product_k3CUmn": {
-          "type": "product",
-          "settings": {
-            "product": "architect-enamel-copper-earrings",
-            "badge": "Bestseller",
-            "badge_red": false
-          }
-        },
-        "product_FPfmdw": {
-          "type": "product",
-          "settings": {
-            "product": "strata-geometrica-earrings-in-yellow",
-            "badge": "NEW",
-            "badge_red": false
-          }
-        },
-        "product_cH9A3c": {
-          "type": "product",
-          "settings": {
-            "product": "matisse-necklace-in-cobalt-blue",
-            "badge": "New",
-            "badge_red": false
-          }
-        },
-        "product_bKEVtG": {
-          "type": "product",
-          "settings": {
-            "product": "bauhaus-purple-red-earrings",
-            "badge": "",
-            "badge_red": false
-          }
-        }
-      },
-      "block_order": [
-        "product_k3CUmn",
-        "product_FPfmdw",
-        "product_cH9A3c",
-        "product_bKEVtG"
-      ],
-      "name": "AM — Featured Products",
-      "settings": {
-        "eyebrow": "This Summer",
-        "heading": "Bauhaus Colours",
-        "view_all_label": "discover yours",
-        "view_all_url": "shopify://collections/colour-edit"
-      }
-    },
     "pb_colour_edit_bJy89W": {
       "type": "pb-colour-edit",
       "blocks": {
@@ -268,6 +168,145 @@
         "cta_url": "shopify://collections/colour-edit"
       }
     },
+    "pb_featured_products_QydhwQ": {
+      "type": "pb-featured-products",
+      "blocks": {
+        "product_iX43hr": {
+          "type": "product",
+          "settings": {
+            "product": "miro-spanish-dancer-earrings",
+            "badge": "New",
+            "badge_red": false
+          }
+        },
+        "product_4aYi9E": {
+          "type": "product",
+          "settings": {
+            "product": "miro-blue-necklace",
+            "badge": "New",
+            "badge_red": false
+          }
+        },
+        "product_eMtp9a": {
+          "type": "product",
+          "settings": {
+            "product": "miro-femme-et-oiseaux-golden-necklace",
+            "badge": "New",
+            "badge_red": false
+          }
+        },
+        "product_jW3ng6": {
+          "type": "product",
+          "settings": {
+            "product": "miro-red-enamel-gold-drop-earrings",
+            "badge": "New",
+            "badge_red": false
+          }
+        }
+      },
+      "block_order": [
+        "product_iX43hr",
+        "product_4aYi9E",
+        "product_eMtp9a",
+        "product_jW3ng6"
+      ],
+      "disabled": true,
+      "name": "AM — Featured Products",
+      "settings": {
+        "eyebrow": "Licensed by Successió Miró",
+        "heading": "Own A Miró",
+        "view_all_label": "The Miró Collection",
+        "view_all_url": "shopify://collections/miro"
+      }
+    },
+    "pb_reviews_FN6rik": {
+      "type": "pb-reviews",
+      "blocks": {
+        "review_PhBKaU": {
+          "type": "review",
+          "settings": {
+            "quote": "Everything felt luxurious from the start - the unique selection, the packaging, the earrings themselves.",
+            "author": "Michael, verified buyer"
+          }
+        },
+        "review_FVqNjz": {
+          "type": "review",
+          "disabled": true,
+          "settings": {
+            "quote": "Gorgeous jewellery, beautifully wrapped.",
+            "author": "Anna, verified buyer"
+          }
+        },
+        "review_3qTNyn": {
+          "type": "review",
+          "settings": {
+            "quote": "Brilliant gift for my lovely sister in law. She loved it. And I was impressed by the speed of dispatch, and the packaging meant I didn't have to wrap it up!",
+            "author": "Emma, Verified buyer"
+          }
+        }
+      },
+      "block_order": [
+        "review_PhBKaU",
+        "review_FVqNjz",
+        "review_3qTNyn"
+      ],
+      "name": "AM — Reviews",
+      "settings": {
+        "rating": "5 Stars -",
+        "review_count": ""
+      }
+    },
+    "pb_featured_products_ji63Ur": {
+      "type": "pb-featured-products",
+      "blocks": {
+        "product_k3CUmn": {
+          "type": "product",
+          "settings": {
+            "product": "architect-enamel-copper-earrings",
+            "badge": "Bestseller",
+            "badge_red": false
+          }
+        },
+        "product_FPfmdw": {
+          "type": "product",
+          "settings": {
+            "product": "strata-geometrica-earrings-in-yellow",
+            "badge": "NEW",
+            "badge_red": false
+          }
+        },
+        "product_cH9A3c": {
+          "type": "product",
+          "settings": {
+            "product": "matisse-necklace-in-cobalt-blue",
+            "badge": "New",
+            "badge_red": false
+          }
+        },
+        "product_bKEVtG": {
+          "type": "product",
+          "settings": {
+            "product": "bauhaus-purple-red-earrings",
+            "badge": "",
+            "badge_red": false
+          }
+        }
+      },
+      "block_order": [
+        "product_k3CUmn",
+        "product_FPfmdw",
+        "product_cH9A3c",
+        "product_bKEVtG"
+      ],
+      "disabled": true,
+      "name": "AM — Featured Products",
+      "settings": {
+        "eyebrow": "This Summer",
+        "heading": "Bauhaus Colours",
+        "view_all_label": "discover yours",
+        "view_all_url": "shopify://collections/colour-edit"
+      }
+    },
     "collection_list_WrH6mQ": {
       "type": "collection-list",
       "blocks": {
@@ -302,6 +341,7 @@
         "featured_collection_ULzb9J",
         "featured_collection_edqXG4"
       ],
+      "disabled": true,
       "name": "t:sections.collection-list.presets.name",
       "settings": {
         "title": "Collections",
@@ -507,6 +547,7 @@
       "block_order": [
         "slide_4wm4kW"
       ],
+      "disabled": true,
       "name": "AM Hero Carousel",
       "settings": {
         "carousel_height": 700,
@@ -587,44 +628,6 @@
         "button_text": "#ef0107",
         "padding_top": 20,
         "padding_bottom": 20
-      }
-    },
-    "pb_reviews_FN6rik": {
-      "type": "pb-reviews",
-      "blocks": {
-        "review_PhBKaU": {
-          "type": "review",
-          "settings": {
-            "quote": "Everything felt luxurious from the start - the unique selection, the packaging, the earrings themselves.",
-            "author": "Michael, verified buyer"
-          }
-        },
-        "review_FVqNjz": {
-          "type": "review",
-          "disabled": true,
-          "settings": {
-            "quote": "Gorgeous jewellery, beautifully wrapped.",
-            "author": "Anna, verified buyer"
-          }
-        },
-        "review_3qTNyn": {
-          "type": "review",
-          "settings": {
-            "quote": "Brilliant gift for my lovely sister in law. She loved it. And I was impressed by the speed of dispatch, and the packaging meant I didn't have to wrap it up!",
-            "author": "Emma, Verified buyer"
-          }
-        }
-      },
-      "block_order": [
-        "review_PhBKaU",
-        "review_FVqNjz",
-        "review_3qTNyn"
-      ],
-      "disabled": true,
-      "name": "AM — Reviews",
-      "settings": {
-        "rating": "5 Stars -",
-        "review_count": ""
       }
     },
     "am_hero_carousel_wgpFNf": {
@@ -738,53 +741,31 @@
       "settings": {
         "include_margins": true
       }
-    },
-    "gift_guide_XNX8Tz": {
-      "type": "gift-guide",
-      "name": "AM — Gift Guide",
-      "settings": {
-        "heading": "",
-        "intro": "",
-        "christmas_intro": "",
-        "delivery_line": "",
-        "gift_wrap_line": "",
-        "gift_wrap_url": "",
-        "gift_wrap_link_label": "Details",
-        "source_collection": "",
-        "filter_by_color": false,
-        "color_metaobject_id": "",
-        "max_products": 8,
-        "hub_link_label": "← Back to Gift Guides",
-        "hub_link_url": "",
-        "padding_top": 36,
-        "padding_bottom": 48
-      }
     }
   },
   "order": [
     "pb_hero_MJ4EMh",
     "pb_featured_products_WLmgn6",
-    "pb_featured_products_QydhwQ",
-    "pb_featured_products_ji63Ur",
     "pb_colour_edit_bJy89W",
+    "pb_featured_products_QydhwQ",
+    "pb_reviews_FN6rik",
+    "pb_featured_products_ji63Ur",
     "collection_list_WrH6mQ",
     "am_hero_carousel_mAGHzJ",
     "pb_collection_showcase_qqYFip",
-    "arsenal_bars_chyBtz",
     "pb_editorial_pair_wKmfbG",
     "pb_featured_products_TtK6DD",
+    "arsenal_bars_chyBtz",
     "pb_editorial_pair_mJMapp",
+    "arsenal_email_fqktkK",
     "am_hero_carousel_HpbGAx",
     "pb_newsletter_kqjr68",
     "am_hero_carousel_eWakQe",
     "custom-inspires",
-    "arsenal_email_fqktkK",
-    "pb_reviews_FN6rik",
     "am_hero_carousel_wgpFNf",
     "image_with_text_NMgRYF",
     "custom_liquid_Cc8kti",
     "blocks_Ew4x7P",
-    "17835973092b47e3f7",
-    "gift_guide_XNX8Tz"
+    "17835973092b47e3f7"
   ]
 }

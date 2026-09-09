@@ -142,6 +142,10 @@
             "content": "<p>30-day returns are included with your purchase for most Atelier Modernista items, but please note that, in order to uphold the highest standards of hygiene and safety, pierced earrings are non-returnable. Luxury Gift Wrapping is also non-returnable.</p>",
             "page": ""
           }
+        },
+        "judge_me_reviews_preview_badge_VEtDVh": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
         }
       },
       "block_order": [
@@ -160,7 +164,8 @@
         "collapsible_tab_Qga4GX",
         "collapsible_tab_XAGNWH",
         "collapsible_tab_heD9EU",
-        "collapsible_tab_GtqmGT"
+        "collapsible_tab_GtqmGT",
+        "judge_me_reviews_preview_badge_VEtDVh"
       ],
       "settings": {
         "enable_sticky_info": true,

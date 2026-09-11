@@ -301,13 +301,13 @@ nav.am-breadcrumbs {
 }
 
 .am-collection-hero--with-image {
-  grid-template-columns: 1fr 1.26fr;
+  grid-template-columns: 40% 60% !important;
 }
 
 .am-collection-hero__image {
   overflow: hidden;
   height: 340px;
-  max-height: none !important;
+  max-height: 480px !important;
 }
 
 .am-collection-hero__image img {

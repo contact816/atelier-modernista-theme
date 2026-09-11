@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "am-capsules-hub",
+      "settings": {
+        "heading": "Capsules",
+        "intro": "Themed sets from one artist, bundled and priced to be worn together.",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

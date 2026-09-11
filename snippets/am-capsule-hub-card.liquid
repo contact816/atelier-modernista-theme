@@ -1,0 +1,40 @@
+{% comment %}
+  SNIPPET: snippets/am-capsule-hub-card.liquid
+  Renders one Capsule card for sections/am-capsules-hub.liquid.
+  Expects: capsule (collection), bundle_total (integer, cents)
+{% endcomment %}
+
+<li>
+  <a class="am-capsule-hub-card" href="{{ capsule.url }}">
+    <div class="am-capsule-hub-card__image">
+      {%- if capsule.image -%}
+        <img
+          src="{{ capsule.image | image_url: width: 600 }}"
+          alt="{{ capsule.image.alt | escape | default: capsule.title }}"
+          loading="lazy"
+          width="{{ capsule.image.width }}"
+          height="{{ capsule.image.height }}"
+        >
+      {%- elsif capsule.products.first.featured_image -%}
+        <img
+          src="{{ capsule.products.first.featured_image | image_url: width: 600 }}"
+          alt="{{ capsule.title | escape }}"
+          loading="lazy"
+          width="{{ capsule.products.first.featured_image.width }}"
+          height="{{ capsule.products.first.featured_image.height }}"
+        >
+      {%- endif -%}
+    </div>
+    <div class="am-capsule-hub-card__body">
+      <h3 class="am-capsule-hub-card__title">{{ capsule.title | escape }}</h3>
+      <p class="am-capsule-hub-card__meta">
+        {{ capsule.products.size }} piece{% if capsule.products.size != 1 %}s{% endif %}
+        · {{ bundle_total | money }} as a set
+      </p>
+      {%- if capsule.description != blank -%}
+        <p class="am-capsule-hub-card__description">{{ capsule.description | strip_html | truncate: 110 }}</p>
+      {%- endif -%}
+    </div>
+  </a>
+</li>
+{% comment %} Styles for .am-capsule-hub-card live in sections/am-capsules-hub.liquid to avoid repeating a <style> block per card. {% endcomment %}

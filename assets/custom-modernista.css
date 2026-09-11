@@ -309,14 +309,14 @@ nav.am-breadcrumbs {
 
 .am-collection-hero__image {
   overflow: hidden;
-  height: 280px;
-  max-height: 480px !important;
+  height: 480px;
 }
 
 .am-collection-hero__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 

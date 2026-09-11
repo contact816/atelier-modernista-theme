@@ -1,31 +1,44 @@
 {% comment %}
   Atelier Modernista — Capsules Hub
-  Lists every collection tagged "capsule" as a card, grouped into price
-  tiers computed live from each collection's bundled product prices
-  (not a manually-set field) — matching the Gift Guides hub tier bands:
-  Under £75 / £75–150 / £150+.
+  Block-driven: one "capsule" block per themed set, each with its own
+  bundled products, story and "Add Set to Cart". Everything lives on this
+  single page — no separate Collection per capsule, no tagging logic.
+
+  Price tiers (Under £75 / £75-150 / £150+) are computed live by summing
+  each block's selected products, not a manually-set field.
+
+  The X% badge and post-add savings message follow the same honest
+  pattern as the rest of the theme's bundle discounts: the badge only
+  shows once "discount_confirmed" is switched on for that block (meaning
+  a matching Automatic Discount — Amount off products, Applies to:
+  Specific products, minimum quantity = that capsule's piece count — has
+  been created and tested in Admin), and the savings shown after
+  add-to-cart is read back from the live cart response, never assumed.
 {% endcomment %}
 
 {%- liquid
   assign tier1_count = 0
   assign tier2_count = 0
   assign tier3_count = 0
-  for cap_collection in collections
-    if cap_collection.tags contains 'capsule'
-      assign bundle_total = cap_collection.products | sum: 'price'
-      if bundle_total < 7500
-        assign tier1_count = tier1_count | plus: 1
-      elsif bundle_total < 15000
-        assign tier2_count = tier2_count | plus: 1
-      else
-        assign tier3_count = tier3_count | plus: 1
+  for block in section.blocks
+    if block.type == 'capsule'
+      assign product_count = block.settings.products.size
+      if product_count > 0 or request.design_mode
+        assign bundle_total = block.settings.products | sum: 'price'
+        if bundle_total < 7500
+          assign tier1_count = tier1_count | plus: 1
+        elsif bundle_total < 15000
+          assign tier2_count = tier2_count | plus: 1
+        else
+          assign tier3_count = tier3_count | plus: 1
+        endif
       endif
     endif
   endfor
   assign total_capsules = tier1_count | plus: tier2_count | plus: tier3_count
 -%}
 
-<div class="am-capsules-hub">
+<div class="am-capsules-hub" id="am-capsules-hub-{{ section.id }}">
   <header class="am-capsules-hub__intro">
     <h1 class="am-capsules-hub__heading">{{ section.settings.heading | escape }}</h1>
     {%- if section.settings.intro != blank -%}
@@ -34,18 +47,21 @@
   </header>
 
   {%- if total_capsules == 0 -%}
-    <p class="am-capsules-hub__empty">No capsules are live yet — tag a collection "capsule" to have it appear here.</p>
+    <p class="am-capsules-hub__empty">No capsules yet — add a "Capsule" block above to get started.</p>
   {%- else -%}
 
     {%- if tier1_count > 0 -%}
       <section class="am-capsules-hub__tier">
         <h2 class="am-capsules-hub__tier-heading">Under £75</h2>
         <ul class="am-capsules-hub__list" role="list">
-          {%- for cap_collection in collections -%}
-            {%- if cap_collection.tags contains 'capsule' -%}
-              {%- assign bundle_total = cap_collection.products | sum: 'price' -%}
-              {%- if bundle_total < 7500 -%}
-                {%- render 'am-capsule-hub-card', capsule: cap_collection, bundle_total: bundle_total -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'capsule' -%}
+              {%- assign product_count = block.settings.products.size -%}
+              {%- if product_count > 0 or request.design_mode -%}
+                {%- assign bundle_total = block.settings.products | sum: 'price' -%}
+                {%- if bundle_total < 7500 -%}
+                  {%- render 'am-capsule-hub-card', block: block -%}
+                {%- endif -%}
               {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
@@ -57,11 +73,14 @@
       <section class="am-capsules-hub__tier">
         <h2 class="am-capsules-hub__tier-heading">£75 – £150</h2>
         <ul class="am-capsules-hub__list" role="list">
-          {%- for cap_collection in collections -%}
-            {%- if cap_collection.tags contains 'capsule' -%}
-              {%- assign bundle_total = cap_collection.products | sum: 'price' -%}
-              {%- if bundle_total >= 7500 and bundle_total < 15000 -%}
-                {%- render 'am-capsule-hub-card', capsule: cap_collection, bundle_total: bundle_total -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'capsule' -%}
+              {%- assign product_count = block.settings.products.size -%}
+              {%- if product_count > 0 or request.design_mode -%}
+                {%- assign bundle_total = block.settings.products | sum: 'price' -%}
+                {%- if bundle_total >= 7500 and bundle_total < 15000 -%}
+                  {%- render 'am-capsule-hub-card', block: block -%}
+                {%- endif -%}
               {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
@@ -73,11 +92,14 @@
       <section class="am-capsules-hub__tier">
         <h2 class="am-capsules-hub__tier-heading">£150+</h2>
         <ul class="am-capsules-hub__list" role="list">
-          {%- for cap_collection in collections -%}
-            {%- if cap_collection.tags contains 'capsule' -%}
-              {%- assign bundle_total = cap_collection.products | sum: 'price' -%}
-              {%- if bundle_total >= 15000 -%}
-                {%- render 'am-capsule-hub-card', capsule: cap_collection, bundle_total: bundle_total -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'capsule' -%}
+              {%- assign product_count = block.settings.products.size -%}
+              {%- if product_count > 0 or request.design_mode -%}
+                {%- assign bundle_total = block.settings.products | sum: 'price' -%}
+                {%- if bundle_total >= 15000 -%}
+                  {%- render 'am-capsule-hub-card', block: block -%}
+                {%- endif -%}
               {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
@@ -90,7 +112,7 @@
 
 <style>
   .am-capsules-hub {
-    max-width: 1120px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
   }
@@ -127,7 +149,7 @@
   }
 
   .am-capsules-hub__tier {
-    margin-bottom: 56px;
+    margin-bottom: 64px;
   }
 
   .am-capsules-hub__tier:last-child {
@@ -135,7 +157,7 @@
   }
 
   .am-capsules-hub__tier-heading {
-    margin: 0 0 24px;
+    margin: 0 0 28px;
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(0, 71, 171, 0.18);
     font-family: 'Jost', sans-serif;
@@ -148,63 +170,397 @@
 
   .am-capsules-hub__list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 32px;
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+
+  /* Card */
+  .am-capsule-hub-card {
+    display: flex;
+    flex-direction: column;
+    background: #fdf6e3;
+    border: 1px solid rgba(26, 26, 24, 0.1);
+  }
+
+  .am-capsule-hub-card--featured {
+    /* Reserved for a future larger/first placement — no visual effect yet. */
+  }
+
+  .am-capsule-hub-card__look {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #f7f0e6;
+  }
+
+  .am-capsule-hub-card__look img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .am-capsule-hub-card__body {
+    padding: 24px;
+  }
+
+  .am-capsule-hub-card__title {
+    margin: 0 0 10px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: #1a1a18;
+  }
+
+  .am-capsule-hub-card__discount-badge {
+    display: inline-block;
+    margin: 0 0 16px;
+    padding: 6px 14px;
+    background: #0047AB;
+    color: #fdf6e3;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* Product row — compact by default, larger when standing in for a hero */
+  .am-capsule-hub-card__products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .am-capsule-hub-mini-card {
+    display: flex;
+    gap: 10px;
+    flex: 1 1 150px;
+    min-width: 0;
+  }
+
+  .am-capsule-hub-mini-card__image {
+    display: block;
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    overflow: hidden;
+    background: rgba(0, 71, 171, 0.04);
+  }
+
+  .am-capsule-hub-card__products--hero .am-capsule-hub-mini-card {
+    flex: 1 1 140px;
+    flex-direction: column;
+  }
+
+  .am-capsule-hub-card__products--hero .am-capsule-hub-mini-card__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .am-capsule-hub-mini-card__image img,
+  .am-capsule-hub-mini-card__placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .am-capsule-hub-mini-card__body {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .am-capsule-hub-mini-card__title {
+    margin: 0 0 4px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .am-capsule-hub-mini-card__title a {
+    color: #1a1a18;
+    text-decoration: none;
+  }
+
+  .am-capsule-hub-mini-card__title a:hover {
+    color: #0047AB;
+  }
+
+  .am-capsule-hub-mini-card__variant-select {
+    width: 100%;
+    min-height: 30px;
+    margin-bottom: 4px;
+    padding: 0 6px;
+    border: 1px solid rgba(26, 26, 24, 0.2);
+    background: transparent;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    color: #1a1a18;
+  }
+
+  .am-capsule-hub-mini-card__price {
+    margin: 0;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    color: rgba(26, 26, 24, 0.75);
+  }
+
+  [data-am-capsule-card][data-product-available="false"] {
+    opacity: 0.55;
+  }
+
+  /* Story */
+  .am-capsule-hub-card__story {
+    margin: 0 0 20px;
+    padding: 16px 0 0;
+    border-top: 1px solid rgba(26, 26, 24, 0.1);
+  }
+
+  .am-capsule-hub-card__story p {
+    margin: 0 0 8px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #1a1a18;
+    font-style: italic;
+  }
+
+  .am-capsule-hub-card__story cite {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(26, 26, 24, 0.55);
+  }
+
+  /* Buy panel */
+  .am-capsule-hub-card__buy {
+    padding-top: 16px;
+    border-top: 1px solid rgba(26, 26, 24, 0.1);
+  }
+
+  .am-capsule-hub-card__subtotal-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    color: rgba(26, 26, 24, 0.75);
+  }
+
+  .am-capsule-hub-card__add {
+    display: block;
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 20px;
+    border: 1px solid #0047AB;
+    background: #0047AB;
+    color: #fdf6e3;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 180ms ease, opacity 180ms ease;
+  }
+
+  .am-capsule-hub-card__add:hover:not(:disabled) {
+    background: #003080;
+  }
+
+  .am-capsule-hub-card__add:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .am-capsule-hub-card__unavailable {
+    margin: 12px 0 0;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    color: #a33;
+  }
+
+  .am-capsule-hub-card__message {
+    min-height: 16px;
+    margin: 10px 0 0;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    color: #0047AB;
+  }
+
+  .am-capsule-hub-card__warning {
+    margin: 0;
+    padding: 10px 12px;
+    background: rgba(163, 51, 51, 0.08);
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    color: #a33;
   }
 
   @media screen and (max-width: 749px) {
     .am-capsules-hub__intro {
       margin-bottom: 36px;
     }
-  }
-
-  .am-capsule-hub-card {
-    display: block;
-    border: 1px solid rgba(26, 26, 24, 0.12);
-    text-decoration: none;
-  }
-  .am-capsule-hub-card__image {
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    background-color: #e8e2d4;
-  }
-  .am-capsule-hub-card__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .am-capsule-hub-card__body {
-    padding: 20px;
-  }
-  .am-capsule-hub-card__title {
-    margin: 0 0 8px;
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 22px;
-    font-weight: 400;
-    color: #1a1a18;
-  }
-  .am-capsule-hub-card__meta {
-    margin: 0 0 10px;
-    font-family: 'Jost', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #0047AB;
-  }
-  .am-capsule-hub-card__description {
-    margin: 0;
-    font-family: 'Jost', sans-serif;
-    font-size: 13px;
-    font-weight: 300;
-    line-height: 1.6;
-    color: rgba(26, 26, 24, 0.7);
+    .am-capsules-hub__list {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
+
+<script>
+  (function () {
+    var container = document.getElementById('am-capsules-hub-{{ section.id }}');
+    if (!container || container.dataset.amCapsulesInitialised === 'true') return;
+    container.dataset.amCapsulesInitialised = 'true';
+
+    var CURRENCY = '{{ cart.currency.iso_code }}';
+
+    function money(cents) {
+      return new Intl.NumberFormat(undefined, {
+        style: 'currency', currency: CURRENCY, maximumFractionDigits: 2
+      }).format((Number(cents) || 0) / 100);
+    }
+
+    function getCards(blockRoot) {
+      return Array.from(blockRoot.querySelectorAll('[data-am-capsule-card]'));
+    }
+
+    function currentSelection(card) {
+      var select = card.querySelector('[data-am-capsule-variant-select]');
+      var hiddenInput = card.querySelector('[data-am-capsule-single-variant]');
+      if (select) {
+        var opt = select.options[select.selectedIndex];
+        return { variantId: Number(select.value), price: Number(opt ? opt.dataset.price : 0), available: opt ? !opt.disabled : false };
+      }
+      if (hiddenInput) {
+        return { variantId: Number(hiddenInput.value), price: Number(card.dataset.priceCents || 0), available: card.dataset.productAvailable === 'true' };
+      }
+      return { variantId: null, price: 0, available: false };
+    }
+
+    function updateSummary(blockRoot) {
+      var cards = getCards(blockRoot);
+      var subtotal = 0;
+      var allAvailable = true;
+
+      cards.forEach(function (card) {
+        var selection = currentSelection(card);
+        var idInput = card.querySelector('[data-am-capsule-variant-id]');
+        if (idInput) idInput.value = selection.variantId || '';
+
+        card.dataset.priceCents = String(selection.price);
+
+        var priceEl = card.querySelector('[data-am-capsule-card-price]');
+        if (priceEl) priceEl.textContent = money(selection.price);
+
+        subtotal += selection.price || 0;
+        if (!selection.available) allAvailable = false;
+      });
+
+      var subtotalEl = blockRoot.querySelector('[data-am-capsule-subtotal]');
+      if (subtotalEl) subtotalEl.textContent = money(subtotal);
+
+      var addBtn = blockRoot.querySelector('[data-am-capsule-add]');
+      var unavailableEl = blockRoot.querySelector('[data-am-capsule-unavailable]');
+      if (addBtn) addBtn.disabled = !allAvailable || cards.length === 0;
+      if (unavailableEl) unavailableEl.hidden = allAvailable;
+    }
+
+    container.addEventListener('change', function (event) {
+      if (!event.target.matches('[data-am-capsule-variant-select]')) return;
+      var blockRoot = event.target.closest('[data-am-capsule-block]');
+      if (blockRoot) updateSummary(blockRoot);
+    });
+
+    container.addEventListener('click', async function (event) {
+      var button = event.target.closest('[data-am-capsule-add]');
+      if (!button || button.disabled) return;
+
+      var blockRoot = button.closest('[data-am-capsule-block]');
+      if (!blockRoot) return;
+
+      var defaultLabel = button.dataset.defaultLabel || 'Add Set to Cart';
+      var message = blockRoot.querySelector('[data-am-capsule-message]');
+      var cards = getCards(blockRoot);
+      var variantIds = cards
+        .map(function (card) {
+          var input = card.querySelector('[data-am-capsule-variant-id]');
+          return input ? Number(input.value) : null;
+        })
+        .filter(Boolean);
+
+      if (variantIds.length === 0) return;
+
+      button.disabled = true;
+      button.textContent = 'Adding…';
+      if (message) message.textContent = '';
+
+      try {
+        var addResponse = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+          body: JSON.stringify({ items: variantIds.map(function (id) { return { id: id, quantity: 1 }; }) })
+        });
+        var addResult = await addResponse.json();
+        if (!addResponse.ok) throw new Error(addResult.description || 'Unable to add this set');
+
+        // Verify the real discount from the live cart — never assumed from a setting.
+        var cartResponse = await fetch(window.Shopify.routes.root + 'cart.js');
+        var cart = await cartResponse.json();
+
+        var originalTotal = 0;
+        var discountTotal = 0;
+
+        (cart.items || []).forEach(function (line) {
+          if (variantIds.indexOf(line.variant_id) === -1) return;
+          originalTotal += line.original_line_price || 0;
+          (line.discount_allocations || []).forEach(function (allocation) {
+            discountTotal += allocation.amount || 0;
+          });
+        });
+
+        if (discountTotal > 0 && originalTotal > 0) {
+          var percent = Math.round((discountTotal / originalTotal) * 100);
+          if (message) {
+            message.textContent = 'Added to your bag — ' + money(discountTotal) + ' (' + percent + '%) saved on this set.';
+          }
+        } else if (message) {
+          message.textContent = 'Added to your bag.';
+        }
+
+        document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
+        document.dispatchEvent(new CustomEvent('cart:update', { bubbles: true, detail: addResult }));
+
+        button.textContent = 'Added ✓';
+        setTimeout(function () {
+          button.textContent = defaultLabel;
+          button.disabled = false;
+        }, 2200);
+      } catch (error) {
+        console.error('[AM Capsules Hub]', error);
+        if (message) message.textContent = 'This set could not be added. Please try again.';
+        button.textContent = defaultLabel;
+        button.disabled = false;
+      }
+    });
+
+    Array.from(container.querySelectorAll('[data-am-capsule-block]')).forEach(updateSummary);
+  })();
+</script>
 
 {% schema %}
 {
@@ -248,9 +604,86 @@
       "default": 48
     }
   ],
+  "blocks": [
+    {
+      "type": "capsule",
+      "name": "Capsule",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Capsule name",
+          "default": "The Capsule"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Feature this capsule",
+          "info": "Reserved for a future larger/first placement on this page. Has no visual effect yet — safe to leave off.",
+          "default": false
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "Bundle products",
+          "limit": 3,
+          "info": "Select 2-3 products. With fewer than 2, \"Add Set to Cart\" stays hidden."
+        },
+        {
+          "type": "image_picker",
+          "id": "look_image",
+          "label": "Worn-together / hero image",
+          "info": "Optional. Leave blank until this capsule's been photographed — product images will fill the space instead."
+        },
+        {
+          "type": "textarea",
+          "id": "artist_story",
+          "label": "Artist story / quote"
+        },
+        {
+          "type": "text",
+          "id": "artist_story_source",
+          "label": "Story attribution"
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "Add to cart button label",
+          "default": "Add Set to Cart"
+        },
+        {
+          "type": "header",
+          "content": "Discount (confirm in Admin first)"
+        },
+        {
+          "type": "checkbox",
+          "id": "discount_confirmed",
+          "label": "Discount is live and tested in Shopify Admin",
+          "info": "Only turn this on after creating and test-purchasing a matching Automatic Discount (Amount off products, Applies to: Specific products — select this capsule's exact products, minimum quantity of items = 2 or 3). Until this is on, no percentage is shown to shoppers.",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "discount_percentage",
+          "label": "Discount percentage",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "%",
+          "default": 15,
+          "info": "Must exactly match the value set on the Automatic Discount in Admin."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 24,
   "presets": [
     {
-      "name": "AM — Capsules Hub"
+      "name": "AM — Capsules Hub",
+      "blocks": [
+        { "type": "capsule" },
+        { "type": "capsule" }
+      ]
     }
   ]
 }

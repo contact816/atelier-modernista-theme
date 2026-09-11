@@ -1,40 +1,145 @@
 {% comment %}
   SNIPPET: snippets/am-capsule-hub-card.liquid
   Renders one Capsule card for sections/am-capsules-hub.liquid.
-  Expects: capsule (collection), bundle_total (integer, cents)
+  Expects: block (a "capsule" type block from that section)
+
+  look_image is optional — a capsule can be created and sold before it's
+  been photographed "worn together". When it's blank, the product images
+  render larger and side-by-side in the hero spot instead of leaving a
+  blank gap.
 {% endcomment %}
 
-<li>
-  <a class="am-capsule-hub-card" href="{{ capsule.url }}">
-    <div class="am-capsule-hub-card__image">
-      {%- if capsule.image -%}
+{%- assign product_count = block.settings.products.size -%}
+{%- assign has_look_image = false -%}
+{%- if block.settings.look_image != blank -%}
+  {%- assign has_look_image = true -%}
+{%- endif -%}
+
+<li {{ block.shopify_attributes }}>
+  <article
+    class="am-capsule-hub-card{% if block.settings.featured %} am-capsule-hub-card--featured{% endif %}"
+    data-am-capsule-block
+    id="am-capsule-block-{{ block.id }}"
+  >
+    {%- if has_look_image -%}
+      <div class="am-capsule-hub-card__look">
         <img
-          src="{{ capsule.image | image_url: width: 600 }}"
-          alt="{{ capsule.image.alt | escape | default: capsule.title }}"
+          src="{{ block.settings.look_image | image_url: width: 900 }}"
+          srcset="
+            {{ block.settings.look_image | image_url: width: 500 }} 500w,
+            {{ block.settings.look_image | image_url: width: 700 }} 700w,
+            {{ block.settings.look_image | image_url: width: 900 }} 900w
+          "
+          sizes="(max-width: 749px) 92vw, 420px"
+          alt="{{ block.settings.look_image.alt | default: block.settings.title | escape }}"
+          width="{{ block.settings.look_image.width }}"
+          height="{{ block.settings.look_image.height }}"
           loading="lazy"
-          width="{{ capsule.image.width }}"
-          height="{{ capsule.image.height }}"
         >
-      {%- elsif capsule.products.first.featured_image -%}
-        <img
-          src="{{ capsule.products.first.featured_image | image_url: width: 600 }}"
-          alt="{{ capsule.title | escape }}"
-          loading="lazy"
-          width="{{ capsule.products.first.featured_image.width }}"
-          height="{{ capsule.products.first.featured_image.height }}"
-        >
-      {%- endif -%}
-    </div>
+      </div>
+    {%- endif -%}
+
     <div class="am-capsule-hub-card__body">
-      <h3 class="am-capsule-hub-card__title">{{ capsule.title | escape }}</h3>
-      <p class="am-capsule-hub-card__meta">
-        {{ capsule.products.size }} piece{% if capsule.products.size != 1 %}s{% endif %}
-        · {{ bundle_total | money }} as a set
-      </p>
-      {%- if capsule.description != blank -%}
-        <p class="am-capsule-hub-card__description">{{ capsule.description | strip_html | truncate: 110 }}</p>
+      {%- if block.settings.title != blank -%}
+        <h3 class="am-capsule-hub-card__title">{{ block.settings.title | escape }}</h3>
+      {%- endif -%}
+
+      {%- if block.settings.discount_confirmed -%}
+        <p class="am-capsule-hub-card__discount-badge">{{ block.settings.discount_percentage }}% off as a set</p>
+      {%- endif -%}
+
+      <div class="am-capsule-hub-card__products{% unless has_look_image %} am-capsule-hub-card__products--hero{% endunless %}">
+        {%- for product in block.settings.products -%}
+          {%- assign default_variant = product.selected_or_first_available_variant | default: product.variants.first -%}
+          <div
+            class="am-capsule-hub-mini-card"
+            data-am-capsule-card
+            data-product-available="{{ product.available }}"
+            data-price-cents="{{ default_variant.price }}"
+          >
+            <a href="{{ product.url }}" class="am-capsule-hub-mini-card__image" aria-label="View {{ product.title | escape }}">
+              {%- if product.featured_image -%}
+                <img
+                  src="{{ product.featured_image | image_url: width: 400 }}"
+                  srcset="
+                    {{ product.featured_image | image_url: width: 200 }} 200w,
+                    {{ product.featured_image | image_url: width: 300 }} 300w,
+                    {{ product.featured_image | image_url: width: 400 }} 400w
+                  "
+                  sizes="140px"
+                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                  width="{{ product.featured_image.width }}"
+                  height="{{ product.featured_image.height }}"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'am-capsule-hub-mini-card__placeholder' }}
+              {%- endif -%}
+            </a>
+            <div class="am-capsule-hub-mini-card__body">
+              <p class="am-capsule-hub-mini-card__title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </p>
+
+              {%- if product.variants.size > 1 -%}
+                <select class="am-capsule-hub-mini-card__variant-select" data-am-capsule-variant-select>
+                  {%- for variant in product.variants -%}
+                    <option
+                      value="{{ variant.id }}"
+                      data-price="{{ variant.price }}"
+                      {% if variant == default_variant %}selected{% endif %}
+                      {% unless variant.available %}disabled{% endunless %}
+                    >
+                      {{ variant.title }}{% unless variant.available %} — Sold out{% endunless %}
+                    </option>
+                  {%- endfor -%}
+                </select>
+              {%- else -%}
+                <input type="hidden" data-am-capsule-single-variant value="{{ default_variant.id }}">
+              {%- endif -%}
+
+              <p class="am-capsule-hub-mini-card__price" data-am-capsule-card-price>
+                {{ default_variant.price | money_without_trailing_zeros }}
+              </p>
+            </div>
+            <input type="hidden" data-am-capsule-variant-id value="{{ default_variant.id }}">
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if block.settings.artist_story != blank -%}
+        <blockquote class="am-capsule-hub-card__story">
+          <p>{{ block.settings.artist_story }}</p>
+          {%- if block.settings.artist_story_source != blank -%}
+            <cite>{{ block.settings.artist_story_source }}</cite>
+          {%- endif -%}
+        </blockquote>
+      {%- endif -%}
+
+      {%- if product_count >= 2 -%}
+        <div class="am-capsule-hub-card__buy">
+          <div class="am-capsule-hub-card__subtotal-row">
+            <span>Set subtotal</span>
+            <span data-am-capsule-subtotal>—</span>
+          </div>
+          <button
+            type="button"
+            class="am-capsule-hub-card__add"
+            data-am-capsule-add
+            data-default-label="{{ block.settings.cta_label | escape }}"
+          >
+            {{ block.settings.cta_label }}
+          </button>
+          <p class="am-capsule-hub-card__unavailable" data-am-capsule-unavailable hidden>
+            One or more pieces in this set is currently sold out.
+          </p>
+          <p class="am-capsule-hub-card__message" data-am-capsule-message role="status" aria-live="polite"></p>
+        </div>
+      {%- elsif request.design_mode -%}
+        <p class="am-capsule-hub-card__warning">
+          Add at least 2 products to this block to enable "Add Set to Cart" — currently {{ product_count }}.
+        </p>
       {%- endif -%}
     </div>
-  </a>
+  </article>
 </li>
-{% comment %} Styles for .am-capsule-hub-card live in sections/am-capsules-hub.liquid to avoid repeating a <style> block per card. {% endcomment %}

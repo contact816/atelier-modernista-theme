@@ -301,7 +301,7 @@ nav.am-breadcrumbs {
 }
 
 .am-collection-hero--with-image {
-  grid-template-columns: 40% 60% !important;
+  grid-template-columns: 50% 50% !important;
 }
 
 .am-collection-hero__image {

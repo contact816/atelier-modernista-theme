@@ -13,17 +13,24 @@
   6. Set the page handle to "build-your-look"
 {% endcomment %}
 
-<div id="byl-page-{{ section.id }}" class="byl-page">
+<div
+  id="byl-page-{{ section.id }}"
+  class="byl-page"
+  data-discount-confirmed="{{ section.settings.discount_confirmed }}"
+  data-discount-percentage="{{ section.settings.discount_percentage }}"
+>
 
   {%- comment %} Page header {%- endcomment %}
   <div class="byl-page__header">
     <p class="byl-page__eyebrow">{{ section.settings.eyebrow }}</p>
     <h1 class="byl-page__title">{{ section.settings.heading }}</h1>
     <p class="byl-page__subtitle">{{ section.settings.subheading }}</p>
-    <div class="byl-page__badge">
-      <span class="byl-page__badge-number">15%</span>
-      <span class="byl-page__badge-text">off when you build a look of 3 pieces</span>
-    </div>
+    {%- if section.settings.discount_confirmed -%}
+      <div class="byl-page__badge">
+        <span class="byl-page__badge-number">{{ section.settings.discount_percentage }}%</span>
+        <span class="byl-page__badge-text">off when you build a look of 3 pieces</span>
+      </div>
+    {%- endif -%}
   </div>
 
   <div class="byl-page__body">
@@ -33,7 +40,13 @@
 
       <div class="byl-page__slots-header">
         <p class="byl-page__slots-label">Your selection</p>
-        <p class="byl-page__slots-hint">Pick any three pieces — the discount applies automatically.</p>
+        <p class="byl-page__slots-hint">
+          {%- if section.settings.discount_confirmed -%}
+            Pick any three pieces — the discount applies automatically.
+          {%- else -%}
+            Pick any three pieces to build your look.
+          {%- endif -%}
+        </p>
       </div>
 
       {%- for i in (1..3) -%}
@@ -102,7 +115,11 @@
         </div>
 
         <div class="byl-page__summary-empty" data-bylp-summary-empty>
-          <p>Your look is empty.<br>Add three pieces to unlock your discount.</p>
+          {%- if section.settings.discount_confirmed -%}
+            <p>Your look is empty.<br>Add three pieces to unlock your discount.</p>
+          {%- else -%}
+            <p>Your look is empty.<br>Add three pieces to see your total.</p>
+          {%- endif -%}
         </div>
 
         <div class="byl-page__summary-totals" data-bylp-totals style="display:none">
@@ -111,21 +128,29 @@
             <span>Subtotal</span>
             <span data-bylp-subtotal>—</span>
           </div>
-          <div class="byl-page__summary-line byl-page__summary-line--saving">
-            <span>15% look discount</span>
-            <span data-bylp-saving>—</span>
-          </div>
-          <div class="byl-page__summary-line byl-page__summary-line--total">
-            <span>Your price</span>
-            <span data-bylp-total>—</span>
-          </div>
+          {%- if section.settings.discount_confirmed -%}
+            <div class="byl-page__summary-line byl-page__summary-line--saving" data-bylp-saving-row>
+              <span data-bylp-saving-label>{{ section.settings.discount_percentage }}% look discount</span>
+              <span data-bylp-saving>—</span>
+            </div>
+            <div class="byl-page__summary-line byl-page__summary-line--total" data-bylp-total-row>
+              <span>Your price</span>
+              <span data-bylp-total>—</span>
+            </div>
+          {%- endif -%}
         </div>
 
         <button type="button" class="byl-page__cta" data-bylp-add-btn disabled>
           {{ section.settings.cta_label }}
         </button>
 
-        <p class="byl-page__cta-hint" data-bylp-cta-hint>Add 3 pieces to unlock</p>
+        <p class="byl-page__cta-hint" data-bylp-cta-hint>
+          {%- if section.settings.discount_confirmed -%}
+            Add 3 pieces to unlock your discount
+          {%- else -%}
+            Add 3 pieces to continue
+          {%- endif -%}
+        </p>
         <p class="byl-page__toast" data-bylp-toast role="status" aria-live="polite"></p>
 
       </div>
@@ -561,7 +586,8 @@
   const root = document.getElementById('byl-page-{{ section.id }}');
   if (!root) return;
 
-  const SAVINGS = 0.15;
+  const DISCOUNT_CONFIRMED = root.dataset.discountConfirmed === 'true';
+  const DISCOUNT_PERCENTAGE = Number(root.dataset.discountPercentage || 0);
   const CURRENCY = '{{ cart.currency.iso_code }}';
   let allProducts = [];
   let slots = { 1: null, 2: null, 3: null }; // { id, price, name, variantId }
@@ -685,8 +711,6 @@
   function updateSummary() {
     const filledSlots = [1, 2, 3].filter(n => slots[n] !== null);
     const subtotal = filledSlots.reduce((sum, n) => sum + slots[n].price, 0);
-    const saving = Math.round(subtotal * SAVINGS);
-    const total = subtotal - saving;
     const allFilled = filledSlots.length === 3;
 
     // Per-row summary
@@ -716,11 +740,19 @@
     if (allFilled && totalsEl) {
       totalsEl.style.display = 'block';
       const subtotalEl = root.querySelector('[data-bylp-subtotal]');
-      const savingEl = root.querySelector('[data-bylp-saving]');
-      const totalEl = root.querySelector('[data-bylp-total]');
       if (subtotalEl) subtotalEl.textContent = money(subtotal);
-      if (savingEl) savingEl.textContent = '−' + money(saving);
-      if (totalEl) totalEl.textContent = money(total);
+
+      // Estimate only — shown pre-checkout solely because discount_confirmed
+      // means an Admin discount has already been created and tested. The
+      // real, verified figure is what's shown after add-to-cart below.
+      if (DISCOUNT_CONFIRMED) {
+        const saving = Math.round(subtotal * (DISCOUNT_PERCENTAGE / 100));
+        const total = subtotal - saving;
+        const savingEl = root.querySelector('[data-bylp-saving]');
+        const totalEl = root.querySelector('[data-bylp-total]');
+        if (savingEl) savingEl.textContent = '−' + money(saving);
+        if (totalEl) totalEl.textContent = money(total);
+      }
     } else if (totalsEl) {
       totalsEl.style.display = 'none';
     }
@@ -787,7 +819,32 @@
         const data = await res.json();
         if (!res.ok) throw new Error(data.description || 'Error');
 
-        showToast('Your look has been added to your bag.');
+        // Verify the real discount from the live cart — never assumed from a setting.
+        const addedVariantIds = items.map(item => item.id);
+        let originalTotal = 0;
+        let discountTotal = 0;
+
+        try {
+          const cartRes = await fetch('/cart.js');
+          const cart = await cartRes.json();
+          (cart.items || []).forEach(line => {
+            if (addedVariantIds.indexOf(line.variant_id) === -1) return;
+            originalTotal += line.original_line_price || 0;
+            (line.discount_allocations || []).forEach(allocation => {
+              discountTotal += allocation.amount || 0;
+            });
+          });
+        } catch (verifyErr) {
+          console.error('[BYL Page] Could not verify cart discount', verifyErr);
+        }
+
+        if (discountTotal > 0 && originalTotal > 0) {
+          const percent = Math.round((discountTotal / originalTotal) * 100);
+          showToast('Added to your bag — ' + money(discountTotal) + ' (' + percent + '%) saved on this look.');
+        } else {
+          showToast('Your look has been added to your bag.');
+        }
+
         addBtn.textContent = 'Added ✓';
         document.dispatchEvent(new CustomEvent('cart:refresh'));
 
@@ -831,13 +888,39 @@
       "type": "textarea",
       "id": "subheading",
       "label": "Subheading",
-      "default": "Choose any three pieces from the collection. Your 15% discount is applied automatically — no code needed."
+      "default": "Choose any three pieces to build your own look."
     },
     {
       "type": "text",
       "id": "cta_label",
       "label": "Add to cart button label",
       "default": "Add look to bag"
+    },
+    {
+      "type": "header",
+      "content": "Discount (confirm in Admin first)"
+    },
+    {
+      "type": "checkbox",
+      "id": "discount_confirmed",
+      "label": "Discount is live and tested in Shopify Admin",
+      "info": "Only turn this on after creating and test-purchasing a matching Automatic Discount (Amount off order, applies to all products, minimum quantity of items = 3). Until this is on, no percentage is shown to shoppers.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "discount_percentage",
+      "label": "Discount percentage",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 15,
+      "info": "Must exactly match the value set on the Automatic Discount in Admin."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
     },
     {
       "type": "range",

@@ -1,0 +1,257 @@
+{% comment %}
+  Atelier Modernista — Capsules Hub
+  Lists every collection tagged "capsule" as a card, grouped into price
+  tiers computed live from each collection's bundled product prices
+  (not a manually-set field) — matching the Gift Guides hub tier bands:
+  Under £75 / £75–150 / £150+.
+{% endcomment %}
+
+{%- liquid
+  assign tier1_count = 0
+  assign tier2_count = 0
+  assign tier3_count = 0
+  for cap_collection in collections
+    if cap_collection.tags contains 'capsule'
+      assign bundle_total = cap_collection.products | sum: 'price'
+      if bundle_total < 7500
+        assign tier1_count = tier1_count | plus: 1
+      elsif bundle_total < 15000
+        assign tier2_count = tier2_count | plus: 1
+      else
+        assign tier3_count = tier3_count | plus: 1
+      endif
+    endif
+  endfor
+  assign total_capsules = tier1_count | plus: tier2_count | plus: tier3_count
+-%}
+
+<div class="am-capsules-hub">
+  <header class="am-capsules-hub__intro">
+    <h1 class="am-capsules-hub__heading">{{ section.settings.heading | escape }}</h1>
+    {%- if section.settings.intro != blank -%}
+      <div class="am-capsules-hub__lede">{{ section.settings.intro }}</div>
+    {%- endif -%}
+  </header>
+
+  {%- if total_capsules == 0 -%}
+    <p class="am-capsules-hub__empty">No capsules are live yet — tag a collection "capsule" to have it appear here.</p>
+  {%- else -%}
+
+    {%- if tier1_count > 0 -%}
+      <section class="am-capsules-hub__tier">
+        <h2 class="am-capsules-hub__tier-heading">Under £75</h2>
+        <ul class="am-capsules-hub__list" role="list">
+          {%- for cap_collection in collections -%}
+            {%- if cap_collection.tags contains 'capsule' -%}
+              {%- assign bundle_total = cap_collection.products | sum: 'price' -%}
+              {%- if bundle_total < 7500 -%}
+                {%- render 'am-capsule-hub-card', capsule: cap_collection, bundle_total: bundle_total -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </section>
+    {%- endif -%}
+
+    {%- if tier2_count > 0 -%}
+      <section class="am-capsules-hub__tier">
+        <h2 class="am-capsules-hub__tier-heading">£75 – £150</h2>
+        <ul class="am-capsules-hub__list" role="list">
+          {%- for cap_collection in collections -%}
+            {%- if cap_collection.tags contains 'capsule' -%}
+              {%- assign bundle_total = cap_collection.products | sum: 'price' -%}
+              {%- if bundle_total >= 7500 and bundle_total < 15000 -%}
+                {%- render 'am-capsule-hub-card', capsule: cap_collection, bundle_total: bundle_total -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </section>
+    {%- endif -%}
+
+    {%- if tier3_count > 0 -%}
+      <section class="am-capsules-hub__tier">
+        <h2 class="am-capsules-hub__tier-heading">£150+</h2>
+        <ul class="am-capsules-hub__list" role="list">
+          {%- for cap_collection in collections -%}
+            {%- if cap_collection.tags contains 'capsule' -%}
+              {%- assign bundle_total = cap_collection.products | sum: 'price' -%}
+              {%- if bundle_total >= 15000 -%}
+                {%- render 'am-capsule-hub-card', capsule: cap_collection, bundle_total: bundle_total -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </section>
+    {%- endif -%}
+
+  {%- endif -%}
+</div>
+
+<style>
+  .am-capsules-hub {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
+  }
+
+  .am-capsules-hub__intro {
+    max-width: 640px;
+    margin: 0 auto 56px;
+    text-align: center;
+  }
+
+  .am-capsules-hub__heading {
+    margin: 0 0 16px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(36px, 4.5vw, 52px);
+    font-weight: 400;
+    line-height: 1.06;
+    color: #1a1a18;
+  }
+
+  .am-capsules-hub__lede {
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(26, 26, 24, 0.7);
+  }
+
+  .am-capsules-hub__empty {
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-style: italic;
+    color: rgba(26, 26, 24, 0.5);
+    text-align: center;
+  }
+
+  .am-capsules-hub__tier {
+    margin-bottom: 56px;
+  }
+
+  .am-capsules-hub__tier:last-child {
+    margin-bottom: 0;
+  }
+
+  .am-capsules-hub__tier-heading {
+    margin: 0 0 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0, 71, 171, 0.18);
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #0047AB;
+  }
+
+  .am-capsules-hub__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .am-capsules-hub__intro {
+      margin-bottom: 36px;
+    }
+  }
+
+  .am-capsule-hub-card {
+    display: block;
+    border: 1px solid rgba(26, 26, 24, 0.12);
+    text-decoration: none;
+  }
+  .am-capsule-hub-card__image {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: #e8e2d4;
+  }
+  .am-capsule-hub-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .am-capsule-hub-card__body {
+    padding: 20px;
+  }
+  .am-capsule-hub-card__title {
+    margin: 0 0 8px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #1a1a18;
+  }
+  .am-capsule-hub-card__meta {
+    margin: 0 0 10px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #0047AB;
+  }
+  .am-capsule-hub-card__description {
+    margin: 0;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(26, 26, 24, 0.7);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "AM — Capsules Hub",
+  "tag": "section",
+  "class": "am-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Capsules"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro text",
+      "default": "Themed sets from one artist, bundled and priced to be worn together."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Space above",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Space below",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM — Capsules Hub"
+    }
+  ]
+}
+{% endschema %}

@@ -305,11 +305,13 @@ nav.am-breadcrumbs {
 
 .am-collection-hero--with-image {
   grid-template-columns: 50% 50% !important;
+  min-height: 480px;
+  overflow: hidden;
 }
 
 .am-collection-hero__image {
   overflow: hidden;
-  height: 480px;
+  height: 100%;
 }
 
 .am-collection-hero__image img {

@@ -2,13 +2,18 @@
   <div class="am-hero__image">
     {%- if section.settings.hero_image != blank -%}
       <a href="{{ section.settings.primary_cta_url }}" class="am-hero__image-link" aria-label="{{ section.settings.primary_cta_label | default: 'Shop the collection' | escape }}">
-        <img
-          src="{{ section.settings.hero_image | image_url: width: 1600 }}"
-          alt="{{ section.settings.hero_image.alt | escape }}"
-          width="{{ section.settings.hero_image.width }}"
-          height="{{ section.settings.hero_image.height }}"
-          loading="eager"
-        >
+        {%- comment -%} sizes mirrors the grid below: 708px max, 600px min track (528px img), 100vw - 32px on mobile {%- endcomment -%}
+        {{
+          section.settings.hero_image
+          | image_url: width: 1600
+          | image_tag:
+            widths: '400, 600, 800, 1000, 1200, 1600',
+            sizes: '(min-width: 1524px) 708px, (min-width: 1164px) calc(50vw - 54px), (min-width: 769px) 528px, calc(100vw - 32px)',
+            width: section.settings.hero_image.width,
+            height: section.settings.hero_image.height,
+            loading: 'eager',
+            fetchpriority: 'high'
+        }}
       </a>
     {%- else -%}
       {{ 'lifestyle-1' | placeholder_svg_tag: 'am-hero__placeholder' }}

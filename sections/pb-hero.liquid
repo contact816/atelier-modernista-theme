@@ -1,14 +1,14 @@
-<div class="am-hero">
+<div class="am-hero{% if section.settings.eyebrow != blank %} am-hero--has-eyebrow{% endif %}">
   <div class="am-hero__image">
     {%- if section.settings.hero_image != blank -%}
       <a href="{{ section.settings.primary_cta_url }}" class="am-hero__image-link" aria-label="{{ section.settings.primary_cta_label | default: 'Shop the collection' | escape }}">
-        {%- comment -%} sizes mirrors the grid below: 708px max, 600px min track (528px img), 100vw - 32px on mobile {%- endcomment -%}
+        {%- comment -%} sizes mirrors the grid below: col 1 = (100vw - 24px) * 780/1480, capped at 780px, minus 72px padding; 100vw - 32px on mobile {%- endcomment -%}
         {{
           section.settings.hero_image
           | image_url: width: 1600
           | image_tag:
             widths: '400, 600, 800, 1000, 1200, 1600',
-            sizes: '(min-width: 1524px) 708px, (min-width: 1164px) calc(50vw - 54px), (min-width: 769px) 528px, calc(100vw - 32px)',
+            sizes: '(min-width: 1504px) 708px, (min-width: 769px) calc(52.7vw - 85px), calc(100vw - 32px)',
             width: section.settings.hero_image.width,
             height: section.settings.hero_image.height,
             loading: 'eager',
@@ -55,13 +55,14 @@
   .am-hero {
     display: grid;
 
-    grid-template-columns: minmax(600px, 780px) minmax(540px, 700px);
+    /* Proportional 780:700 tracks that shrink to fit; max-width caps them at exactly 780px + 700px */
+    grid-template-columns: minmax(0, 780fr) minmax(0, 700fr);
 
     justify-content: center;
 
     gap: 24px;
 
-    max-width: 1650px;
+    max-width: 1504px;
 
     margin: 0 auto;
 
@@ -228,6 +229,41 @@ object-position: center center;
   @media (max-width: 1024px) {
     .am-hero .am-hero__content {
       padding: 60px 40px !important;
+    }
+  }
+
+  /* Desktop: top of the image lines up with the top of the h1; the eyebrow sits above that line.
+     Offset = eyebrow line-height + eyebrow margin-bottom (24px) + h1 margin-top (0).
+     .am-hero__content is a flex column, so those margins never collapse. */
+  @media (min-width: 769px) {
+    .am-hero {
+      --am-hero-pad-top: 80px; /* wins from custom-modernista.css (.am-hero__content padding: 80px 5%) */
+      --am-hero-eyebrow-lh: 16.5px; /* 11px x 1.5, the value it inherited from body in pb-global.css */
+      --am-hero-eyebrow-offset: 0px;
+      align-content: center;
+    }
+    .am-hero--has-eyebrow {
+      --am-hero-eyebrow-offset: calc(var(--am-hero-eyebrow-lh) + 24px);
+    }
+    .am-hero .am-hero__content {
+      justify-content: flex-start;
+      padding-top: var(--am-hero-pad-top) !important;
+      transform: none;
+    }
+    .am-hero .am-hero__content .am-hero__eyebrow {
+      line-height: var(--am-hero-eyebrow-lh) !important;
+    }
+    .am-hero .am-hero__image {
+      padding-top: calc(var(--am-hero-pad-top) + var(--am-hero-eyebrow-offset)) !important;
+    }
+    .am-hero__image img {
+      object-position: center top;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .am-hero {
+      --am-hero-pad-top: 60px; /* matches the 60px 40px padding above */
     }
   }
 

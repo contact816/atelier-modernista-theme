@@ -20,20 +20,9 @@
         "atelier_menu": "atelier",
         "help_menu": "help"
       }
-    },
-    "custom_liquid_fEe6w4": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<div style=\"display: inline-flex; align-items: center; margin-top: 10px;\">\n  <img src=\"https://sidekick.shopify.ai/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6Mzc0MDAxMDExMSwicHVyIjoiYmxvYl9pZCJ9fQ==--7a951c6c4044738133d60baac8ca124d7190497c/BuyWomenBuilt_logo_colour.png\" alt=\"Buy Women Built kitemark\" style=\"max-width: 60px; width: 100%; height: auto; display: block;\">\n</div>",
-        "color_scheme": "scheme-1",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
     }
   },
   "order": [
-    "footer",
-    "custom_liquid_fEe6w4"
+    "footer"
   ]
 }

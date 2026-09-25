@@ -1,14 +1,28 @@
-<div class="am-hero{% if section.settings.eyebrow != blank %} am-hero--has-eyebrow{% endif %}">
+{%- liquid
+  # Desktop image shape: never wider than 4:5; taller portraits keep their own shape so nothing is cropped
+  assign hero_ratio = 1.25
+  if section.settings.hero_image != blank
+    assign hero_natural_ratio = section.settings.hero_image.height | times: 1.0 | divided_by: section.settings.hero_image.width
+    if hero_natural_ratio > 1.25
+      assign hero_ratio = hero_natural_ratio | round: 4
+    endif
+  endif
+  # Rendered desktop width = min(column, height cap / ratio). 326px = 230px header + smallest image top padding (64px) + 32px
+  assign hero_floor_w = 240 | divided_by: hero_ratio | round
+  assign hero_cap_w = 'max(' | append: hero_floor_w | append: 'px, calc((100vh - 326px) / ' | append: hero_ratio | append: '))'
+  assign hero_sizes = '(min-width: 1504px) min(708px, ' | append: hero_cap_w | append: '), (min-width: 769px) min(calc(52.7vw - 85px), ' | append: hero_cap_w | append: '), (min-width: 1504px) 708px, (min-width: 769px) calc(52.7vw - 85px), calc(100vw - 32px)'
+-%}
+<div class="am-hero{% if section.settings.eyebrow != blank %} am-hero--has-eyebrow{% endif %}" style="--am-hero-img-ratio: {{ hero_ratio }};">
   <div class="am-hero__image">
     {%- if section.settings.hero_image != blank -%}
       <a href="{{ section.settings.primary_cta_url }}" class="am-hero__image-link" aria-label="{{ section.settings.primary_cta_label | default: 'Shop the collection' | escape }}">
-        {%- comment -%} sizes mirrors the grid below: col 1 = (100vw - 24px) * 780/1480, capped at 780px, minus 72px padding; 100vw - 32px on mobile {%- endcomment -%}
+        {%- comment -%} sizes: column = (100vw - 24px) * 780/1480 capped at 780px, minus 72px padding; also capped by screen height (see hero_sizes). The min() entries come first; browsers that can't parse min() skip them and use the plain fallbacks. Mobile: 100vw - 32px {%- endcomment -%}
         {{
           section.settings.hero_image
           | image_url: width: 1600
           | image_tag:
             widths: '400, 600, 800, 1000, 1200, 1600',
-            sizes: '(min-width: 1504px) 708px, (min-width: 769px) calc(52.7vw - 85px), calc(100vw - 32px)',
+            sizes: hero_sizes,
             width: section.settings.hero_image.width,
             height: section.settings.hero_image.height,
             loading: 'eager',
@@ -242,10 +256,13 @@ object-position: center center;
       --am-hero-eyebrow-offset: 0px;
       --am-hero-img-top: calc(var(--am-hero-pad-top) + var(--am-hero-eyebrow-offset));
       --am-hero-header-h: 230px; /* measured: am-nav-bar 120px + logo strip 110px (the theme's --header-height of 140px is stale) */
+      --am-hero-eyebrow-gap: 24px;
+      /* Tallest the image may be so header + hero fit one screen (32px spare); 240px floor for very short windows */
+      --am-hero-img-cap: max(240px, calc(100vh - var(--am-hero-header-h) - var(--am-hero-img-top) - 32px));
       align-content: center;
     }
     .am-hero--has-eyebrow {
-      --am-hero-eyebrow-offset: calc(var(--am-hero-eyebrow-lh) + 24px);
+      --am-hero-eyebrow-offset: calc(var(--am-hero-eyebrow-lh) + var(--am-hero-eyebrow-gap));
     }
     .am-hero .am-hero__content {
       justify-content: flex-start;
@@ -260,18 +277,19 @@ object-position: center center;
       flex-direction: column;
       justify-content: flex-end;
       height: var(--am-hero-eyebrow-lh);
+      margin-bottom: var(--am-hero-eyebrow-gap) !important;
     }
     .am-hero .am-hero__image {
       padding-top: var(--am-hero-img-top) !important;
     }
-    /* 4:5 of the column width, capped so header + hero fit one screen (32px spare below).
-       Width stays 100% of the column, so the sizes attribute is unchanged. The 240px floor
-       only applies on windows shorter than ~620px, where the cap would otherwise hit zero. */
+    /* Shape is fixed (--am-hero-img-ratio = height / width, never below 4:5), so when the height
+       cap applies the image gets narrower instead of becoming a wide strip. Left-aligned in its
+       column; the spare cream space sits between the image and the text. */
     .am-hero__image img {
-      width: 100%;
+      width: min(100%, calc(var(--am-hero-img-cap) / var(--am-hero-img-ratio)));
       height: auto;
-      aspect-ratio: 4 / 5;
-      max-height: max(240px, calc(100vh - var(--am-hero-header-h) - var(--am-hero-img-top) - 32px));
+      aspect-ratio: 1 / var(--am-hero-img-ratio);
+      margin: 0;
       object-fit: cover;
       object-position: center top;
     }
@@ -280,6 +298,32 @@ object-position: center center;
   @media (min-width: 769px) and (max-width: 1024px) {
     .am-hero {
       --am-hero-pad-top: 60px; /* matches the 60px 40px padding above */
+    }
+  }
+
+  /* Short desktop screens: tighten vertical spacing in the text column so it fits beside the
+     image. Font sizes are unchanged. The image top still follows --am-hero-img-top. */
+  @media (min-width: 769px) and (max-height: 860px) {
+    .am-hero {
+      --am-hero-pad-top: 32px;
+      --am-hero-eyebrow-gap: 14px;
+      min-height: 0; /* the 70vh minimum alone would push header + hero past the fold here */
+    }
+    .am-hero .am-hero__content {
+      padding-bottom: 24px !important;
+    }
+    .am-hero .am-hero__content h1.am-hero__headline,
+    .am-hero .am-hero__content .am-hero__headline {
+      margin-bottom: 14px !important;
+    }
+    .am-hero .am-hero__content .am-hero__sub {
+      margin-bottom: 18px !important;
+    }
+    .am-hero .am-hero__content .am-hero__cta-row {
+      margin-bottom: 20px !important;
+    }
+    .am-hero .am-hero__content .am-hero__trust {
+      padding-top: 14px !important;
     }
   }
 

@@ -1,10 +1,11 @@
 {%- liquid
   # Desktop image is 4:5, width = min(708px, 0.527 x the row, height cap x 0.8).
   # Height cap = 100vh - 134px header - image top padding - 32px; 192px = the 240px height floor x 0.8.
-  # Screens taller than 860px: smallest image top padding is 102px (134 + 102 + 32 = 268).
-  # Shorter screens use the tightened spacing: 64px (134 + 64 + 32 = 230).
-  assign hero_cap_tall = 'max(192px, calc((100vh - 268px) * 0.8))'
-  assign hero_cap_short = 'max(192px, calc((100vh - 230px) * 0.8))'
+  # Image top padding = text padding-top + 5px (eyebrow cap offset, rounded down so sizes never undershoot).
+  # Screens taller than 860px: smallest is 60 + 5 = 65px (134 + 65 + 32 = 231).
+  # Shorter screens use the tightened spacing: 32 + 5 = 37px (134 + 37 + 32 = 203).
+  assign hero_cap_tall = 'max(192px, calc((100vh - 231px) * 0.8))'
+  assign hero_cap_short = 'max(192px, calc((100vh - 203px) * 0.8))'
   assign hero_sizes = '(min-width: 1504px) and (min-height: 861px) min(708px, ' | append: hero_cap_tall | append: '), (min-width: 769px) and (min-height: 861px) min(calc(52.7vw - 85px), ' | append: hero_cap_tall | append: '), (min-width: 1504px) min(708px, ' | append: hero_cap_short | append: '), (min-width: 769px) min(calc(52.7vw - 85px), ' | append: hero_cap_short | append: '), (min-width: 1504px) 708px, (min-width: 769px) calc(52.7vw - 85px), calc(100vw - 32px)'
 -%}
 <div class="am-hero{% if section.settings.eyebrow != blank %} am-hero--has-eyebrow{% endif %}">
@@ -241,13 +242,16 @@ object-position: center center;
     }
   }
 
-  /* Desktop: top of the image lines up with the top of the h1; the eyebrow sits above that line.
-     Offset = eyebrow line-height + eyebrow margin-bottom (24px) + h1 margin-top (0).
-     .am-hero__content is a flex column, so those margins never collapse. */
+  /* Desktop: top of the image lines up with the top of the eyebrow's capital letters (optical),
+     i.e. the top of the text block. Without an eyebrow it lines up with the top of the h1 box. */
   @media (min-width: 769px) {
     .am-hero {
       --am-hero-pad-top: 80px; /* wins from custom-modernista.css (.am-hero__content padding: 80px 5%) */
       --am-hero-eyebrow-lh: 18.15px; /* 11px x 1.65, the body line-height it inherits from custom-modernista.css */
+      /* Gap from the top of the eyebrow's line box to the top of its capitals, from Jost's metrics
+         (per em: ascender 1.070, descender 0.375, cap height 0.700): half-leading + (ascender - cap height).
+         = (18.15 - 15.895) / 2 + 4.07 = 5.2px */
+      --am-hero-eyebrow-cap: calc((var(--am-hero-eyebrow-lh) - 11px * 1.445) / 2 + 11px * 0.37);
       --am-hero-eyebrow-offset: 0px;
       --am-hero-img-top: calc(var(--am-hero-pad-top) + var(--am-hero-eyebrow-offset));
       --am-hero-header-h: 134px; /* measured: am-nav-bar 64px + logo strip 70px, 750px and up (the theme's --header-height of 140px is stale) */
@@ -265,7 +269,7 @@ object-position: center center;
       padding-right: 48px;
     }
     .am-hero--has-eyebrow {
-      --am-hero-eyebrow-offset: calc(var(--am-hero-eyebrow-lh) + var(--am-hero-eyebrow-gap));
+      --am-hero-eyebrow-offset: var(--am-hero-eyebrow-cap);
     }
     .am-hero .am-hero__content {
       justify-content: flex-start;
@@ -274,14 +278,10 @@ object-position: center center;
       padding-right: 0 !important;
       transform: none;
     }
-    /* Fixed one-line box, text pinned to its bottom: a wrapped eyebrow grows up into the
-       top padding instead of pushing the h1 down, so the offset above always holds. */
+    /* The eyebrow's first line sits at the top of the text column, so a wrapped eyebrow simply
+       grows downward and the alignment holds. Line-height pinned to match --am-hero-eyebrow-cap. */
     .am-hero .am-hero__content .am-hero__eyebrow {
       line-height: var(--am-hero-eyebrow-lh) !important;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      height: var(--am-hero-eyebrow-lh);
       margin-bottom: var(--am-hero-eyebrow-gap) !important;
     }
     .am-hero .am-hero__image {

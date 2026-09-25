@@ -44,37 +44,71 @@
     margin-top: 0;
   }
 
-  /* Socials */
-  .am-footer__socials {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  /* ── Socials — hardened against app CSS overrides ── */
+  ul.am-footer__socials {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: center !important;
+    margin-top: 0 !important;
   }
 
-  .am-footer__social-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 32px;
-    padding: 0 14px;
-    border: 1px solid rgba(0, 71, 171, 0.25);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    transition: all 0.2s ease;
-    font-family: 'Jost', sans-serif;
+  ul.am-footer__socials li {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    flex: 0 0 auto !important;
   }
 
-  .am-footer__social-btn:hover {
-    background: #0047AB;
+  a.am-footer__social-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 32px !important;
+    padding: 0 14px !important;
+    border: 1px solid rgba(0, 71, 171, 0.25) !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+    transition: all 0.2s ease !important;
+    font-family: 'Jost', sans-serif !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    float: none !important;
+    position: static !important;
+    flex-shrink: 0 !important;
+  }
+
+  a.am-footer__social-btn:hover {
+    background: #0047AB !important;
     color: #f7f0e6 !important;
-    border-color: #0047AB;
+    border-color: #0047AB !important;
+  }
+
+  /* Kitemark — hardened against app CSS overrides, same as socials above */
+  a.am-footer__kitemark {
+    display: block !important;
+    margin-top: 18px !important;
+    max-width: 60px !important;
+    width: 60px !important;
+    text-decoration: none !important;
+  }
+
+  a.am-footer__kitemark img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
   }
 
   /* Nav columns */
@@ -214,9 +248,15 @@
 
       <ul class="am-footer__socials">
         <li><a href="https://www.instagram.com/ateliermodernista/" target="_blank" rel="noopener" class="am-footer__social-btn">Instagram</a></li>
-        <li><a href="https://www.pinterest.co.uk/ateliermodernista/" target="_blank" rel="noopener" class="am-footer__social-btn">Pinterest</a></li>
-        <li><a href="https://bsky.app/profile/ateliermodernista.bsky.social" target="_blank" rel="noopener" class="am-footer__social-btn">Bluesky</a></li>
       </ul>
+
+      <a href="https://www.buywomenbuilt.com" target="_blank" rel="noopener" class="am-footer__kitemark">
+        <img
+          src="https://sidekick.shopify.ai/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6Mzc0MDAxMDExMSwicHVyIjoiYmxvYl9pZCJ9fQ==--7a951c6c4044738133d60baac8ca124d7190497c/BuyWomenBuilt_logo_colour.png"
+          alt="Buy Women Built kitemark"
+          loading="lazy"
+        >
+      </a>
     </div>
 
     {%- comment %} Shop column {%- endcomment %}
@@ -277,11 +317,10 @@
       &copy; {{ 'now' | date: '%Y' }} {{ shop.name }} &middot; London
     </span>
     <ul class="am-footer__policies">
-      {%- for policy in shop.policies -%}
-        {%- if policy != blank and policy.title != 'Contact information' -%}
-          <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
-        {%- endif -%}
-      {%- endfor -%}
+      <li><a href="/pages/privacy-policy">Privacy Policy</a></li>
+      <li><a href="/pages/returns">Returns Policy</a></li>
+      <li><a href="/pages/terms-of-service">Terms of Service</a></li>
+      <li><a href="/pages/shipping-policy">Shipping Policy</a></li>
     </ul>
   </div>
 </footer>

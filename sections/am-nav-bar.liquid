@@ -552,6 +552,30 @@
       </span>
     {%- endif -%}
   </a>
+
+  {%- if section.settings.giveaway_show -%}
+    {%- liquid
+      if section.settings.giveaway_link != blank
+        assign giveaway_tag = 'a'
+      else
+        assign giveaway_tag = 'div'
+      endif
+    -%}
+    <{{ giveaway_tag }}
+      class="am-mobile-giveaway"
+      {% if giveaway_tag == 'a' %}href="{{ section.settings.giveaway_link }}"{% endif %}
+    >
+      {%- if section.settings.giveaway_line_1 != blank -%}
+        <span class="am-mobile-giveaway__line">{{ section.settings.giveaway_line_1 | escape }}</span>
+      {%- endif -%}
+      {%- if section.settings.giveaway_main != blank -%}
+        <strong class="am-mobile-giveaway__main">{{ section.settings.giveaway_main | escape }}</strong>
+      {%- endif -%}
+      {%- if section.settings.giveaway_line_3 != blank -%}
+        <span class="am-mobile-giveaway__line">{{ section.settings.giveaway_line_3 | escape }}</span>
+      {%- endif -%}
+    </{{ giveaway_tag }}>
+  {%- endif -%}
   
     <div
     class="am-site-header__overlay"
@@ -669,128 +693,152 @@
   .shopify-section-group-header-group:has(.am-site-header) .header-wrapper {
     display: none !important;
   }
-  /* MOBILE GIVEAWAY BUTTON */
-
-/* GIVEAWAY BUTTON — DESKTOP AND MOBILE */
-
-.am-mobile-giveaway {
-  position: fixed;
-  top: 104px;
-  right: 28px;
-  z-index: 1000;
-
-  display: flex;
-  width: 112px;
-  height: 112px;
-  padding: 13px;
-  box-sizing: border-box;
-
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-
-  color: #ffffff;
-  background: #0047ab;
-  border: 3px solid #ffffff;
-  border-radius: 50%;
-  box-shadow: 0 8px 24px rgba(0, 71, 171, 0.28);
-
-  font-family: var(--font-body-family, Garamond, sans-serif);
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  line-height: 1.05;
-  text-align: center;
-  text-decoration: none;
-
-  transform: rotate(6deg);
-  transition:
-    transform 0.2s ease,
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.am-mobile-giveaway strong {
-  color: inherit;
-  font-family: var(--font-heading-family, Garamond, serif);
-  font-size: 1rem;
-  font-weight: 800;
-  line-height: 1.05;
-}
-
-.am-mobile-giveaway:hover,
-.am-mobile-giveaway:focus-visible {
-  color: #0047ab;
-  background: #ffffff;
-  border-color: #0047ab;
-  outline: none;
-  transform: rotate(8deg) scale(1.04);
-}
-
-/* MOBILE */
-
-@media screen and (max-width: 749px) {
+  /*
+    GIVEAWAY BADGE
+    Turned on from the customiser (AM Nav Bar > Giveaway badge). Fixed to the right edge:
+    1200px and up just below the 134px header, 769-1199px bottom-right, 750-768px just below
+    the header over the hero image, phones just below the 66px bar. Measured clear of the
+    pb-hero headline and buttons from 360px to 1920px.
+  */
   .am-mobile-giveaway {
-    top: 96px;
-    right: 10px;
+    --am-giveaway-size: 120px;
+
+    position: fixed;
+    top: 150px;
+    right: 20px;
     z-index: 1000;
 
-    width: 92px;
-    height: 92px;
-    padding: 10px;
-    gap: 2px;
+    display: flex;
+    width: var(--am-giveaway-size);
+    height: var(--am-giveaway-size);
+    padding: 12px;
+    box-sizing: border-box;
 
-    font-size: 1.2rem;
-  }
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
 
-  .am-mobile-giveaway strong {
-    font-size: 1.2rem;
-  }
-}
-/* DESKTOP GIVEAWAY BADGE */
+    color: #ffffff;
+    background: #0047ab;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(0, 71, 171, 0.28);
 
-@media screen and (min-width: 750px) {
-  .am-mobile-giveaway {
-    top: 184px;
-    right: clamp(70px, 6vw, 125px);
-    z-index: 1000;
-
-    width: 160px;
-    height: 160px;
-    padding: 20px;
-    gap: 5px;
-
-    border-width: 4px;
-    box-shadow: 0 10px 30px rgba(0, 71, 171, 0.3);
-
-    font-size: 1.3rem;
     line-height: 1.05;
-    letter-spacing: 0.07em;
+    text-align: center;
+    text-decoration: none;
+
+    transform: rotate(6deg);
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease;
   }
 
-  .am-mobile-giveaway strong {
-    font-size: 1.45rem;
+  .am-mobile-giveaway__line {
+    display: block;
+    color: inherit;
+    font-family: var(--am-sans, 'Jost', sans-serif);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .am-mobile-giveaway__main {
+    display: block;
+    color: inherit;
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
     line-height: 1;
   }
 
-  .am-mobile-giveaway span:first-child {
-    font-size: 1.25rem;
-    letter-spacing: 0.12em;
+  a.am-mobile-giveaway:hover,
+  a.am-mobile-giveaway:focus-visible {
+    color: #0047ab;
+    background: #ffffff;
+    border-color: #0047ab;
+    outline: none;
+    transform: rotate(8deg) scale(1.04);
   }
 
-  .am-mobile-giveaway span:last-child {
-    margin-top: 2px;
-    font-size: 1.6rem;
+  /* Not on the giveaway page itself */
+  body:has(.am-giveaway) .am-mobile-giveaway {
+    display: none;
   }
-}
 
-
-@media (prefers-reduced-motion: reduce) {
-  .am-mobile-giveaway {
-    transition: none;
+  /*
+    750-1199px: the hero headline runs almost to the right edge, so a badge at top: 150px
+    would cover it. Dock it bottom-right instead, in the space under the hero text.
+  */
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
+    .am-mobile-giveaway {
+      top: auto;
+      bottom: 24px;
+    }
   }
-}
+
+  /* Tablets (750-1023px): smaller badge so it clears the stacked hero buttons */
+  @media screen and (min-width: 750px) and (max-width: 1023px) {
+    .am-mobile-giveaway {
+      --am-giveaway-size: 96px;
+
+      right: 12px;
+      bottom: 16px;
+      padding: 9px;
+      gap: 2px;
+    }
+
+    .am-mobile-giveaway__line {
+      font-size: 8px;
+      letter-spacing: 0.08em;
+    }
+
+    .am-mobile-giveaway__main {
+      font-size: 21px;
+    }
+  }
+
+  /* 750-768px: the hero is stacked with full-width buttons, so sit over the image instead */
+  @media screen and (min-width: 750px) and (max-width: 768px) {
+    .am-mobile-giveaway {
+      top: 146px;
+      bottom: auto;
+    }
+  }
+
+  /* PHONES: below the 66px bar */
+
+  @media screen and (max-width: 749px) {
+    .am-mobile-giveaway {
+      --am-giveaway-size: 88px;
+
+      top: 76px;
+      right: 10px;
+      padding: 8px;
+      gap: 2px;
+      border-width: 2px;
+    }
+
+    .am-mobile-giveaway__line {
+      font-size: 8px;
+      letter-spacing: 0.08em;
+    }
+
+    .am-mobile-giveaway__main {
+      font-size: 20px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .am-mobile-giveaway {
+      transition: none;
+    }
+  }
 </style>
 
 <script>
@@ -904,6 +952,39 @@
       "id": "menu",
       "label": "Menu",
       "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Giveaway badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "giveaway_show",
+      "label": "Show giveaway badge",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "giveaway_line_1",
+      "label": "Badge line 1",
+      "default": "Win up to"
+    },
+    {
+      "type": "text",
+      "id": "giveaway_main",
+      "label": "Badge main text",
+      "default": "£100"
+    },
+    {
+      "type": "text",
+      "id": "giveaway_line_3",
+      "label": "Badge line 3",
+      "default": "Enter now"
+    },
+    {
+      "type": "url",
+      "id": "giveaway_link",
+      "label": "Badge link"
     }
   ],
   "presets": [

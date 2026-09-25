@@ -1,84 +1,70 @@
-<div class="am-reviews">
-  <div class="am-reviews__stars">★ ★ ★ ★ ★</div>
-  <div class="am-reviews__count">{{ section.settings.rating }} from {{ section.settings.review_count }} verified reviews</div>
+<div style="max-width: 1100px; margin: 0 auto; padding: 5px; box-sizing: border-box; width: 100%;">
+  
+  <!-- Compact Section Header -->
+  <div style="text-align: center; margin-bottom: 15px;">
+    <div style="color: #ffb400; font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 2px;">★★★★★</div>
+    <span style="font-size: 0.85rem; font-weight: bold; letter-spacing: 1.2px; color: #121212; text-transform: uppercase; font-family: inherit;">5 Stars From Verified Reviews</span>
+  </div>
 
-  <div class="am-reviews__grid">
-    {%- for block in section.blocks -%}
-      <div class="am-review-card" {{ block.shopify_attributes }}>
-        <div class="am-review-card__stars">★ ★ ★ ★ ★</div>
-        <div class="am-review-card__text">{{ block.settings.quote }}</div>
-        <div class="am-review-card__author">{{ block.settings.author }}</div>
+  <!-- Snug, Right-Sized Grid Layout -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 15px; width: 100%; box-sizing: border-box;">
+    
+    <!-- Review 1 -->
+    <div style="background-color: #fffdf6; border: 1px solid #e5dfd0; border-radius: 6px; padding: 16px; text-align: left; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; min-height: 140px;">
+      <div>
+        <div style="color: #ffb400; font-size: 1rem; margin-bottom: 6px;">★★★★★</div>
+        <p style="margin: 0 0 12px 0; font-size: 1.35rem; line-height: 1.4; color: #121212; font-style: italic; font-family: inherit;">"Wow. The Palette earrings came beautifully packaged and are so well made, I'm looking forward to wearing them every day. I can't recommend buying a gift for someone you love from Atelier Modernista enough."</p>
       </div>
-    {%- endfor -%}
+      <span style="font-size: 0.75rem; font-weight: bold; letter-spacing: 0.5px; color: #555555; text-transform: uppercase; font-family: inherit;">ROSIE D @PRDISPATCH</span>
+    </div>
+    
+
+    <!-- Review 2 -->
+    <div style="background-color: #fffdf6; border: 1px solid #e5dfd0; border-radius: 6px; padding: 16px; text-align: left; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; min-height: 140px;">
+      <div>
+        <div style="color: #ffb400; font-size: 1rem; margin-bottom: 6px;">★★★★★</div>
+        <p style="margin: 0 0 12px 0; font-size: 1.25rem; line-height: 1.4; color: #121212; font-style: italic; font-family: inherit;">"Gorgeous jewellery, beautifully wrapped."</p>
+      </div>
+      <span style="font-size: 0.75rem; font-weight: bold; letter-spacing: 0.5px; color: #555555; text-transform: uppercase; font-family: inherit;">ANNA S</span>
+    </div>
+
+    <!-- Review 3 -->
+    <div style="background-color: #fffdf6; border: 1px solid #e5dfd0; border-radius: 6px; padding: 16px; text-align: left; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; min-height: 140px;">
+      <div>
+        <div style="color: #ffb400; font-size: 1rem; margin-bottom: 6px;">★★★★★</div>
+        <p style="margin: 0 0 12px 0; font-size: 1.35rem; line-height: 1.4; color: #121212; font-style: italic; font-family: inherit;">"Beautiful modern jewellery that are pieces of art at very reasonable prices. Love love love Atelier Modernista! I've recommended it to all my friends."</p>
+      </div>
+      <span style="font-size: 0.75rem; font-weight: bold; letter-spacing: 0.5px; color: #555555; text-transform: uppercase; font-family: inherit;">SUSAN L</span>
+    </div>
+    
+
+    <!-- Review 4 -->
+    <div style="background-color: #fffdf6; border: 1px solid #e5dfd0; border-radius: 6px; padding: 16px; text-align: left; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; min-height: 140px;">
+      <div>
+        <div style="color: #ffb400; font-size: 1rem; margin-bottom: 6px;">★★★★★</div>
+        <p style="margin: 0 0 12px 0; font-size: 1.35rem; line-height: 1.4; color: #121212; font-style: italic; font-family: inherit;">"Everything felt luxurious from the start - the unique selection, the packaging, the earrings themselves."</p>
+      </div>
+      <span style="font-size: 0.75rem; font-weight: bold; letter-spacing: 0.5px; color: #555555; text-transform: uppercase; font-family: inherit;">MICHAEL F</span>
+    </div>
+    
+    
+    <!-- Review 5 -->
+    
+<div style="background-color: #fffdf6; border: 1px solid #e5dfd0; border-radius: 6px; padding: 16px; text-align: left; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; min-height: 140px;">
+      <div>
+        <div style="color: #ffb400; font-size: 1.1rem; margin-bottom: 6px;">★★★★★</div>
+        <p style="margin: 0 0 12px 0; font-size: 1.35rem; line-height: 1.4; color: #121212; font-style: italic; font-family: inherit;">"Brilliant gift for my lovely sister in law. She loved it. And I was impressed by the speed of dispatch, and the packaging meant I didn't have to wrap it up!"</p>
+      </div>
+      <span style="font-size: 0.75rem; font-weight: bold; letter-spacing: 0.5px; color: #555555; text-transform: uppercase; font-family: inherit;">EMMA K</span>
+    </div>
+    <!-- Review 6 -->
+     <div style="background-color: #fffdf6; border: 1px solid #e5dfd0; border-radius: 6px; padding: 16px; text-align: left; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; min-height: 140px;">
+      <div>
+        <div style="color: #ffb400; font-size: 1rem; margin-bottom: 6px;">★★★★★</div>
+        <p style="margin: 0 0 12px 0; font-size: 1.35rem; line-height: 1.4; color: #121212; font-style: italic; font-family: inherit;">"It's all about the Miró earrings for me - gold, with a little pop of red. Just so gorgeous. I can't recommend Antonia, the founder, and @ateliermodernista enough."</p>
+      </div>
+      <span style="font-size: 0.75rem; font-weight: bold; letter-spacing: 0.5px; color: #555555; text-transform: uppercase; font-family: inherit;">NAT W @THESTYLECHAPTER</span>
+    </div>
+
   </div>
 </div>
-
-{% schema %}
-{
-  "name": "AM — Reviews",
-  "tag": "section",
-  "class": "am-section",
-  "max_blocks": 6,
-  "settings": [
-    {
-      "type": "text",
-      "id": "rating",
-      "label": "Star rating display",
-      "default": "5"
-    },
-    {
-      "type": "text",
-      "id": "review_count",
-      "label": "Review count display",
-      "default": "47"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "review",
-      "name": "Review",
-      "settings": [
-        {
-          "type": "textarea",
-          "id": "quote",
-          "label": "Review text"
-        },
-        {
-          "type": "text",
-          "id": "author",
-          "label": "Reviewer name & location",
-          "default": "Helena R., London"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "AM — Reviews",
-      "blocks": [
-        {
-          "type": "review",
-          "settings": {
-            "quote": "Bought the Coda earrings as a gift for my sister and ended up ordering a pair for myself. The cobalt is so much more vivid in person — like wearing a tiny piece of art.",
-            "author": "Helena R., London"
-          }
-        },
-        {
-          "type": "review",
-          "settings": {
-            "quote": "Beautiful packaging, beautiful piece. You can tell every detail has been considered. The handwritten note from the atelier was a lovely touch.",
-            "author": "Sarah K., Edinburgh"
-          }
-        },
-        {
-          "type": "review",
-          "settings": {
-            "quote": "I get compliments every single time I wear my Red Arc earrings. Nothing else in my collection looks anything like them.",
-            "author": "Imogen T., Bristol"
-          }
-        }
-      ]
-    }
-  ]
-}
-{% endschema %}

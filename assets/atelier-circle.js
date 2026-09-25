@@ -8,8 +8,14 @@
     consent: "[data-atelier-circle-consent]",
     submit: "[data-atelier-circle-submit]",
     error: "[data-atelier-circle-error]",
-    success: "[data-atelier-circle-success]"
+    success: "[data-atelier-circle-success]",
+    modal: "[data-atelier-circle-modal]",
+    modalBackdrop: "[data-atelier-circle-modal-backdrop]",
+    modalDialog: "[data-atelier-circle-modal-dialog]",
+    modalClose: "[data-atelier-circle-modal-close]"
   };
+
+  const REQUEST_TIMEOUT_MS = 8000;
 
   class AtelierCircle {
     constructor(section) {
@@ -24,6 +30,17 @@
       this.errorMessage = this.form.querySelector(SELECTORS.error);
       this.successMessage = this.form.querySelector(SELECTORS.success);
 
+      this.modal = section.querySelector(SELECTORS.modal);
+      this.modalBackdrop = this.modal
+        ? this.modal.querySelector(SELECTORS.modalBackdrop)
+        : null;
+      this.modalDialog = this.modal
+        ? this.modal.querySelector(SELECTORS.modalDialog)
+        : null;
+      this.modalClose = this.modal
+        ? this.modal.querySelector(SELECTORS.modalClose)
+        : null;
+
       this.klaviyoPublicKey = section.dataset.klaviyoPublicKey;
       this.klaviyoListId = section.dataset.klaviyoListId;
       this.customerTag = section.dataset.customerTag || "Atelier Circle";
@@ -32,6 +49,8 @@
         ? this.submitButton.textContent.trim()
         : "Join the Circle";
 
+      this.handleKeydown = this.handleKeydown.bind(this);
+
       this.bindEvents();
     }
 
@@ -39,6 +58,14 @@
       this.form.addEventListener("submit", (event) => {
         this.handleSubmit(event);
       });
+
+      if (this.modalClose) {
+        this.modalClose.addEventListener("click", () => this.closeModal());
+      }
+
+      if (this.modalBackdrop) {
+        this.modalBackdrop.addEventListener("click", () => this.closeModal());
+      }
     }
 
     showError(message) {
@@ -99,23 +126,32 @@
       return email;
     }
 
+    // Wraps fetch with a hard timeout so a stalled request can never
+    // leave the button stuck on "Activating membership…" forever.
+    async fetchWithTimeout(url, options, timeoutMs = REQUEST_TIMEOUT_MS) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+      try {
+        return await fetch(url, { ...options, signal: controller.signal });
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
     async subscribeShopify(email) {
       const body = new URLSearchParams();
 
       body.append("form_type", "customer");
       body.append("utf8", "✓");
-      body.append(
-        "contact[tags]",
-        `newsletter,${this.customerTag}`
-      );
+      body.append("contact[tags]", `newsletter,${this.customerTag}`);
       body.append("contact[email]", email);
       body.append("contact[accepts_marketing]", "true");
 
-      const response = await fetch("/contact", {
+      const response = await this.fetchWithTimeout("/contact", {
         method: "POST",
         headers: {
-          "Content-Type":
-            "application/x-www-form-urlencoded;charset=UTF-8"
+          "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
         },
         body: body.toString()
       });
@@ -125,70 +161,113 @@
       }
     }
 
+    // Klaviyo is best-effort: it drives email flows, not membership
+    // status. If it's blocked (ad blockers commonly block a.klaviyo.com
+    // as a tracker) or times out, we log it but do NOT block the
+    // success state — the Shopify tag above is what actually grants
+    // membership and free shipping.
     async subscribeKlaviyo(email) {
       if (!this.klaviyoPublicKey || !this.klaviyoListId) {
-        throw new Error("Klaviyo configuration is missing.");
+        console.warn("Atelier Circle: Klaviyo configuration is missing.");
+        return;
       }
 
       const endpoint =
         "https://a.klaviyo.com/client/subscriptions/" +
         `?company_id=${encodeURIComponent(this.klaviyoPublicKey)}`;
 
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          revision: "2026-04-15"
-        },
-        body: JSON.stringify({
-          data: {
-            type: "subscription",
-            attributes: {
-              profile: {
-                data: {
-                  type: "profile",
-                  attributes: {
-                    email,
-                    properties: {
-                      atelier_circle_member: true,
-                      atelier_circle_source: "circle-page"
-                    },
-                    subscriptions: {
-                      email: {
-                        marketing: {
-                          consent: "SUBSCRIBED"
+      try {
+        const response = await this.fetchWithTimeout(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            revision: "2026-04-15"
+          },
+          body: JSON.stringify({
+            data: {
+              type: "subscription",
+              attributes: {
+                profile: {
+                  data: {
+                    type: "profile",
+                    attributes: {
+                      email,
+                      properties: {
+                        atelier_circle_member: true,
+                        atelier_circle_source: "circle-page"
+                      },
+                      subscriptions: {
+                        email: {
+                          marketing: {
+                            consent: "SUBSCRIBED"
+                          }
                         }
                       }
                     }
                   }
                 }
-              }
-            },
-            relationships: {
-              list: {
-                data: {
-                  type: "list",
-                  id: this.klaviyoListId
+              },
+              relationships: {
+                list: {
+                  data: {
+                    type: "list",
+                    id: this.klaviyoListId
+                  }
                 }
               }
             }
-          }
-        })
-      });
+          })
+        });
 
-      if (!response.ok && response.status !== 202) {
-        throw new Error("Klaviyo subscription failed.");
+        if (!response.ok && response.status !== 202) {
+          console.warn(
+            "Atelier Circle: Klaviyo subscription responded with",
+            response.status
+          );
+        }
+      } catch (error) {
+        // Swallow: Klaviyo failing (timeout, blocked, offline) must
+        // never prevent the customer from seeing a successful signup.
+        console.warn(
+          "Atelier Circle: Klaviyo subscription failed silently.",
+          error
+        );
       }
+    }
+
+    handleKeydown(event) {
+      if (event.key === "Escape") {
+        this.closeModal();
+      }
+    }
+
+    openModal() {
+      if (!this.modal) return;
+
+      this.modal.hidden = false;
+      this.modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", this.handleKeydown);
+
+      if (this.modalDialog) {
+        this.modalDialog.focus();
+      }
+    }
+
+    closeModal() {
+      if (!this.modal) return;
+
+      this.modal.hidden = true;
+      this.modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", this.handleKeydown);
     }
 
     showSuccess() {
       Array.from(this.form.children).forEach((element) => {
-        if (
-          element !== this.successMessage &&
-          element !== this.errorMessage
-        ) {
+        if (element !== this.successMessage && element !== this.errorMessage) {
           element.hidden = true;
-    element.style.display = "none";
+          element.style.display = "none";
         }
       });
 
@@ -200,6 +279,15 @@
         this.successMessage.hidden = false;
         this.successMessage.focus();
       }
+
+      // Always reset the button state, even though it's now hidden —
+      // guards against any future markup change re-exposing it.
+      this.setSubmitting(false);
+
+      // The celebratory popup is the primary moment; the inline
+      // message above remains underneath as a persistent confirmation
+      // once the popup is closed.
+      this.openModal();
     }
 
     async handleSubmit(event) {
@@ -213,17 +301,23 @@
       this.setSubmitting(true);
 
       try {
+        // Shopify is the source of truth for membership — it must
+        // succeed before we show success at all.
         await this.subscribeShopify(email);
+
+        // Klaviyo runs alongside but can never block or fail the flow.
         await this.subscribeKlaviyo(email);
 
         this.showSuccess();
       } catch (error) {
         console.error("Atelier Circle signup error:", error);
 
-        this.showError(
-          "We could not activate your membership. Please try again, or email antonia@ateliermodernista.com."
-        );
+        const message =
+          error && error.name === "AbortError"
+            ? "That took longer than expected. Please check your connection and try again, or email antonia@ateliermodernista.com."
+            : "We could not activate your membership. Please try again, or email antonia@ateliermodernista.com.";
 
+        this.showError(message);
         this.setSubmitting(false);
       }
     }

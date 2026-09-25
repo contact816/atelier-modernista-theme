@@ -59,6 +59,7 @@
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'am-wishlist.js' | asset_url }}" defer="defer"></script>
    {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
@@ -332,6 +333,18 @@
 <link rel="stylesheet" href="{{ 'custom-modernista.css' | asset_url }}" media="print" onload="this.media='all'">
 <noscript>{{ 'custom-modernista.css' | asset_url | stylesheet_tag }}</noscript>
 
+{%- liquid
+  assign is_circle_member = false
+  if customer and customer.tags contains 'Atelier Circle'
+    assign is_circle_member = true
+  endif
+-%}
+<script>
+  window.amCustomer = {
+    id: {{ customer.id | json }},
+    isCircleMember: {{ is_circle_member | json }}
+  };
+</script>
 </head>
 
 <body>

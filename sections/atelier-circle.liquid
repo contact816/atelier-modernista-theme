@@ -179,6 +179,60 @@
       </div>
     </div>
   </div>
+
+  {%- comment -%} Celebratory popup shown the instant signup succeeds {%- endcomment -%}
+  <div
+    class="atelier-circle-modal"
+    data-atelier-circle-modal
+    hidden
+    aria-hidden="true"
+  >
+    <div class="atelier-circle-modal__backdrop" data-atelier-circle-modal-backdrop></div>
+
+    <div
+      class="atelier-circle-modal__dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="AtelierCircleModalTitle-{{ section.id }}"
+      tabindex="-1"
+      data-atelier-circle-modal-dialog
+    >
+      <button
+        type="button"
+        class="atelier-circle-modal__close"
+        data-atelier-circle-modal-close
+        aria-label="Close"
+      >&times;</button>
+
+      {%- if section.settings.modal_eyebrow != blank -%}
+        <p class="atelier-circle-modal__eyebrow">{{ section.settings.modal_eyebrow | escape }}</p>
+      {%- endif -%}
+
+      <h2 id="AtelierCircleModalTitle-{{ section.id }}" class="atelier-circle-modal__title">
+        {{ section.settings.success_heading | escape }}
+      </h2>
+
+      {%- if section.settings.success_text != blank -%}
+        <div class="atelier-circle-modal__copy rte">{{ section.settings.success_text }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.success_discount_code != blank -%}
+        <p class="atelier-circle-modal__code-label">
+          {{ section.settings.discount_code_label | default: 'Your welcome code' | escape }}
+        </p>
+        <p class="atelier-circle-modal__code" data-atelier-circle-modal-code>
+          {{ section.settings.success_discount_code | escape }}
+        </p>
+      {%- endif -%}
+
+      <a
+        class="atelier-circle-modal__button"
+        href="{{ section.settings.success_shop_link | default: '/collections/the-atelier-collection' }}"
+      >
+        {{ section.settings.success_shop_link_label | escape }}
+      </a>
+    </div>
+  </div>
 </section>
 
 <script src="{{ 'atelier-circle.js' | asset_url }}" defer="defer"></script>
@@ -194,7 +248,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "The Atelier Circle" },
     { "type": "richtext", "id": "statement", "label": "Main statement", "default": "<p>Beautiful things are even better when shared.</p>" },
     { "type": "richtext", "id": "intro", "label": "Introduction", "default": "<p>Join us for Atelier Points, complimentary UK delivery, early access to new collections and occasional notes from the Atelier.</p>" },
-    { "type": "text", "id": "inbox_note", "label": "Inbox promise", "default": "We’ll write when we have something worth sharing." },
+    { "type": "text", "id": "inbox_note", "label": "Inbox promise", "default": "We'll write when we have something worth sharing." },
 
     { "type": "header", "content": "Circle benefits" },
     { "type": "text", "id": "membership_heading", "label": "Benefits heading", "default": "Circle membership includes" },
@@ -217,9 +271,12 @@
     { "type": "textarea", "id": "circle_privacy_text", "label": "Privacy note", "default": "Your details will be handled in accordance with our Privacy Policy." },
     { "type": "richtext", "id": "small_print", "label": "Custom small print" },
 
-    { "type": "header", "content": "Successful signup" },
+    { "type": "header", "content": "Successful signup (popup + inline)" },
+    { "type": "text", "id": "modal_eyebrow", "label": "Popup eyebrow", "default": "Welcome" },
     { "type": "text", "id": "success_heading", "label": "Success heading", "default": "Welcome to the Circle." },
-    { "type": "richtext", "id": "success_text", "label": "Success message", "default": "<p>You’re now on the Atelier Circle list. Shop using this email address and your Atelier Points will be waiting for you.</p>" },
+    { "type": "richtext", "id": "success_text", "label": "Success message", "default": "<p>You're now on the Atelier Circle list. Shop using this email address and your Atelier Points will be waiting for you.</p>" },
+    { "type": "text", "id": "success_discount_code", "label": "Discount code shown in popup", "info": "Leave blank to hide the code block. Step 4 will wire this to the live code automatically." },
+    { "type": "text", "id": "discount_code_label", "label": "Discount code label", "default": "Your welcome code" },
     { "type": "url", "id": "success_shop_link", "label": "Success button destination" },
     { "type": "text", "id": "success_shop_link_label", "label": "Success button label", "default": "Explore the Atelier" },
 

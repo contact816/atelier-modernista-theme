@@ -124,7 +124,7 @@ object-position: center center;
   .am-hero .am-hero__content h1.am-hero__headline,
   .am-hero .am-hero__content .am-hero__headline {
     font-family: 'Cormorant Garamond', Georgia, serif !important;
-    font-size: clamp(32px, 6vw, 64px) !important;
+    font-size: clamp(22px, 4.5vw, 42px) !important;
     font-weight: 400 !important;
     letter-spacing: -0.01em !important;
     line-height: 1.05 !important;
@@ -238,7 +238,7 @@ object-position: center center;
   @media (min-width: 769px) {
     .am-hero {
       --am-hero-pad-top: 80px; /* wins from custom-modernista.css (.am-hero__content padding: 80px 5%) */
-      --am-hero-eyebrow-lh: 16.5px; /* 11px x 1.5, the value it inherited from body in pb-global.css */
+      --am-hero-eyebrow-lh: 18.15px; /* 11px x 1.65, the body line-height it inherits from custom-modernista.css */
       --am-hero-eyebrow-offset: 0px;
       align-content: center;
     }
@@ -250,8 +250,14 @@ object-position: center center;
       padding-top: var(--am-hero-pad-top) !important;
       transform: none;
     }
+    /* Fixed one-line box, text pinned to its bottom: a wrapped eyebrow grows up into the
+       top padding instead of pushing the h1 down, so the offset above always holds. */
     .am-hero .am-hero__content .am-hero__eyebrow {
       line-height: var(--am-hero-eyebrow-lh) !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: var(--am-hero-eyebrow-lh);
     }
     .am-hero .am-hero__image {
       padding-top: calc(var(--am-hero-pad-top) + var(--am-hero-eyebrow-offset)) !important;
@@ -287,7 +293,7 @@ object-position: center center;
     }
     .am-hero .am-hero__content h1.am-hero__headline,
     .am-hero .am-hero__content .am-hero__headline {
-      font-size: clamp(36px, 9vw, 52px) !important;
+      font-size: clamp(26px, 6vw, 36px) !important;
     }
     .am-hero .am-hero__content .am-btn-primary {
       width: 100% !important;

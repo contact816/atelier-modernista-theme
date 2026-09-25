@@ -821,3 +821,172 @@
   border-radius: 50% !important;
   transform: none !important;
 }
+/* =========================================================
+   ATELIER CIRCLE — SIGNUP SUCCESS POPUP
+   Append this block to the end of assets/atelier-circle.css
+   ========================================================= */
+
+.atelier-circle-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.atelier-circle-modal[hidden] {
+  display: none;
+}
+
+.atelier-circle-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(38, 35, 31, 0.55);
+  animation: atelier-circle-modal-fade-in 0.25s ease forwards;
+}
+
+.atelier-circle-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  padding: 48px 42px 40px;
+  background: #fffaf0;
+  border: 1px solid #255eb3;
+  border-radius: 5px;
+  text-align: center;
+  animation: atelier-circle-modal-pop-in 0.3s ease forwards;
+}
+
+.atelier-circle-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  line-height: 1;
+  color: #255eb3;
+  cursor: pointer;
+}
+
+.atelier-circle-modal__close:focus-visible {
+  outline: 2px solid #2458a8;
+  outline-offset: 2px;
+}
+
+.atelier-circle-modal__eyebrow {
+  margin: 0 0 14px;
+  font-family: Jost, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #e6b23c;
+}
+
+.atelier-circle-modal__title {
+  margin: 0 0 16px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 500;
+  line-height: 1.06;
+  color: #255eb3;
+}
+
+.atelier-circle-modal__copy {
+  margin: 0 0 22px;
+  font-family: Jost, sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #5a544d;
+}
+
+.atelier-circle-modal__copy p {
+  margin: 0;
+}
+
+.atelier-circle-modal__code-label {
+  margin: 0 0 6px;
+  font-family: Jost, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #39342f;
+}
+
+.atelier-circle-modal__code {
+  display: inline-block;
+  margin: 0 0 26px;
+  padding: 10px 26px;
+  border: 1px dashed #255eb3;
+  border-radius: 3px;
+  font-family: Jost, sans-serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  color: #26231f;
+}
+
+.atelier-circle-modal__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 24px;
+  border: 1px solid #26231f;
+  border-radius: 0;
+  background: #26231f;
+  font-family: Jost, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #ffffff;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.atelier-circle-modal__button:hover {
+  border-color: #2458a8;
+  background: #2458a8;
+}
+
+.atelier-circle-modal__button:focus-visible {
+  outline: 2px solid #2458a8;
+  outline-offset: 3px;
+}
+
+@keyframes atelier-circle-modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes atelier-circle-modal-pop-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atelier-circle-modal__backdrop,
+  .atelier-circle-modal__dialog {
+    animation: none;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .atelier-circle-modal__dialog {
+    padding: 40px 26px 32px;
+  }
+
+  .atelier-circle-modal__title {
+    font-size: 2.3rem;
+  }
+}

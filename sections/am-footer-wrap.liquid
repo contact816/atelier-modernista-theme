@@ -96,6 +96,21 @@
     border-color: #0047AB !important;
   }
 
+  /* Kitemark — hardened against app CSS overrides, same as socials above */
+  a.am-footer__kitemark {
+    display: block !important;
+    margin-top: 18px !important;
+    max-width: 60px !important;
+    width: 60px !important;
+    text-decoration: none !important;
+  }
+
+  a.am-footer__kitemark img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+  }
+
   /* Nav columns */
   .am-footer__col-heading {
     font-size: 11px;
@@ -236,6 +251,14 @@
         <li><a href="https://www.pinterest.co.uk/ateliermodernista/" target="_blank" rel="noopener" class="am-footer__social-btn">Pinterest</a></li>
         <li><a href="https://bsky.app/profile/ateliermodernista.bsky.social" target="_blank" rel="noopener" class="am-footer__social-btn">Bluesky</a></li>
       </ul>
+
+      <a href="https://www.buywomenbuilt.com" target="_blank" rel="noopener" class="am-footer__kitemark">
+        <img
+          src="https://sidekick.shopify.ai/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6Mzc0MDAxMDExMSwicHVyIjoiYmxvYl9pZCJ9fQ==--7a951c6c4044738133d60baac8ca124d7190497c/BuyWomenBuilt_logo_colour.png"
+          alt="Buy Women Built kitemark"
+          loading="lazy"
+        >
+      </a>
     </div>
 
     {%- comment %} Shop column {%- endcomment %}

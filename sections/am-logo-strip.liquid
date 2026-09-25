@@ -1,0 +1,130 @@
+{% comment %}
+  Atelier Modernista — Compact Logo Strip
+{% endcomment %}
+
+<section
+  class="am-logo-strip"
+  style="
+    --am-logo-width: {{ section.settings.logo_width }}px;
+    --am-logo-mobile-width: {{ section.settings.logo_mobile_width }}px;
+    --am-logo-pad-top: {{ section.settings.padding_top }}px;
+    --am-logo-pad-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  {% if section.settings.logo != blank %}
+    <div class="am-logo-strip__inner">
+      {{
+        section.settings.logo
+        | image_url: width: 1200
+        | image_tag:
+          class: 'am-logo-strip__image',
+          loading: 'eager',
+          widths: '240, 320, 400, 500, 600, 800, 1000, 1200',
+          alt: shop.name
+      }}
+    </div>
+  {% endif %}
+</section>
+
+<style>
+  .am-logo-strip {
+    width: 100%;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding:
+      var(--am-logo-pad-top)
+      20px
+      var(--am-logo-pad-bottom) !important;
+    box-sizing: border-box;
+  }
+
+  .am-logo-strip__inner {
+    width: 100%;
+    min-height: 0 !important;
+    height: auto !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .am-logo-strip__image {
+    display: block;
+    width: min(var(--am-logo-width), 90vw);
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .am-logo-strip {
+      padding-top: 16px !important;
+      padding-bottom: 16px !important;
+    }
+
+    .am-logo-strip__image {
+      width: min(var(--am-logo-mobile-width), 84vw);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "AM logo strip",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 180,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop logo width",
+      "default": 320
+    },
+    {
+      "type": "range",
+      "id": "logo_mobile_width",
+      "min": 140,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile logo width",
+      "default": 240
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 22
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM logo strip"
+    }
+  ]
+}
+{% endschema %}

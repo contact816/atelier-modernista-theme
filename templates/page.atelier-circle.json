@@ -34,8 +34,11 @@
         "circle_consent_text": "I would like to receive occasional Atelier Circle emails. I understand that I can unsubscribe at any time.and my details will be handled in accordance with Atelier Modernista's  Privacy Policy.",
         "circle_privacy_text": "",
         "small_print": "",
+        "modal_eyebrow": "Welcome",
         "success_heading": "Welcome to the Circle.",
         "success_text": "<p>You’re now on the Atelier Circle list. Shop using this email address and your Atelier Points will be waiting for you.</p>",
+        "success_discount_code": "",
+        "discount_code_label": "Your welcome code",
         "success_shop_link": "",
         "success_shop_link_label": "Explore the Atelier",
         "member_label": "Membership active",
@@ -61,9 +64,9 @@
             "points_required": 250,
             "title": "Choose a Surprise Gift",
             "description": "<p>Choose a small pleasure from the Atelier’s changing selection of beautiful, useful things.</p>",
-            "availability_note": "The selection changes throughout the year.",
+            "availability_note": "This selection changes throughout the year.",
             "button_label": "View the selection",
-            "button_link": ""
+            "button_link": "/collections/atelier-rewards"
           }
         },
         "reward_dpX4QJ": {
@@ -72,10 +75,10 @@
             "active": true,
             "points_required": 500,
             "title": "Choose a Studio Gift",
-            "description": "<p>Choose something considered for your home, desk or dressing table.</p>",
+            "description": "<p>Choose something for your home, desk or dressing table.</p>",
             "availability_note": "Candles, small design objects and seasonal Atelier finds.",
             "button_label": "View the selection",
-            "button_link": ""
+            "button_link": "/collections/atelier-rewards"
           }
         },
         "reward_mfbHC9": {
@@ -87,19 +90,7 @@
             "description": "<p>Choose a piece of jewellery from a rotating Atelier Circle edit.</p>",
             "availability_note": "The jewellery selection changes regularly.",
             "button_label": "Choose your gift",
-            "button_link": ""
-          }
-        },
-        "reward_G6hQbK": {
-          "type": "reward",
-          "settings": {
-            "active": true,
-            "points_required": 1500,
-            "title": "Choose from the Atelier Cabinet",
-            "description": "<p>A more generous choice of jewellery, colour and design objects selected by the Atelier.</p>",
-            "availability_note": "Available only to Atelier Circle members.",
-            "button_label": "Open the Cabinet",
-            "button_link": ""
+            "button_link": "/collections/atelier-rewards"
           }
         },
         "reward_VFdp6Y": {
@@ -123,7 +114,7 @@
             "description": "<p>A beautifully presented choice of jewellery and lifestyle objects from the Atelier.</p>",
             "availability_note": "Contents and choices change seasonally.",
             "button_label": "Discover the Atelier Box",
-            "button_link": ""
+            "button_link": "/collections/atelier-rewards"
           }
         },
         "reward_JWhL8n": {
@@ -135,7 +126,7 @@
             "description": "<p>An exclusive jewellery piece in your chosen colour story, accompanied by a box personally selected for you by the Atelier.</p>",
             "availability_note": "Created individually with the Atelier after redemption.",
             "button_label": "Begin your commission",
-            "button_link": ""
+            "button_link": "/collections/atelier-rewards"
           }
         }
       },
@@ -143,12 +134,10 @@
         "reward_EQdw9U",
         "reward_dpX4QJ",
         "reward_mfbHC9",
-        "reward_G6hQbK",
         "reward_VFdp6Y",
         "reward_yWBnFk",
         "reward_JWhL8n"
       ],
-      "disabled": true,
       "name": "AM — Atelier Circle",
       "settings": {
         "eyebrow": "Atelier Circle",
@@ -159,7 +148,7 @@
         "remaining_prefix": "You are",
         "remaining_suffix": "from your next Atelier Selection.",
         "top_reward_message": "You have reached Atelier Circle’s most exceptional selection.",
-        "use_preview_points": true,
+        "use_preview_points": false,
         "preview_points": 400,
         "show_guest_view": true,
         "guest_heading": "Beautiful choices, reserved for members.",

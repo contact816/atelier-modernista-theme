@@ -19,8 +19,52 @@
         "color_scheme": "scheme-1"
       }
     },
+    "rich_text_ygNdWK": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_E8jFFx": {
+          "type": "heading",
+          "settings": {
+            "heading": "Coming Soon",
+            "heading_size": "h1"
+          }
+        },
+        "text_Bb7pGk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>This collection is launching soon. Please check back shortly.</p>"
+          }
+        },
+        "button_zkn6hL": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_E8jFFx",
+        "text_Bb7pGk",
+        "button_zkn6hL"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
     "product-grid": {
       "type": "main-collection-product-grid",
+      "disabled": true,
       "settings": {
         "products_per_page": 12,
         "columns_desktop": 3,
@@ -42,6 +86,7 @@
   },
   "order": [
     "banner",
+    "rich_text_ygNdWK",
     "product-grid"
   ]
 }

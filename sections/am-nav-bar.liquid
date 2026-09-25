@@ -245,6 +245,11 @@
     opacity: 1;
   }
 
+  /* Dawn's base.css hides every empty div (div:empty); keep the backdrop in the layout */
+  .am-site-header .am-site-header__overlay {
+    display: block;
+  }
+
   .am-site-header__drawer {
     position: fixed;
     top: 0;

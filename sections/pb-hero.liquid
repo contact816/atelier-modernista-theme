@@ -240,6 +240,8 @@ object-position: center center;
       --am-hero-pad-top: 80px; /* wins from custom-modernista.css (.am-hero__content padding: 80px 5%) */
       --am-hero-eyebrow-lh: 18.15px; /* 11px x 1.65, the body line-height it inherits from custom-modernista.css */
       --am-hero-eyebrow-offset: 0px;
+      --am-hero-img-top: calc(var(--am-hero-pad-top) + var(--am-hero-eyebrow-offset));
+      --am-hero-header-h: 230px; /* measured: am-nav-bar 120px + logo strip 110px (the theme's --header-height of 140px is stale) */
       align-content: center;
     }
     .am-hero--has-eyebrow {
@@ -260,9 +262,17 @@ object-position: center center;
       height: var(--am-hero-eyebrow-lh);
     }
     .am-hero .am-hero__image {
-      padding-top: calc(var(--am-hero-pad-top) + var(--am-hero-eyebrow-offset)) !important;
+      padding-top: var(--am-hero-img-top) !important;
     }
+    /* 4:5 of the column width, capped so header + hero fit one screen (32px spare below).
+       Width stays 100% of the column, so the sizes attribute is unchanged. The 240px floor
+       only applies on windows shorter than ~620px, where the cap would otherwise hit zero. */
     .am-hero__image img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      max-height: max(240px, calc(100vh - var(--am-hero-header-h) - var(--am-hero-img-top) - 32px));
+      object-fit: cover;
       object-position: center top;
     }
   }

@@ -242,6 +242,22 @@ object-position: center center;
     }
   }
 
+  /*
+    Layout-shift guard. pb-global.css and custom-modernista.css load after first paint
+    (media="print" onload in theme.liquid), so anything they change moves the hero.
+    These rules give the hero those final values from the first paint.
+  */
+  .am-hero {
+    line-height: 1.65; /* custom-modernista.css body line-height, inherited by the eyebrow, buttons and trust strip */
+  }
+  .am-hero__image {
+    min-height: 400px; /* pb-global.css */
+  }
+  .am-hero__image img {
+    display: block;
+    max-width: 100%;
+  }
+
   /* Desktop: top of the image lines up with the top of the eyebrow's capital letters (optical),
      i.e. the top of the text block. Without an eyebrow it lines up with the top of the h1 box. */
   @media (min-width: 769px) {
@@ -337,6 +353,7 @@ object-position: center center;
     }
     .am-hero__image {
       height: 60vw;
+      min-height: 480px; /* pb-global.css sets this late; without it the image box jumps from 60vw to 480px (the CLS) */
       position: relative;
     }
     .am-hero__image {

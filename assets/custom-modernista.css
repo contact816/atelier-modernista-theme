@@ -195,10 +195,25 @@ h1, .h1 {
 
 /* H2 scale */
 
+h2, .h2 {
+  font-size: var(--am-h2-size) !important;
+  font-weight: 300 !important;
+}
+
+/* Cart and cart drawer: smaller h2s (drawer title, "Estimated total") */
+
 cart-drawer h2, cart-drawer .h2,
 .cart__heading, .cart h2,
 #main-cart-items h2, #main-cart-footer h2 {
   font-size: clamp(22px, 2.4vw, 30px) !important;
+}
+
+/* Cart page title ("Your Bag"): max 48px on desktop; phones keep the h1 scale */
+
+@media screen and (min-width: 750px) {
+  cart-items .title-wrapper-with-link .title--primary {
+    font-size: clamp(38px, 3.4vw, 48px) !important;
+  }
 }
 
 /* H3 scale */
@@ -2743,7 +2758,7 @@ html body .product__info-container .am-circle-form__checkbox {
 }
 
 html body .am-circle-invite .am-circle-invite__heading {
-  font-size: clamp(32px, 3.2vw, 46px) !important;
+  font-size: clamp(30px, 2.6vw, 38px) !important;
 }
 
 @media screen and (max-width: 749px) {

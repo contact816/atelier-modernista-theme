@@ -211,6 +211,13 @@
     color: #0047ab;
   }
 
+  /* Desktop/tablet size; !important so it beats the global h2 scale in custom-modernista.css. Phones unchanged. */
+  @media screen and (min-width: 750px) {
+    #am-pairing-{{ section.id }} .am-pairing__heading {
+      font-size: clamp(32px, 2.8vw, 40px) !important;
+    }
+  }
+
   #am-pairing-{{ section.id }} .am-pairing__heading {
     margin: 0 0 14px;
     font-family: 'Cormorant Garamond', serif;

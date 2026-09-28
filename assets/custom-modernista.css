@@ -195,9 +195,10 @@ h1, .h1 {
 
 /* H2 scale */
 
-h2, .h2 {
-  font-size: var(--am-h2-size) !important;
-  font-weight: 300 !important;
+cart-drawer h2, cart-drawer .h2,
+.cart__heading, .cart h2,
+#main-cart-items h2, #main-cart-footer h2 {
+  font-size: clamp(22px, 2.4vw, 30px) !important;
 }
 
 /* H3 scale */

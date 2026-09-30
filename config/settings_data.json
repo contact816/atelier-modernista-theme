@@ -208,6 +208,11 @@
           "mobile_side_margin": 16,
           "mobile_bottom_margin": 46
         }
+      },
+      "2329819136267971286": {
+        "type": "shopify://apps/smartseo/blocks/instantPage/7b0a6064-ca2e-4392-9a1d-8c43c942357b",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {

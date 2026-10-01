@@ -1,11 +1,12 @@
 {%- liquid
   # Desktop image is 4:5, width = min(708px, 0.527 x the row, height cap x 0.8).
-  # Height cap = 100vh - 134px header - image top padding - 32px; 192px = the 240px height floor x 0.8.
+  # Height cap = (100vh - 134px header - image top padding - 32px) x 0.78; 192px = the 240px height floor x 0.8.
+  # The 0.78 keeps the image ~22% shorter than the full space; width factor 0.8 x 0.78 = 0.624.
   # Image top padding = text padding-top + 5px (eyebrow cap offset, rounded down so sizes never undershoot).
   # Screens taller than 860px: smallest is 60 + 5 = 65px (134 + 65 + 32 = 231).
   # Shorter screens use the tightened spacing: 32 + 5 = 37px (134 + 37 + 32 = 203).
-  assign hero_cap_tall = 'max(192px, calc((100vh - 231px) * 0.8))'
-  assign hero_cap_short = 'max(192px, calc((100vh - 203px) * 0.8))'
+  assign hero_cap_tall = 'max(192px, calc((100vh - 231px) * 0.624))'
+  assign hero_cap_short = 'max(192px, calc((100vh - 203px) * 0.624))'
   assign hero_sizes = '(min-width: 1504px) and (min-height: 861px) min(708px, ' | append: hero_cap_tall | append: '), (min-width: 769px) and (min-height: 861px) min(calc(52.7vw - 85px), ' | append: hero_cap_tall | append: '), (min-width: 1504px) min(708px, ' | append: hero_cap_short | append: '), (min-width: 769px) min(calc(52.7vw - 85px), ' | append: hero_cap_short | append: '), (min-width: 1504px) 708px, (min-width: 769px) calc(52.7vw - 85px), calc(100vw - 32px)'
 -%}
 <div class="am-hero{% if section.settings.eyebrow != blank %} am-hero--has-eyebrow{% endif %}">
@@ -256,8 +257,9 @@ object-position: center center;
       --am-hero-img-top: calc(var(--am-hero-pad-top) + var(--am-hero-eyebrow-offset));
       --am-hero-header-h: 134px; /* measured: am-nav-bar 64px + logo strip 70px, 750px and up (the theme's --header-height of 140px is stale) */
       --am-hero-eyebrow-gap: 24px;
-      /* Tallest the image may be so header + hero fit one screen (32px spare); 240px floor for very short windows */
-      --am-hero-img-cap: max(240px, calc(100vh - var(--am-hero-header-h) - var(--am-hero-img-top) - 32px));
+      /* Tallest the image may be: 78% of the space that fits header + hero on one screen (32px spare),
+         so the image doesn't dominate the fold; 240px floor for very short windows. hero_sizes matches this. */
+      --am-hero-img-cap: max(240px, calc((100vh - var(--am-hero-header-h) - var(--am-hero-img-top) - 32px) * 0.78));
       align-content: center;
       /* Image column sized to the image itself (no dead cream beside it), fixed 64px gap, text
          column up to 620px; the pair is centred within the 1504px max-width. The 0.527 share keeps

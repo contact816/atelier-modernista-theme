@@ -1,3 +1,6 @@
+Here's the full file from `feature/hero-vertical-centre`, pulled from the pushed branch (latest commit `0d2ce6f`):
+
+```liquid
 {%- liquid
   # Desktop image is 4:5, width = min(708px, 0.527 x the row, height cap x 0.8).
   # Height cap = 100vh - 134px header - image top padding - 32px; 192px = the 240px height floor x 0.8.
@@ -304,6 +307,37 @@ object-position: center center;
     }
   }
 
+  /* Desktop: when the image is taller than the text, centre the text block on the
+     image instead of leaving all the spare height as a cream gap below it. Two empty flex spacers
+     share the spare height; the bottom one never drops below the text column's old bottom padding,
+     so the column's natural height (and so the row height) is unchanged, and the eyebrow still
+     lines up with the image top until there's real slack to share.
+     The centring box runs from the image top to its bottom (24px above the column bottom), moved
+     down by the eyebrow cap offset so the eyebrow capitals and the trust strip's baseline sit
+     equally far from the image's edges. Pure CSS; nothing moves after load. */
+  @media (min-width: 769px) {
+    .am-hero {
+      --am-hero-pad-bottom: 80px; /* the 80px from custom-modernista.css (.am-hero__content padding: 80px 5%) */
+      --am-hero-centre-pad: calc(24px - var(--am-hero-eyebrow-offset));
+    }
+    .am-hero .am-hero__content {
+      padding-bottom: var(--am-hero-centre-pad) !important;
+    }
+    .am-hero .am-hero__content::before,
+    .am-hero .am-hero__content::after {
+      content: '';
+      flex: 1 1 0;
+    }
+    .am-hero .am-hero__content::after {
+      min-height: calc(var(--am-hero-pad-bottom) - var(--am-hero-centre-pad));
+    }
+  }
+  @media (min-width: 769px) and (max-width: 1024px) and (min-height: 861px) {
+    .am-hero {
+      --am-hero-pad-bottom: 60px; /* the 60px 40px padding above */
+    }
+  }
+
   /* Short desktop screens: tighten vertical spacing in the text column so it fits beside the
      image. Font sizes are unchanged. The image top still follows --am-hero-img-top. */
   @media (min-width: 769px) and (max-height: 860px) {
@@ -311,9 +345,7 @@ object-position: center center;
       --am-hero-pad-top: 32px;
       --am-hero-eyebrow-gap: 14px;
       min-height: 0; /* the 70vh minimum alone would push header + hero past the fold here */
-    }
-    .am-hero .am-hero__content {
-      padding-bottom: 24px !important;
+      --am-hero-pad-bottom: 24px; /* the text column's bottom padding; the centring block above applies it */
     }
     .am-hero .am-hero__content h1.am-hero__headline,
     .am-hero .am-hero__content .am-hero__headline {
@@ -468,3 +500,4 @@ object-position: center center;
   ]
 }
 {% endschema %}
+```

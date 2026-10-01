@@ -304,7 +304,7 @@ object-position: center center;
     }
   }
 
-  /* Tall desktop screens: when the image is taller than the text, centre the text block on the
+  /* Desktop: when the image is taller than the text, centre the text block on the
      image instead of leaving all the spare height as a cream gap below it. Two empty flex spacers
      share the spare height; the bottom one never drops below the text column's old bottom padding,
      so the column's natural height (and so the row height) is unchanged, and the eyebrow still
@@ -312,7 +312,7 @@ object-position: center center;
      The centring box runs from the image top to its bottom (24px above the column bottom), moved
      down by the eyebrow cap offset so the eyebrow capitals and the trust strip's baseline sit
      equally far from the image's edges. Pure CSS; nothing moves after load. */
-  @media (min-width: 769px) and (min-height: 861px) {
+  @media (min-width: 769px) {
     .am-hero {
       --am-hero-pad-bottom: 80px; /* the 80px from custom-modernista.css (.am-hero__content padding: 80px 5%) */
       --am-hero-centre-pad: calc(24px - var(--am-hero-eyebrow-offset));
@@ -342,9 +342,7 @@ object-position: center center;
       --am-hero-pad-top: 32px;
       --am-hero-eyebrow-gap: 14px;
       min-height: 0; /* the 70vh minimum alone would push header + hero past the fold here */
-    }
-    .am-hero .am-hero__content {
-      padding-bottom: 24px !important;
+      --am-hero-pad-bottom: 24px; /* the text column's bottom padding; the centring block above applies it */
     }
     .am-hero .am-hero__content h1.am-hero__headline,
     .am-hero .am-hero__content .am-hero__headline {

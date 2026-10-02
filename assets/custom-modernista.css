@@ -215,9 +215,9 @@ cart-drawer h2, cart-drawer .h2,
     font-size: clamp(38px, 3.4vw, 48px) !important;
   }
 
-  .cart-item__name {
-    font-size: clamp(20px, 1.8vw, 24px) !important;
-  }
+  h3.cart-item__name {
+  font-size: clamp(20px, 1.8vw, 24px) !important;
+}
 }
 /* H3 scale */
 

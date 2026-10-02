@@ -13,7 +13,22 @@
 {%- unless product.handle == 'luxury-gift-wrapping' -%}
   <a
     id="AMProductPoints-{{ product.id }}"
-    class="am-product-points{        {%- if is_atelier_member -%}
+    class="am-product-points{% if is_atelier_member %} am-product-points--member{% endif %}"
+    href="/pages/atelier-circle"
+    data-am-product-points
+    data-points-per-pound="{{ points_per_pound }}"
+  >
+    <div class="am-product-points__icon" aria-hidden="true">
+      AM
+    </div>
+
+    <div class="am-product-points__content">
+      <p class="am-product-points__eyebrow">
+        Atelier Circle
+      </p>
+
+      <p class="am-product-points__text">
+        {%- if is_atelier_member -%}
           This piece earns
           <strong data-am-points-value>
             {{ atelier_points }} Atelier Point{% unless atelier_points == 1 %}s{% endunless %}

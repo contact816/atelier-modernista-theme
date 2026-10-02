@@ -211,9 +211,9 @@ cart-drawer h2, cart-drawer .h2,
 /* Cart page title ("Your Bag"): max 48px on desktop; phones keep the h1 scale */
 
 @media screen and (min-width: 750px) {
-  cart-items .title-wrapper-with-link .title--primary {
-    font-size: clamp(38px, 3.4vw, 48px) !important;
-  }
+  a.cart-item__name.h4 {
+  font-size: clamp(20px, 1.8vw, 24px) !important;
+}
 
   h3.cart-item__name {
   font-size: clamp(20px, 1.8vw, 24px) !important;

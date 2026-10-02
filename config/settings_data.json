@@ -193,11 +193,6 @@
         "disabled": false,
         "settings": {}
       },
-      "6174324309569838175": {
-        "type": "shopify://apps/smile-io/blocks/smile-shopify-app/2fae4e25-1841-4ea2-bc02-bd548478c4f6",
-        "disabled": false,
-        "settings": {}
-      },
       "6159598353363395418": {
         "type": "shopify://apps/google-youtube/blocks/store_widget/14ec7bd0-ac77-49a9-9417-90752398bdff",
         "disabled": true,
@@ -209,9 +204,14 @@
           "mobile_bottom_margin": 46
         }
       },
+      "6174324309569838175": {
+        "type": "shopify://apps/smile-io/blocks/smile-shopify-app/2fae4e25-1841-4ea2-bc02-bd548478c4f6",
+        "disabled": true,
+        "settings": {}
+      },
       "2329819136267971286": {
-        "type": "shopify://apps/smartseo/blocks/instantPage/7b0a6064-ca2e-4392-9a1d-8c43c942357b",
-        "disabled": false,
+        "type": "shopify://apps/smart-seo/blocks/instantPage/7b0a6064-ca2e-4392-9a1d-8c43c942357b",
+        "disabled": true,
         "settings": {}
       }
     },

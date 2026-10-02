@@ -213,6 +213,7 @@ cart-drawer h2, cart-drawer .h2,
 @media screen and (min-width: 750px) {
   cart-items .title-wrapper-with-link .title--primary {
     font-size: clamp(38px, 3.4vw, 48px) !important;
+        .cart-item__name { font-size: clamp(20px, 1.8vw, 24px) !important; }
   }
 }
 

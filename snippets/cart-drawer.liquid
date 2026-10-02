@@ -579,7 +579,7 @@
                 <p class="am-gw-cart-upsell__subtitle">Ribbon, wax seal & gift message — {{ gw_variant.price | money }}</p>
               </div>
             </div>
-            <button type="button" class="am-gw-cart-upsell__btn" id="am-gw-add-btn">
+            <button type="button" class="am-gw-cart-upsell__btn" id="am-gw-add-btn" data-variant-id="{{ gw_variant.id }}">
               Add
             </button>
           </div>
@@ -669,36 +669,52 @@
       }, 800);
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      var btn = document.getElementById('am-gw-add-btn');
-      if (!btn) return;
-      btn.addEventListener('click', function() {
-        btn.disabled = true;
-        btn.textContent = '...';
+    // Delegated listener: the drawer HTML is replaced after every cart update,
+    // so a listener bound to the button itself is lost. Bind once on document.
+    if (window.amGiftWrapBound) return;
+    window.amGiftWrapBound = true;
 
-        fetch('/cart/add.js', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items: [{ id: 53154460336465, quantity: 1 }] })
+    document.addEventListener('click', function(event) {
+      var btn = event.target.closest('#am-gw-add-btn');
+      if (!btn || btn.disabled) return;
+
+      var variantId = parseInt(btn.dataset.variantId, 10);
+      if (!variantId) {
+        console.error('Gift wrap error: no variant ID (is luxury-gift-wrapping published to the Online Store?)');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = '...';
+
+      var drawer = document.querySelector('cart-drawer');
+
+      fetch((window.routes && window.routes.cart_add_url ? window.routes.cart_add_url : '/cart/add') + '.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          items: [{ id: variantId, quantity: 1 }],
+          sections: drawer ? drawer.getSectionsToRender().map(function(s) { return s.id; }) : undefined,
+          sections_url: window.location.pathname
         })
-        .then(function(response) {
-          if (!response.ok) throw new Error('Add failed');
-          return response.json();
-        })
-        .then(function(data) {
-          if (data && data.items) {
-            var u = new URL(window.location.href);
-            u.searchParams.set('open-cart', '1');
-            window.location.href = u.toString();
-          } else {
-            throw new Error('Unexpected response');
-          }
-        })
-        .catch(function(err) {
-          console.error('Gift wrap error:', err);
-          btn.disabled = false;
-          btn.textContent = 'Add';
-        });
+      })
+      .then(function(response) {
+        if (!response.ok) throw new Error('Add failed (' + response.status + ')');
+        return response.json();
+      })
+      .then(function(data) {
+        if (drawer && data && data.sections) {
+          drawer.renderContents(data);
+        } else {
+          var u = new URL(window.location.href);
+          u.searchParams.set('open-cart', '1');
+          window.location.href = u.toString();
+        }
+      })
+      .catch(function(err) {
+        console.error('Gift wrap error:', err);
+        btn.disabled = false;
+        btn.textContent = 'Add';
       });
     });
   })();

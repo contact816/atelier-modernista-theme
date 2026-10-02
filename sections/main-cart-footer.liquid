@@ -25,6 +25,33 @@
 >
   <div class="page-width">
     <div class="cart__footer isolate section-{{ section.id }}-padding">
+      {%- liquid
+  assign wrap = all_products['luxury-gift-wrapping']
+  assign wrap_in_cart = false
+  for item in cart.items
+    if item.product.handle == 'luxury-gift-wrapping'
+      assign wrap_in_cart = true
+    endif
+  endfor
+-%}
+{%- if wrap != blank and wrap.available and wrap_in_cart == false -%}
+  <form action="{{ routes.cart_add_url }}" method="post" class="am-giftwrap">
+    <input type="hidden" name="id" value="{{ wrap.selected_or_first_available_variant.id }}">
+    <input type="hidden" name="quantity" value="1">
+    <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
+    <p class="am-giftwrap__copy">
+      <strong>Luxury gift wrapping, {{ wrap.price | money_without_trailing_zeros }}</strong><br>
+      Red grosgrain ribbon, a wax seal and a handwritten card.
+    </p>
+    <button type="submit" class="am-giftwrap__btn">Add gift wrapping</button>
+  </form>
+  <style>
+    .am-giftwrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 24px; padding: 16px 20px; border: 1px solid #0047AB; background: #fdf6e3; }
+    .am-giftwrap__copy { margin: 0; font-family: 'Jost', sans-serif; font-size: 15px; line-height: 1.5; color: #1a1a18; }
+    .am-giftwrap__btn { padding: 10px 18px; border: 1px solid #0047AB; background: transparent; color: #0047AB; font-family: 'Jost', sans-serif; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; }
+    .am-giftwrap__btn:hover { background: #0047AB; color: #fdf6e3; }
+  </style>
+{%- endif -%}
       {%- if settings.show_cart_note -%}
         <cart-note class="cart__note field">
           <label for="Cart-note">{{ 'sections.cart.note' | t }}</label>

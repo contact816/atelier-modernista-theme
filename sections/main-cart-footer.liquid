@@ -35,16 +35,30 @@
   endfor
 -%}
 {%- if wrap != blank and wrap.available and wrap_in_cart == false -%}
-  <form action="{{ routes.cart_add_url }}" method="post" class="am-giftwrap">
-    <input type="hidden" name="id" value="{{ wrap.selected_or_first_available_variant.id }}">
-    <input type="hidden" name="quantity" value="1">
-    <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
+    <div class="am-giftwrap" style="position: relative; z-index: 2;">
     <p class="am-giftwrap__copy">
       <strong>Luxury gift wrapping, {{ wrap.price | money_without_trailing_zeros }}</strong><br>
       Red grosgrain ribbon, a wax seal and a handwritten card.
     </p>
-    <button type="submit" class="am-giftwrap__btn">Add gift wrapping</button>
-  </form>
+    <button type="button" class="am-giftwrap__btn" data-variant="{{ wrap.selected_or_first_available_variant.id }}">Add gift wrapping</button>
+  </div>
+  <script>
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.am-giftwrap__btn');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      btn.disabled = true;
+      btn.textContent = 'Adding…';
+      fetch('{{ routes.cart_add_url }}.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: [{ id: Number(btn.dataset.variant), quantity: 1 }] })
+      })
+      .then(function (r) { if (!r.ok) throw r; window.location.reload(); })
+      .catch(function () { btn.disabled = false; btn.textContent = 'Try again'; });
+    }, true);
+  </script>
   <style>
     .am-giftwrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 24px; padding: 16px 20px; border: 1px solid #0047AB; background: #fdf6e3; }
     .am-giftwrap__copy { margin: 0; font-family: 'Jost', sans-serif; font-size: 15px; line-height: 1.5; color: #1a1a18; }

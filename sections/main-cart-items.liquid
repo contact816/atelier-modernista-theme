@@ -35,10 +35,23 @@
     </div>
 
     <div class="cart__warnings">
-      <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="button">
-        {{ 'general.continue_shopping' | t }}
-      </a>
+      <h1 class="cart__empty-text" style="font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 400; color: #1a1a18; margin: 0 0 12px;">
+  Your bag is empty, for now.
+</h1>
+<p style="font-family: 'Jost', sans-serif; font-size: 15px; line-height: 1.7; color: #1a1a18; margin: 0 auto 28px; max-width: 420px;">
+  Come and see what our makers have been up to. Free shipping is waiting for you in the Atelier Circle.
+</p>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 40px;">
+  <a href="/collections/new-arrivals" style="font-family: 'Jost', sans-serif; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; background: #0047AB; color: #fdf6e3; padding: 16px 28px;">
+    Shop new arrivals
+  </a>
+  <a href="/pages/gift-guides" style="font-family: 'Jost', sans-serif; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; border: 1px solid #0047AB; color: #0047AB; padding: 15px 28px;">
+    Gift guides
+  </a>
+  <a href="/pages/atelier-circle" style="font-family: 'Jost', sans-serif; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; border: 1px solid #0047AB; color: #0047AB; padding: 15px 28px;">
+    Join Atelier Circle
+  </a>
+</div>
 
       {%- if shop.customer_accounts_enabled and customer == null -%}
         <h2 class="cart__login-title">{{ 'sections.cart.login.title' | t }}</h2>

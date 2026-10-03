@@ -57,7 +57,7 @@
 </div>
 
       {%- if shop.customer_accounts_enabled and customer == null -%}
-        <h2 class="cart__login-title">{{ 'sections.cart.login.title' | t }}</h2>
+        <h2 class="cart__login-title" style="font-family: 'Cormorant Garamond', serif !important; font-size: 20px !important; font-weight: 400 !important; line-height: 1.3 !important; letter-spacing: 0.3px !important; margin: 0 0 8px !important;">{{ 'sections.cart.login.title' | t }}</h2>
         <p class="cart__login-paragraph">
           {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
         </p>

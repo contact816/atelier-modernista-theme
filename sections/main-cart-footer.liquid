@@ -25,7 +25,6 @@
 >
   <div class="page-width">
     <div class="cart__footer isolate section-{{ section.id }}-padding">
-      
       {%- if settings.show_cart_note -%}
         <cart-note class="cart__note field">
           <label for="Cart-note">{{ 'sections.cart.note' | t }}</label>
@@ -133,6 +132,9 @@
                   {{ 'sections.cart.checkout' | t }}
                 </button>
               </div>
+<p style="font-family: 'Jost', sans-serif; font-size: 13px; letter-spacing: 0.3px; color: #1a1a18; text-align: center; margin: 10px 0 0;">
+  Klarna available at checkout.
+</p>
 
               {%- if additional_checkout_buttons -%}
                 <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">

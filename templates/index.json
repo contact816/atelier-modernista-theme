@@ -30,23 +30,6 @@
         "trust_4": "Officially licensed Miró"
       }
     },
-    "am_circle_strip_hp01": {
-      "type": "am-circle-strip",
-      "name": "AM — Circle Strip",
-      "settings": {
-        "heading": "Join the Atelier Circle",
-        "body": "£10 off, free standard UK shipping, and a handwritten note from Antonia. Free to join.",
-        "email_placeholder": "Your email address",
-        "button_label": "Join free",
-        "consent_text": "Yes, send me Atelier Circle emails. I can unsubscribe at any time.",
-        "success_message": "You're in. Welcome to the Circle.",
-        "klaviyo_public_key": "T6P3Rt",
-        "klaviyo_list_id": "YujBgr",
-        "customer_tag": "Atelier Circle",
-        "padding_top": 56,
-        "padding_bottom": 56
-      }
-    },
     "collection_list_PDpm3K": {
       "type": "collection-list",
       "blocks": {
@@ -277,6 +260,23 @@
         "heading": "Bauhaus Colours",
         "view_all_label": "discover yours",
         "view_all_url": "shopify://collections/colour-edit"
+      }
+    },
+    "am_circle_strip_hp01": {
+      "type": "am-circle-strip",
+      "name": "AM — Circle Strip",
+      "settings": {
+        "heading": "Join the Atelier Circle",
+        "body": "£10 off, free standard UK shipping, and a handwritten note from Antonia. Free to join.",
+        "email_placeholder": "Your email address",
+        "button_label": "Join free",
+        "consent_text": "Yes, send me Atelier Circle emails. I can unsubscribe at any time.",
+        "success_message": "You're in. Welcome to the Circle.",
+        "klaviyo_public_key": "T6P3Rt",
+        "klaviyo_list_id": "YujBgr",
+        "customer_tag": "Atelier Circle",
+        "padding_top": 56,
+        "padding_bottom": 56
       }
     },
     "custom_liquid_E3HMFj": {
@@ -690,10 +690,10 @@
   },
   "order": [
     "pb_hero_MJ4EMh",
-    "am_circle_strip_hp01",
     "collection_list_PDpm3K",
     "pb_colour_edit_bJy89W",
     "pb_featured_products_WLmgn6",
+    "am_circle_strip_hp01",
     "pb_reviews_FN6rik",
     "pb_featured_products_ji63Ur",
     "custom_liquid_E3HMFj",

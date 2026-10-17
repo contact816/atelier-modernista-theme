@@ -1,0 +1,65 @@
+{%- comment -%}
+  Shared delivery wording. Every price and time comes from
+  Theme settings > Delivery, so nothing here needs editing when terms change.
+
+  Usage:
+    {% render 'am-delivery-line', style: 'short' %}  one line under Add to Bag
+    {% render 'am-delivery-line', style: 'full' %}   paragraphs for the Shipping tab
+    {% render 'am-delivery-line', style: 'text' %}   plain text for the FAQ, its JSON-LD and gift pages
+
+  The express sentence only appears when the express price setting is filled in.
+{%- endcomment -%}
+
+{%- liquid
+  assign am_standard = settings.am_delivery_standard_price | strip
+  assign am_threshold = settings.am_delivery_free_threshold | strip
+  assign am_express = settings.am_delivery_express_price | strip
+  assign am_dispatch = settings.am_delivery_dispatch | strip
+  assign am_transit = settings.am_delivery_transit | strip
+  assign am_style = style | default: 'short'
+-%}
+
+{%- capture am_timing -%}
+  {%- if am_dispatch != blank -%}Orders dispatch {{ am_dispatch }}{%- if am_transit != blank %} and usually arrive in {{ am_transit }}{%- endif -%}.{%- endif -%}
+{%- endcapture -%}
+
+{%- capture am_free -%}
+  {%- if am_threshold != blank -%}Free on orders of {{ am_threshold }} or more, and for Atelier Circle members.{%- else -%}Free for Atelier Circle members.{%- endif -%}
+{%- endcapture -%}
+
+{%- capture am_express_sentence -%}
+  {%- if am_express != blank -%}Express delivery {{ am_express }}.{%- endif -%}
+{%- endcapture -%}
+
+{%- case am_style -%}
+  {%- when 'full' -%}
+    {%- if am_timing != blank -%}<p>{{ am_timing }}</p>{%- endif -%}
+    <p>
+      {%- if am_standard != blank -%}Standard UK and Ireland delivery {{ am_standard }}. {% endif -%}
+      {%- if am_threshold != blank -%}Free on orders of {{ am_threshold }} or more, and always free for Atelier Circle members (free to join).{%- else -%}Always free for Atelier Circle members (free to join).{%- endif -%}
+    </p>
+    {%- if am_express_sentence != blank -%}<p>{{ am_express_sentence }}</p>{%- endif -%}
+
+  {%- when 'text' -%}
+    {{- am_timing -}}
+    {%- if am_standard != blank %} Standard UK and Ireland delivery {{ am_standard }}.{% endif -%}
+    {%- if am_threshold != blank %} Free on orders of {{ am_threshold }} or more, and always free for Atelier Circle members (free to join).{%- else %} Always free for Atelier Circle members (free to join).{%- endif -%}
+    {%- if am_express_sentence != blank %} {{ am_express_sentence }}{%- endif -%}
+
+  {%- else -%}
+    <style>
+      .am-delivery-line {
+        margin: 10px 0 0;
+        color: #3c3228;
+        font-family: 'Jost', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.2px;
+        line-height: 1.45;
+      }
+    </style>
+    <p class="am-delivery-line">
+      {%- if am_standard != blank -%}{{ am_standard }} standard delivery. {% endif -%}
+      {{- am_free -}}
+    </p>
+{%- endcase -%}

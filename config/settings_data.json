@@ -9,6 +9,11 @@
  */
 {
   "current": {
+    "am_delivery_standard_price": "£2.95",
+    "am_delivery_free_threshold": "£75",
+    "am_delivery_express_price": "£6.95",
+    "am_delivery_dispatch": "within 1 working day",
+    "am_delivery_transit": "3-5 working days",
     "logo": "shopify://shop_images/Transparent_Logo_with_AYCW_Jan_2026.png",
     "logo_width": 210,
     "favicon": "shopify://shop_images/Banner_Atelier_Logo_with_Art_you_can_wear_Jan_2nd_2026..png",

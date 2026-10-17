@@ -1451,5 +1451,48 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "Delivery",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Delivery prices and times shown on product pages, in the cart, in product FAQs and on gift pages. Keep these in line with your Shopify shipping rates and discounts."
+      },
+      {
+        "type": "text",
+        "id": "am_delivery_standard_price",
+        "label": "Standard delivery price",
+        "info": "UK and Ireland, for example £2.95.",
+        "default": "£2.95"
+      },
+      {
+        "type": "text",
+        "id": "am_delivery_free_threshold",
+        "label": "Free delivery from",
+        "info": "Order value for free standard delivery, for example £75. Don't leave blank: the cart text uses it.",
+        "default": "£75"
+      },
+      {
+        "type": "text",
+        "id": "am_delivery_express_price",
+        "label": "Express delivery price",
+        "info": "Leave blank to hide every express mention."
+      },
+      {
+        "type": "text",
+        "id": "am_delivery_dispatch",
+        "label": "Dispatch time",
+        "info": "Reads after \"Orders dispatch\", for example \"within 1 working day\".",
+        "default": "within 1 working day"
+      },
+      {
+        "type": "text",
+        "id": "am_delivery_transit",
+        "label": "Delivery time",
+        "info": "Reads after \"usually arrive in\", for example \"3-5 working days\".",
+        "default": "3-5 working days"
+      }
+    ]
   }
 ]

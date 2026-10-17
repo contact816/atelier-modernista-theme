@@ -101,6 +101,8 @@
     </product-form>
     {%- unless product.gift_card? or product.handle == 'luxury-gift-wrapping' -%}
 
+  {%- render 'am-delivery-line', style: 'short' -%}
+
   {{ 'am-product-points.css' | asset_url | stylesheet_tag }}
 
   {% render 'am-products-points', product: product %}

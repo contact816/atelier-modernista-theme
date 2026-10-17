@@ -452,7 +452,14 @@
   data-am-site-header="{{ section.id }}"
 >
   {%- if section.settings.announcement_text != blank -%}
-    {%- assign announcement_lines = section.settings.announcement_text | split: '|' -%}
+    {%- liquid
+      # Phones break the line at "|". Without a typed "|", break after the first full stop.
+      assign announcement_source = section.settings.announcement_text
+      unless announcement_source contains '|'
+        assign announcement_source = announcement_source | replace_first: '. ', '.|'
+      endunless
+      assign announcement_lines = announcement_source | split: '|'
+    -%}
     <div class="am-site-header__announcement">
       {%- for line in announcement_lines -%}
         <span class="am-site-header__announcement-line">{{ line | strip | escape }}</span>
@@ -956,7 +963,7 @@
       "type": "text",
       "id": "announcement_text",
       "label": "Announcement text",
-      "info": "Type | where the line should break on phones. Don't remove it.",
+      "info": "On phones the text breaks automatically after the first full stop.",
       "default": "FREE UK DELIVERY FOR ATELIER CIRCLE MEMBERS ·"
     },
     {

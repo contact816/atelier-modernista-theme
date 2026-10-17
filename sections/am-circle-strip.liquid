@@ -1,0 +1,519 @@
+{%- comment -%}
+  AM — Circle Strip
+  On-page Atelier Circle signup for the homepage. No pop-up.
+  Same submit logic as assets/atelier-circle.js: Shopify /contact first (the tag
+  grants membership), then Klaviyo best-effort. The button always resets.
+  Works without JavaScript too: the form posts to Shopify natively.
+{%- endcomment -%}
+
+{%- liquid
+  assign membership_tag = section.settings.customer_tag | default: 'Atelier Circle'
+  assign is_member = false
+  assign form_id = 'AmCircleStripForm-' | append: section.id
+  if customer and customer.tags contains membership_tag
+    assign is_member = true
+  endif
+-%}
+
+{%- unless is_member -%}
+  <style>
+    #AmCircleStrip-{{ section.id }} {
+      padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+      color: #fdf6e3;
+      background: #0047ab;
+    }
+
+    .am-circle-strip,
+    .am-circle-strip * {
+      box-sizing: border-box;
+    }
+
+    .am-circle-strip__inner {
+      display: grid;
+      max-width: 1100px;
+      margin: 0 auto;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
+      column-gap: 56px;
+      align-items: center;
+    }
+
+    .am-circle-strip__heading {
+      margin: 0 0 10px;
+      color: #fdf6e3;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 38px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.1;
+    }
+
+    .am-circle-strip__body {
+      margin: 0;
+      color: #fdf6e3;
+      font-family: 'Jost', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      line-height: 1.55;
+    }
+
+    .am-circle-strip__form {
+      margin: 0;
+    }
+
+    .am-circle-strip__row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .am-circle-strip__input {
+      flex: 1 1 auto;
+      width: 100%;
+      min-width: 0;
+      height: 52px;
+      margin: 0;
+      padding: 0 16px;
+      color: #111111;
+      background: #fdf6e3;
+      border: 1px solid #fdf6e3;
+      border-radius: 0;
+      font-family: 'Jost', sans-serif;
+      font-size: 16px; /* 16px stops iOS zooming in on focus */
+      line-height: 1;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .am-circle-strip__input::placeholder {
+      color: #6b6257;
+      opacity: 1;
+    }
+
+    .am-circle-strip__button {
+      flex: none;
+      min-width: 150px;
+      height: 52px;
+      margin: 0;
+      padding: 0 24px;
+      color: #0047ab;
+      background: #f4c400;
+      border: 1px solid #f4c400;
+      border-radius: 0;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      line-height: 1;
+      text-transform: uppercase;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .am-circle-strip__button:hover {
+      color: #0047ab;
+      background: #fdf6e3;
+      border-color: #fdf6e3;
+    }
+
+    .am-circle-strip__button[disabled] {
+      cursor: wait;
+      opacity: 0.85;
+    }
+
+    .am-circle-strip__input:focus-visible,
+    .am-circle-strip__button:focus-visible,
+    .am-circle-strip__checkbox:focus-visible,
+    .am-circle-strip__success:focus-visible {
+      outline: 2px solid #f4c400;
+      outline-offset: 2px;
+      box-shadow: none;
+    }
+
+    .am-circle-strip__consent {
+      display: flex;
+      min-height: 44px;
+      margin-top: 12px;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      color: #fdf6e3;
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.2px;
+      line-height: 1.5;
+    }
+
+    .am-circle-strip__checkbox {
+      flex: none;
+      width: 22px;
+      height: 22px;
+      margin: 0;
+      accent-color: #f4c400;
+      cursor: pointer;
+    }
+
+    .am-circle-strip__consent a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .am-circle-strip__error {
+      margin: 10px 0 0;
+      color: #f4c400;
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .am-circle-strip__success {
+      margin: 0;
+      color: #fdf6e3;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .am-circle-strip__hp {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    /* Tablets: stack copy above the form so the text column isn't squeezed */
+    @media screen and (min-width: 750px) and (max-width: 989px) {
+      .am-circle-strip__inner {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 24px;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .am-circle-strip__form {
+        width: 100%;
+        max-width: 560px;
+      }
+
+      .am-circle-strip__consent {
+        text-align: left;
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      #AmCircleStrip-{{ section.id }} {
+        padding: 40px 16px 36px;
+      }
+
+      .am-circle-strip__inner {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 22px;
+        text-align: center;
+      }
+
+      .am-circle-strip__heading {
+        font-size: 30px;
+      }
+
+      .am-circle-strip__body {
+        font-size: 15px;
+      }
+
+      .am-circle-strip__row {
+        flex-direction: column;
+      }
+
+      .am-circle-strip__button {
+        width: 100%;
+      }
+
+      .am-circle-strip__consent {
+        text-align: left;
+      }
+
+      .am-circle-strip__success {
+        font-size: 26px;
+      }
+    }
+  </style>
+
+  <section
+    id="AmCircleStrip-{{ section.id }}"
+    class="am-circle-strip"
+    data-am-circle-strip
+    data-klaviyo-public-key="{{ section.settings.klaviyo_public_key | escape }}"
+    data-klaviyo-list-id="{{ section.settings.klaviyo_list_id | escape }}"
+    data-customer-tag="{{ membership_tag | escape }}"
+    aria-labelledby="AmCircleStripHeading-{{ section.id }}"
+  >
+    <div class="am-circle-strip__inner">
+      <div class="am-circle-strip__copy">
+        <h2 id="AmCircleStripHeading-{{ section.id }}" class="am-circle-strip__heading">
+          {{ section.settings.heading | escape }}
+        </h2>
+        {%- if section.settings.body != blank -%}
+          <p class="am-circle-strip__body">{{ section.settings.body | escape }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- form 'customer', id: form_id, class: 'am-circle-strip__form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="am-circle-strip__success" role="status">{{ section.settings.success_message | escape }}</p>
+        {%- else -%}
+          <input type="hidden" name="contact[tags]" value="newsletter,{{ membership_tag | escape }}">
+          <input type="hidden" name="contact[accepts_marketing]" value="true">
+
+          <div class="am-circle-strip__fields" data-am-circle-strip-fields>
+            <div class="am-circle-strip__row">
+              <label class="visually-hidden" for="AmCircleStripEmail-{{ section.id }}">Email address</label>
+              <input
+                id="AmCircleStripEmail-{{ section.id }}"
+                class="am-circle-strip__input"
+                data-am-circle-strip-email
+                type="email"
+                name="contact[email]"
+                autocomplete="email"
+                inputmode="email"
+                autocapitalize="off"
+                spellcheck="false"
+                placeholder="{{ section.settings.email_placeholder | escape }}"
+                required
+              >
+              <button class="am-circle-strip__button" data-am-circle-strip-submit type="submit">
+                {{ section.settings.button_label | escape }}
+              </button>
+            </div>
+
+            <label class="am-circle-strip__consent">
+              <input class="am-circle-strip__checkbox" data-am-circle-strip-consent type="checkbox" required>
+              <span>
+                {{ section.settings.consent_text | escape }}
+                {%- if shop.privacy_policy %} <a href="{{ shop.privacy_policy.url }}">Privacy Policy</a>.{% endif -%}
+              </span>
+            </label>
+
+            <div class="am-circle-strip__hp" aria-hidden="true">
+              <label>Company <input type="text" tabindex="-1" autocomplete="off" data-am-circle-strip-hp></label>
+            </div>
+          </div>
+
+          <p class="am-circle-strip__error" data-am-circle-strip-error role="alert" {% unless form.errors %}hidden{% endunless %}>
+            {%- if form.errors -%}We could not add you just now. Please try again, or email antonia@ateliermodernista.com.{%- endif -%}
+          </p>
+
+          <p class="am-circle-strip__success" data-am-circle-strip-success role="status" tabindex="-1" hidden>
+            {{ section.settings.success_message | escape }}
+          </p>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var root = document.getElementById('AmCircleStrip-{{ section.id }}');
+      if (!root || root.dataset.ready === 'true') return;
+      root.dataset.ready = 'true';
+
+      var form = root.querySelector('form');
+      var email = root.querySelector('[data-am-circle-strip-email]');
+      var consent = root.querySelector('[data-am-circle-strip-consent]');
+      var button = root.querySelector('[data-am-circle-strip-submit]');
+      var fields = root.querySelector('[data-am-circle-strip-fields]');
+      var errorEl = root.querySelector('[data-am-circle-strip-error]');
+      var successEl = root.querySelector('[data-am-circle-strip-success]');
+      var honeypot = root.querySelector('[data-am-circle-strip-hp]');
+
+      // Already submitted without JS, so there is no live form to wire up.
+      if (!form || !email || !button) return;
+
+      // JS shows its own messages; without JS the browser's checks still apply.
+      form.noValidate = true;
+
+      var TIMEOUT_MS = 8000;
+      var publicKey = root.dataset.klaviyoPublicKey;
+      var listId = root.dataset.klaviyoListId;
+      var customerTag = root.dataset.customerTag || 'Atelier Circle';
+      var buttonText = button.textContent.trim();
+
+      function showError(message) {
+        errorEl.textContent = message;
+        errorEl.hidden = false;
+      }
+
+      function clearError() {
+        errorEl.textContent = '';
+        errorEl.hidden = true;
+      }
+
+      function setSubmitting(isSubmitting) {
+        button.disabled = isSubmitting;
+        button.setAttribute('aria-busy', isSubmitting ? 'true' : 'false');
+        button.textContent = isSubmitting ? 'Joining…' : buttonText;
+      }
+
+      function fetchWithTimeout(url, options) {
+        var controller = new AbortController();
+        var timer = setTimeout(function () { controller.abort(); }, TIMEOUT_MS);
+        options.signal = controller.signal;
+        return fetch(url, options).finally(function () { clearTimeout(timer); });
+      }
+
+      function subscribeShopify(address) {
+        var body = new URLSearchParams();
+        body.append('form_type', 'customer');
+        body.append('utf8', '✓');
+        body.append('contact[tags]', 'newsletter,' + customerTag);
+        body.append('contact[email]', address);
+        body.append('contact[accepts_marketing]', 'true');
+
+        return fetchWithTimeout('/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body: body.toString()
+        }).then(function (response) {
+          // Shopify's bot protection answers a fetch with its /challenge page,
+          // which still looks "ok". Treat it as not done so we can fall back.
+          if (response.redirected && /\/challenge/.test(response.url)) {
+            var challenge = new Error('Shopify challenge');
+            challenge.name = 'ChallengeError';
+            throw challenge;
+          }
+          if (!response.ok) throw new Error('Shopify registration failed.');
+        });
+      }
+
+      // Best-effort, as on the Circle page: Klaviyo runs the emails, the Shopify
+      // tag grants membership. A blocked or slow Klaviyo never stops success.
+      function subscribeKlaviyo(address) {
+        if (!publicKey || !listId) {
+          console.warn('Atelier Circle strip: Klaviyo configuration is missing.');
+          return Promise.resolve();
+        }
+
+        return fetchWithTimeout(
+          'https://a.klaviyo.com/client/subscriptions/?company_id=' + encodeURIComponent(publicKey),
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', revision: '2026-04-15' },
+            body: JSON.stringify({
+              data: {
+                type: 'subscription',
+                attributes: {
+                  profile: {
+                    data: {
+                      type: 'profile',
+                      attributes: {
+                        email: address,
+                        properties: {
+                          atelier_circle_member: true,
+                          atelier_circle_source: 'homepage-strip'
+                        },
+                        subscriptions: { email: { marketing: { consent: 'SUBSCRIBED' } } }
+                      }
+                    }
+                  }
+                },
+                relationships: { list: { data: { type: 'list', id: listId } } }
+              }
+            })
+          }
+        ).then(function (response) {
+          if (!response.ok) console.warn('Atelier Circle strip: Klaviyo responded with', response.status);
+        }).catch(function (error) {
+          console.warn('Atelier Circle strip: Klaviyo subscription failed silently.', error);
+        });
+      }
+
+      function showSuccess() {
+        fields.hidden = true;
+        clearError();
+        successEl.hidden = false;
+        successEl.focus();
+      }
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (button.disabled) return;
+        clearError();
+
+        // A bot filled the hidden field: look done, send nothing.
+        if (honeypot && honeypot.value) { showSuccess(); return; }
+
+        var address = email.value.trim();
+
+        if (!address) {
+          showError('Please enter your email address.');
+          email.focus();
+          return;
+        }
+
+        if (!email.checkValidity()) {
+          showError('Please enter a valid email address.');
+          email.focus();
+          return;
+        }
+
+        if (!consent.checked) {
+          showError('Please tick the box to confirm you would like Atelier Circle emails.');
+          consent.focus();
+          return;
+        }
+
+        setSubmitting(true);
+
+        subscribeShopify(address)
+          .then(function () { return subscribeKlaviyo(address); })
+          .then(showSuccess)
+          .catch(function (error) {
+            if (error && error.name === 'ChallengeError') {
+              // Let Shopify show its check, then return here with ?customer_posted=true.
+              // Klaviyo still gets the address so the welcome email goes out.
+              subscribeKlaviyo(address).finally(function () { HTMLFormElement.prototype.submit.call(form); });
+              return;
+            }
+
+            console.error('Atelier Circle strip signup error:', error);
+            showError(
+              error && error.name === 'AbortError'
+                ? 'That took longer than expected. Please check your connection and try again, or email antonia@ateliermodernista.com.'
+                : 'We could not add you just now. Please try again, or email antonia@ateliermodernista.com.'
+            );
+          })
+          .finally(function () {
+            // Always reset, whatever happened above. This is the stuck-button fix.
+            setSubmitting(false);
+          });
+      });
+    })();
+  </script>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "AM — Circle Strip",
+  "tag": "div",
+  "class": "section am-circle-strip-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Join the Atelier Circle" },
+    { "type": "text", "id": "body", "label": "Body", "default": "£10 off, free standard UK shipping, and a handwritten note from Antonia. Free to join." },
+    { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "Your email address" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Join free" },
+    { "type": "textarea", "id": "consent_text", "label": "Consent wording", "default": "Yes, send me Atelier Circle emails. I can unsubscribe at any time." },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "You're in. Welcome to the Circle." },
+    { "type": "header", "content": "Connections" },
+    { "type": "text", "id": "klaviyo_public_key", "label": "Klaviyo public API key", "default": "T6P3Rt" },
+    { "type": "text", "id": "klaviyo_list_id", "label": "Klaviyo list ID", "default": "YujBgr" },
+    { "type": "text", "id": "customer_tag", "label": "Shopify customer membership tag", "default": "Atelier Circle", "info": "Must match the Atelier Circle page. Members with this tag don't see the strip." },
+    { "type": "header", "content": "Spacing (desktop)" },
+    { "type": "range", "id": "padding_top", "min": 24, "max": 96, "step": 4, "unit": "px", "label": "Top", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "min": 24, "max": 96, "step": 4, "unit": "px", "label": "Bottom", "default": 56 }
+  ],
+  "presets": [{ "name": "AM — Circle Strip" }]
+}
+{% endschema %}

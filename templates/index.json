@@ -205,6 +205,19 @@
         "view_all_url": "shopify://collections/bestsellers"
       }
     },
+    "am_circle_strip_hp01": {
+      "type": "am-circle-strip",
+      "name": "AM — Circle Strip",
+      "settings": {
+        "heading": "Join the Atelier Circle",
+        "body": "£10 off, free standard UK shipping, and a handwritten note from Antonia. Free to join.",
+        "button_label": "Join free",
+        "success_message": "You're in. Welcome to the Circle.",
+        "klaviyo_public_key": "T6P3Rt",
+        "klaviyo_list_id": "YujBgr",
+        "customer_tag": "Atelier Circle"
+      }
+    },
     "pb_reviews_FN6rik": {
       "type": "pb-reviews",
       "name": "AM — Reviews",
@@ -675,6 +688,7 @@
     "collection_list_PDpm3K",
     "pb_colour_edit_bJy89W",
     "pb_featured_products_WLmgn6",
+    "am_circle_strip_hp01",
     "pb_reviews_FN6rik",
     "pb_featured_products_ji63Ur",
     "custom_liquid_E3HMFj",

@@ -22,14 +22,20 @@
 
   .am-site-header__announcement {
     padding: 10px 20px;
-    color: #ffffff;
+    color: #fdf6e3;
     background: #0047ab;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    line-height: 1.35;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
     text-align: center;
-    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  /* Type "|" in the announcement text to mark a line break for phones. Desktop keeps one line. */
+  .am-site-header__announcement-line {
+    display: inline;
   }
 
   .am-site-header__announcement a {
@@ -373,9 +379,11 @@
 
   @media screen and (max-width: 749px) {
     .am-site-header__announcement {
-      padding: 8px 12px;
-      font-size: 0.78rem;
-      letter-spacing: 0.06em;
+      padding: 10px 12px;
+    }
+
+    .am-site-header__announcement-line {
+      display: block;
     }
 
     .am-site-header__nav {
@@ -444,8 +452,12 @@
   data-am-site-header="{{ section.id }}"
 >
   {%- if section.settings.announcement_text != blank -%}
+    {%- assign announcement_lines = section.settings.announcement_text | split: '|' -%}
     <div class="am-site-header__announcement">
-      {{ section.settings.announcement_text | escape }}
+      {%- for line in announcement_lines -%}
+        <span class="am-site-header__announcement-line">{{ line | strip | escape }}</span>
+        {%- unless forloop.last %} {% endunless -%}
+      {%- endfor -%}
 
       {%- if section.settings.announcement_link != blank -%}
         <a href="{{ section.settings.announcement_link }}">

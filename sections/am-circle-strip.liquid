@@ -184,6 +184,50 @@
       overflow: hidden;
     }
 
+    /*
+      Compact desktop (990px and up): one row, about 130px tall.
+      Overrides only; tablets and phones keep the rules above and below.
+      The padding here replaces the "Spacing" sliders on desktop; they still apply to tablets.
+    */
+    @media screen and (min-width: 990px) {
+      #AmCircleStrip-{{ section.id }} {
+        padding-top: 28px;
+        padding-bottom: 28px;
+      }
+
+      .am-circle-strip__inner {
+        max-width: 1160px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 500px);
+        column-gap: 48px;
+      }
+
+      .am-circle-strip__heading {
+        margin-bottom: 4px;
+        font-size: 30px;
+      }
+
+      .am-circle-strip__body {
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      .am-circle-strip__input,
+      .am-circle-strip__button {
+        height: 48px;
+      }
+
+      .am-circle-strip__button {
+        min-width: 140px;
+      }
+
+      .am-circle-strip__consent {
+        min-height: 24px;
+        margin-top: 8px;
+        align-items: center;
+        line-height: 1.4;
+      }
+    }
+
     /* Tablets: stack copy above the form so the text column isn't squeezed */
     @media screen and (min-width: 750px) and (max-width: 989px) {
       .am-circle-strip__inner {

@@ -121,10 +121,20 @@
     <div class="am-gift-guide__christmas-intro">{{ section.settings.christmas_intro }}</div>
   {%- endif -%}
 
-  {%- if section.settings.delivery_line != blank or section.settings.gift_wrap_line != blank -%}
+  {%- liquid
+    # A blank "Delivery line" uses the shared wording from Theme settings > Delivery.
+    assign gift_delivery_line = section.settings.delivery_line
+    if gift_delivery_line == blank
+      capture gift_delivery_line
+        render 'am-delivery-line', style: 'text'
+      endcapture
+      assign gift_delivery_line = gift_delivery_line | strip
+    endif
+  -%}
+  {%- if gift_delivery_line != blank or section.settings.gift_wrap_line != blank -%}
     <div class="am-gift-guide__notices">
-      {%- if section.settings.delivery_line != blank -%}
-        <p class="am-gift-guide__notice">{{ section.settings.delivery_line }}</p>
+      {%- if gift_delivery_line != blank -%}
+        <p class="am-gift-guide__notice">{{ gift_delivery_line }}</p>
       {%- endif -%}
       {%- if section.settings.gift_wrap_line != blank -%}
         <p class="am-gift-guide__notice">
@@ -206,7 +216,8 @@
     {
       "type": "text",
       "id": "delivery_line",
-      "label": "Delivery line"
+      "label": "Delivery line",
+      "info": "Leave blank to use the shared wording from Theme settings > Delivery. Don't type prices here."
     },
     {
       "type": "text",

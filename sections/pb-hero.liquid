@@ -54,9 +54,10 @@
     </div>
     {%- if section.settings.show_trust_strip -%}
       <div class="am-hero__trust">
-        <span><span class="am-dot"></span>{{ section.settings.trust_1 }}</span>
-        <span><span class="am-dot"></span>{{ section.settings.trust_2 }}</span>
-        <span><span class="am-dot"></span>{{ section.settings.trust_3 }}</span>
+        {%- if section.settings.trust_1 != blank -%}<span><span class="am-dot"></span>{{ section.settings.trust_1 }}</span>{%- endif -%}
+        {%- if section.settings.trust_2 != blank -%}<span><span class="am-dot"></span>{{ section.settings.trust_2 }}</span>{%- endif -%}
+        {%- if section.settings.trust_3 != blank -%}<span><span class="am-dot"></span>{{ section.settings.trust_3 }}</span>{%- endif -%}
+        {%- if section.settings.trust_4 != blank -%}<span><span class="am-dot"></span>{{ section.settings.trust_4 }}</span>{%- endif -%}
       </div>
     {%- endif -%}
   </div>
@@ -205,9 +206,10 @@ object-position: center center;
     border-color: #0047AB !important;
   }
 
+  /* Trust strip: 2x2 grid, each column as wide as its longest item */
   .am-hero .am-hero__content .am-hero__trust {
-    display: flex !important;
-    flex-wrap: wrap !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, max-content) !important;
     gap: 6px 32px !important;
     padding-top: 28px !important;
     border-top: 1px solid rgba(26,26,24,0.1) !important;
@@ -235,6 +237,16 @@ object-position: center center;
     border-radius: 50% !important;
     background-color: #0047AB !important;
     flex-shrink: 0 !important;
+  }
+
+  /*
+    One column where the 2x2 (about 401px) would wrap a label: phones under 750px, and
+    769-979px, where the text column beside the image is only 288-400px wide.
+  */
+  @media (max-width: 749px), (min-width: 769px) and (max-width: 979px) {
+    .am-hero .am-hero__content .am-hero__trust {
+      grid-template-columns: max-content !important;
+    }
   }
 
   @media (max-width: 1024px) {
@@ -479,6 +491,12 @@ object-position: center center;
       "id": "trust_3",
       "label": "Trust item 3",
       "default": "Free UK Delivery"
+    },
+    {
+      "type": "text",
+      "id": "trust_4",
+      "label": "Trust item 4",
+      "info": "Leave blank to show three items."
     }
   ],
   "presets": [

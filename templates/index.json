@@ -206,6 +206,23 @@
         "view_all_url": "shopify://collections/bestsellers"
       }
     },
+    "am_circle_strip_hp01": {
+      "type": "am-circle-strip",
+      "name": "AM — Circle Strip",
+      "settings": {
+        "heading": "Join the Atelier Circle",
+        "body": "£10 off, free standard UK shipping, and a handwritten note from Antonia. Free to join.",
+        "email_placeholder": "Your email address",
+        "button_label": "Join free",
+        "consent_text": "Yes, send me Atelier Circle emails. I can unsubscribe at any time.",
+        "success_message": "You're in. Welcome to the Circle.",
+        "klaviyo_public_key": "T6P3Rt",
+        "klaviyo_list_id": "YujBgr",
+        "customer_tag": "Atelier Circle",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
     "pb_reviews_FN6rik": {
       "type": "pb-reviews",
       "name": "AM — Reviews",
@@ -260,23 +277,6 @@
         "heading": "Bauhaus Colours",
         "view_all_label": "discover yours",
         "view_all_url": "shopify://collections/colour-edit"
-      }
-    },
-    "am_circle_strip_hp01": {
-      "type": "am-circle-strip",
-      "name": "AM — Circle Strip",
-      "settings": {
-        "heading": "Join the Atelier Circle",
-        "body": "£10 off, free standard UK shipping, and a handwritten note from Antonia. Free to join.",
-        "email_placeholder": "Your email address",
-        "button_label": "Join free",
-        "consent_text": "Yes, send me Atelier Circle emails. I can unsubscribe at any time.",
-        "success_message": "You're in. Welcome to the Circle.",
-        "klaviyo_public_key": "T6P3Rt",
-        "klaviyo_list_id": "YujBgr",
-        "customer_tag": "Atelier Circle",
-        "padding_top": 56,
-        "padding_bottom": 56
       }
     },
     "custom_liquid_E3HMFj": {
@@ -686,6 +686,76 @@
         "first_slide_duration": 7,
         "slide_duration": 4
       }
+    },
+    "featured_product_KXhDnK": {
+      "type": "featured-product",
+      "blocks": {
+        "text_k6fexm": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_krPhzJ": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_mbhyLR": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_gP4jDq": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_3TBMPy": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_YpC7zG": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_xXpRdQ": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_k6fexm",
+        "title_krPhzJ",
+        "price_mbhyLR",
+        "variant_picker_gP4jDq",
+        "quantity_selector_3TBMPy",
+        "buy_buttons_YpC7zG",
+        "share_xXpRdQ"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "miro-femme-et-oiseaux-golden-necklace",
+        "color_scheme": "",
+        "secondary_background": true,
+        "media_size": "small",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "right",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 4,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
@@ -711,6 +781,7 @@
     "image_with_text_NMgRYF",
     "17835973092b47e3f7",
     "arsenal_email_fqktkK",
-    "am_hero_carousel_mAGHzJ"
+    "am_hero_carousel_mAGHzJ",
+    "featured_product_KXhDnK"
   ]
 }

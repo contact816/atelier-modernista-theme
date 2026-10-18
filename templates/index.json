@@ -50,6 +50,13 @@
           "type": "price",
           "settings": {}
         },
+        "text_inWxbw": {
+          "type": "text",
+          "settings": {
+            "text": "Be the most interesting person in the room, without saying a word. The Mies Orbit Necklace is full-statement Art You Can Wear, inspired by the architecture of Ludwig Mies van der Rohe. Made of suede and acrylic with a magnetic closure, the piece includes a gift box, art print and pouch. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;",
+            "text_style": "body"
+          }
+        },
         "variant_picker_gP4jDq": {
           "type": "variant_picker",
           "settings": {
@@ -57,15 +64,18 @@
             "swatch_shape": "circle"
           }
         },
-        "quantity_selector_3TBMPy": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
         "buy_buttons_YpC7zG": {
           "type": "buy_buttons",
           "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "text_CwRJU6": {
+          "type": "text",
+          "settings": {
+            "text": "Text block",
+            "text_style": "body"
           }
         },
         "share_xXpRdQ": {
@@ -79,9 +89,10 @@
         "text_k6fexm",
         "title_krPhzJ",
         "price_mbhyLR",
+        "text_inWxbw",
         "variant_picker_gP4jDq",
-        "quantity_selector_3TBMPy",
         "buy_buttons_YpC7zG",
+        "text_CwRJU6",
         "share_xXpRdQ"
       ],
       "name": "t:sections.featured-product.presets.name",

@@ -30,20 +30,6 @@
         "trust_4": "Officially licensed Miró"
       }
     },
-    "am_founder_strip_hp01": {
-      "type": "am-founder-strip",
-      "name": "AM — Founder Strip",
-      "settings": {
-        "image": "shopify://shop_images/faeb20d1-6eab-4c53-962a-442ce519042c.png",
-        "eyebrow": "Meet the curator",
-        "body": "Standing in the Tate gift shop, I realised there was nowhere online that gathered artist-made jewellery that was genuinely different, so I built it.",
-        "signoff": "Antonia",
-        "link_label": "Our story →",
-        "link_url": "/pages/philosophy",
-        "padding_top": 36,
-        "padding_bottom": 32
-      }
-    },
     "featured_product_KXhDnK": {
       "type": "featured-product",
       "blocks": {
@@ -299,6 +285,20 @@
         "heading": "Bestsellers",
         "view_all_label": "Find Your New Favourite",
         "view_all_url": "shopify://collections/bestsellers"
+      }
+    },
+    "am_founder_strip_hp01": {
+      "type": "am-founder-strip",
+      "name": "AM — Founder Strip",
+      "settings": {
+        "image": "shopify://shop_images/faeb20d1-6eab-4c53-962a-442ce519042c.png",
+        "eyebrow": "Meet the curator",
+        "body": ";",
+        "signoff": "Antonia",
+        "link_label": "Our story →",
+        "link_url": "/pages/philosophy",
+        "padding_top": 36,
+        "padding_bottom": 32
       }
     },
     "am_circle_strip_hp01": {
@@ -785,11 +785,11 @@
   },
   "order": [
     "pb_hero_MJ4EMh",
-    "am_founder_strip_hp01",
     "featured_product_KXhDnK",
     "collection_list_PDpm3K",
     "pb_colour_edit_bJy89W",
     "pb_featured_products_WLmgn6",
+    "am_founder_strip_hp01",
     "am_circle_strip_hp01",
     "pb_reviews_FN6rik",
     "pb_featured_products_ji63Ur",

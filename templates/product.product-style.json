@@ -137,10 +137,6 @@
         "am_points_box": {
           "type": "am_points_box",
           "settings": {}
-        },
-        "am_sticky_atc": {
-          "type": "am_sticky_atc",
-          "settings": {}
         }
       },
       "block_order": [
@@ -154,7 +150,6 @@
         "quantity_selector",
         "custom_liquid_8NrnB4",
         "buy_buttons",
-        "am_sticky_atc",
         "icon_with_text_NnQJre",
         "custom_liquid_aeoFaq1",
         "am_delivery_shipping",

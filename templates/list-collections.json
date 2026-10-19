@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-list-collections",
+      "disabled": true,
       "settings": {
         "title": "All Collections",
         "sort": "alphabetical",

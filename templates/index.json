@@ -289,6 +289,7 @@
     },
     "am_founder_strip_hp01": {
       "type": "am-founder-strip",
+      "disabled": true,
       "name": "AM — Founder Strip",
       "settings": {
         "image": "shopify://shop_images/faeb20d1-6eab-4c53-962a-442ce519042c.png",

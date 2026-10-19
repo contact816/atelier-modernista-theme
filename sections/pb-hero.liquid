@@ -214,11 +214,11 @@ object-position: center center;
     padding-top: 28px !important;
     border-top: 1px solid rgba(26,26,24,0.1) !important;
     font-family: 'Jost', sans-serif !important;
-    font-size: 11px !important;
+    font-size: 13px !important;
     font-weight: 400 !important;
     letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
-    color: #9e9a90 !important;
+    color: #1a1a18 !important;
     margin-top: 0 !important;
   }
 
@@ -226,8 +226,8 @@ object-position: center center;
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;
-    color: #9e9a90 !important;
-    font-size: 11px !important;
+    color: #1a1a18 !important;
+    font-size: 13px !important;
   }
 
   .am-hero .am-hero__content .am-dot {
@@ -240,10 +240,10 @@ object-position: center center;
   }
 
   /*
-    One column where the 2x2 (about 401px) would wrap a label: phones under 750px, and
-    769-979px, where the text column beside the image is only 288-400px wide.
+    One column where the 2x2 (about 459px at 13px) would not fit: phones under 750px, and
+    769-1024px, where the text column beside the image is only 288-447px wide.
   */
-  @media (max-width: 749px), (min-width: 769px) and (max-width: 979px) {
+  @media (max-width: 749px), (min-width: 769px) and (max-width: 1024px) {
     .am-hero .am-hero__content .am-hero__trust {
       grid-template-columns: max-content !important;
     }

@@ -71,6 +71,13 @@
             "show_gift_card_recipient": false
           }
         },
+        "text_CwRJU6": {
+          "type": "text",
+          "settings": {
+            "text": "Dispatched within 1 working day. Free returns within 30 days.",
+            "text_style": "body"
+          }
+        },
         "share_xXpRdQ": {
           "type": "share",
           "settings": {
@@ -85,6 +92,7 @@
         "text_inWxbw",
         "variant_picker_gP4jDq",
         "buy_buttons_YpC7zG",
+        "text_CwRJU6",
         "share_xXpRdQ"
       ],
       "name": "t:sections.featured-product.presets.name",
@@ -285,7 +293,7 @@
       "settings": {
         "image": "shopify://shop_images/faeb20d1-6eab-4c53-962a-442ce519042c.png",
         "eyebrow": "Meet the curator",
-        "body": "Standing in the Tate Modern gift shop, I realised there was nowhere online that gathered artist-made jewellery that was genuinely different, so I built it. I love sculptural, colour-rich pieces with presence - as a relatively shy person, rubbish at small-talk,  I love jewellery that is interesting and makes me feel like my real self, not like everyone else. I look for texture, innovative materials, unusual shapes and use of colour, and a boldness of approach that is very artist-specific, and is the heart of what is different about Atelier Modernista.",
+        "body": "I love sculptural, colour-rich pieces with presence -  I look for texture, innovative materials, unusual shapes and use of colour, and a boldness of approach that is very artist-specific. That's the heart of what is different about Atelier Modernista - artist-driven inventiveness and originality gathered in one place, offering a jewellery collection unlike any other in the world.",
         "signoff": "Antonia",
         "link_label": "Our story →",
         "link_url": "/pages/philosophy",

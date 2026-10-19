@@ -1427,6 +1427,27 @@ h1.am-hero__headline p {
   }
 }
 
+/*
+  Give the heading room: below 1024px each banner stacks (image on top, text below)
+  instead of squeezing the text beside the image; 1024-1279px tightens the side padding.
+  Stops headings like "The Atelier Collection" breaking mid-word.
+*/
+@media (max-width: 1023px) {
+  .am-editorial-banner-pair .am-editorial-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .am-editorial-banner-pair .am-editorial-banner__content {
+    padding: 32px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .am-editorial-banner-pair .am-editorial-banner__content {
+    padding: 40px 28px;
+  }
+}
+
 /* =============================================================================
    24. COLLECTION â€” FILTER BAR
    ============================================================================= */

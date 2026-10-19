@@ -32,13 +32,20 @@
     {%- endif -%}
   </div>
   <div class="am-hero__content">
+    {%- comment -%}
+      The eyebrow is the page's H1 (it says what we sell, which helps search). The big headline is a
+      styled div, so it looks exactly the same. With no eyebrow, the headline goes back to being the H1.
+    {%- endcomment -%}
     {%- if section.settings.eyebrow != blank -%}
-      <div class="am-hero__eyebrow">{{ section.settings.eyebrow }}</div>
+      <h1 class="am-hero__eyebrow">{{ section.settings.eyebrow }}</h1>
+      {%- assign am_headline_tag = 'div' -%}
+    {%- else -%}
+      {%- assign am_headline_tag = 'h1' -%}
     {%- endif -%}
-   <h1 class="am-hero__headline">
+   <{{ am_headline_tag }} class="am-hero__headline">
   {%- if section.settings.headline_plain != blank -%}{{ section.settings.headline_plain }}<br>{%- endif -%}
   {%- if section.settings.headline_italic != blank -%}<em>{{ section.settings.headline_italic }}</em>{%- endif -%}
-</h1>
+</{{ am_headline_tag }}>
     {%- if section.settings.subheading != blank -%}
       <div class="am-hero__sub">{{ section.settings.subheading }}</div>
     {%- endif -%}
@@ -131,6 +138,7 @@ object-position: center center;
     text-transform: uppercase !important;
     color: #0047AB !important;
     margin: 0 0 24px !important;
+    line-height: 1.65; /* same as before it became the h1; stops the theme's h1 line-height applying */
   }
 
   .am-hero .am-hero__content h1.am-hero__headline,

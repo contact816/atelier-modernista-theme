@@ -462,8 +462,8 @@
     -%}
     <div class="am-site-header__announcement">
       {%- for line in announcement_lines -%}
-        <span class="am-site-header__announcement-line">{{ line | strip | escape }}</span>
-        {%- unless forloop.last %} {% endunless -%}
+        {%- comment -%} The space sits inside the span so nothing can drop it between "£75." and "Order". {%- endcomment -%}
+        <span class="am-site-header__announcement-line">{{ line | strip | escape }}{% unless forloop.last %} {% endunless %}</span>
       {%- endfor -%}
 
       {%- if section.settings.announcement_link != blank -%}

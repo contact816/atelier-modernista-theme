@@ -1,6 +1,6 @@
 {%- comment -%}
   AM — Founder Strip
-  A bordered cream card, 760px max. Photo left of the text on desktop, above it on phones.
+  A petite bordered cream card, 620px max. Photo left, text right, on every screen size.
   Everything is editable in the customiser. With no photo chosen, the text sits alone and centred.
 {%- endcomment -%}
 
@@ -11,6 +11,10 @@
   endif
 -%}
 
+{%- comment -%}
+  Every font rule below starts with the section ID. custom-modernista.css forces every <p>
+  on the site to Jost with !important; an ID selector outranks it, so the fonts here stick.
+{%- endcomment -%}
 <style>
   #AmFounder-{{ section.id }} {
     padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
@@ -18,82 +22,100 @@
     background: #fdf6e3;
   }
 
-  .am-founder,
-  .am-founder * {
+  #AmFounder-{{ section.id }},
+  #AmFounder-{{ section.id }} * {
     box-sizing: border-box;
   }
 
-  .am-founder__inner {
+  #AmFounder-{{ section.id }} .am-founder__inner {
     display: grid;
-    max-width: 760px;
+    max-width: 620px;
     margin: 0 auto;
-    padding: 32px;
-    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
-    column-gap: 32px;
-    align-items: center;
+    padding: 20px;
+    grid-template-columns: 110px minmax(0, 1fr);
+    column-gap: 20px;
+    align-items: start;
     background: #fdf6e3;
     border: 1px solid #1a1a18;
   }
 
-  .am-founder__inner--text-only {
+  #AmFounder-{{ section.id }} .am-founder__inner--text-only {
     grid-template-columns: minmax(0, 1fr);
     text-align: center;
   }
 
-  .am-founder__media {
-    width: 100%;
-    max-width: 220px;
+  #AmFounder-{{ section.id }} .am-founder__media {
+    width: 110px;
     margin: 0;
   }
 
-  .am-founder__media img {
+  #AmFounder-{{ section.id }} .am-founder__media img {
     display: block;
     width: 100%;
     height: auto;
     aspect-ratio: 4 / 5;
     object-fit: cover;
+    border-radius: 2px;
   }
 
-  .am-founder__eyebrow {
-    margin: 0 0 16px;
+  /* Sign-off and link share the last row to keep the card short. */
+  #AmFounder-{{ section.id }} .am-founder__text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 16px;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__eyebrow,
+  #AmFounder-{{ section.id }} .am-founder__body {
+    flex: 0 0 100%;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__inner--text-only .am-founder__text {
+    justify-content: center;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__eyebrow {
+    margin: 0 0 8px;
     color: #0047ab;
-    font-family: 'Jost', sans-serif;
-    font-size: 12px;
+    font-family: 'Jost', sans-serif !important;
+    font-size: 11px;
     font-weight: 500;
     letter-spacing: 2px;
     line-height: 1.4;
     text-transform: uppercase;
   }
 
-  /* !important is needed: custom-modernista.css forces every <p> to Jost with !important. */
-  .am-founder .am-founder__body {
+  #AmFounder-{{ section.id }} .am-founder__body {
     margin: 0;
     color: #1a1a18;
     font-family: 'Cormorant Garamond', Georgia, serif !important;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 400;
     letter-spacing: 0;
-    line-height: 1.45;
+    line-height: 1.4;
     text-wrap: pretty;
   }
 
-  .am-founder__signoff {
-    margin: 18px 0 0;
+  #AmFounder-{{ section.id }} .am-founder__signoff {
+    margin: 8px 0 0;
     color: #1a1a18;
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 24px;
+    font-family: 'Cormorant Garamond', Georgia, serif !important;
+    font-size: 18px;
     font-style: italic;
     font-weight: 400;
-    line-height: 1.2;
+    letter-spacing: 0;
+    line-height: 1.4;
   }
 
-  .am-founder__link {
+  #AmFounder-{{ section.id }} .am-founder__link {
     display: inline-block;
-    margin-top: 24px;
-    padding: 6px 0;
+    margin-top: 8px;
+    margin-left: auto;
+    padding: 4px 0;
     color: #0047ab;
-    font-family: 'Jost', sans-serif;
-    font-size: 14px;
+    font-family: 'Jost', sans-serif !important;
+    font-size: 13px;
     font-weight: 500;
     letter-spacing: 1px;
     line-height: 1.4;
@@ -101,41 +123,40 @@
     border-bottom: 1px solid currentColor;
   }
 
-  .am-founder__link:hover {
+  #AmFounder-{{ section.id }} .am-founder__inner--text-only .am-founder__link {
+    margin-left: 0;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__link:hover {
     color: #1a1a18;
   }
 
-  .am-founder__link:focus-visible {
+  #AmFounder-{{ section.id }} .am-founder__link:focus-visible {
     outline: 2px solid #0047ab;
     outline-offset: 4px;
   }
 
   @media screen and (max-width: 749px) {
     #AmFounder-{{ section.id }} {
-      padding: 40px 20px;
+      padding: 24px 20px;
     }
 
-    .am-founder__inner {
-      padding: 24px;
+    #AmFounder-{{ section.id }} .am-founder__inner {
+      padding: 16px;
+      grid-template-columns: 90px minmax(0, 1fr);
+      column-gap: 14px;
+    }
+
+    #AmFounder-{{ section.id }} .am-founder__inner--text-only {
       grid-template-columns: minmax(0, 1fr);
-      row-gap: 24px;
     }
 
-    .am-founder__media {
-      max-width: 160px;
-      margin: 0 auto;
+    #AmFounder-{{ section.id }} .am-founder__media {
+      width: 90px;
     }
 
-    .am-founder__eyebrow {
-      margin-bottom: 12px;
-    }
-
-    .am-founder .am-founder__body {
-      font-size: 18px;
-    }
-
-    .am-founder__signoff {
-      font-size: 21px;
+    #AmFounder-{{ section.id }} .am-founder__body {
+      font-size: 17px;
     }
   }
 </style>
@@ -150,10 +171,10 @@
       <figure class="am-founder__media">
         {{
           section.settings.image
-          | image_url: width: 900
+          | image_url: width: 440
           | image_tag:
-            widths: '160, 220, 320, 440, 660',
-            sizes: '(min-width: 750px) 220px, 160px',
+            widths: '90, 110, 180, 220, 330, 440',
+            sizes: '(min-width: 750px) 110px, 90px',
             loading: 'lazy',
             alt: section.settings.image.alt
         }}
@@ -193,8 +214,8 @@
     { "type": "text", "id": "link_label", "label": "Link label", "default": "Our story →" },
     { "type": "url", "id": "link_url", "label": "Link" },
     { "type": "header", "content": "Spacing (desktop)" },
-    { "type": "range", "id": "padding_top", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Top", "default": 64 },
-    { "type": "range", "id": "padding_bottom", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Bottom", "default": 64 }
+    { "type": "range", "id": "padding_top", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Top", "default": 32 },
+    { "type": "range", "id": "padding_bottom", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Bottom", "default": 32 }
   ],
   "presets": [{ "name": "AM — Founder Strip" }]
 }

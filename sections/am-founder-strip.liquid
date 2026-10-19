@@ -1,0 +1,222 @@
+{%- comment -%}
+  AM — Founder Strip
+  A petite bordered cream card, 620px max. Photo left, text right, on every screen size.
+  Everything is editable in the customiser. With no photo chosen, the text sits alone and centred.
+{%- endcomment -%}
+
+{%- liquid
+  assign has_image = false
+  if section.settings.image != blank
+    assign has_image = true
+  endif
+-%}
+
+{%- comment -%}
+  Every font rule below starts with the section ID. custom-modernista.css forces every <p>
+  on the site to Jost with !important; an ID selector outranks it, so the fonts here stick.
+{%- endcomment -%}
+<style>
+  #AmFounder-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+    color: #1a1a18;
+    background: #fdf6e3;
+  }
+
+  #AmFounder-{{ section.id }},
+  #AmFounder-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__inner {
+    display: grid;
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 20px;
+    grid-template-columns: 110px minmax(0, 1fr);
+    column-gap: 20px;
+    align-items: start;
+    background: #fdf6e3;
+    border: 1px solid #1a1a18;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__inner--text-only {
+    grid-template-columns: minmax(0, 1fr);
+    text-align: center;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__media {
+    width: 110px;
+    margin: 0;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  /* Sign-off and link share the last row to keep the card short. */
+  #AmFounder-{{ section.id }} .am-founder__text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 16px;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__eyebrow,
+  #AmFounder-{{ section.id }} .am-founder__body {
+    flex: 0 0 100%;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__inner--text-only .am-founder__text {
+    justify-content: center;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__eyebrow {
+    margin: 0 0 8px;
+    color: #0047ab;
+    font-family: 'Jost', sans-serif !important;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__body {
+    margin: 0;
+    color: #1a1a18;
+    font-family: 'Cormorant Garamond', Georgia, serif !important;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__signoff {
+    margin: 8px 0 0;
+    color: #1a1a18;
+    font-family: 'Cormorant Garamond', Georgia, serif !important;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__link {
+    display: inline-block;
+    margin-top: 8px;
+    margin-left: auto;
+    padding: 4px 0;
+    color: #0047ab;
+    font-family: 'Jost', sans-serif !important;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__inner--text-only .am-founder__link {
+    margin-left: 0;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__link:hover {
+    color: #1a1a18;
+  }
+
+  #AmFounder-{{ section.id }} .am-founder__link:focus-visible {
+    outline: 2px solid #0047ab;
+    outline-offset: 4px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #AmFounder-{{ section.id }} {
+      padding: 24px 20px;
+    }
+
+    #AmFounder-{{ section.id }} .am-founder__inner {
+      padding: 16px;
+      grid-template-columns: 90px minmax(0, 1fr);
+      column-gap: 14px;
+    }
+
+    #AmFounder-{{ section.id }} .am-founder__inner--text-only {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #AmFounder-{{ section.id }} .am-founder__media {
+      width: 90px;
+    }
+
+    #AmFounder-{{ section.id }} .am-founder__body {
+      font-size: 17px;
+    }
+  }
+</style>
+
+<section
+  id="AmFounder-{{ section.id }}"
+  class="am-founder"
+  aria-labelledby="AmFounderEyebrow-{{ section.id }}"
+>
+  <div class="am-founder__inner{% unless has_image %} am-founder__inner--text-only{% endunless %}">
+    {%- if has_image -%}
+      <figure class="am-founder__media">
+        {{
+          section.settings.image
+          | image_url: width: 440
+          | image_tag:
+            widths: '90, 110, 180, 220, 330, 440',
+            sizes: '(min-width: 750px) 110px, 90px',
+            loading: 'lazy',
+            alt: section.settings.image.alt
+        }}
+      </figure>
+    {%- endif -%}
+
+    <div class="am-founder__text">
+      {%- if section.settings.eyebrow != blank -%}
+        <p id="AmFounderEyebrow-{{ section.id }}" class="am-founder__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <p class="am-founder__body">{{ section.settings.body | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.signoff != blank -%}
+        <p class="am-founder__signoff">{{ section.settings.signoff | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.link_label != blank and section.settings.link_url != blank -%}
+        <a class="am-founder__link" href="{{ section.settings.link_url }}">{{ section.settings.link_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "AM — Founder Strip",
+  "tag": "div",
+  "class": "section am-founder-section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Photo", "info": "Portrait works best (shown at 4:5). Set the alt text on the image." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Meet the curator" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Standing in the Tate gift shop, I realised there was nowhere online that gathered artist-made jewellery that was genuinely different, so I built it." },
+    { "type": "text", "id": "signoff", "label": "Sign-off", "default": "Antonia" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Our story →" },
+    { "type": "url", "id": "link_url", "label": "Link" },
+    { "type": "header", "content": "Spacing (desktop)" },
+    { "type": "range", "id": "padding_top", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Top", "default": 32 },
+    { "type": "range", "id": "padding_bottom", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Bottom", "default": 32 }
+  ],
+  "presets": [{ "name": "AM — Founder Strip" }]
+}
+{% endschema %}

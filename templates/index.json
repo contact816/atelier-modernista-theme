@@ -71,13 +71,6 @@
             "show_gift_card_recipient": false
           }
         },
-        "text_CwRJU6": {
-          "type": "text",
-          "settings": {
-            "text": "Dispatched within 1 working day. Free returns within 30 days.",
-            "text_style": "body"
-          }
-        },
         "share_xXpRdQ": {
           "type": "share",
           "settings": {
@@ -92,7 +85,6 @@
         "text_inWxbw",
         "variant_picker_gP4jDq",
         "buy_buttons_YpC7zG",
-        "text_CwRJU6",
         "share_xXpRdQ"
       ],
       "name": "t:sections.featured-product.presets.name",

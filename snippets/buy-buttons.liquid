@@ -6,6 +6,7 @@
   - product_form_id: {String} product form id.
   - section_id: {String} id of section to which this snippet belongs.
   - show_pickup_availability: {Boolean} for the pickup availability. If true the pickup availability is rendered, false - not rendered (optional).
+  - show_delivery_line: {Boolean} pass false to hide the shared delivery line under Add to Bag (optional, shown by default).
 
   Usage:
   {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
@@ -101,7 +102,9 @@
     </product-form>
     {%- unless product.gift_card? or product.handle == 'luxury-gift-wrapping' -%}
 
-  {%- render 'am-delivery-line', style: 'short' -%}
+  {%- unless show_delivery_line == false -%}
+    {%- render 'am-delivery-line', style: 'short' -%}
+  {%- endunless -%}
 
   {{ 'am-product-points.css' | asset_url | stylesheet_tag }}
 

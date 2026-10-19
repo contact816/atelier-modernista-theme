@@ -128,18 +128,10 @@
                       <span>{{ 'products.product.volume_pricing.note' | t }}</span>
                     </div>
                   {%- endif -%}
-                  {%- comment -%} Delivery terms show once, under Add to Bag (snippets/buy-buttons.liquid), not here. {%- endcomment -%}
-                  {%- if cart.taxes_included or cart.duties_included -%}
-                    <div class="product__tax caption rte">
-                      {%- if cart.duties_included and cart.taxes_included -%}
-                        {{ 'products.product.duties_and_taxes_included' | t }}
-                      {%- elsif cart.taxes_included -%}
-                        {{ 'products.product.taxes_included' | t }}
-                      {%- elsif cart.duties_included -%}
-                        {{ 'products.product.duties_included' | t }}
-                      {%- endif -%}
-                    </div>
-                  {%- endif -%}
+                  {%- comment -%}
+                    Removed deliberately: no "Taxes included" note and no delivery terms in this section.
+                    Display only; checkout, cart and tax settings are unchanged.
+                  {%- endcomment -%}
                   {%- comment -%}
                     Shopify's instalments banner (payment_terms) removed, as on the product page.
                     Display only: payment methods at checkout are unchanged.
@@ -398,7 +390,8 @@
                     block: block,
                     product: product,
                     product_form_id: product_form_id,
-                    section_id: section.id
+                    section_id: section.id,
+                    show_delivery_line: false
                   -%}
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}

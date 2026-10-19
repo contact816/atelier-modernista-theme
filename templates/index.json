@@ -34,13 +34,14 @@
       "type": "am-founder-strip",
       "name": "AM — Founder Strip",
       "settings": {
+        "image": "shopify://shop_images/faeb20d1-6eab-4c53-962a-442ce519042c.png",
         "eyebrow": "Meet the curator",
         "body": "Standing in the Tate gift shop, I realised there was nowhere online that gathered artist-made jewellery that was genuinely different, so I built it.",
         "signoff": "Antonia",
         "link_label": "Our story →",
         "link_url": "/pages/philosophy",
-        "padding_top": 64,
-        "padding_bottom": 64
+        "padding_top": 36,
+        "padding_bottom": 32
       }
     },
     "featured_product_KXhDnK": {

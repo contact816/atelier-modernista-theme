@@ -226,6 +226,13 @@
                     {{ product.description }}
                   </div>
                 {%- endif -%}
+              {%- when 'am_points_box' -%}
+                {%- unless product.gift_card? or product.handle == 'luxury-gift-wrapping' -%}
+                  <div class="am-product-points-block" {{ block.shopify_attributes }}>
+                    {{ 'am-product-points.css' | asset_url | stylesheet_tag }}
+                    {% render 'am-products-points', product: product %}
+                  </div>
+                {%- endunless -%}
               {%- when 'sku' -%}
                 <p
                   class="product__sku{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"
@@ -596,12 +603,23 @@
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'buy_buttons' -%}
+  {%- liquid
+    # The Atelier Circle points box shows under Add to Bag, unless the template has its own points box block.
+    assign am_show_points_box = true
+    for am_block in section.blocks
+      if am_block.type == 'am_points_box'
+        assign am_show_points_box = false
+        break
+      endif
+    endfor
+  -%}
   {%- render 'buy-buttons',
     block: block,
     product: product,
     product_form_id: product_form_id,
     section_id: section.id,
-    show_pickup_availability: true
+    show_pickup_availability: true,
+    show_points_box: am_show_points_box
   -%}
   
 {% render 'gift-wrapping' %}
@@ -1158,6 +1176,11 @@
     {
       "type": "description",
       "name": "t:sections.main-product.blocks.description.name",
+      "limit": 1
+    },
+    {
+      "type": "am_points_box",
+      "name": "Atelier Circle points box",
       "limit": 1
     },
     {

@@ -1,0 +1,182 @@
+{%- comment -%}
+  Sticky Add to Bag bar for phones (under 750px).
+  Slides up while the real Add to Bag button is off screen, and hides again when it, or the footer, comes into view.
+  Tapping it presses the real button, so the cart drawer, variants and stock all behave exactly as normal.
+
+  Accepts:
+  - product: {Object}
+  - section_id: {String} id of the main-product section
+{%- endcomment -%}
+
+<style>
+  .am-sticky-atc {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .am-sticky-atc {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      background: #fdf6e3;
+      border-top: 1px solid #1a1a18;
+      transform: translateY(100%);
+      visibility: hidden;
+      transition: transform 0.25s ease, visibility 0s linear 0.25s;
+    }
+
+    .am-sticky-atc.is-visible {
+      transform: translateY(0);
+      visibility: visible;
+      transition: transform 0.25s ease, visibility 0s;
+    }
+
+    .am-sticky-atc__info {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .am-sticky-atc__title {
+      margin: 0;
+      overflow: hidden;
+      color: #1a1a18;
+      font-family: 'Cormorant Garamond', Georgia, serif !important;
+      font-size: 16px !important;
+      font-weight: 500 !important;
+      line-height: 1.2 !important;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .am-sticky-atc__price {
+      margin: 2px 0 0;
+      color: #1a1a18;
+      font-family: 'Jost', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 400 !important;
+      line-height: 1.3 !important;
+    }
+
+    .am-sticky-atc__button {
+      flex: 0 0 auto;
+      min-height: 44px;
+      padding: 0 22px;
+      color: #fdf6e3;
+      background: #0047ab;
+      border: 1px solid #0047ab;
+      border-radius: 0;
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .am-sticky-atc__button:focus-visible {
+      outline: 2px solid #1a1a18;
+      outline-offset: 2px;
+    }
+
+    .am-sticky-atc__button[disabled] {
+      color: #6b6b6b;
+      background: #e9e2d0;
+      border-color: #e9e2d0;
+      cursor: default;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .am-sticky-atc,
+    .am-sticky-atc.is-visible {
+      transition: none;
+    }
+  }
+</style>
+
+<div id="AmStickyAtc-{{ section_id }}" class="am-sticky-atc" aria-hidden="true">
+  <div class="am-sticky-atc__info">
+    <p class="am-sticky-atc__title">{{ product.title | escape }}</p>
+    <p class="am-sticky-atc__price" data-am-sticky-price>{{ product.selected_or_first_available_variant.price | money }}</p>
+  </div>
+  <button type="button" class="am-sticky-atc__button" data-am-sticky-button tabindex="-1">Add to Bag</button>
+</div>
+
+<script>
+  (() => {
+    // Wait for the whole page, so the footer exists when we look for it.
+    const start = () => {
+    const bar = document.getElementById('AmStickyAtc-{{ section_id }}');
+    if (!bar || bar.dataset.ready === 'true') return;
+    bar.dataset.ready = 'true';
+
+    const mainButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+    const priceWrap = document.getElementById('price-{{ section_id }}');
+    const stickyButton = bar.querySelector('[data-am-sticky-button]');
+    const stickyPrice = bar.querySelector('[data-am-sticky-price]');
+    if (!mainButton || !stickyButton || !('IntersectionObserver' in window)) return;
+
+    // Live at the end of <body>, so animations on the product column can't break position: fixed.
+    document.body.appendChild(bar);
+
+    const phone = window.matchMedia('(max-width: 749px)');
+    let buttonInView = true;
+    let footerInView = false;
+
+    // Copy the price and the button state (Add to Bag / Sold out) from the real ones.
+    const sync = () => {
+      if (priceWrap) {
+        const onSale = priceWrap.querySelector('.price--on-sale');
+        const item = priceWrap.querySelector(onSale ? '.price__sale .price-item--last' : '.price__regular .price-item--regular');
+        if (item && item.textContent.trim()) stickyPrice.textContent = item.textContent.trim();
+      }
+      const label = mainButton.querySelector('span');
+      stickyButton.textContent = (label ? label.textContent : mainButton.textContent).trim() || 'Add to Bag';
+      stickyButton.disabled = mainButton.disabled || mainButton.getAttribute('aria-disabled') === 'true';
+    };
+
+    const update = () => {
+      const show = phone.matches && !buttonInView && !footerInView;
+      bar.classList.toggle('is-visible', show);
+      bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+      stickyButton.tabIndex = show ? 0 : -1;
+      if (show) sync();
+    };
+
+    new IntersectionObserver(([entry]) => {
+      buttonInView = entry.isIntersecting;
+      update();
+    }).observe(mainButton);
+
+    const footer = document.querySelector('.footer, footer, .shopify-section-group-footer-group');
+    if (footer) {
+      new IntersectionObserver(([entry]) => {
+        footerInView = entry.isIntersecting;
+        update();
+      }).observe(footer);
+    }
+
+    new MutationObserver(sync).observe(mainButton, { attributes: true, childList: true, subtree: true, characterData: true });
+    if (priceWrap) new MutationObserver(sync).observe(priceWrap, { childList: true, subtree: true, characterData: true });
+    phone.addEventListener('change', update);
+
+    stickyButton.addEventListener('click', () => {
+      if (!stickyButton.disabled) mainButton.click();
+    });
+
+    sync();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', start);
+    } else {
+      start();
+    }
+  })();
+</script>

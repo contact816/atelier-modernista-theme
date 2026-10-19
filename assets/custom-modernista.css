@@ -200,6 +200,33 @@ h2, .h2 {
   font-weight: 300 !important;
 }
 
+/*
+  Homepage section headings: one shared scale for every section h2 on the homepage,
+  including the hero carousel (not the hero headline, which is an h1, or the featured
+  product's name). Change the sizes here. Font, weight and colour are left as they are.
+*/
+:root {
+  --am-home-heading-size: 28px;          /* phones, under 750px */
+  --am-home-heading-line-height: 1.15;
+}
+
+@media screen and (min-width: 750px) {
+  :root {
+    --am-home-heading-size: 34px;        /* tablets, 750-1023px */
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --am-home-heading-size: 40px;        /* desktop, 1024px and up */
+  }
+}
+
+.am-home #MainContent .shopify-section h2:not(.product__title) {
+  font-size: var(--am-home-heading-size) !important;
+  line-height: var(--am-home-heading-line-height) !important;
+}
+
 /* Cart and cart drawer: smaller h2s (drawer title, "Estimated total") */
 
 cart-drawer h2, cart-drawer .h2,

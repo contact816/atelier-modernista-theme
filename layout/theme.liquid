@@ -347,7 +347,7 @@
 </script>
 </head>
 
-<body>
+<body{% if template.name == 'index' %} class="am-home"{% endif %}>
 
     {%- if settings.cart_type == 'drawer' -%}
       {%- render 'cart-drawer' -%}

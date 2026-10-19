@@ -1,0 +1,195 @@
+{%- comment -%}
+  AM — Founder Strip
+  Photo left, text right; stacked on phones. Everything is editable in the customiser.
+  With no photo chosen, the text sits alone and centred.
+{%- endcomment -%}
+
+{%- liquid
+  assign has_image = false
+  if section.settings.image != blank
+    assign has_image = true
+  endif
+-%}
+
+<style>
+  #AmFounder-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+    color: #1a1a18;
+    background: #fdf6e3;
+  }
+
+  .am-founder,
+  .am-founder * {
+    box-sizing: border-box;
+  }
+
+  .am-founder__inner {
+    display: grid;
+    max-width: 1040px;
+    margin: 0 auto;
+    grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
+    column-gap: 64px;
+    align-items: center;
+  }
+
+  .am-founder__inner--text-only {
+    max-width: 720px;
+    grid-template-columns: minmax(0, 1fr);
+    text-align: center;
+  }
+
+  .am-founder__media {
+    margin: 0;
+  }
+
+  .am-founder__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .am-founder__eyebrow {
+    margin: 0 0 16px;
+    color: #0047ab;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .am-founder__body {
+    margin: 0;
+    color: #1a1a18;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.35;
+    text-wrap: pretty;
+  }
+
+  .am-founder__signoff {
+    margin: 18px 0 0;
+    color: #1a1a18;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .am-founder__link {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 6px 0;
+    color: #0047ab;
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+
+  .am-founder__link:hover {
+    color: #1a1a18;
+  }
+
+  .am-founder__link:focus-visible {
+    outline: 2px solid #0047ab;
+    outline-offset: 4px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #AmFounder-{{ section.id }} {
+      padding: 40px 16px;
+    }
+
+    .am-founder__inner {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 28px;
+    }
+
+    .am-founder__media {
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .am-founder__eyebrow {
+      margin-bottom: 12px;
+    }
+
+    .am-founder__body {
+      font-size: 23px;
+    }
+
+    .am-founder__signoff {
+      font-size: 21px;
+    }
+  }
+</style>
+
+<section
+  id="AmFounder-{{ section.id }}"
+  class="am-founder"
+  aria-labelledby="AmFounderEyebrow-{{ section.id }}"
+>
+  <div class="am-founder__inner{% unless has_image %} am-founder__inner--text-only{% endunless %}">
+    {%- if has_image -%}
+      <figure class="am-founder__media">
+        {{
+          section.settings.image
+          | image_url: width: 900
+          | image_tag:
+            widths: '320, 400, 600, 800, 900',
+            sizes: '(min-width: 750px) 400px, min(320px, calc(100vw - 32px))',
+            loading: 'lazy',
+            alt: section.settings.image.alt
+        }}
+      </figure>
+    {%- endif -%}
+
+    <div class="am-founder__text">
+      {%- if section.settings.eyebrow != blank -%}
+        <p id="AmFounderEyebrow-{{ section.id }}" class="am-founder__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <p class="am-founder__body">{{ section.settings.body | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.signoff != blank -%}
+        <p class="am-founder__signoff">{{ section.settings.signoff | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.link_label != blank and section.settings.link_url != blank -%}
+        <a class="am-founder__link" href="{{ section.settings.link_url }}">{{ section.settings.link_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "AM — Founder Strip",
+  "tag": "div",
+  "class": "section am-founder-section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Photo", "info": "Portrait works best (shown at 4:5). Set the alt text on the image." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Meet the curator" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Standing in the Tate gift shop, I realised there was nowhere online that gathered artist-made jewellery that was genuinely different, so I built it." },
+    { "type": "text", "id": "signoff", "label": "Sign-off", "default": "Antonia" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Our story →" },
+    { "type": "url", "id": "link_url", "label": "Link" },
+    { "type": "header", "content": "Spacing (desktop)" },
+    { "type": "range", "id": "padding_top", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Top", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Bottom", "default": 64 }
+  ],
+  "presets": [{ "name": "AM — Founder Strip" }]
+}
+{% endschema %}

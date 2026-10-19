@@ -141,22 +141,15 @@
                     price_class: 'price--large'
                   -%}
                 </div>
-                <p style="font-family: 'Jost', sans-serif; font-size: 13px; letter-spacing: 0.3px; color: #1a1a18; margin: 6px 0 18px;">
-  Klarna available at checkout.
-</p>
+                {%- comment -%}
+                  Klarna line and Shopify's instalments banner removed from the product page.
+                  This is display only: payment methods at checkout are unchanged.
+                {%- endcomment -%}
                 {%- if product.quantity_price_breaks_configured? -%}
                   <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
                     <span>{{ 'products.product.volume_pricing.note' | t }}</span>
                   </div>
                 {%- endif -%}
-      
-                <div {{ block.shopify_attributes }}>
-                  {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
-                  {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
-                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                    {{ form | payment_terms }}
-                  {%- endform -%}
-                </div>
               
               {%- when 'inventory' -%}
                 <p

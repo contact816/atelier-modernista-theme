@@ -159,8 +159,9 @@
     }
   }
 
-  /* Desktop: about 35% shorter. Less padding above the eyebrow and below the button, shorter tiles. */
-  @media (min-width: 1025px) {
+  /* Desktop: about 35% shorter. Less padding above the eyebrow and below the button, shorter tiles.
+     From 990px up; at 990-1024px the text still sits above the grid. */
+  @media (min-width: 990px) {
     .am-colour-edit {
       padding: 40px 60px;
     }

@@ -26,6 +26,11 @@
   {%- endif -%}
 
   {%- style -%}
+  /* Backstop: hide any Judge.me star badge that reports no reviews */
+  .am-app-block:has(.jdgm-prev-badge[data-number-of-reviews="0"]) {
+    display: none;
+  }
+
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -115,7 +120,20 @@
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when '@app' -%}
-                {% render block %}
+                {%- liquid
+                  # Judge.me star badge: only when the product has at least one review,
+                  # so there is never a "No reviews" or zero-star state.
+                  assign am_render_app = true
+                  if block.id contains 'judge_me_reviews_preview_badge'
+                    assign am_review_count = product.metafields.reviews.rating_count.value | default: 0 | plus: 0
+                    if am_review_count < 1
+                      assign am_render_app = false
+                    endif
+                  endif
+                -%}
+                {%- if am_render_app -%}
+                  <div class="am-app-block">{% render block %}</div>
+                {%- endif -%}
               {%- when 'text' -%}
                 <p
                   class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"

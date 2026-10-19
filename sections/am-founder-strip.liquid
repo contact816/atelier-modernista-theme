@@ -1,7 +1,7 @@
 {%- comment -%}
   AM — Founder Strip
-  Photo left, text right; stacked on phones. Everything is editable in the customiser.
-  With no photo chosen, the text sits alone and centred.
+  A bordered cream card, 760px max. Photo left of the text on desktop, above it on phones.
+  Everything is editable in the customiser. With no photo chosen, the text sits alone and centred.
 {%- endcomment -%}
 
 {%- liquid
@@ -25,20 +25,24 @@
 
   .am-founder__inner {
     display: grid;
-    max-width: 1040px;
+    max-width: 760px;
     margin: 0 auto;
-    grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
-    column-gap: 64px;
+    padding: 32px;
+    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    column-gap: 32px;
     align-items: center;
+    background: #fdf6e3;
+    border: 1px solid #1a1a18;
   }
 
   .am-founder__inner--text-only {
-    max-width: 720px;
     grid-template-columns: minmax(0, 1fr);
     text-align: center;
   }
 
   .am-founder__media {
+    width: 100%;
+    max-width: 220px;
     margin: 0;
   }
 
@@ -61,14 +65,15 @@
     text-transform: uppercase;
   }
 
-  .am-founder__body {
+  /* !important is needed: custom-modernista.css forces every <p> to Jost with !important. */
+  .am-founder .am-founder__body {
     margin: 0;
     color: #1a1a18;
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 28px;
+    font-family: 'Cormorant Garamond', Georgia, serif !important;
+    font-size: 20px;
     font-weight: 400;
     letter-spacing: 0;
-    line-height: 1.35;
+    line-height: 1.45;
     text-wrap: pretty;
   }
 
@@ -107,16 +112,17 @@
 
   @media screen and (max-width: 749px) {
     #AmFounder-{{ section.id }} {
-      padding: 40px 16px;
+      padding: 40px 20px;
     }
 
     .am-founder__inner {
+      padding: 24px;
       grid-template-columns: minmax(0, 1fr);
-      row-gap: 28px;
+      row-gap: 24px;
     }
 
     .am-founder__media {
-      max-width: 320px;
+      max-width: 160px;
       margin: 0 auto;
     }
 
@@ -124,8 +130,8 @@
       margin-bottom: 12px;
     }
 
-    .am-founder__body {
-      font-size: 23px;
+    .am-founder .am-founder__body {
+      font-size: 18px;
     }
 
     .am-founder__signoff {
@@ -146,8 +152,8 @@
           section.settings.image
           | image_url: width: 900
           | image_tag:
-            widths: '320, 400, 600, 800, 900',
-            sizes: '(min-width: 750px) 400px, min(320px, calc(100vw - 32px))',
+            widths: '160, 220, 320, 440, 660',
+            sizes: '(min-width: 750px) 220px, 160px',
             loading: 'lazy',
             alt: section.settings.image.alt
         }}

@@ -251,16 +251,6 @@
             "image": "shopify://shop_images/blue-venn-diagrams_2026-05-05_19-47-32_2a0a4f01.jpg"
           }
         },
-        "review_8AbfA9": {
-          "type": "review",
-          "settings": {
-            "heading": "Cobalt Necklace and Earrings Capsule",
-            "link": "shopify://products/the-matisse-cobalt-blue-necklace-earrings",
-            "quote": "Beautiful modern jewellery that are pieces of art at very reasonable prices. Love love love Atelier Modernista! I’ve recommended it to all my friends.",
-            "name": "Susan L",
-            "image": "shopify://shop_images/BG_Cobalt_Edition_Duet_2_a31018fc-d8dd-4d6c-8cf3-62904a16667c.jpg"
-          }
-        },
         "review_AaF4Fi": {
           "type": "review",
           "settings": {
@@ -271,14 +261,24 @@
             "image": "shopify://shop_images/M9999AR443200-S_l_3280ba33-d0a2-4e16-b852-a4e5fd38e79f.jpg"
           }
         },
-        "review_KHYDJf": {
+        "review_A7irRM": {
           "type": "review",
           "settings": {
-            "heading": "Line Art Necklace (Red)",
-            "link": "shopify://products/bauhaus-red",
-            "quote": "Gorgeous statement jewellery, beautifully wrapped. Thank you.",
-            "name": "Anna G",
-            "image": "shopify://shop_images/Screenshot_2025-11-10_at_12.13.53.png"
+            "heading": "Miró Femme et Oiseaux Statement Necklace, 1972",
+            "link": "shopify://products/miro-femme-et-oiseaux-golden-necklace",
+            "quote": "This is a beautiful necklace that has already become a versatile piece of jewellery in my wardrobe. Highly recommend and the packaging was gorgeous too! I have my eye on some other pieces in the collection already.",
+            "name": "Samantha D-H",
+            "image": "shopify://shop_images/AM_Miro_Femme-et-Oiseaux-Statement-Necklace_120GBP.png"
+          }
+        },
+        "review_8AbfA9": {
+          "type": "review",
+          "settings": {
+            "heading": "Cobalt Necklace and Earrings Capsule",
+            "link": "shopify://products/the-matisse-cobalt-blue-necklace-earrings",
+            "quote": "Beautiful modern jewellery that are pieces of art at very reasonable prices. Love love love Atelier Modernista! I’ve recommended it to all my friends.",
+            "name": "Susan L",
+            "image": "shopify://shop_images/BG_Cobalt_Edition_Duet_2_a31018fc-d8dd-4d6c-8cf3-62904a16667c.jpg"
           }
         },
         "review_CeQkpW": {
@@ -291,24 +291,24 @@
             "image": "shopify://shop_images/palette-earrings-2_2026-05-14_11-19-27_85ebbfd4.jpg"
           }
         },
-        "review_A7irRM": {
+        "review_KHYDJf": {
           "type": "review",
           "settings": {
-            "heading": "Miró Femme et Oiseaux Statement Necklace, 1972",
-            "link": "shopify://products/miro-femme-et-oiseaux-golden-necklace",
-            "quote": "This is a beautiful necklace that has already become a versatile piece of jewellery in my wardrobe. Highly recommend and the packaging was gorgeous too! I have my eye on some other pieces in the collection already.",
-            "name": "Samantha D-H",
-            "image": "shopify://shop_images/AM_Miro_Femme-et-Oiseaux-Statement-Necklace_120GBP.png"
+            "heading": "Line Art Necklace (Red)",
+            "link": "shopify://products/bauhaus-red",
+            "quote": "Gorgeous statement jewellery, beautifully wrapped. Thank you.",
+            "name": "Anna G",
+            "image": "shopify://shop_images/Screenshot_2025-11-10_at_12.13.53.png"
           }
         }
       },
       "block_order": [
         "review_kCwKXx",
-        "review_8AbfA9",
         "review_AaF4Fi",
-        "review_KHYDJf",
+        "review_A7irRM",
+        "review_8AbfA9",
         "review_CeQkpW",
-        "review_A7irRM"
+        "review_KHYDJf"
       ],
       "name": "Reviews grid",
       "settings": {

@@ -320,11 +320,6 @@
         "padding_bottom": 56
       }
     },
-    "pb_reviews_FN6rik": {
-      "type": "pb-reviews",
-      "name": "AM — Reviews",
-      "settings": {}
-    },
     "pb_featured_products_ji63Ur": {
       "type": "pb-featured-products",
       "blocks": {
@@ -783,6 +778,70 @@
         "first_slide_duration": 7,
         "slide_duration": 4
       }
+    },
+    "pb_reviews_JDrTpF": {
+      "type": "pb-reviews",
+      "blocks": {
+        "review_CeQkpW": {
+          "type": "review",
+          "settings": {
+            "quote": "The Palette earrings came beautifully packaged and are so well made, I’m looking forward to wearing them every day. I can’t recommend buying a gift for someone you love from Atelier Modernista enough.",
+            "name": "Rosie D @PRDISPATCH",
+            "image": "shopify://shop_images/palette-earrings-2_2026-05-14_11-19-27_85ebbfd4.jpg"
+          }
+        },
+        "review_A7irRM": {
+          "type": "review",
+          "settings": {
+            "quote": "Miró Femme et Oiseaux Statement Necklace, 1972 \n \nThis is a beautiful necklace that has already become a versatile piece of jewellery in my wardrobe. Highly recommend and the packaging was gorgeous too! I have my eye on some other pieces in the collection already.",
+            "name": "Samantha D-H",
+            "image": "shopify://shop_images/AM_Miro_Femme-et-Oiseaux-Statement-Necklace_120GBP.png"
+          }
+        },
+        "review_8AbfA9": {
+          "type": "review",
+          "settings": {
+            "quote": "Beautiful modern jewellery that are pieces of art at very reasonable prices. Love love love Atelier Modernista! I’ve recommended it to all my friends.",
+            "name": "Susan L",
+            "image": "shopify://shop_images/BG_Cobalt_Edition_Duet_2_a31018fc-d8dd-4d6c-8cf3-62904a16667c.jpg"
+          }
+        },
+        "review_kCwKXx": {
+          "type": "review",
+          "settings": {
+            "quote": "Everything felt luxurious from the start - the unique selection, the packaging, the earrings themselves.",
+            "name": "Michael F",
+            "image": "shopify://shop_images/blue-venn-diagrams_2026-05-05_19-47-32_2a0a4f01.jpg"
+          }
+        },
+        "review_KHYDJf": {
+          "type": "review",
+          "settings": {
+            "quote": "Brilliant gift for my lovely sister in law. She loved it. And I was impressed by the speed of dispatch, and the packaging meant I didn’t have to wrap it up!",
+            "name": "Emma K"
+          }
+        },
+        "review_AaF4Fi": {
+          "type": "review",
+          "settings": {
+            "quote": "It’s all about the Miró earrings for me - gold, with a little pop of red. Just so gorgeous. I can’t recommend Antonia, the founder, and @ateliermodernista enough.",
+            "name": "Nat W @THESTYLECHAPTER",
+            "image": "shopify://shop_images/M9999AR443200-S_l_3280ba33-d0a2-4e16-b852-a4e5fd38e79f.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "review_CeQkpW",
+        "review_A7irRM",
+        "review_8AbfA9",
+        "review_kCwKXx",
+        "review_KHYDJf",
+        "review_AaF4Fi"
+      ],
+      "name": "Reviews grid",
+      "settings": {
+        "heading": "5 Stars From Verified Reviews"
+      }
     }
   },
   "order": [
@@ -793,7 +852,6 @@
     "pb_featured_products_WLmgn6",
     "am_founder_strip_hp01",
     "am_circle_strip_hp01",
-    "pb_reviews_FN6rik",
     "pb_featured_products_ji63Ur",
     "custom_liquid_E3HMFj",
     "pb_featured_products_QydhwQ",
@@ -810,6 +868,7 @@
     "image_with_text_NMgRYF",
     "17835973092b47e3f7",
     "arsenal_email_fqktkK",
-    "am_hero_carousel_mAGHzJ"
+    "am_hero_carousel_mAGHzJ",
+    "pb_reviews_JDrTpF"
   ]
 }

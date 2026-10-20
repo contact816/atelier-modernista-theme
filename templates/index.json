@@ -312,13 +312,21 @@
       ],
       "name": "Reviews grid",
       "settings": {
-        "heading": "5 Stars From Verified Reviews",
+        "heading": "Your Atelier Modernista Experience",
         "heading_link": ""
       }
     },
     "pb_featured_products_WLmgn6": {
       "type": "pb-featured-products",
       "blocks": {
+        "product_NE7rPU": {
+          "type": "product",
+          "settings": {
+            "product": "miro-femme-et-oiseaux-golden-necklace",
+            "badge": "Bestseller",
+            "badge_red": false
+          }
+        },
         "product_kBJN3U": {
           "type": "product",
           "settings": {
@@ -338,25 +346,17 @@
         "product_ejKpkQ": {
           "type": "product",
           "settings": {
-            "product": "the-cobalt-edition-necklace",
-            "badge": "Bestseller",
-            "badge_red": false
-          }
-        },
-        "product_NE7rPU": {
-          "type": "product",
-          "settings": {
-            "product": "cobalt-blue-edition-earrings",
+            "product": "the-matisse-cobalt-blue-necklace-earrings",
             "badge": "Bestseller",
             "badge_red": false
           }
         }
       },
       "block_order": [
+        "product_NE7rPU",
         "product_kBJN3U",
         "product_xqnr66",
-        "product_ejKpkQ",
-        "product_NE7rPU"
+        "product_ejKpkQ"
       ],
       "name": "AM — Featured Products",
       "settings": {

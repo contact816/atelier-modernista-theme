@@ -2,7 +2,11 @@
 
   <div style="text-align: center; margin-bottom: 15px;">
     <div style="color: #ffb400; font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 2px;">★★★★★</div>
-    <span style="font-size: 0.85rem; font-weight: bold; letter-spacing: 1.2px; color: #121212; text-transform: uppercase; font-family: inherit;">{{ section.settings.heading | escape }}</span>
+    {% if section.settings.heading_link != blank %}
+      <a href="{{ section.settings.heading_link }}" style="font-size: 0.85rem; font-weight: bold; letter-spacing: 1.2px; color: #121212; text-transform: uppercase; font-family: inherit; text-decoration: underline; text-underline-offset: 4px;">{{ section.settings.heading | escape }}</a>
+    {% else %}
+      <span style="font-size: 0.85rem; font-weight: bold; letter-spacing: 1.2px; color: #121212; text-transform: uppercase; font-family: inherit;">{{ section.settings.heading | escape }}</span>
+    {% endif %}
   </div>
 
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 15px; width: 100%; box-sizing: border-box;">
@@ -11,6 +15,17 @@
       <div {{ block.shopify_attributes }} style="background-color: #fffdf6; border: 1px solid #e5dfd0; border-radius: 6px; padding: 16px; text-align: left; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; min-height: 140px;">
         <div>
           <div style="color: #ffb400; font-size: 1rem; margin-bottom: 6px;">★★★★★</div>
+
+          {% if block.settings.heading != blank %}
+            <div style="margin: 0 0 8px 0; font-size: 0.8rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; font-family: inherit;">
+              {% if block.settings.link != blank %}
+                <a href="{{ block.settings.link }}" style="color: #121212; text-decoration: underline; text-underline-offset: 4px;">{{ block.settings.heading | escape }} &rarr;</a>
+              {% else %}
+                <span style="color: #121212;">{{ block.settings.heading | escape }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+
           <p style="margin: 0 0 12px 0; font-size: 1.35rem; line-height: 1.4; color: #121212; font-style: italic; font-family: inherit;">“{{ block.settings.quote | escape }}”</p>
         </div>
         <div style="display: flex; align-items: center; gap: 10px;">
@@ -34,6 +49,11 @@
       "id": "heading",
       "label": "Heading",
       "default": "5 Stars From Verified Reviews"
+    },
+    {
+      "type": "url",
+      "id": "heading_link",
+      "label": "Heading link (optional)"
     }
   ],
   "blocks": [
@@ -41,6 +61,8 @@
       "type": "review",
       "name": "Review",
       "settings": [
+        { "type": "text", "id": "heading", "label": "Review heading (optional)", "info": "e.g. the product name" },
+        { "type": "url", "id": "link", "label": "Heading link (optional)", "info": "Makes the heading clickable" },
         { "type": "textarea", "id": "quote", "label": "Review text" },
         { "type": "text", "id": "name", "label": "Reviewer name" },
         { "type": "image_picker", "id": "image", "label": "Small image (optional)" }

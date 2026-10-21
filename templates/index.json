@@ -115,16 +115,22 @@
     "collection_list_PDpm3K": {
       "type": "collection-list",
       "blocks": {
+        "featured_collection_mMtewA": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "gifts"
+          }
+        },
         "featured_collection_cqhpHp": {
           "type": "featured_collection",
           "settings": {
             "collection": "capsule-sets"
           }
         },
-        "featured_collection_mMtewA": {
+        "featured_collection_UtibFV": {
           "type": "featured_collection",
           "settings": {
-            "collection": "gifts"
+            "collection": "bracelets"
           }
         },
         "featured_collection_LTbMaT": {
@@ -136,22 +142,16 @@
         "featured_collection_b9P6pq": {
           "type": "featured_collection",
           "settings": {
-            "collection": "necklaces"
-          }
-        },
-        "featured_collection_UtibFV": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "bracelets"
+            "collection": "art-deco-jewellery"
           }
         }
       },
       "block_order": [
-        "featured_collection_cqhpHp",
         "featured_collection_mMtewA",
+        "featured_collection_cqhpHp",
+        "featured_collection_UtibFV",
         "featured_collection_LTbMaT",
-        "featured_collection_b9P6pq",
-        "featured_collection_UtibFV"
+        "featured_collection_b9P6pq"
       ],
       "name": "t:sections.collection-list.presets.name",
       "settings": {
@@ -313,7 +313,9 @@
       "name": "Reviews grid",
       "settings": {
         "heading": "Your Atelier Modernista Experience",
-        "heading_link": ""
+        "heading_link": "",
+        "autoplay": false,
+        "autoplay_speed": 5
       }
     },
     "pb_featured_products_WLmgn6": {

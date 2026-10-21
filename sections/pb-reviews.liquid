@@ -1,4 +1,51 @@
-<div style="max-width: 1100px; margin: 0 auto; padding: 5px; box-sizing: border-box; width: 100%;">
+<style>
+  #rg-{{ section.id }} .rg-track {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2px;
+    position: relative;
+  }
+  #rg-{{ section.id }} .rg-track::-webkit-scrollbar { display: none; }
+  #rg-{{ section.id }} .rg-card {
+    flex: 0 0 calc((100% - 30px) / 3);
+    scroll-snap-align: start;
+  }
+  #rg-{{ section.id }} .rg-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  #rg-{{ section.id }} .rg-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #e5dfd0;
+    background: #fffdf6;
+    color: #121212;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  #rg-{{ section.id }} .rg-btn:hover { border-color: #121212; }
+  @media (max-width: 989px) {
+    #rg-{{ section.id }} .rg-card { flex: 0 0 calc((100% - 15px) / 2); }
+  }
+  @media (max-width: 599px) {
+    #rg-{{ section.id }} .rg-card { flex: 0 0 85%; }
+  }
+</style>
+
+<div id="rg-{{ section.id }}" style="max-width: 1100px; margin: 0 auto; padding: 5px; box-sizing: border-box; width: 100%;">
 
   <div style="text-align: center; margin-bottom: 15px;">
     <div style="color: #ffb400; font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 2px;">★★★★★</div>
@@ -9,10 +56,9 @@
     {% endif %}
   </div>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 15px; width: 100%; box-sizing: border-box;">
-
+  <div class="rg-track">
     {% for block in section.blocks %}
-      <div {{ block.shopify_attributes }} style="background-color: #fffdf6; border: 1px solid #e5dfd0; border-radius: 6px; padding: 16px; text-align: left; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; min-height: 140px;">
+      <div class="rg-card" {{ block.shopify_attributes }} style="background-color: #fffdf6; border: 1px solid #e5dfd0; border-radius: 6px; padding: 16px; text-align: left; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; min-height: 140px;">
         <div>
           <div style="color: #ffb400; font-size: 1rem; margin-bottom: 6px;">★★★★★</div>
 
@@ -36,9 +82,65 @@
         </div>
       </div>
     {% endfor %}
+  </div>
 
+  <div class="rg-controls">
+    <button type="button" class="rg-btn rg-prev" aria-label="Previous reviews">&larr;</button>
+    <button type="button" class="rg-btn rg-next" aria-label="Next reviews">&rarr;</button>
   </div>
 </div>
+
+<script>
+  (function () {
+    var root = document.getElementById('rg-{{ section.id }}');
+    if (!root) return;
+    var track = root.querySelector('.rg-track');
+    var prev = root.querySelector('.rg-prev');
+    var next = root.querySelector('.rg-next');
+    var autoplay = {{ section.settings.autoplay | json }};
+    var delay = {{ section.settings.autoplay_speed | default: 5 }} * 1000;
+    var timer = null;
+
+    function step() {
+      var card = track.querySelector('.rg-card');
+      return card ? card.getBoundingClientRect().width + 15 : track.clientWidth;
+    }
+    function atEnd() {
+      return track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    }
+    function goNext() {
+      if (atEnd()) { track.scrollTo({ left: 0, behavior: 'smooth' }); }
+      else { track.scrollBy({ left: step(), behavior: 'smooth' }); }
+    }
+    function goPrev() {
+      if (track.scrollLeft <= 4) { track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' }); }
+      else { track.scrollBy({ left: -step(), behavior: 'smooth' }); }
+    }
+
+    next.addEventListener('click', goNext);
+    prev.addEventListener('click', goPrev);
+
+    function start() {
+      if (!autoplay || timer) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (window.Shopify && Shopify.designMode) return;
+      timer = setInterval(goNext, delay);
+    }
+    function stop() { clearInterval(timer); timer = null; }
+
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('touchstart', stop, { passive: true });
+    root.addEventListener('focusin', stop);
+    start();
+
+    document.addEventListener('shopify:block:select', function (e) {
+      if (root.contains(e.target)) {
+        track.scrollTo({ left: e.target.offsetLeft - 2, behavior: 'auto' });
+      }
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -54,6 +156,21 @@
       "type": "url",
       "id": "heading_link",
       "label": "Heading link (optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-scroll the carousel",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Seconds between slides",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
     }
   ],
   "blocks": [

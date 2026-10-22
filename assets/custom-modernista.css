@@ -2861,3 +2861,65 @@ slider-component.slider-mobile-gutter {
     max-width: 82vw !important;
   }
 }
+
+/* =========================================
+   COLLECTION LIST — DESKTOP CAROUSEL
+   Only applies when "Enable carousel on desktop" is on
+   (the <ul> gets .slider--everywhere).
+   ========================================= */
+
+/* Arrows: thin cobalt, no borders */
+.section-collection-list .slider--everywhere + .slider-buttons .slider-button {
+  color: var(--am-cobalt);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.section-collection-list .slider--everywhere + .slider-buttons .slider-button:not([disabled]):hover {
+  color: var(--am-cobalt-dark);
+}
+
+.section-collection-list .slider--everywhere + .slider-buttons .slider-button .icon {
+  height: 7px;
+}
+
+.section-collection-list .slider--everywhere + .slider-buttons .slider-button[disabled] {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.section-collection-list .slider--everywhere + .slider-buttons .slider-button[disabled] .icon {
+  color: inherit;
+}
+
+@media screen and (min-width: 990px) {
+  /* Columns setting → number of full cards in view */
+  .section-collection-list .slider--everywhere.grid--1-col-desktop { --am-cl-cols: 1; }
+  .section-collection-list .slider--everywhere.grid--2-col-desktop { --am-cl-cols: 2; }
+  .section-collection-list .slider--everywhere.grid--3-col-desktop { --am-cl-cols: 3; }
+  .section-collection-list .slider--everywhere.grid--4-col-desktop { --am-cl-cols: 4; }
+  .section-collection-list .slider--everywhere.grid--5-col-desktop { --am-cl-cols: 5; }
+  .section-collection-list .slider--everywhere.grid--6-col-desktop { --am-cl-cols: 6; }
+
+  /* Full cards + a quarter of the next one peeking in */
+  .section-collection-list .slider--everywhere .slider__slide {
+    width: calc((100% - var(--grid-desktop-horizontal-spacing) * var(--am-cl-cols, 3)) / (var(--am-cl-cols, 3) + 0.25));
+    max-width: calc((100% - var(--grid-desktop-horizontal-spacing) * var(--am-cl-cols, 3)) / (var(--am-cl-cols, 3) + 0.25));
+    scroll-snap-align: start;
+    /* Room for card hover/shadow so it isn't clipped by the scroll area */
+    padding-top: max(var(--focus-outline-padding), var(--shadow-padding-top));
+    padding-bottom: max(var(--focus-outline-padding), var(--shadow-padding-bottom));
+  }
+
+  .section-collection-list .slider--everywhere + .slider-buttons {
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  /* Cleaner look: arrows only, no "1 / 5" counter */
+  .section-collection-list .slider--everywhere + .slider-buttons .slider-counter {
+    display: none;
+  }
+}

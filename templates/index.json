@@ -159,6 +159,7 @@
         "heading_size": "h2",
         "image_ratio": "square",
         "columns_desktop": 3,
+        "enable_desktop_slider": true,
         "color_scheme": "",
         "show_view_all": false,
         "columns_mobile": "1",
@@ -365,7 +366,8 @@
         "eyebrow": "Our Most Loved Pieces",
         "heading": "Bestsellers",
         "view_all_label": "Find Your New Favourite",
-        "view_all_url": "shopify://collections/bestsellers"
+        "view_all_url": "shopify://collections/bestsellers",
+        "enable_carousel": true
       }
     },
     "am_founder_strip_hp01": {
@@ -447,7 +449,8 @@
         "eyebrow": "Licensed by Successió Miró",
         "heading": "Own A Miró",
         "view_all_label": "The Miró Collection",
-        "view_all_url": "shopify://collections/miro"
+        "view_all_url": "shopify://collections/miro",
+        "enable_carousel": false
       }
     },
     "pb_featured_products_ji63Ur": {
@@ -498,7 +501,8 @@
         "eyebrow": "This Summer",
         "heading": "Bauhaus Colours",
         "view_all_label": "discover yours",
-        "view_all_url": "shopify://collections/colour-edit"
+        "view_all_url": "shopify://collections/colour-edit",
+        "enable_carousel": false
       }
     },
     "custom_liquid_E3HMFj": {
@@ -584,6 +588,7 @@
         "heading_size": "h1",
         "image_ratio": "square",
         "columns_desktop": 3,
+        "enable_desktop_slider": true,
         "color_scheme": "",
         "show_view_all": false,
         "columns_mobile": "1",
@@ -683,7 +688,8 @@
         "eyebrow": "Traditional Gold Vermeil",
         "heading": "Shine Like An Arclight",
         "view_all_label": "View Vermeil",
-        "view_all_url": "shopify://collections/the-vermeil-edit"
+        "view_all_url": "shopify://collections/the-vermeil-edit",
+        "enable_carousel": false
       }
     },
     "arsenal_bars_chyBtz": {

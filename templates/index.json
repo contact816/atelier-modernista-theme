@@ -322,6 +322,14 @@
     "pb_featured_products_WLmgn6": {
       "type": "pb-featured-products",
       "blocks": {
+        "product_axW38E": {
+          "type": "product",
+          "settings": {
+            "product": "miro-spanish-dancer-earrings",
+            "badge": "Bestseller",
+            "badge_red": true
+          }
+        },
         "product_XgU7hN": {
           "type": "product",
           "settings": {
@@ -372,6 +380,7 @@
         }
       },
       "block_order": [
+        "product_axW38E",
         "product_XgU7hN",
         "product_kBJN3U",
         "product_xqnr66",

@@ -381,7 +381,7 @@
       ],
       "name": "AM — Featured Products",
       "settings": {
-        "eyebrow": "Our Most Loved Pieces",
+        "eyebrow": "Our Most Popular Pieces",
         "heading": "Bestsellers",
         "view_all_label": "Find Your New Favourite",
         "view_all_url": "shopify://collections/bestsellers",

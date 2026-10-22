@@ -327,7 +327,7 @@
           "settings": {
             "product": "art-deco-necklace",
             "badge": "Bestseller",
-            "badge_red": false
+            "badge_red": true
           }
         },
         "product_kBJN3U": {
@@ -359,7 +359,7 @@
           "settings": {
             "product": "bauhaus-purple-red-earrings",
             "badge": "Bestseller",
-            "badge_red": false
+            "badge_red": true
           }
         },
         "product_ejKpkQ": {

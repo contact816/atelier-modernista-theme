@@ -2,7 +2,30 @@
 <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 
-<div class="am-featured">
+{%- liquid
+  assign am_fp_count = 0
+  for block in section.blocks
+    if block.settings.product != blank
+      assign am_fp_count = am_fp_count | plus: 1
+    endif
+  endfor
+
+  comment
+    Carousel only when the setting is ticked AND there are 5+ products.
+    With 4 or fewer, the section renders exactly as before.
+  endcomment
+  assign am_fp_carousel = false
+  if section.settings.enable_carousel and am_fp_count > 4
+    assign am_fp_carousel = true
+  endif
+-%}
+
+{%- if am_fp_carousel -%}
+  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+<div class="am-featured{% if am_fp_carousel %} am-featured--carousel{% endif %}">
+  {%- if am_fp_carousel -%}<slider-component id="AmFeaturedSlider-{{ section.id }}" class="am-featured__slider">{%- endif -%}
   <div class="am-featured__head">
     <div class="am-featured__head-text">
       {%- if section.settings.eyebrow != blank -%}
@@ -10,16 +33,56 @@
       {%- endif -%}
       <h2 class="am-featured__heading">{{ section.settings.heading }}</h2>
     </div>
+    {%- if am_fp_carousel -%}<div class="am-featured__head-actions">{%- endif -%}
     {%- if section.settings.view_all_label != blank -%}
       <a href="{{ section.settings.view_all_url }}" class="am-link-underline">{{ section.settings.view_all_label }} →</a>
     {%- endif -%}
+    {%- if am_fp_carousel -%}
+        <div class="slider-buttons">
+          <button
+            type="button"
+            class="slider-button slider-button--prev"
+            name="previous"
+            aria-label="{{ 'general.slider.previous_slide' | t }}"
+            aria-controls="Slider-{{ section.id }}"
+          >
+            <span class="svg-wrapper">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
+          </button>
+          <button
+            type="button"
+            class="slider-button slider-button--next"
+            name="next"
+            aria-label="{{ 'general.slider.next_slide' | t }}"
+            aria-controls="Slider-{{ section.id }}"
+          >
+            <span class="svg-wrapper">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
+          </button>
+        </div>
+      </div>
+    {%- endif -%}
   </div>
 
-  <div class="am-product-grid am-product-grid--4">
+  <div
+    class="am-product-grid am-product-grid--4{% if am_fp_carousel %} am-featured__track{% endif %}"
+    {%- if am_fp_carousel %}
+      id="Slider-{{ section.id }}"
+      aria-label="{{ section.settings.heading | escape }}"
+    {%- endif %}
+  >
     {%- for block in section.blocks -%}
       {%- assign product = all_products[block.settings.product] -%}
       {%- if product != empty -%}
-        <div class="am-product-card" {{ block.shopify_attributes }}>
+        <div
+          class="am-product-card"
+          {% if am_fp_carousel %}
+            id="Slide-{{ section.id }}-{{ forloop.index }}"
+          {% endif %}
+          {{ block.shopify_attributes }}
+        >
           <a href="{{ product.url }}" class="am-product-card__link">
             <div class="am-product-card__image">
               {%- if block.settings.badge != blank -%}
@@ -129,7 +192,22 @@
       {%- endif -%}
     {%- endfor -%}
   </div>
+  {%- if am_fp_carousel -%}</slider-component>{%- endif -%}
 </div>
+
+{%- if am_fp_carousel -%}
+  <script>
+    // Card widths have sub-pixel fractions, so Dawn's end-of-row check can miss
+    // by ~1px and the "next" arrow never fades. Allow 2px for this slider only.
+    customElements.whenDefined('slider-component').then(() => {
+      const slider = document.getElementById('AmFeaturedSlider-{{ section.id }}');
+      if (!slider || !slider.isSlideVisible) return;
+      const isSlideVisible = slider.isSlideVisible.bind(slider);
+      slider.isSlideVisible = (element, offset = 0) => isSlideVisible(element, offset - 2);
+      slider.update();
+    });
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -141,7 +219,14 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "This Season" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Pieces in colour, chosen with conviction." },
     { "type": "text", "id": "view_all_label", "label": "View all label", "default": "View All Pieces" },
-    { "type": "url", "id": "view_all_url", "label": "View all link" }
+    { "type": "url", "id": "view_all_url", "label": "View all link" },
+    {
+      "type": "checkbox",
+      "id": "enable_carousel",
+      "label": "Enable carousel",
+      "info": "Turns on with 5 or more products. With 4 or fewer, the grid stays as it is.",
+      "default": false
+    }
   ],
   "blocks": [
     {

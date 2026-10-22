@@ -2963,3 +2963,104 @@ slider-component.slider-mobile-gutter {
     display: none;
   }
 }
+
+/* =========================================
+   AM FEATURED PRODUCTS — CAROUSEL
+   Only applies when "Enable carousel" is ticked AND the
+   section has 5+ products (adds .am-featured--carousel).
+   Other AM Featured Products sections are untouched.
+   ========================================= */
+
+/* Header: "View all" link + arrows, top-right */
+.am-featured--carousel .am-featured__head-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Track: horizontal scroll-snap row (overrides the 4-column grid) */
+.am-featured--carousel .am-featured__track {
+  --am-fp-gap: 36px;
+  --am-fp-full: 4;       /* full cards in view */
+  --am-fp-visible: 4.25; /* full cards + the peeking part */
+  position: relative;
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - var(--am-fp-gap) * var(--am-fp-full)) / var(--am-fp-visible));
+  gap: var(--am-fp-gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* Room so button focus rings aren't clipped by the scroll area */
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.am-featured--carousel .am-featured__track::-webkit-scrollbar {
+  display: none;
+}
+
+.am-featured--carousel .am-featured__track > .am-product-card {
+  scroll-snap-align: start;
+}
+
+/* Arrows: identical to the collection list carousel */
+.am-featured--carousel .slider-buttons {
+  gap: 8px;
+}
+
+.am-featured--carousel .slider-buttons .slider-button {
+  color: var(--am-cobalt);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.am-featured--carousel .slider-buttons .slider-button:not([disabled]):hover {
+  color: var(--am-cobalt-dark);
+}
+
+.am-featured--carousel .slider-buttons .slider-button .icon {
+  height: 7px;
+}
+
+.am-featured--carousel .slider-buttons .slider-button[disabled] {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.am-featured--carousel .slider-buttons .slider-button[disabled] .icon {
+  color: inherit;
+}
+
+/* Tablet: 2 full cards + half of the next */
+@media (max-width: 1024px) {
+  .am-featured--carousel .am-featured__track {
+    --am-fp-gap: 28px;
+    --am-fp-full: 2;
+    --am-fp-visible: 2.5;
+  }
+}
+
+/* Mobile: 1 full card + 0.6 of the next, swipe only (no arrows) */
+@media (max-width: 768px) {
+  .am-featured--carousel .am-featured__track {
+    --am-fp-gap: 20px;
+    --am-fp-full: 1;
+    --am-fp-visible: 1.6;
+  }
+
+  .am-featured--carousel .slider-buttons {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .am-featured--carousel .am-featured__track {
+    scroll-behavior: auto;
+  }
+}

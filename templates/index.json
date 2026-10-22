@@ -121,6 +121,18 @@
             "collection": "gifts"
           }
         },
+        "featured_collection_b9P6pq": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "art-deco-jewellery"
+          }
+        },
+        "featured_collection_LTbMaT": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "earrings"
+          }
+        },
         "featured_collection_cqhpHp": {
           "type": "featured_collection",
           "settings": {
@@ -132,26 +144,14 @@
           "settings": {
             "collection": "bracelets"
           }
-        },
-        "featured_collection_LTbMaT": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "earrings"
-          }
-        },
-        "featured_collection_b9P6pq": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "art-deco-jewellery"
-          }
         }
       },
       "block_order": [
         "featured_collection_mMtewA",
-        "featured_collection_cqhpHp",
-        "featured_collection_UtibFV",
+        "featured_collection_b9P6pq",
         "featured_collection_LTbMaT",
-        "featured_collection_b9P6pq"
+        "featured_collection_cqhpHp",
+        "featured_collection_UtibFV"
       ],
       "name": "t:sections.collection-list.presets.name",
       "settings": {
@@ -375,7 +375,7 @@
       "settings": {
         "image": "shopify://shop_images/faeb20d1-6eab-4c53-962a-442ce519042c.png",
         "eyebrow": "Meet the curator",
-        "body": "Standing in the Tate Modern gift shop, I realised nowhere online gathered artist-made jewellery that was genuinely different, so I built it. I love sculptural, colour-rich pieces with presence and  a boldness of approach that is very artist-specific. That's the heart of what is different about Atelier Modernista - originality and innovation just for you.",
+        "body": "Atelier Modernista is inspired by Charles Mingus’s maxim, 'Making the complicated simple, awesomely simple'. We collaborate with independent artists internationally to offer jewellery that makes you feel alive when you wear it.\nAll the pieces we offer aim to galvanise any outfit with a surprise dart of colour, a textural richness, or an unusual sculptural shape. I like to keep our collections small - I prefer showing you ten things we believe in completely than a hundred things we think you might like. Ultimately, we want you to look as interesting as you really are, with art you can wear.",
         "signoff": "Antonia",
         "link_label": "Our story →",
         "link_url": "/pages/philosophy",
@@ -398,6 +398,56 @@
         "customer_tag": "Atelier Circle",
         "padding_top": 56,
         "padding_bottom": 56
+      }
+    },
+    "pb_featured_products_QydhwQ": {
+      "type": "pb-featured-products",
+      "blocks": {
+        "product_iX43hr": {
+          "type": "product",
+          "settings": {
+            "product": "miro-spanish-dancer-earrings",
+            "badge": "New",
+            "badge_red": false
+          }
+        },
+        "product_4aYi9E": {
+          "type": "product",
+          "settings": {
+            "product": "miro-blue-necklace",
+            "badge": "New",
+            "badge_red": false
+          }
+        },
+        "product_eMtp9a": {
+          "type": "product",
+          "settings": {
+            "product": "miro-femme-et-oiseaux-golden-necklace",
+            "badge": "New",
+            "badge_red": false
+          }
+        },
+        "product_jW3ng6": {
+          "type": "product",
+          "settings": {
+            "product": "miro-red-enamel-parler-seul-earrings",
+            "badge": "New",
+            "badge_red": false
+          }
+        }
+      },
+      "block_order": [
+        "product_iX43hr",
+        "product_4aYi9E",
+        "product_eMtp9a",
+        "product_jW3ng6"
+      ],
+      "name": "AM — Featured Products",
+      "settings": {
+        "eyebrow": "Licensed by Successió Miró",
+        "heading": "Own A Miró",
+        "view_all_label": "The Miró Collection",
+        "view_all_url": "shopify://collections/miro"
       }
     },
     "pb_featured_products_ji63Ur": {
@@ -461,54 +511,26 @@
         "padding_bottom": 32
       }
     },
-    "pb_featured_products_QydhwQ": {
-      "type": "pb-featured-products",
-      "blocks": {
-        "product_iX43hr": {
-          "type": "product",
-          "settings": {
-            "product": "miro-spanish-dancer-earrings",
-            "badge": "New",
-            "badge_red": false
-          }
-        },
-        "product_4aYi9E": {
-          "type": "product",
-          "settings": {
-            "product": "miro-blue-necklace",
-            "badge": "New",
-            "badge_red": false
-          }
-        },
-        "product_eMtp9a": {
-          "type": "product",
-          "settings": {
-            "product": "miro-femme-et-oiseaux-golden-necklace",
-            "badge": "New",
-            "badge_red": false
-          }
-        },
-        "product_jW3ng6": {
-          "type": "product",
-          "settings": {
-            "product": "miro-red-enamel-parler-seul-earrings",
-            "badge": "New",
-            "badge_red": false
-          }
-        }
-      },
-      "block_order": [
-        "product_iX43hr",
-        "product_4aYi9E",
-        "product_eMtp9a",
-        "product_jW3ng6"
-      ],
-      "name": "AM — Featured Products",
+    "pb_editorial_pair_mJMapp": {
+      "type": "pb-editorial-pair",
+      "name": "AM — Editorial Pair",
       "settings": {
-        "eyebrow": "Licensed by Successió Miró",
-        "heading": "Own A Miró",
-        "view_all_label": "The Miró Collection",
-        "view_all_url": "shopify://collections/miro"
+        "image_1": "shopify://shop_images/Set_C_-_Elat_and_Curl_Set_6b371ccc-6f38-414d-ba1e-15462e96990f.jpg",
+        "image_position_1": "left",
+        "eyebrow_1": "Atelier Modernista",
+        "heading_1": "Silver + Gold",
+        "description_1": "Sculptural Elegance.",
+        "cta_label_1": "Buy Silver + Gold",
+        "cta_url_1": "shopify://collections/the-vermeil-edit",
+        "image_2": "shopify://shop_images/Screenshot_2026-09-09_at_14.51.05.png",
+        "image_position_2": "left",
+        "eyebrow_2": "Atelier Modernista",
+        "heading_2": "The Atelier Collection",
+        "description_2": "Browse our whole collection.",
+        "cta_label_2": "Explore Everything",
+        "cta_url_2": "shopify://collections/the-atelier-collection",
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "custom_liquid_frLff7": {
@@ -679,28 +701,6 @@
         "validity": ""
       }
     },
-    "pb_editorial_pair_mJMapp": {
-      "type": "pb-editorial-pair",
-      "name": "AM — Editorial Pair",
-      "settings": {
-        "image_1": "shopify://shop_images/Set_C_-_Elat_and_Curl_Set_6b371ccc-6f38-414d-ba1e-15462e96990f.jpg",
-        "image_position_1": "left",
-        "eyebrow_1": "Atelier Modernista",
-        "heading_1": "Silver + Gold",
-        "description_1": "Sculptural Elegance.",
-        "cta_label_1": "Buy Silver + Gold",
-        "cta_url_1": "shopify://collections/the-vermeil-edit",
-        "image_2": "shopify://shop_images/Screenshot_2026-09-09_at_14.51.05.png",
-        "image_position_2": "left",
-        "eyebrow_2": "Atelier Modernista",
-        "heading_2": "The Atelier Collection",
-        "description_2": "Browse our whole collection.",
-        "cta_label_2": "Explore Everything",
-        "cta_url_2": "shopify://collections/the-atelier-collection",
-        "padding_top": 40,
-        "padding_bottom": 40
-      }
-    },
     "pb_newsletter_kqjr68": {
       "type": "pb-newsletter",
       "disabled": true,
@@ -869,16 +869,16 @@
     "pb_featured_products_WLmgn6",
     "am_founder_strip_hp01",
     "am_circle_strip_hp01",
+    "pb_featured_products_QydhwQ",
     "pb_featured_products_ji63Ur",
     "custom_liquid_E3HMFj",
-    "pb_featured_products_QydhwQ",
+    "pb_editorial_pair_mJMapp",
     "custom_liquid_frLff7",
     "collection_list_WrH6mQ",
     "pb_collection_showcase_qqYFip",
     "pb_editorial_pair_wKmfbG",
     "pb_featured_products_TtK6DD",
     "arsenal_bars_chyBtz",
-    "pb_editorial_pair_mJMapp",
     "pb_newsletter_kqjr68",
     "custom-inspires",
     "blocks_Ew4x7P",

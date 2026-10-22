@@ -335,7 +335,7 @@
           "settings": {
             "product": "miro-1924-red-gold-earrings",
             "badge": "Bestseller",
-            "badge_red": false
+            "badge_red": true
           }
         },
         "product_xqnr66": {
@@ -343,7 +343,7 @@
           "settings": {
             "product": "architect-enamel-copper-earrings",
             "badge": "Bestseller",
-            "badge_red": false
+            "badge_red": true
           }
         },
         "product_NE7rPU": {

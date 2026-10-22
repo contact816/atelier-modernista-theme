@@ -322,11 +322,11 @@
     "pb_featured_products_WLmgn6": {
       "type": "pb-featured-products",
       "blocks": {
-        "product_NE7rPU": {
+        "product_XgU7hN": {
           "type": "product",
           "settings": {
-            "product": "miro-femme-et-oiseaux-golden-necklace",
-            "badge": "Bestseller",
+            "product": "art-deco-necklace",
+            "badge": "",
             "badge_red": false
           }
         },
@@ -346,6 +346,22 @@
             "badge_red": false
           }
         },
+        "product_NE7rPU": {
+          "type": "product",
+          "settings": {
+            "product": "miro-femme-et-oiseaux-golden-necklace",
+            "badge": "Bestseller",
+            "badge_red": false
+          }
+        },
+        "product_Y4VPE3": {
+          "type": "product",
+          "settings": {
+            "product": "bauhaus-purple-red-earrings",
+            "badge": "",
+            "badge_red": false
+          }
+        },
         "product_ejKpkQ": {
           "type": "product",
           "settings": {
@@ -356,9 +372,11 @@
         }
       },
       "block_order": [
-        "product_NE7rPU",
+        "product_XgU7hN",
         "product_kBJN3U",
         "product_xqnr66",
+        "product_NE7rPU",
+        "product_Y4VPE3",
         "product_ejKpkQ"
       ],
       "name": "AM — Featured Products",

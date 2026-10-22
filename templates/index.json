@@ -75,14 +75,14 @@
         "title": "",
         "heading_size": "h2",
         "image_ratio": "square",
-        "columns_desktop": 5,
+        "columns_desktop": 4,
         "enable_desktop_slider": true,
         "color_scheme": "",
         "show_view_all": false,
         "columns_mobile": "1",
         "swipe_on_mobile": true,
         "padding_top": 24,
-        "padding_bottom": 24
+        "padding_bottom": 8
       }
     },
     "pb_colour_edit_bJy89W": {

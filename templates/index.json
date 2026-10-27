@@ -719,21 +719,6 @@
         "enable_carousel": false
       }
     },
-    "arsenal_bars_chyBtz": {
-      "type": "arsenal-bars",
-      "disabled": true,
-      "name": "Arsenal Bars",
-      "settings": {
-        "show_announcement": false,
-        "announcement_text": "Shop the arsenal collection!",
-        "code_eyebrow": "",
-        "discount_code": "",
-        "discount_line": "",
-        "cta_text": "Shop the Arsenal Edit like the Champions we are!",
-        "cta_link": "shopify://pages/north-london-forever",
-        "validity": ""
-      }
-    },
     "pb_newsletter_kqjr68": {
       "type": "pb-newsletter",
       "disabled": true,
@@ -891,6 +876,31 @@
         "first_slide_duration": 7,
         "slide_duration": 4
       }
+    },
+    "am_reading_list_header_pQcncC": {
+      "type": "am-reading-list-header",
+      "name": "AM Library header",
+      "settings": {
+        "eyebrow": "The Atelier Modernista Library",
+        "title": "The books that made us",
+        "introduction": "<p>The books we have returned to, underlined, recommended and given as gifts. Together, they have shaped the way we see art, colour, architecture, design and the world around us.</p>",
+        "bookshop_url": "https://ateliermodernista.com/pages/the-atelier-modernista-library?srsltid=AYCX9vInb2Tgk1PV5V6TJv6tmsg52R5q3aK1wV_Cgx7LST9UQJ8o9iYb",
+        "link_label": "Visit our Bookshop",
+        "open_new_tab": true,
+        "alignment": "centre",
+        "show_rule": true,
+        "heading_font": "assistant_n4",
+        "body_font": "assistant_n4",
+        "heading_size": 54,
+        "heading_size_mobile": 40,
+        "body_size": 18,
+        "max_width": 760,
+        "background_colour": "#fdf6e3",
+        "text_colour": "#1a1a1a",
+        "accent_colour": "#0047ab",
+        "padding_top": 72,
+        "padding_bottom": 20
+      }
     }
   },
   "order": [
@@ -911,13 +921,13 @@
     "pb_collection_showcase_qqYFip",
     "pb_editorial_pair_wKmfbG",
     "pb_featured_products_TtK6DD",
-    "arsenal_bars_chyBtz",
     "pb_newsletter_kqjr68",
     "custom-inspires",
     "blocks_Ew4x7P",
     "image_with_text_NMgRYF",
     "17835973092b47e3f7",
     "arsenal_email_fqktkK",
-    "am_hero_carousel_mAGHzJ"
+    "am_hero_carousel_mAGHzJ",
+    "am_reading_list_header_pQcncC"
   ]
 }

@@ -1,0 +1,17 @@
+# PARTIAL TEMPLATE — not pulled from the Dev Dashboard (this sandbox can't reach
+# accounts.shopify.com to run `shopify app config link`). Do not use this file as-is.
+#
+# Steps to use it for real, on your own machine where Shopify's domains aren't blocked:
+#   1. cd into an empty folder
+#   2. shopify app config link --client-id=46771037889beacd996bf8f911f4f778
+#      -> this pulls the REAL file (name, application_url, redirect_urls, etc.)
+#   3. Open the resulting shopify.app.toml and replace its [access_scopes] block
+#      with the one below
+#   4. shopify app config push
+#   5. Install/re-authorize the app on sitkwe-ez.myshopify.com to mint a token
+#      that actually carries the new scopes
+
+client_id = "46771037889beacd996bf8f911f4f778"
+
+[access_scopes]
+scopes = "read_customers,write_customers"

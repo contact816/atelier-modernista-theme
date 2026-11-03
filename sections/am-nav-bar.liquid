@@ -35,8 +35,18 @@
 
   /* Type "|" in the announcement text to mark a line break for phones. Desktop keeps one line. */
   .am-site-header__announcement-line {
-    display: inline;
+  display: inline;
+}
+
+.am-site-header__announcement-line + .am-site-header__announcement-line {
+  margin-left: 5px;
+}
+
+@media screen and (max-width: 749px) {
+  .am-site-header__announcement-line + .am-site-header__announcement-line {
+    margin-left: 0;
   }
+}
 
   .am-site-header__announcement a {
     color: inherit;

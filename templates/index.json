@@ -9,8 +9,19 @@
  */
 {
   "sections": {
+    "custom_liquid_hPtzhK": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<style>\n.am-xh{width:calc(100% - 32px);max-width:980px;margin:24px auto 36px;padding:40px 24px 44px;background:#B01B2E;background:linear-gradient(135deg,#B01B2E 0%,#7f0205 100%);color:#fdf6e3;box-sizing:border-box;position:relative;overflow:hidden;border:10px solid #bf8950}\n.am-xh *{box-sizing:border-box}\n.am-xh__star{position:absolute;pointer-events:none;width:34px;height:34px}\n.am-xh__star--a{top:22px;right:26px;width:40px;height:40px}\n.am-xh__star--b{bottom:20px;left:24px;width:26px;height:26px;opacity:.9}\n.am-xh__star--c{top:46%;right:14px;width:20px;height:20px;opacity:.8}\n.am-xh__text,.am-xh__imgs{position:relative;z-index:2}\n.am-xh__eyebrow{margin:0 0 12px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;color:#e6c79a;text-transform:uppercase;font-weight:500}\n.am-xh__title{margin:0 0 14px!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-size:42px!important;line-height:1.02!important;font-weight:400!important;color:#fdf6e3!important;letter-spacing:0!important;text-transform:none!important}\n.am-xh__title em{color:#e6c79a;font-style:italic}\n.am-xh__copy{margin:0 0 22px;font-family:'Jost',sans-serif;font-size:15px;line-height:1.55;color:#fdf6e3}\n.am-xh__btn{display:inline-block;padding:15px 30px;background:#fdf6e3;color:#1a1a18!important;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:0}\n.am-xh__btn:hover{background:#e6c79a}\n.am-xh__fine{margin:16px 0 0;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.5px;color:#fdf6e3;opacity:.92}\n.am-xh__imgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:30px 0 56px}\n.am-xh__imgs a{display:block;position:relative;aspect-ratio:4/5;overflow:hidden;border:5px solid #fdf6e3;background:#fff;box-shadow:0 6px 16px rgba(40,4,6,.3)}\n.am-xh__imgs a:nth-child(1){transform:rotate(-2deg)}\n.am-xh__imgs a:nth-child(2){transform:translateY(-8px) rotate(1deg)}\n.am-xh__imgs a:nth-child(3){transform:rotate(-1deg)}\n.am-xh__imgs img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}\n.am-xh__seal{position:absolute;z-index:3;right:0;bottom:-78px;width:92px;height:92px;border-radius:50%;background:#fdf6e3;color:#B01B2E;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(8deg);box-shadow:0 4px 12px rgba(40,4,6,.3);border:3px solid #bf8950;font-family:'Jost',sans-serif;line-height:1.1}\n.am-xh__seal b{font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:500;display:block}\n.am-xh__seal span{font-size:9px;letter-spacing:1px;text-transform:uppercase;display:block}\n@media(min-width:750px){.am-xh{display:grid;grid-template-columns:1fr 1.1fr;gap:44px;align-items:center;padding:56px 48px 60px}.am-xh__title{font-size:58px!important}.am-xh__imgs{margin:0 0 70px}.am-xh__seal{width:112px;height:112px;right:0;bottom:-96px}.am-xh__seal b{font-size:30px}.am-xh__seal span{font-size:10px}}\n.am-rc{max-width:980px;margin:0 auto 36px;padding:0 16px;box-sizing:border-box}\n.am-rc *{box-sizing:border-box}\n.am-rc__head{text-align:center;margin:0 0 16px}\n.am-rc__eyebrow{margin:0 0 6px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#B01B2E}\n.am-rc__title{margin:0!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-size:30px!important;font-weight:400!important;line-height:1.1!important;color:#1a1a18!important;letter-spacing:0!important;text-transform:none!important}\n.am-rc__hint{margin:8px 0 0;font-family:'Jost',sans-serif;font-size:12px;color:#6b675e}\n.am-rc__track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 2px 16px;scrollbar-width:thin;scrollbar-color:#bf8950 #f1e6cf}\n.am-rc__track::-webkit-scrollbar{height:6px}\n.am-rc__track::-webkit-scrollbar-track{background:#f1e6cf}\n.am-rc__track::-webkit-scrollbar-thumb{background:#bf8950}\n.am-rc__card{flex:0 0 62%;max-width:260px;scroll-snap-align:start;text-decoration:none;color:#1a1a18;display:block}\n.am-rc__img{display:block;position:relative;aspect-ratio:4/5;background:#fff;border:1px solid #bf8950;overflow:hidden}\n.am-rc__img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}\n.am-rc__name{display:block;margin:10px 0 2px;font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;line-height:1.2}\n.am-rc__price{display:block;font-family:'Jost',sans-serif;font-size:14px;color:#B01B2E}\n.am-rc__tag{display:block;margin-top:3px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#6b675e}\n.am-rc__card:hover .am-rc__name{color:#B01B2E}\n@media(min-width:750px){.am-rc__card{flex-basis:calc(25% - 11px);max-width:none}.am-rc__title{font-size:38px!important}.am-rc__hint{display:none}}\n</style>\n\n<section class=\"am-xh\" aria-label=\"Christmas edit: Miró red and gold\">\n<svg class=\"am-xh__star am-xh__star--a\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><g stroke=\"#e6c79a\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"><path d=\"M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7\"/></g></svg>\n<svg class=\"am-xh__star am-xh__star--b\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><g stroke=\"#e6c79a\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"><path d=\"M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7\"/></g></svg>\n<svg class=\"am-xh__star am-xh__star--c\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><g stroke=\"#e6c79a\" stroke-width=\"2.4\" stroke-linecap=\"round\" fill=\"none\"><path d=\"M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7\"/></g></svg>\n<div class=\"am-xh__text\">\n<p class=\"am-xh__eyebrow\">The Christmas Edit 2026</p>\n<h2 class=\"am-xh__title\">Red and gold, <em>after Miró</em></h2>\n<p class=\"am-xh__copy\">Officially licensed Miró jewellery from Joidart in Barcelona, wrapped free over £75 with a handwritten card.</p>\n<a class=\"am-xh__btn\" href=\"/pages/christmas-jewellery-gifts\">Shop the Christmas edit</a>\n<p class=\"am-xh__fine\">Order by 16 Dec · Express by 20 Dec · Free 30-day returns</p>\n</div>\n<div class=\"am-xh__imgs\">\n<a href=\"/products/miro-1924-red-gold-earrings\"><img src=\"https://cdn.shopify.com/s/files/1/0974/7480/6097/files/M9999AR443200-S_l_3280ba33-d0a2-4e16-b852-a4e5fd38e79f.jpg?v=1785588764&amp;width=700\" alt=\"Miró 1924 Earrings in red and gold, officially licensed\" loading=\"eager\"></a>\n<a href=\"/products/miro-joyous-red-pendant\"><img src=\"https://cdn.shopify.com/s/files/1/0974/7480/6097/files/M9999CO463200-S26_l.jpg?v=1779284748&amp;width=700\" alt=\"Miró Red Pendant in gold and red enamel, officially licensed\" loading=\"eager\"></a>\n<a href=\"/products/miro-spanish-dancer-capsule-earrings-and-necklace\"><img src=\"https://cdn.shopify.com/s/files/1/0974/7480/6097/files/M9999AR123000-F2_adl_a7ab056d-b560-450a-9d73-815e2c75a5ea.jpg?v=1785588761&amp;width=700\" alt=\"Miró Spanish Dancer earrings and necklace capsule, officially licensed\" loading=\"eager\"></a>\n<div class=\"am-xh__seal\"><b>Free</b><span>gift wrapping</span><span>over £75</span></div>\n</div>\n</section>\n\n<section class=\"am-rc\" aria-label=\"The red and gold edit\">\n<div class=\"am-rc__head\">\n<p class=\"am-rc__eyebrow\">Miró and Iskin</p>\n<h2 class=\"am-rc__title\">The red and gold edit</h2>\n<p class=\"am-rc__hint\">Swipe to see more →</p>\n</div>\n<div class=\"am-rc__track\">\n<a class=\"am-rc__card\" href=\"/products/miro-1924-red-gold-earrings\"><span class=\"am-rc__img\"><img src=\"https://cdn.shopify.com/s/files/1/0974/7480/6097/files/M9999AR443200-S_l_3280ba33-d0a2-4e16-b852-a4e5fd38e79f.jpg?v=1785588764&amp;width=700\" alt=\"Miró 1924 Earrings in red and gold\" loading=\"eager\"></span><span class=\"am-rc__name\">Miró 1924 Earrings, Red + Gold</span><span class=\"am-rc__price\">£80</span><span class=\"am-rc__tag\">Officially licensed</span></a>\n<a class=\"am-rc__card\" href=\"/products/miro-joyous-red-pendant\"><span class=\"am-rc__img\"><img src=\"https://cdn.shopify.com/s/files/1/0974/7480/6097/files/M9999CO463200-S26_l.jpg?v=1779284748&amp;width=700\" alt=\"Miró Red Pendant in gold and red enamel\" loading=\"eager\"></span><span class=\"am-rc__name\">Miró Red Pendant</span><span class=\"am-rc__price\">£85</span><span class=\"am-rc__tag\">Officially licensed</span></a>\n<a class=\"am-rc__card\" href=\"/products/miro-red-circle-earrings\"><span class=\"am-rc__img\"><img src=\"https://cdn.shopify.com/s/files/1/0974/7480/6097/files/M9999AR373200-S_l.jpg?v=1779291388&amp;width=700\" alt=\"Miró Red Circle Earrings in gold and red enamel\" loading=\"lazy\"></span><span class=\"am-rc__name\">Miró Red Circle Earrings</span><span class=\"am-rc__price\">£95</span><span class=\"am-rc__tag\">Officially licensed</span></a>\n<a class=\"am-rc__card\" href=\"/products/iskin-abstraction-necklace-red-leather\"><span class=\"am-rc__img\"><img src=\"https://cdn.shopify.com/s/files/1/0974/7480/6097/files/EE52LRD_-_EE54LRD_6_b1921f72-9e44-47f6-b2d5-e3105b20a055.jpg?v=1785589007&amp;width=700\" alt=\"Iskin Abstraction necklace in red leather\" loading=\"eager\"></span><span class=\"am-rc__name\">Iskin Abstraction Necklace, Red</span><span class=\"am-rc__price\">£175</span><span class=\"am-rc__tag\">By the Iskin sisters</span></a>\n<a class=\"am-rc__card\" href=\"/products/miro-femme-et-oiseaux-golden-necklace\"><span class=\"am-rc__img\"><img src=\"https://cdn.shopify.com/s/files/1/0974/7480/6097/files/M9999CO103200-S_l_27c33528-5b5d-432d-9175-872896cc6840.jpg?v=1785588762&amp;width=700\" alt=\"Miró Femme et Oiseaux gold necklace\" loading=\"lazy\"></span><span class=\"am-rc__name\">Miró Femme et Oiseaux Necklace</span><span class=\"am-rc__price\">£120</span><span class=\"am-rc__tag\">Officially licensed</span></a>\n<a class=\"am-rc__card\" href=\"/products/miro-stars-long-earrings-in-gold\"><span class=\"am-rc__img\"><img src=\"https://cdn.shopify.com/s/files/1/0974/7480/6097/files/miro-stars_2026-11-01_15-55-54_1404c9b8.jpg?v=1793548929&amp;width=700\" alt=\"Miró Stars long earrings in gold\" loading=\"lazy\"></span><span class=\"am-rc__name\">Miró Stars Earrings in Gold</span><span class=\"am-rc__price\">£155</span><span class=\"am-rc__tag\">Officially licensed</span></a>\n<a class=\"am-rc__card\" href=\"/products/golden-ring-miro-jewelry-star\"><span class=\"am-rc__img\"><img src=\"https://cdn.shopify.com/s/files/1/0974/7480/6097/files/M9999AN223200-S_l_af373a4f-d079-4434-a76a-f5633bed83ff.jpg?v=1785588767&amp;width=700\" alt=\"Miró Sun Woman gold ring\" loading=\"lazy\"></span><span class=\"am-rc__name\">Miró Sun Woman Ring</span><span class=\"am-rc__price\">£75</span><span class=\"am-rc__tag\">Officially licensed</span></a>\n</div>\n</section>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
     "pb_hero_MJ4EMh": {
       "type": "pb-hero",
+      "disabled": true,
       "custom_css": [],
       "name": "AM — Hero",
       "settings": {
@@ -574,56 +585,6 @@
         "padding_bottom": 8
       }
     },
-    "collection_list_WrH6mQ": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_QjXmFa": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "under-75-copy"
-          }
-        },
-        "featured_collection_zpb6GB": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "75-150-copy"
-          }
-        },
-        "featured_collection_ULzb9J": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "150-300-copy"
-          }
-        },
-        "featured_collection_edqXG4": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "luxury-art-jewellery-250-plus"
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_QjXmFa",
-        "featured_collection_zpb6GB",
-        "featured_collection_ULzb9J",
-        "featured_collection_edqXG4"
-      ],
-      "disabled": true,
-      "name": "t:sections.collection-list.presets.name",
-      "settings": {
-        "title": "Collections",
-        "heading_size": "h1",
-        "image_ratio": "square",
-        "columns_desktop": 3,
-        "enable_desktop_slider": true,
-        "color_scheme": "",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "pb_collection_showcase_qqYFip": {
       "type": "pb-collection-showcase",
       "disabled": true,
@@ -904,6 +865,7 @@
     }
   },
   "order": [
+    "custom_liquid_hPtzhK",
     "pb_hero_MJ4EMh",
     "featured_product_KXhDnK",
     "collection_list_PDpm3K",
@@ -917,7 +879,6 @@
     "custom_liquid_E3HMFj",
     "pb_editorial_pair_mJMapp",
     "custom_liquid_frLff7",
-    "collection_list_WrH6mQ",
     "pb_collection_showcase_qqYFip",
     "pb_editorial_pair_wKmfbG",
     "pb_featured_products_TtK6DD",

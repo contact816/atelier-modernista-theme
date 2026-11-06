@@ -1,0 +1,98 @@
+{%- style -%}
+.amtwo-{{ section.id }}{display:grid;grid-template-columns:1fr;gap:28px;max-width:1080px;margin:0 auto;padding:{{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;box-sizing:border-box}
+.amtwo-{{ section.id }} *{box-sizing:border-box}
+.amtwo-{{ section.id }} .amtwo__box{display:flex;flex-direction:column;padding:14px;border:1px solid #bf8950;border-radius:3px;box-shadow:0 18px 40px rgba(60,10,14,.18),0 2px 6px rgba(60,10,14,.08);transition:transform .25s ease,box-shadow .25s ease}
+.amtwo-{{ section.id }} .amtwo__box:hover{transform:translateY(-4px);box-shadow:0 24px 48px rgba(60,10,14,.24),0 2px 6px rgba(60,10,14,.1)}
+.amtwo-{{ section.id }} .amtwo__box--party{background:linear-gradient(145deg,#B01B2E 0%,#7f0205 100%)}
+.amtwo-{{ section.id }} .amtwo__box--gift{background:#fffaf0}
+.amtwo-{{ section.id }} .amtwo__img{display:block;position:relative;aspect-ratio:1/1;overflow:hidden;background:#f1e6cf;border:1px solid #bf8950}
+.amtwo-{{ section.id }} .amtwo__img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.amtwo-{{ section.id }} .amtwo__box:hover .amtwo__img img{transform:scale(1.04)}
+.amtwo-{{ section.id }} .amtwo__body{display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;padding:36px 24px 30px}
+.amtwo-{{ section.id }} .amtwo__eyebrow{margin:0 0 14px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:500}
+.amtwo-{{ section.id }} .amtwo__rule{display:block;width:44px;height:1px;background:#bf8950;margin:0 auto 18px}
+.amtwo-{{ section.id }} .amtwo__heading{margin:0 0 16px;font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;letter-spacing:0;text-transform:none;font-size:clamp(32px,4vw,44px);line-height:1.05}
+.amtwo-{{ section.id }} .amtwo__copy{margin:0 0 28px;max-width:34ch;font-family:'Jost',sans-serif;font-size:16px;line-height:1.65}
+.amtwo-{{ section.id }} .amtwo__btn{display:inline-block;margin-top:auto;padding:16px 36px;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;border-radius:0;transition:background .2s ease}
+.amtwo-{{ section.id }} .amtwo__fine{margin:18px 0 0;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.6px}
+.amtwo-{{ section.id }} .amtwo__box--party .amtwo__eyebrow{color:#e6c79a!important}
+.amtwo-{{ section.id }} .amtwo__box--party .amtwo__heading,.amtwo-{{ section.id }} .amtwo__box--party .amtwo__copy,.amtwo-{{ section.id }} .amtwo__box--party .amtwo__fine{color:#fdf6e3!important}
+.amtwo-{{ section.id }} .amtwo__box--party .amtwo__fine{opacity:.85}
+.amtwo-{{ section.id }} .amtwo__box--party .amtwo__btn{background:#fdf6e3;color:#1a1a18!important}
+.amtwo-{{ section.id }} .amtwo__box--party .amtwo__btn:hover{background:#e6c79a}
+.amtwo-{{ section.id }} .amtwo__box--gift .amtwo__eyebrow{color:#B01B2E!important}
+.amtwo-{{ section.id }} .amtwo__box--gift .amtwo__heading,.amtwo-{{ section.id }} .amtwo__box--gift .amtwo__copy{color:#1a1a18!important}
+.amtwo-{{ section.id }} .amtwo__box--gift .amtwo__fine{color:#6b675e!important}
+.amtwo-{{ section.id }} .amtwo__box--gift .amtwo__btn{background:#B01B2E;color:#fdf6e3!important}
+.amtwo-{{ section.id }} .amtwo__box--gift .amtwo__btn:hover{background:#7f0205}
+@media(min-width:750px){.amtwo-{{ section.id }}{grid-template-columns:1fr 1fr;gap:36px}.amtwo-{{ section.id }} .amtwo__img{aspect-ratio:4/5}.amtwo-{{ section.id }} .amtwo__body{padding:40px 32px 34px}}
+{%- endstyle -%}
+
+<section class="amtwo-{{ section.id }}" aria-label="Shop Christmas jewellery">
+{%- assign boxes = 'party,gift' | split: ',' -%}
+{%- for b in boxes -%}
+  {%- assign k_image = b | append: '_image' -%}
+  {%- assign k_pos = b | append: '_position' -%}
+  {%- assign k_eyebrow = b | append: '_eyebrow' -%}
+  {%- assign k_heading = b | append: '_heading' -%}
+  {%- assign k_text = b | append: '_text' -%}
+  {%- assign k_button = b | append: '_button' -%}
+  {%- assign k_link = b | append: '_link' -%}
+  {%- assign k_fine = b | append: '_fine' -%}
+  {%- assign img = section.settings[k_image] -%}
+  {%- assign link = section.settings[k_link] -%}
+  {%- if link == blank -%}
+    {%- if b == 'party' -%}{%- assign link = '/collections/christmas-party-jewellery' -%}{%- else -%}{%- assign link = '/pages/christmas-jewellery-gifts' -%}{%- endif -%}
+  {%- endif -%}
+  <div class="amtwo__box amtwo__box--{{ b }}">
+    <a class="amtwo__img" href="{{ link }}">
+      {%- if img != blank -%}
+        <img src="{{ img | image_url: width: 1000 }}" srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 1000 }} 1000w, {{ img | image_url: width: 1400 }} 1400w" sizes="(min-width: 750px) 520px, 100vw" alt="{{ img.alt | default: section.settings[k_heading] | escape }}" style="object-position:50% {{ section.settings[k_pos] }}%" loading="eager" width="{{ img.width }}" height="{{ img.height }}">
+      {%- endif -%}
+    </a>
+    <div class="amtwo__body">
+      {%- if section.settings[k_eyebrow] != blank -%}<p class="amtwo__eyebrow">{{ section.settings[k_eyebrow] }}</p>{%- endif -%}
+      <span class="amtwo__rule"></span>
+      <div class="amtwo__heading" role="heading" aria-level="2">{{ section.settings[k_heading] }}</div>
+      {%- if section.settings[k_text] != blank -%}<p class="amtwo__copy">{{ section.settings[k_text] }}</p>{%- endif -%}
+      {%- if section.settings[k_button] != blank -%}<a class="amtwo__btn" href="{{ link }}">{{ section.settings[k_button] }}</a>{%- endif -%}
+      {%- if section.settings[k_fine] != blank -%}<p class="amtwo__fine">{{ section.settings[k_fine] }}</p>{%- endif -%}
+    </div>
+  </div>
+{%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "AM Two Boxes",
+  "tag": "div",
+  "settings": [
+    { "type": "header", "content": "Left box: Party" },
+    { "type": "image_picker", "id": "party_image", "label": "Image" },
+    { "type": "range", "id": "party_position", "label": "Image focus (0 = top, 100 = bottom)", "min": 0, "max": 100, "step": 5, "default": 30 },
+    { "type": "text", "id": "party_eyebrow", "label": "Small label", "default": "Christmas Party Season" },
+    { "type": "text", "id": "party_heading", "label": "Heading", "default": "Christmas Party Jewellery" },
+    { "type": "textarea", "id": "party_text", "label": "Text", "default": "Statement earrings and pendants in red, gold and bold colour, including officially licensed Miró." },
+    { "type": "text", "id": "party_button", "label": "Button label", "default": "Shop party jewellery" },
+    { "type": "url", "id": "party_link", "label": "Link (image and button)" },
+    { "type": "text", "id": "party_fine", "label": "Fine print", "default": "Order by 16 Dec · Free 30-day returns" },
+
+    { "type": "header", "content": "Right box: Gift" },
+    { "type": "image_picker", "id": "gift_image", "label": "Image" },
+    { "type": "range", "id": "gift_position", "label": "Image focus (0 = top, 100 = bottom)", "min": 0, "max": 100, "step": 5, "default": 30 },
+    { "type": "text", "id": "gift_eyebrow", "label": "Small label", "default": "The Christmas Edit 2026" },
+    { "type": "text", "id": "gift_heading", "label": "Heading", "default": "Gift Jewellery" },
+    { "type": "textarea", "id": "gift_text", "label": "Text", "default": "Pieces she will actually wear, wrapped free over £75 with a handwritten card." },
+    { "type": "text", "id": "gift_button", "label": "Button label", "default": "Shop gift jewellery" },
+    { "type": "url", "id": "gift_link", "label": "Link (image and button)" },
+    { "type": "text", "id": "gift_fine", "label": "Fine print", "default": "Order by 16 Dec · Express by 20 Dec" },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Space above", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Space below", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 56 }
+  ],
+  "presets": [
+    { "name": "AM Two Boxes" }
+  ]
+}
+{% endschema %}

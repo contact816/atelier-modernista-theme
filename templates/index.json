@@ -24,7 +24,7 @@
         "gift_image": "shopify://shop_images/M9999CO123000-VP_adl_ebda8040-50b9-41e3-81d1-52b10116b3c4.jpg",
         "gift_position": 100,
         "gift_eyebrow": "The Christmas Edit 2026",
-        "gift_heading": "Jewellery Gifts for Christmas",
+        "gift_heading": "Christmas Jewellery Gifts",
         "gift_text": "Pieces they'll really love, luxuriously gift-wrapped with a handwritten card.",
         "gift_button": "Shop Christmas Jewellery Gifts",
         "gift_link": "shopify://pages/christmas-jewellery-gifts",
@@ -280,7 +280,7 @@
         "columns_mobile": "1",
         "swipe_on_mobile": true,
         "padding_top": 40,
-        "padding_bottom": 36
+        "padding_bottom": 0
       }
     },
     "pb_colour_edit_bJy89W": {

@@ -1,0 +1,451 @@
+{%- liquid
+  assign s = section.settings
+  assign base = s.base_url | default: '/pages/christmas-jewellery-gifts'
+  assign z0 = s.hero_zoom | divided_by: 100.0
+  assign z1 = z0 | plus: 0.08
+  assign ov = s.hero_overlay | divided_by: 100.0
+  assign ov2 = ov | times: 0.5
+  if s.row_background == 'burgundy'
+    assign row_cls = 'ah-row--burgundy'
+  else
+    assign row_cls = 'ah-row--plain'
+  endif
+  assign hero_link = s.hero_link | default: base
+-%}
+{% style %}
+  #am-ah-{{ section.id }} {
+    --b1: {{ s.burgundy_1 }};
+    --b2: {{ s.burgundy_2 }};
+    --ch: {{ s.color_heading }};
+    --cs: {{ s.color_small }};
+    --accent: {{ s.accent }};
+    --hh: {{ s.hero_height }}px;
+    --hs: {{ s.hero_heading_size }}px;
+    --fx: {{ s.hero_focus_x }}%;
+    --fy: {{ s.hero_focus_y }}%;
+    --z0: {{ z0 }};
+    --z1: {{ z1 }};
+    --rp: {{ s.row_padding }}px;
+    --ov: {{ ov }};
+    --ov2: {{ ov2 }};
+  }
+  @media (max-width: 749px) {
+    #am-ah-{{ section.id }} { --hh: {{ s.hero_height_mobile }}px; --hs: {{ s.hero_heading_size | times: 0.6 | round }}px; --rp: {{ s.row_padding | times: 0.65 | round }}px; }
+  }
+{% endstyle %}
+<style>
+.am-ah{width:100%;overflow:hidden}
+.am-ah *{box-sizing:border-box}
+.am-ah p{margin:0;line-height:1.5}
+.am-ah a{text-decoration:none}
+.ah-hero{position:relative;height:var(--hh);background:#17130f;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:0 7% 56px;text-align:left}
+.ah-hero--center{align-items:center;text-align:center}
+.ah-hero__img{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
+.ah-hero__img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:var(--fx) var(--fy);transform:scale(var(--z0));transform-origin:var(--fx) var(--fy)}
+.ah-hero--zoom .ah-hero__img img{animation:ahzoom 26s ease-in-out infinite alternate}
+@keyframes ahzoom{from{transform:scale(var(--z0))}to{transform:scale(var(--z1))}}
+.ah-hero__shade{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to top,rgba(14,10,8,var(--ov)) 0,rgba(14,10,8,var(--ov2)) 38%,rgba(14,10,8,0) 68%)}
+.ah-spark{position:absolute;left:var(--x);top:var(--y);width:18px;height:18px;margin:-9px 0 0 -9px;opacity:0;pointer-events:none;background:radial-gradient(circle,#fff 0,rgba(255,236,170,.7) 2px,transparent 7px);animation:ahtw 5.5s ease-in-out infinite;animation-delay:var(--d)}
+.ah-spark::before,.ah-spark::after{content:"";position:absolute;left:50%;top:50%}
+.ah-spark::before{width:18px;height:1px;margin:-.5px 0 0 -9px;background:linear-gradient(90deg,transparent,#fff3c9,transparent)}
+.ah-spark::after{width:1px;height:18px;margin:-9px 0 0 -.5px;background:linear-gradient(180deg,transparent,#fff3c9,transparent)}
+@keyframes ahtw{0%,100%{opacity:0;transform:scale(.35) rotate(0deg)}50%{opacity:.95;transform:scale(1) rotate(45deg)}}
+@media(prefers-reduced-motion:reduce){.ah-hero--zoom .ah-hero__img img,.ah-spark{animation:none}.ah-spark{display:none}}
+.ah-hero__in{position:relative;z-index:2;max-width:560px}
+.am-ah .ah-eye{margin-bottom:12px!important;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:#f8d98a!important;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.am-ah .ah-hero h2{margin:0!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-weight:400!important;font-size:var(--hs)!important;line-height:1.04!important;letter-spacing:.005em!important;text-transform:none!important;color:#fff!important;text-shadow:0 2px 18px rgba(0,0,0,.45)}
+.ah-rule{display:block;width:64px;height:2px;background:var(--accent);margin:18px 0 16px}
+.ah-hero--center .ah-rule{margin-left:auto;margin-right:auto}
+.am-ah .ah-sub{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:22px;color:#f5e8c8!important;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.ah-cta{display:inline-block;margin-top:26px;padding:15px 34px;background:#fdf6e3;color:#1a1a18!important;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;transition:background .25s}
+.ah-cta:hover{background:#e9b949}
+.ah-row{padding:var(--rp) 0}
+.ah-row--plain{--rt:#1a1a18;--rs:#8a5a22;--rb:#1a1a18;--rbh:#fff}
+.ah-row--burgundy{--rt:var(--ch);--rs:var(--cs);--rb:var(--cs);--rbh:var(--b2);background:var(--b1);background:linear-gradient(180deg,var(--b1) 0%,var(--b2) 100%)}
+.ah-row__in{max-width:1100px;margin:0 auto;padding:0 20px;text-align:center}
+.am-ah .ah-row h2{margin:0!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-weight:400!important;font-size:38px!important;line-height:1.1!important;letter-spacing:.01em!important;text-transform:none!important;color:var(--rt)!important}
+.ah-row h2::after{content:"";display:block;width:56px;height:2px;background:var(--accent);margin:14px auto 0}
+.ah-row--burgundy h2::after{background:var(--cs)}
+.ah-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:26px 18px;max-width:900px;margin:34px auto 0}
+.ah-tile{flex:0 0 calc((100% - 3 * 18px) / 4);display:block;text-align:center}
+.ah-tile__img{display:block;position:relative;aspect-ratio:1/1;overflow:hidden;background:#fff;border:1px solid rgba(26,26,24,.2)}
+.ah-row--burgundy .ah-tile__img{border-color:rgba(223,190,120,.55)}
+.ah-tile__img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .7s}
+.ah-tile:hover .ah-tile__img img{opacity:.82}
+.am-ah .ah-tile__t{display:block;padding:14px 4px 3px;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;line-height:1.1;color:var(--rt)}
+.am-ah .ah-tile__s{display:block;padding:0 4px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--rs)}
+.am-ah .ah-btn{display:inline-block;margin-top:34px;padding:14px 30px;border:1px solid var(--rb);color:var(--rt)!important;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;transition:background .25s,color .25s}
+.am-ah .ah-btn:hover{background:var(--rt);color:var(--rbh)!important}
+@media(max-width:900px){.ah-tile{flex-basis:calc((100% - 18px) / 2)}}
+@media(max-width:749px){.ah-hero{padding:0 6% 36px}.am-ah .ah-sub{font-size:18px}.ah-cta{margin-top:20px;padding:13px 26px}.am-ah .ah-row h2{font-size:28px!important}.ah-row__in{padding:0 12px}.ah-grid{gap:20px 10px;margin-top:26px}.ah-tile{flex-basis:calc((100% - 10px) / 2)}.am-ah .ah-tile__t{font-size:18px;padding-top:10px}.am-ah .ah-tile__s{font-size:9px;letter-spacing:.14em}}
+</style>
+
+<div class="am-ah" id="am-ah-{{ section.id }}">
+
+  {%- if s.hero_image != blank -%}
+    <div class="ah-hero{% if s.text_align == 'center' %} ah-hero--center{% endif %}{% if s.slow_zoom %} ah-hero--zoom{% endif %}">
+      <div class="ah-hero__img">
+        <img src="{{ s.hero_image | image_url: width: 2000 }}"
+             srcset="{{ s.hero_image | image_url: width: 800 }} 800w, {{ s.hero_image | image_url: width: 1400 }} 1400w, {{ s.hero_image | image_url: width: 2000 }} 2000w"
+             sizes="100vw" width="{{ s.hero_image.width }}" height="{{ s.hero_image.height }}"
+             alt="{{ s.hero_image.alt | default: s.hero_heading | escape }}" loading="eager" fetchpriority="high">
+      </div>
+      <div class="ah-hero__shade"></div>
+      {%- if s.sparkle -%}
+        <i class="ah-spark" style="--x:72%;--y:28%;--d:0s"></i>
+        <i class="ah-spark" style="--x:84%;--y:18%;--d:1.2s"></i>
+        <i class="ah-spark" style="--x:64%;--y:46%;--d:2.4s"></i>
+        <i class="ah-spark" style="--x:90%;--y:52%;--d:.6s"></i>
+        <i class="ah-spark" style="--x:78%;--y:70%;--d:3s"></i>
+        <i class="ah-spark" style="--x:55%;--y:22%;--d:1.8s"></i>
+        <i class="ah-spark" style="--x:94%;--y:34%;--d:3.6s"></i>
+        <i class="ah-spark" style="--x:68%;--y:62%;--d:.3s"></i>
+      {%- endif -%}
+      <div class="ah-hero__in">
+        {%- if s.hero_eyebrow != blank -%}<p class="ah-eye">{{ s.hero_eyebrow }}</p>{%- endif -%}
+        {%- if s.hero_heading != blank -%}<h2>{{ s.hero_heading }}</h2>{%- endif -%}
+        {%- if s.hero_subline != blank -%}<span class="ah-rule"></span><p class="ah-sub">{{ s.hero_subline }}</p>{%- endif -%}
+        {%- if s.hero_button != blank -%}<a class="ah-cta" href="{{ hero_link }}">{{ s.hero_button }}</a>{%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="ah-row {{ row_cls }}">
+    <div class="ah-row__in">
+      {%- if s.row_heading != blank -%}<h2>{{ s.row_heading }}</h2>{%- endif -%}
+      <div class="ah-grid">
+        {%- for block in section.blocks -%}
+          {%- assign anchor = block.settings.anchor | handleize -%}
+          <a class="ah-tile" href="{{ base }}{% if anchor != blank %}#{{ anchor }}{% endif %}" {{ block.shopify_attributes }}>
+            <span class="ah-tile__img">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.label }}
+              {%- elsif block.settings.product.featured_image != blank -%}
+                {{ block.settings.product.featured_image | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.label }}
+              {%- endif -%}
+            </span>
+            <span class="ah-tile__t">{{ block.settings.label }}</span>
+            {%- if block.settings.note != blank -%}<span class="ah-tile__s">{{ block.settings.note }}</span>{%- endif -%}
+          </a>
+        {%- endfor -%}
+      </div>
+      {%- if s.button_label != blank -%}<a class="ah-btn" href="{{ base }}">{{ s.button_label }}</a>{%- endif -%}
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "AM Home Hero",
+  "tag": "section",
+  "class": "am-home-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero photo"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Photo"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Height (desktop)",
+      "min": 360,
+      "max": 800,
+      "step": 20,
+      "default": 560,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "label": "Height (phone)",
+      "min": 320,
+      "max": 640,
+      "step": 20,
+      "default": 440,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "hero_focus_y",
+      "label": "Crop: up and down",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 30,
+      "unit": "%",
+      "info": "0% shows the top of the photo, 100% the bottom."
+    },
+    {
+      "type": "range",
+      "id": "hero_focus_x",
+      "label": "Crop: left and right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "hero_zoom",
+      "label": "Zoom",
+      "min": 100,
+      "max": 200,
+      "step": 5,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "hero_overlay",
+      "label": "Dark fade behind the text",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 55,
+      "unit": "%"
+    },
+    {
+      "type": "checkbox",
+      "id": "slow_zoom",
+      "label": "Slow zoom on the photo",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sparkle",
+      "label": "Gold glints over the photo",
+      "default": true,
+      "info": "Switched off automatically for visitors who prefer reduced motion."
+    },
+    {
+      "type": "header",
+      "content": "Hero text"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Small line above",
+      "default": "Christmas Party Season"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Gifts worth keeping."
+    },
+    {
+      "type": "text",
+      "id": "hero_subline",
+      "label": "Line below",
+      "default": "Ribbon-tied, wax-sealed, with a handwritten note."
+    },
+    {
+      "type": "text",
+      "id": "hero_button",
+      "label": "Button text (blank hides it)",
+      "default": "Shop the Christmas edit"
+    },
+    {
+      "type": "url",
+      "id": "hero_link",
+      "label": "Button link",
+      "info": "Leave empty to open the gift page."
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Centre"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "hero_heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 80,
+      "step": 2,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Row of squares"
+    },
+    {
+      "type": "text",
+      "id": "row_heading",
+      "label": "Heading",
+      "default": "Who are you shopping for?"
+    },
+    {
+      "type": "text",
+      "id": "base_url",
+      "label": "Gift page address",
+      "default": "/pages/christmas-jewellery-gifts",
+      "info": "Each square adds the name of its section, so it opens at the right part of the page."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text (blank hides it)",
+      "default": "See the full gift guide"
+    },
+    {
+      "type": "select",
+      "id": "row_background",
+      "label": "Background behind the squares",
+      "options": [
+        {
+          "value": "plain",
+          "label": "Plain (page colour)"
+        },
+        {
+          "value": "burgundy",
+          "label": "Burgundy"
+        }
+      ],
+      "default": "plain"
+    },
+    {
+      "type": "range",
+      "id": "row_padding",
+      "label": "Space above and below the row",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colours"
+    },
+    {
+      "type": "color",
+      "id": "burgundy_1",
+      "label": "Burgundy (top)",
+      "default": "#8B2A35"
+    },
+    {
+      "type": "color",
+      "id": "burgundy_2",
+      "label": "Burgundy (bottom)",
+      "default": "#5E0B17"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading colour on burgundy",
+      "default": "#EFDCAE"
+    },
+    {
+      "type": "color",
+      "id": "color_small",
+      "label": "Small text colour on burgundy",
+      "default": "#DCB56E"
+    },
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Ribbon line colour",
+      "default": "#B01B2E"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Square",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Name",
+          "default": "Gifts For Her"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Small text",
+          "default": "From £75"
+        },
+        {
+          "type": "text",
+          "id": "anchor",
+          "label": "Section on the gift page",
+          "default": "for-her",
+          "info": "Must match the 'Link name' of that category on the gift page."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product (for the photo)",
+          "info": "Picks up this product's photo. Or choose a photo below."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo (optional)",
+          "info": "Used instead of the product photo if set. A worn-on-body photo looks best."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "AM Home Hero",
+      "blocks": [
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Gifts For Her",
+            "note": "From £75",
+            "anchor": "for-her"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "For Yourself",
+            "note": "From £75",
+            "anchor": "for-yourself"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Luxury Gifts",
+            "note": "From £75",
+            "anchor": "luxury-gifts"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Stocking Fillers",
+            "note": "From £25",
+            "anchor": "secret-santa"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

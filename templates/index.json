@@ -460,6 +460,84 @@
         "autoplay_speed": 5
       }
     },
+    "pb_featured_products_WLmgn6": {
+      "type": "pb-featured-products",
+      "blocks": {
+        "product_axW38E": {
+          "type": "product",
+          "settings": {
+            "product": "miro-spanish-dancer-earrings",
+            "badge": "Bestseller",
+            "badge_red": true
+          }
+        },
+        "product_XgU7hN": {
+          "type": "product",
+          "settings": {
+            "product": "art-deco-necklace",
+            "badge": "Bestseller",
+            "badge_red": true
+          }
+        },
+        "product_kBJN3U": {
+          "type": "product",
+          "settings": {
+            "product": "miro-1924-red-gold-earrings",
+            "badge": "Bestseller",
+            "badge_red": true
+          }
+        },
+        "product_xqnr66": {
+          "type": "product",
+          "settings": {
+            "product": "architect-enamel-copper-earrings",
+            "badge": "Bestseller",
+            "badge_red": true
+          }
+        },
+        "product_NE7rPU": {
+          "type": "product",
+          "settings": {
+            "product": "miro-femme-et-oiseaux-golden-necklace",
+            "badge": "Bestseller",
+            "badge_red": true
+          }
+        },
+        "product_Y4VPE3": {
+          "type": "product",
+          "settings": {
+            "product": "bauhaus-purple-red-earrings",
+            "badge": "Bestseller",
+            "badge_red": true
+          }
+        },
+        "product_ejKpkQ": {
+          "type": "product",
+          "settings": {
+            "product": "the-matisse-cobalt-blue-necklace-earrings",
+            "badge": "Bestseller",
+            "badge_red": true
+          }
+        }
+      },
+      "block_order": [
+        "product_axW38E",
+        "product_XgU7hN",
+        "product_kBJN3U",
+        "product_xqnr66",
+        "product_NE7rPU",
+        "product_Y4VPE3",
+        "product_ejKpkQ"
+      ],
+      "name": "AM — Featured Products",
+      "settings": {
+        "eyebrow": "Our Most Popular Pieces",
+        "heading": "Bestsellers",
+        "view_all_label": "Choose Your Favourite",
+        "view_all_url": "shopify://collections/bestsellers",
+        "enable_carousel": true
+      }
+    },
     "collection_list_PDpm3K": {
       "type": "collection-list",
       "blocks": {
@@ -585,84 +663,6 @@
         "body": "The magnificence of jewellery in a colour-rich world.",
         "cta_label": "Explore Your favourite Colours",
         "cta_url": "shopify://collections/colour-edit"
-      }
-    },
-    "pb_featured_products_WLmgn6": {
-      "type": "pb-featured-products",
-      "blocks": {
-        "product_axW38E": {
-          "type": "product",
-          "settings": {
-            "product": "miro-spanish-dancer-earrings",
-            "badge": "Bestseller",
-            "badge_red": true
-          }
-        },
-        "product_XgU7hN": {
-          "type": "product",
-          "settings": {
-            "product": "art-deco-necklace",
-            "badge": "Bestseller",
-            "badge_red": true
-          }
-        },
-        "product_kBJN3U": {
-          "type": "product",
-          "settings": {
-            "product": "miro-1924-red-gold-earrings",
-            "badge": "Bestseller",
-            "badge_red": true
-          }
-        },
-        "product_xqnr66": {
-          "type": "product",
-          "settings": {
-            "product": "architect-enamel-copper-earrings",
-            "badge": "Bestseller",
-            "badge_red": true
-          }
-        },
-        "product_NE7rPU": {
-          "type": "product",
-          "settings": {
-            "product": "miro-femme-et-oiseaux-golden-necklace",
-            "badge": "Bestseller",
-            "badge_red": true
-          }
-        },
-        "product_Y4VPE3": {
-          "type": "product",
-          "settings": {
-            "product": "bauhaus-purple-red-earrings",
-            "badge": "Bestseller",
-            "badge_red": true
-          }
-        },
-        "product_ejKpkQ": {
-          "type": "product",
-          "settings": {
-            "product": "the-matisse-cobalt-blue-necklace-earrings",
-            "badge": "Bestseller",
-            "badge_red": true
-          }
-        }
-      },
-      "block_order": [
-        "product_axW38E",
-        "product_XgU7hN",
-        "product_kBJN3U",
-        "product_xqnr66",
-        "product_NE7rPU",
-        "product_Y4VPE3",
-        "product_ejKpkQ"
-      ],
-      "name": "AM — Featured Products",
-      "settings": {
-        "eyebrow": "Our Most Popular Pieces",
-        "heading": "Bestsellers",
-        "view_all_label": "Choose Your Favourite",
-        "view_all_url": "shopify://collections/bestsellers",
-        "enable_carousel": true
       }
     },
     "am_founder_strip_hp01": {
@@ -977,9 +977,9 @@
     "pb_hero_MJ4EMh",
     "featured_product_KXhDnK",
     "pb_reviews_JDrTpF",
+    "pb_featured_products_WLmgn6",
     "collection_list_PDpm3K",
     "pb_colour_edit_bJy89W",
-    "pb_featured_products_WLmgn6",
     "am_founder_strip_hp01",
     "am_circle_strip_hp01",
     "pb_featured_products_QydhwQ",

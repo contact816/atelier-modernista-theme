@@ -319,7 +319,7 @@
         "tiles_heading": "Who are you shopping for?",
         "tiles_desktop": "4",
         "show_budget": true,
-        "heading_size": 46,
+        "heading_size": 34,
         "show_descriptions": false,
         "accent": "#b01b2e",
         "panel_color_1": "#7d0f20",

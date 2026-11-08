@@ -270,14 +270,14 @@
           "type": "bands",
           "settings": {
             "heading": "Jewellery Gifts by Price",
-            "label_1": "Under £50",
-            "collection_1": "",
+            "label_1": "Gifts Under £50",
+            "collection_1": "under-75",
             "label_2": "£50 to £100",
-            "collection_2": "",
+            "collection_2": "under-75-copy",
             "label_3": "£100 to £200",
-            "collection_3": "",
+            "collection_3": "75-150-copy",
             "label_4": "£200 and over",
-            "collection_4": "",
+            "collection_4": "luxury-art-jewellery-250-plus",
             "limit": 12
           }
         }

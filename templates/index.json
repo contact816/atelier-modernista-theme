@@ -33,6 +33,106 @@
         "padding_bottom": 56
       }
     },
+    "am_gift_tiles_Wj9wgh": {
+      "type": "am-gift-tiles",
+      "blocks": {
+        "tile_LzEPVh": {
+          "type": "tile",
+          "settings": {
+            "label": "For Her",
+            "note": "From £60",
+            "anchor": "for-her",
+            "product": "miro-spanish-dancer-necklace-red-silver"
+          }
+        },
+        "tile_Exmhrh": {
+          "type": "tile",
+          "settings": {
+            "label": "Art Lovers",
+            "note": "From £55",
+            "anchor": "art-lovers",
+            "product": "life-spiral-earrings-ring"
+          }
+        },
+        "tile_4j6XrF": {
+          "type": "tile",
+          "settings": {
+            "label": "Gift Boxes",
+            "note": "From £120",
+            "anchor": "gift-boxes",
+            "product": "the-art-deco-gift-box"
+          }
+        },
+        "tile_cjA9tm": {
+          "type": "tile",
+          "settings": {
+            "label": "Teenagers",
+            "note": "From £35",
+            "anchor": "teens",
+            "product": "starburst-icon-necklace-925-18k-gold-vermeil"
+          }
+        },
+        "tile_yTJtAK": {
+          "type": "tile",
+          "settings": {
+            "label": "Stocking Fillers + Secret Santa",
+            "note": "From £20",
+            "anchor": "secret-santa",
+            "product": ""
+          }
+        },
+        "tile_EeFC3r": {
+          "type": "tile",
+          "settings": {
+            "label": "Thank-You Gifts",
+            "note": "From £35",
+            "anchor": "thank-you",
+            "product": ""
+          }
+        },
+        "tile_LC6VgC": {
+          "type": "tile",
+          "settings": {
+            "label": "For Yourself",
+            "note": "From £120",
+            "anchor": "for-yourself",
+            "product": ""
+          }
+        },
+        "tile_riybYD": {
+          "type": "tile",
+          "settings": {
+            "label": "Last-Minute Gifts",
+            "note": "From £10",
+            "anchor": "last-minute",
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "tile_LzEPVh",
+        "tile_Exmhrh",
+        "tile_4j6XrF",
+        "tile_cjA9tm",
+        "tile_yTJtAK",
+        "tile_EeFC3r",
+        "tile_LC6VgC",
+        "tile_riybYD"
+      ],
+      "name": "AM Gift Tiles",
+      "settings": {
+        "eyebrow": "The Christmas Edit 2026",
+        "heading": "Christmas Jewellery Gifts",
+        "subline": "Pieces they’ll really love, luxuriously gift-wrapped with a handwritten card.",
+        "base_url": "/pages/christmas-jewellery-gifts",
+        "button_label": "See the full gift guide",
+        "tiles_desktop": "4",
+        "heading_size": 40,
+        "accent": "#B01B2E",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
     "custom_liquid_hPtzhK": {
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
@@ -784,106 +884,6 @@
         "accent_colour": "#0047ab",
         "padding_top": 72,
         "padding_bottom": 20
-      }
-    },
-    "am_gift_tiles_Wj9wgh": {
-      "type": "am-gift-tiles",
-      "blocks": {
-        "tile_LzEPVh": {
-          "type": "tile",
-          "settings": {
-            "label": "For Her",
-            "note": "From £60",
-            "anchor": "for-her",
-            "product": ""
-          }
-        },
-        "tile_Exmhrh": {
-          "type": "tile",
-          "settings": {
-            "label": "Art Lovers",
-            "note": "From £55",
-            "anchor": "art-lovers",
-            "product": ""
-          }
-        },
-        "tile_4j6XrF": {
-          "type": "tile",
-          "settings": {
-            "label": "Gift Boxes",
-            "note": "From £120",
-            "anchor": "gift-boxes",
-            "product": ""
-          }
-        },
-        "tile_cjA9tm": {
-          "type": "tile",
-          "settings": {
-            "label": "Teenagers",
-            "note": "From £35",
-            "anchor": "teens",
-            "product": ""
-          }
-        },
-        "tile_yTJtAK": {
-          "type": "tile",
-          "settings": {
-            "label": "Stocking Fillers + Secret Santa",
-            "note": "From £20",
-            "anchor": "secret-santa",
-            "product": ""
-          }
-        },
-        "tile_EeFC3r": {
-          "type": "tile",
-          "settings": {
-            "label": "Thank-You Gifts",
-            "note": "From £35",
-            "anchor": "thank-you",
-            "product": ""
-          }
-        },
-        "tile_LC6VgC": {
-          "type": "tile",
-          "settings": {
-            "label": "For Yourself",
-            "note": "From £120",
-            "anchor": "for-yourself",
-            "product": ""
-          }
-        },
-        "tile_riybYD": {
-          "type": "tile",
-          "settings": {
-            "label": "Last-Minute Gifts",
-            "note": "From £10",
-            "anchor": "last-minute",
-            "product": ""
-          }
-        }
-      },
-      "block_order": [
-        "tile_LzEPVh",
-        "tile_Exmhrh",
-        "tile_4j6XrF",
-        "tile_cjA9tm",
-        "tile_yTJtAK",
-        "tile_EeFC3r",
-        "tile_LC6VgC",
-        "tile_riybYD"
-      ],
-      "name": "AM Gift Tiles",
-      "settings": {
-        "eyebrow": "The Christmas Edit 2026",
-        "heading": "Christmas Jewellery Gifts",
-        "subline": "Pieces they’ll really love, luxuriously gift-wrapped with a handwritten card.",
-        "base_url": "/pages/christmas-jewellery-gifts",
-        "button_label": "See the full gift guide",
-        "tiles_desktop": "4",
-        "heading_size": 40,
-        "accent": "#B01B2E",
-        "padding_top": 48,
-        "padding_bottom": 48
       }
     }
   },

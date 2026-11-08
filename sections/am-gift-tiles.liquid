@@ -1,0 +1,272 @@
+{%- liquid
+  assign s = section.settings
+  assign base = s.base_url | default: '/pages/christmas-jewellery-gifts'
+-%}
+{% style %}
+  #am-gt-{{ section.id }} {
+    --accent: {{ s.accent }};
+    --cols: {{ s.tiles_desktop }};
+    --gap: 18px;
+    --h: {{ s.heading_size }}px;
+    --pt: {{ s.padding_top }}px;
+    --pb: {{ s.padding_bottom }}px;
+  }
+  @media (max-width: 749px) {
+    #am-gt-{{ section.id }} { --cols: 2; --gap: 10px; --h: {{ s.heading_size | times: 0.7 | round }}px; --pt: {{ s.padding_top | times: 0.6 | round }}px; --pb: {{ s.padding_bottom | times: 0.6 | round }}px; }
+  }
+{% endstyle %}
+<style>
+.am-gt{max-width:1100px;margin:0 auto;padding:var(--pt) 20px var(--pb);text-align:center}
+.am-gt *{box-sizing:border-box}
+.am-gt p{margin:0;line-height:1.4}
+.am-gt a{text-decoration:none}
+.am-gt__eye{margin-bottom:10px!important;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#8a5a22}
+.am-gt h2{margin:0!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-weight:400!important;font-size:var(--h)!important;line-height:1.1!important;letter-spacing:.01em!important;text-transform:none!important;color:#1a1a18!important;text-wrap:balance}
+.am-gt h2::after{content:"";display:block;width:56px;height:2px;background:var(--accent);margin:14px auto 0}
+.am-gt__sub{margin:14px auto 0!important;max-width:560px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:20px;color:#5a554b;text-wrap:balance}
+.gt-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:26px var(--gap);max-width:900px;margin:34px auto 0}
+.gt-tile{flex:0 0 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));display:block;text-align:center;color:#1a1a18}
+.gt-tile__img{display:block;position:relative;aspect-ratio:1/1;overflow:hidden;background:#fff;border:1px solid rgba(26,26,24,.2)}
+.gt-tile__img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .7s}
+.gt-tile:hover .gt-tile__img img{opacity:.82}
+.gt-tile__t{display:block;padding:14px 6px 3px;font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;line-height:1.1;color:#1a1a18}
+.gt-tile__s{display:block;padding:0 6px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#8a5a22;transition:letter-spacing .5s}
+.gt-tile:hover .gt-tile__s{letter-spacing:.3em}
+.gt-btn{display:inline-block;margin-top:34px;padding:14px 30px;border:1px solid #1a1a18;color:#1a1a18;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;transition:background .25s,color .25s}
+.gt-btn:hover{background:#1a1a18;color:#fff}
+@media(max-width:749px){.am-gt{padding-left:12px;padding-right:12px}.am-gt__sub{font-size:17px}.gt-grid{margin-top:26px}.gt-tile__t{font-size:17px;padding-top:10px}.gt-tile__s{font-size:9px;letter-spacing:.12em}.gt-btn{margin-top:26px}}
+</style>
+
+<div class="am-gt" id="am-gt-{{ section.id }}">
+  {%- if s.eyebrow != blank -%}<p class="am-gt__eye">{{ s.eyebrow }}</p>{%- endif -%}
+  {%- if s.heading != blank -%}<h2>{{ s.heading }}</h2>{%- endif -%}
+  {%- if s.subline != blank -%}<p class="am-gt__sub">{{ s.subline }}</p>{%- endif -%}
+
+  <div class="gt-grid">
+    {%- for block in section.blocks -%}
+      {%- assign anchor = block.settings.anchor | handleize -%}
+      <a class="gt-tile" href="{{ base }}{% if anchor != blank %}#{{ anchor }}{% endif %}" {{ block.shopify_attributes }}>
+        <span class="gt-tile__img">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.label }}
+          {%- elsif block.settings.product.featured_image != blank -%}
+            {{ block.settings.product.featured_image | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.label }}
+          {%- endif -%}
+        </span>
+        <span class="gt-tile__t">{{ block.settings.label }}</span>
+        {%- if block.settings.note != blank -%}
+          <span class="gt-tile__s">{{ block.settings.note }}</span>
+        {%- endif -%}
+      </a>
+    {%- endfor -%}
+  </div>
+
+  {%- if s.button_label != blank -%}
+    <a class="gt-btn" href="{{ base }}">{{ s.button_label }}</a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "AM Gift Tiles",
+  "tag": "section",
+  "class": "am-gift-tiles",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small line above",
+      "default": "The Christmas Edit 2026"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Christmas Jewellery Gifts"
+    },
+    {
+      "type": "text",
+      "id": "subline",
+      "label": "Line under the heading",
+      "default": "Pieces they’ll really love, luxuriously gift-wrapped with a handwritten card."
+    },
+    {
+      "type": "text",
+      "id": "base_url",
+      "label": "Gift page address",
+      "default": "/pages/christmas-jewellery-gifts",
+      "info": "Where the tiles go. Each tile adds the name of its section, so it opens at the right part of the page."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text (blank hides it)",
+      "default": "See the full gift guide"
+    },
+    {
+      "type": "select",
+      "id": "tiles_desktop",
+      "label": "Tiles per row (desktop)",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "4",
+      "info": "Phones always show 2 per row."
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Ribbon line colour",
+      "default": "#B01B2E"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Space above",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Space below",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Name",
+          "default": "For Her"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Small text",
+          "default": "From £60"
+        },
+        {
+          "type": "text",
+          "id": "anchor",
+          "label": "Section on the gift page",
+          "default": "for-her",
+          "info": "Must match the 'Link name' of that category on the gift page, for example for-her."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product (for the photo)",
+          "info": "Picks up this product's photo. Or choose a photo below."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo (optional)",
+          "info": "Used instead of the product photo if set."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "AM Gift Tiles",
+      "blocks": [
+        {
+          "type": "tile",
+          "settings": {
+            "label": "For Her",
+            "note": "From £60",
+            "anchor": "for-her"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Art Lovers",
+            "note": "From £55",
+            "anchor": "art-lovers"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Gift Boxes",
+            "note": "From £120",
+            "anchor": "gift-boxes"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Teenagers",
+            "note": "From £35",
+            "anchor": "teens"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Stocking Fillers + Secret Santa",
+            "note": "From £20",
+            "anchor": "secret-santa"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Thank-You Gifts",
+            "note": "From £35",
+            "anchor": "thank-you"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "For Yourself",
+            "note": "From £120",
+            "anchor": "for-yourself"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Last-Minute Gifts",
+            "note": "From £10",
+            "anchor": "last-minute"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

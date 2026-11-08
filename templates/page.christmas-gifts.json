@@ -197,7 +197,7 @@
         "bands_mptiPC"
       ],
       "custom_css": [
-        ".gg-hero__eye {color: #f8d98a !important; font-size: 13px !important; font-weight: 500 !important; text-shadow: 0 1px 8px rgba(0,0,0,.75);}"
+        ".gg-hero__eye {color: #ffffff !important; font-size: 13px !important; font-weight: 500 !important; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.75);}"
       ],
       "name": "AM Gift Guide",
       "settings": {

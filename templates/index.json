@@ -11,6 +11,7 @@
   "sections": {
     "am_two_boxes_fYarR6": {
       "type": "am-two-boxes",
+      "disabled": true,
       "name": "AM Two Boxes",
       "settings": {
         "party_image": "shopify://shop_images/1a7ae5cc-7bef-48eb-b57c-a3c89746381d.png",
@@ -42,7 +43,7 @@
             "label": "For Her",
             "note": "From £60",
             "anchor": "for-her",
-            "product": "miro-spanish-dancer-necklace-red-silver"
+            "product": "miro-femme-et-oiseaux-golden-necklace"
           }
         },
         "tile_Exmhrh": {

@@ -25,6 +25,7 @@
     --fy: {{ s.hero_focus_y }}%;
     --z0: {{ z0 }};
     --z1: {{ z1 }};
+    --fit: {{ s.hero_fit | default: 'contain' }};
     --rp: {{ s.row_padding }}px;
     --ov: {{ ov }};
     --ov2: {{ ov2 }};
@@ -41,7 +42,8 @@
 .ah-hero{position:relative;height:var(--hh);background:#17130f;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:0 7% 56px;text-align:left}
 .ah-hero--center{align-items:center;text-align:center}
 .ah-hero__img{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden}
-.ah-hero__img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:var(--fx) var(--fy);transform:scale(var(--z0));transform-origin:var(--fx) var(--fy)}
+.ah-hero__img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:var(--fit);object-position:var(--fx) var(--fy);transform:scale(var(--z0));transform-origin:var(--fx) var(--fy)}
+.ah-hero__img .ah-hero__blur{object-fit:cover;object-position:center;filter:blur(26px) brightness(.55);transform:scale(1.25)!important;animation:none!important}
 .ah-hero--zoom .ah-hero__img img{animation:ahzoom 26s ease-in-out infinite alternate}
 @keyframes ahzoom{from{transform:scale(var(--z0))}to{transform:scale(var(--z1))}}
 .ah-hero__shade{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to top,rgba(14,10,8,var(--ov)) 0,rgba(14,10,8,var(--ov2)) 38%,rgba(14,10,8,0) 68%)}
@@ -85,7 +87,10 @@
   {%- if s.hero_image != blank -%}
     <div class="ah-hero{% if s.text_align == 'center' %} ah-hero--center{% endif %}{% if s.slow_zoom %} ah-hero--zoom{% endif %}">
       <div class="ah-hero__img">
-        <img src="{{ s.hero_image | image_url: width: 2000 }}"
+        {%- if s.hero_fit != 'cover' -%}
+          <img class="ah-hero__blur" src="{{ s.hero_image | image_url: width: 700 }}" alt="" aria-hidden="true" loading="eager">
+        {%- endif -%}
+        <img class="ah-hero__main" src="{{ s.hero_image | image_url: width: 2000 }}"
              srcset="{{ s.hero_image | image_url: width: 800 }} 800w, {{ s.hero_image | image_url: width: 1400 }} 1400w, {{ s.hero_image | image_url: width: 2000 }} 2000w"
              sizes="100vw" width="{{ s.hero_image.width }}" height="{{ s.hero_image.height }}"
              alt="{{ s.hero_image.alt | default: s.hero_heading | escape }}" loading="eager" fetchpriority="high">
@@ -192,14 +197,31 @@
       "unit": "%"
     },
     {
+      "type": "select",
+      "id": "hero_fit",
+      "label": "Photo fit",
+      "options": [
+        {
+          "value": "contain",
+          "label": "Show the whole photo (soft dark sides)"
+        },
+        {
+          "value": "cover",
+          "label": "Fill the strip (crops the photo)"
+        }
+      ],
+      "default": "contain"
+    },
+    {
       "type": "range",
       "id": "hero_zoom",
       "label": "Zoom",
-      "min": 100,
+      "min": 50,
       "max": 200,
       "step": 5,
       "default": 100,
-      "unit": "%"
+      "unit": "%",
+      "info": "In 'Show the whole photo' mode you can go below 100% to zoom further back."
     },
     {
       "type": "range",

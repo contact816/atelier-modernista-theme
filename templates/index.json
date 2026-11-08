@@ -945,6 +945,10 @@
     },
     "am_reading_list_header_pQcncC": {
       "type": "am-reading-list-header",
+      "custom_css": [
+        "h1, h2 {font-size: 48px !important; line-height: 1.1 !important; }",
+        "@media (max-width: 749px) {h1, h2 {font-size: 34px !important; } }"
+      ],
       "name": "AM Library header",
       "settings": {
         "eyebrow": "The Atelier Modernista Library",

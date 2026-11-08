@@ -1,0 +1,858 @@
+{%- liquid
+  assign s = section.settings
+  assign h_tab = s.heading_size | times: 0.78 | round
+  assign h_mob = s.heading_size | times: 0.68 | round
+  assign ov_a = s.hero_overlay | divided_by: 100.0
+  assign ov_b = ov_a | times: 0.45
+  assign bg_size = 'cover'
+  if s.hero_zoom > 100
+    assign bg_size = s.hero_zoom | append: '%'
+  endif
+  assign tiles_html = ''
+  assign sections_html = ''
+  assign budget_html = ''
+-%}
+
+{% style %}
+  .am-gg {
+    --gg-accent: {{ s.accent }};
+    --gg-p1: {{ s.panel_color_1 }};
+    --gg-p2: {{ s.panel_color_2 }};
+    --cols: {{ s.tiles_desktop }};
+    --gap: 18px;
+    --gg-h: {{ s.heading_size }}px;
+    --gg-hero-h: {{ s.hero_height }}px;
+  }
+  .gg-hero {
+    background-image: linear-gradient(to top, rgba(14,10,8,{{ ov_a }}) 0, rgba(14,10,8,{{ ov_b }}) 34%, rgba(14,10,8,0) 60%){% if s.hero_image != blank %}, url({{ s.hero_image | image_url: width: 2400 }}){% endif %};
+    background-size: 100% 100%{% if s.hero_image != blank %}, {{ bg_size }}{% endif %};
+    background-position: 0 0{% if s.hero_image != blank %}, {{ s.hero_focus_x }}% {{ s.hero_focus_y }}%{% endif %};
+  }
+  @media (max-width: 900px) { .am-gg { --gg-h: {{ h_tab }}px; } }
+  @media (max-width: 749px) { .am-gg { --gg-h: {{ h_mob }}px; --cols: 2; --gap: 10px; --gg-hero-h: {{ s.hero_height_mobile }}px; } }
+{% endstyle %}
+
+<style>
+.am-gg{max-width:980px;margin:0 auto;padding:0 20px 60px;color:#222220;font-family:'Jost',sans-serif}
+.am-gg *{box-sizing:border-box}
+.am-gg p{margin:0;line-height:1.4}
+.am-gg a{text-decoration:none}
+.am-gg h2{margin:0!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-weight:400!important;letter-spacing:.01em!important;text-transform:none!important}
+.gg-title{margin:8px 0 6px!important;text-align:center;font-family:'Cormorant Garamond',Georgia,serif!important;font-size:34px!important;font-weight:400!important;line-height:1.1!important;letter-spacing:.02em!important;text-transform:none!important;color:#1a1a18}
+.gg-title::after{content:"";display:block;width:56px;height:2px;background:var(--gg-accent);margin:16px auto 0}
+.gg-trust{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 0;padding:14px 8px;margin:18px 0 30px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#1a1a18}
+.gg-trust span+span::before{content:"◆";color:#bf8950;font-size:7px;margin:0 22px;vertical-align:middle}
+.gg-hero{position:relative;height:var(--gg-hero-h);display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:0 24px 32px;text-align:center;background-color:#17130f;background-repeat:no-repeat}
+.gg-hero--left{align-items:flex-start;text-align:left;padding-left:56px}
+.gg-hero__eye{margin:0 0 6px!important;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#e9b949}
+.gg-hero h2{font-size:calc(var(--gg-h) * .74)!important;line-height:1.08!important;color:#fff!important}
+.gg-hero__sub{margin-top:10px!important;max-width:360px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:19px;color:#f3e6c6;text-wrap:balance}
+.gg-sh{margin:64px 0 26px;text-align:center;scroll-margin-top:80px}
+.gg-sh--ask{margin:52px 0 28px}
+.gg-sh h2{font-size:var(--gg-h)!important;line-height:1.1!important;color:#1a1a18!important;text-wrap:balance}
+.gg-sh h2::after,.gg-bandshead::after{content:"";display:block;width:56px;height:2px;background:var(--gg-accent);margin:14px auto 0}
+.gg-sh p{margin-top:12px!important;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:21px;color:#5a554b}
+.gg-tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:30px var(--gap);max-width:900px;margin:0 auto 40px}
+.gg-tile{flex:0 0 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols));display:block;text-align:center;color:#1a1a18}
+.gg-tile__img{display:block;position:relative;aspect-ratio:1/1;overflow:hidden;background:#fff;border:1px solid rgba(26,26,24,.2)}
+.gg-tile__img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .7s}
+.gg-tile:hover .gg-tile__img img{opacity:.82}
+.gg-tile__t{display:block;padding:16px 8px 4px;font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;line-height:1.1;color:#1a1a18}
+.gg-tile__s{display:block;padding:0 8px;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#8a5a22;transition:letter-spacing .5s}
+.gg-tile:hover .gg-tile__s{letter-spacing:.3em}
+.gg-bud{margin:0 0 6px;text-align:center;font-size:12px;letter-spacing:.06em;color:#6b675e}
+.gg-bud a{color:#1a1a18;text-decoration:underline;margin:0 7px;white-space:nowrap}
+.gg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 20px;max-width:820px;margin:0 auto}
+.gg-card{display:flex;flex-direction:column;color:#1a1a18;background:#fff;border:1px solid rgba(26,26,24,.12);text-align:center;transition:border-color .5s}
+.gg-card:hover{border-color:#1a1a18}
+.gg-card__img{display:block;position:relative;aspect-ratio:4/5;background:#fff;overflow:hidden}
+.gg-card__img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
+.gg-card__name{display:block;margin:16px 14px 0;font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;line-height:23px}
+.gg-card__line{display:block;margin:8px 16px 0;font-size:12px;line-height:18px;color:#5a554b}
+.gg-card__foot{display:flex;justify-content:center;align-items:baseline;gap:12px;margin:auto 14px 0;padding:12px 0 16px;border-top:1px solid rgba(26,26,24,.1)}
+.gg-card__name{margin-bottom:14px}
+.gg-card__price{font-size:14px;letter-spacing:.06em;font-weight:500;color:#1a1a18}
+.gg-card__tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#8a5a22}
+.gg-more{text-align:center;margin:28px 0 0}
+.gg-more a{display:inline-block;padding:14px 30px;border:1px solid #1a1a18;color:#1a1a18;font-size:11px;letter-spacing:.24em;text-transform:uppercase;transition:background .25s,color .25s}
+.gg-more a:hover{background:#1a1a18;color:#fff}
+.gg-panel{position:relative;margin:76px 0 0;padding:54px 36px 58px;text-align:center;scroll-margin-top:80px;background:var(--gg-p1);background:linear-gradient(160deg,var(--gg-p1) 0%,var(--gg-p2) 100%)}
+.gg-panel::after{content:"";position:absolute;top:12px;right:12px;bottom:12px;left:12px;border:1px solid rgba(233,185,73,.8);pointer-events:none}
+.gg-panel__eye{margin:0 0 10px!important;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#e9b949}
+.gg-panel h2{font-size:calc(var(--gg-h) * .87)!important;line-height:1.1!important;color:#fff!important}
+.gg-panel__sub{margin:14px 0 36px!important;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:20px;color:#f1d9a0}
+.gg-panel__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 20px;max-width:780px;margin:0 auto}
+.gg-pcard{display:flex;flex-direction:column;color:#1a1a18;background:#fff;text-align:center}
+.gg-pcard__img{display:block;position:relative;aspect-ratio:4/5;overflow:hidden;background:#fff}
+.gg-pcard__img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .7s}
+.gg-pcard:hover .gg-pcard__img img{opacity:.88}
+.gg-pcard__name{display:block;margin:14px 12px 0;min-height:46px;font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;line-height:23px}
+.gg-pcard__price{display:block;margin-top:6px;font-size:14px;letter-spacing:.06em;font-weight:500;color:#1a1a18}
+.gg-pcard__cta{display:block;margin:12px 14px 16px;padding:11px 0;background:#1a1a18;color:#fff;font-size:10px;letter-spacing:.26em;text-transform:uppercase;transition:background .25s}
+.gg-pcard:hover .gg-pcard__cta{background:#bf8950}
+.gg-info{max-width:820px;margin:60px auto 8px;padding:30px 34px;border:1px solid #bf8950;text-align:center}
+.gg-info p{margin:4px 0;font-size:14px;line-height:1.6}
+.gg-info p:has(>strong:only-child){margin:22px 0 8px;font-size:11px;letter-spacing:.26em;color:#8a5a22;text-transform:uppercase}
+.gg-info p:first-child{margin-top:0}
+.gg-info a{color:#1a1a18;text-decoration:underline}
+.gg-bandshead{margin:76px 0 30px!important;text-align:center;font-size:var(--gg-h)!important;line-height:1.1!important;color:#1a1a18!important}
+.gg-bands{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
+.gg-bands h4{margin:0 0 10px;font-size:11px;letter-spacing:.24em;font-weight:500;text-transform:uppercase;color:#1a1a18;border-bottom:1px solid #bf8950;padding-bottom:8px}
+.gg-bands p{display:flex;justify-content:space-between;gap:10px;margin:5px 0;font-size:13px;border-bottom:1px solid rgba(26,26,24,.1);padding-bottom:5px}
+.gg-bands a{color:inherit}
+.gg-bands a:hover{text-decoration:underline}
+.gg-bands span{white-space:nowrap}
+@media(max-width:900px){.gg-grid{gap:20px 12px}}
+@media(max-width:749px){.gg-title{font-size:26px!important}.gg-trust{flex-direction:column;gap:5px;font-size:10px;letter-spacing:.12em}.gg-trust span+span::before{display:none}.gg-hero{padding:0 16px 24px}.gg-hero--left{padding-left:20px}.gg-hero__sub{font-size:16px;max-width:70%}.gg-sh--ask{margin:36px 0 20px}.gg-tile__t{font-size:17px;padding:9px 2px 3px}.gg-tile__s{font-size:9px;letter-spacing:.12em}.gg-panel{padding:40px 14px 42px}.gg-panel::after{top:7px;right:7px;bottom:7px;left:7px}.gg-panel__sub{font-size:17px}.gg-panel__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}.gg-pcard__name{font-size:15px;line-height:19px;min-height:38px}.gg-pcard__cta{margin:10px 10px 12px;padding:10px 0;font-size:9px}.gg-info{padding:24px 18px}.gg-bud{font-size:11px}.gg-bud a{margin:0 4px}}
+@media(max-width:600px){.am-gg{padding:0 12px 40px}.gg-grid{gap:12px 8px}.gg-card__name{margin:10px 8px 0;font-size:14px;line-height:17px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}.gg-card__line{display:none}.gg-card__foot{margin:auto 8px 0;padding:8px 0 10px}.gg-card__price{font-size:12px}.gg-sh p{font-size:17px}}
+</style>
+
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+
+    {%- when 'category' -%}
+      {%- liquid
+        assign items = block.settings.products
+        if items == blank and block.settings.collection != blank
+          assign items = block.settings.collection.products
+        endif
+        assign min_price = 0
+        for p in items limit: block.settings.limit
+          if min_price == 0 or p.price < min_price
+            assign min_price = p.price
+          endif
+        endfor
+        assign anchor = block.settings.anchor | handleize | default: block.id
+      -%}
+
+      {%- if block.settings.show_tile -%}
+        {%- capture tile -%}
+          <a class="gg-tile" href="#{{ anchor }}">
+            <span class="gg-tile__img">
+              {%- if block.settings.tile_image != blank -%}
+                {{ block.settings.tile_image | image_url: width: 600 | image_tag: loading: 'eager', alt: block.settings.tile_label }}
+              {%- elsif items.first.featured_image != blank -%}
+                {{ items.first.featured_image | image_url: width: 600 | image_tag: loading: 'eager', alt: block.settings.tile_label }}
+              {%- endif -%}
+            </span>
+            <span class="gg-tile__t">{{ block.settings.tile_label }}</span>
+            <span class="gg-tile__s">
+              {%- if block.settings.tile_note != blank -%}
+                {{ block.settings.tile_note }}
+              {%- elsif min_price > 0 -%}
+                From {{ min_price | money_without_trailing_zeros }}
+              {%- endif -%}
+            </span>
+          </a>
+        {%- endcapture -%}
+        {%- assign tiles_html = tiles_html | append: tile -%}
+      {%- endif -%}
+
+      {%- capture sec -%}
+        <div class="gg-sh" id="{{ anchor }}" {{ block.shopify_attributes }}>
+          <h2>{{ block.settings.heading }}</h2>
+          {%- if block.settings.subline != blank -%}
+            <p>{{ block.settings.subline }}</p>
+          {%- endif -%}
+        </div>
+        <div class="gg-grid">
+          {%- for product in items limit: block.settings.limit -%}
+            <a class="gg-card" href="{{ product.url }}">
+              <span class="gg-card__img">
+                {%- if product.featured_image != blank -%}
+                  {{ product.featured_image | image_url: width: 700 | image_tag: loading: 'lazy', alt: product.title }}
+                {%- endif -%}
+              </span>
+              <span class="gg-card__name">{{ product.title }}</span>
+              {%- if s.show_descriptions -%}
+                <span class="gg-card__line">{{ product.description | strip_html | strip_newlines | truncate: 80 }}</span>
+              {%- endif -%}
+              <span class="gg-card__foot">
+                <span class="gg-card__price">
+                  {%- if product.price_varies -%}From {% endif -%}
+                  {{- product.price | money_without_trailing_zeros -}}
+                </span>
+                {%- unless product.available -%}
+                  <span class="gg-card__tag">Sold out</span>
+                {%- endunless -%}
+              </span>
+            </a>
+          {%- endfor -%}
+        </div>
+        {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+          <div class="gg-more"><a href="{{ block.settings.button_link }}">{{ block.settings.button_label }}</a></div>
+        {%- endif -%}
+      {%- endcapture -%}
+      {%- assign sections_html = sections_html | append: sec -%}
+
+    {%- when 'panel' -%}
+      {%- liquid
+        assign items = block.settings.products
+        if items == blank and block.settings.collection != blank
+          assign items = block.settings.collection.products
+        endif
+        assign anchor = block.settings.anchor | handleize | default: block.id
+      -%}
+      {%- capture sec -%}
+        <section class="gg-panel" id="{{ anchor }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.eyebrow != blank -%}
+            <p class="gg-panel__eye">{{ block.settings.eyebrow }}</p>
+          {%- endif -%}
+          <h2>{{ block.settings.heading }}</h2>
+          {%- if block.settings.subline != blank -%}
+            <p class="gg-panel__sub">{{ block.settings.subline }}</p>
+          {%- endif -%}
+          <div class="gg-panel__grid">
+            {%- for product in items limit: block.settings.limit -%}
+              <a class="gg-pcard" href="{{ product.url }}">
+                <span class="gg-pcard__img">
+                  {%- if product.featured_image != blank -%}
+                    {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+                  {%- endif -%}
+                </span>
+                <span class="gg-pcard__name">{{ product.title }}</span>
+                <span class="gg-pcard__price">
+                  {%- if product.price_varies -%}From {% endif -%}
+                  {{- product.price | money_without_trailing_zeros -}}
+                </span>
+                <span class="gg-pcard__cta">
+                  {%- if product.available -%}{{ block.settings.cta | default: 'Discover' }}{%- else -%}Sold out{%- endif -%}
+                </span>
+              </a>
+            {%- endfor -%}
+          </div>
+        </section>
+      {%- endcapture -%}
+      {%- assign sections_html = sections_html | append: sec -%}
+
+    {%- when 'info' -%}
+      {%- capture sec -%}
+        <div class="gg-info" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+      {%- endcapture -%}
+      {%- assign sections_html = sections_html | append: sec -%}
+
+    {%- when 'bands' -%}
+      {%- capture sec -%}
+        <h2 class="gg-bandshead" {{ block.shopify_attributes }}>{{ block.settings.heading }}</h2>
+        <div class="gg-bands">
+          {%- for i in (1..4) -%}
+            {%- assign label_key = 'label_' | append: i -%}
+            {%- assign coll_key = 'collection_' | append: i -%}
+            {%- assign band_label = block.settings[label_key] -%}
+            {%- assign band_coll = block.settings[coll_key] -%}
+            {%- if band_label != blank and band_coll != blank -%}
+              <div id="price-{{ i }}">
+                <h4>{{ band_label }}</h4>
+                {%- for product in band_coll.products limit: block.settings.limit -%}
+                  <p><a href="{{ product.url }}">{{ product.title }}</a><span>{{ product.price | money_without_trailing_zeros }}</span></p>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endcapture -%}
+      {%- assign sections_html = sections_html | append: sec -%}
+      {%- capture links -%}
+        {%- for i in (1..4) -%}
+          {%- assign label_key = 'label_' | append: i -%}
+          {%- assign coll_key = 'collection_' | append: i -%}
+          {%- if block.settings[label_key] != blank and block.settings[coll_key] != blank -%}
+            <a href="#price-{{ i }}">{{ block.settings[label_key] }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+      {%- assign budget_html = links -%}
+
+  {%- endcase -%}
+{%- endfor -%}
+
+<div class="am-gg">
+  {%- if s.show_title -%}
+    <h1 class="gg-title">{{ s.page_title | default: page.title }}</h1>
+  {%- endif -%}
+
+  {%- if s.trust_1 != blank or s.trust_2 != blank or s.trust_3 != blank -%}
+    <div class="gg-trust">
+      {%- if s.trust_1 != blank -%}<span>{{ s.trust_1 }}</span>{%- endif -%}
+      {%- if s.trust_2 != blank -%}<span>{{ s.trust_2 }}</span>{%- endif -%}
+      {%- if s.trust_3 != blank -%}<span>{{ s.trust_3 }}</span>{%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if s.hero_image != blank or s.hero_heading != blank -%}
+    <div class="gg-hero gg-hero--{{ s.hero_align }}">
+      {%- if s.hero_eyebrow != blank -%}<p class="gg-hero__eye">{{ s.hero_eyebrow }}</p>{%- endif -%}
+      {%- if s.hero_heading != blank -%}<h2>{{ s.hero_heading }}</h2>{%- endif -%}
+      {%- if s.hero_subline != blank -%}<p class="gg-hero__sub">{{ s.hero_subline }}</p>{%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if tiles_html != blank -%}
+    {%- if s.tiles_heading != blank -%}
+      <div class="gg-sh gg-sh--ask"><h2>{{ s.tiles_heading }}</h2></div>
+    {%- endif -%}
+    <div class="gg-tiles">{{ tiles_html }}</div>
+    {%- if s.show_budget and budget_html != blank -%}
+      <p class="gg-bud">Shop by budget: {{ budget_html }}</p>
+    {%- endif -%}
+  {%- endif -%}
+
+  {{ sections_html }}
+</div>
+
+{% schema %}
+{
+  "name": "AM Gift Guide",
+  "tag": "section",
+  "class": "am-gift-guide",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show page title",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "page_title",
+      "label": "Title",
+      "default": "Christmas Jewellery Gifts",
+      "info": "Leave blank to use the page's own title."
+    },
+    {
+      "type": "header",
+      "content": "Trust line"
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Line 1",
+      "default": "Dispatched within 1 working day"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Line 2",
+      "default": "Free Luxury Gift Wrapping over £75"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Line 3 (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Hero photo"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Small line above",
+      "default": "Christmas 2026"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Gifts worth keeping."
+    },
+    {
+      "type": "text",
+      "id": "hero_subline",
+      "label": "Line below",
+      "default": "Ribbon-tied, wax-sealed, with a handwritten note."
+    },
+    {
+      "type": "select",
+      "id": "hero_align",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Centre"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Height (desktop)",
+      "min": 160,
+      "max": 520,
+      "step": 10,
+      "default": 300,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "label": "Height (phone)",
+      "min": 140,
+      "max": 360,
+      "step": 10,
+      "default": 190,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "hero_focus_y",
+      "label": "Crop: up and down",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 13,
+      "unit": "%",
+      "info": "0% shows the top of the photo, 100% the bottom."
+    },
+    {
+      "type": "range",
+      "id": "hero_focus_x",
+      "label": "Crop: left and right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "%",
+      "info": "Only matters when the photo is zoomed in."
+    },
+    {
+      "type": "range",
+      "id": "hero_zoom",
+      "label": "Zoom",
+      "min": 100,
+      "max": 200,
+      "step": 5,
+      "default": 140,
+      "unit": "%",
+      "info": "100% fits the photo to the strip; higher zooms in."
+    },
+    {
+      "type": "range",
+      "id": "hero_overlay",
+      "label": "Dark fade behind the text",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 85,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Category tiles"
+    },
+    {
+      "type": "text",
+      "id": "tiles_heading",
+      "label": "Heading above the tiles",
+      "default": "Who are you shopping for?"
+    },
+    {
+      "type": "select",
+      "id": "tiles_desktop",
+      "label": "Tiles per row (desktop)",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "4",
+      "info": "Phones always show 2 per row."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_budget",
+      "label": "Show the 'Shop by budget' links",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Look"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Section heading size",
+      "min": 28,
+      "max": 64,
+      "step": 2,
+      "default": 46,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_descriptions",
+      "label": "Show a short description on each product card",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Ribbon line colour",
+      "default": "#B01B2E"
+    },
+    {
+      "type": "color",
+      "id": "panel_color_1",
+      "label": "Feature panel colour (top)",
+      "default": "#7D0F20"
+    },
+    {
+      "type": "color",
+      "id": "panel_color_2",
+      "label": "Feature panel colour (bottom)",
+      "default": "#3F060F"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category (tile + section)",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Tile"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_tile",
+          "label": "Show a tile for this category",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "tile_label",
+          "label": "Tile name",
+          "default": "For Her"
+        },
+        {
+          "type": "image_picker",
+          "id": "tile_image",
+          "label": "Tile photo",
+          "info": "Leave empty to use the first product's photo."
+        },
+        {
+          "type": "text",
+          "id": "tile_note",
+          "label": "Tile small text",
+          "info": "Leave empty and the tile shows 'From £…' using the cheapest product."
+        },
+        {
+          "type": "text",
+          "id": "anchor",
+          "label": "Link name",
+          "default": "for-her",
+          "info": "Lower-case letters and hyphens only. Joins the tile to its section below."
+        },
+        {
+          "type": "header",
+          "content": "Section"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Christmas Jewellery Gifts for Her"
+        },
+        {
+          "type": "text",
+          "id": "subline",
+          "label": "Line under the heading"
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "Products",
+          "limit": 12
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Or use a collection",
+          "info": "Only used if no products are picked above."
+        },
+        {
+          "type": "range",
+          "id": "limit",
+          "label": "Number of products to show",
+          "min": 3,
+          "max": 12,
+          "step": 3,
+          "default": 6
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button text (optional)"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "name": "Feature panel",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Small line above",
+          "default": "Officially licensed Miró"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "The Red and Gold Edit"
+        },
+        {
+          "type": "text",
+          "id": "subline",
+          "label": "Line under the heading",
+          "default": "Christmas colours, after Miró."
+        },
+        {
+          "type": "text",
+          "id": "anchor",
+          "label": "Link name",
+          "default": "red-gold",
+          "info": "Lower-case letters and hyphens only."
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "Products",
+          "limit": 12
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Or use a collection",
+          "info": "Only used if no products are picked above."
+        },
+        {
+          "type": "range",
+          "id": "limit",
+          "label": "Number of products to show",
+          "min": 3,
+          "max": 12,
+          "step": 3,
+          "default": 6
+        },
+        {
+          "type": "text",
+          "id": "cta",
+          "label": "Button text",
+          "default": "Discover"
+        }
+      ]
+    },
+    {
+      "type": "info",
+      "name": "Info box",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Replace with your text.</p>"
+        }
+      ]
+    },
+    {
+      "type": "bands",
+      "name": "Price list",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Jewellery Gifts by Price"
+        },
+        {
+          "type": "text",
+          "id": "label_1",
+          "label": "Group 1 name",
+          "default": "Under £50"
+        },
+        {
+          "type": "collection",
+          "id": "collection_1",
+          "label": "Group 1 collection"
+        },
+        {
+          "type": "text",
+          "id": "label_2",
+          "label": "Group 2 name",
+          "default": "£50 to £100"
+        },
+        {
+          "type": "collection",
+          "id": "collection_2",
+          "label": "Group 2 collection"
+        },
+        {
+          "type": "text",
+          "id": "label_3",
+          "label": "Group 3 name",
+          "default": "£100 to £200"
+        },
+        {
+          "type": "collection",
+          "id": "collection_3",
+          "label": "Group 3 collection"
+        },
+        {
+          "type": "text",
+          "id": "label_4",
+          "label": "Group 4 name",
+          "default": "£200 and over"
+        },
+        {
+          "type": "collection",
+          "id": "collection_4",
+          "label": "Group 4 collection"
+        },
+        {
+          "type": "range",
+          "id": "limit",
+          "label": "Products per group",
+          "min": 6,
+          "max": 24,
+          "step": 2,
+          "default": 12
+        }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "AM Gift Guide",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "tile_label": "For Her",
+            "anchor": "for-her",
+            "heading": "Christmas Jewellery Gifts for Her",
+            "subline": "Pieces she will actually wear."
+          }
+        },
+        {
+          "type": "info",
+          "settings": {
+            "text": "<p><strong>CHRISTMAS DELIVERY</strong></p><p>Order by <strong>16 December</strong> for standard UK delivery, or by <strong>20 December</strong> with express. Every piece dispatches within 1 working day.</p><p>UK delivery is £2.95, free on orders of £75 or more. Express is £6.95.</p><p>Free returns within 30 days on full-price pieces (excluding pierced earrings).</p><p><strong>THE ATELIER CIRCLE</strong></p><p>Joining is free: £10 off, free standard shipping, and a handwritten note with every order.</p>"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "tile_label": "Art Lovers",
+            "anchor": "art-lovers",
+            "heading": "Jewellery Gifts for Art Lovers",
+            "subline": "And architects: Miró, Escher and Bauhaus, made wearable."
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "tile_label": "Gift Boxes",
+            "anchor": "gift-boxes",
+            "heading": "Luxury Jewellery Gift Boxes",
+            "subline": "Pieces chosen to go together, as one gift."
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "tile_label": "Teenagers",
+            "anchor": "teens",
+            "heading": "Jewellery Gifts for Teenagers with Taste",
+            "subline": "Unusual and interesting."
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "tile_label": "Stocking Fillers + Secret Santa",
+            "anchor": "secret-santa",
+            "heading": "Stocking Fillers + Secret Santa Jewellery Gifts",
+            "subline": "Thoughtful, and all £45 or under. Ribbon, wax seal and gift message £5."
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "tile_label": "Thank-You Gifts",
+            "anchor": "thank-you",
+            "heading": "Thank-You Jewellery Gifts",
+            "subline": "For the teacher, the childminder, the neighbour, the host. You know who you are."
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "tile_label": "For Yourself",
+            "anchor": "for-yourself",
+            "heading": "A Gift for Yourself",
+            "subline": "From you, to you."
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "tile_label": "Last-Minute Gifts",
+            "anchor": "last-minute",
+            "heading": "Last-Minute Gifts",
+            "subline": "A digital gift card by email, sent on the day you choose. Or order by 20 December with express delivery."
+          }
+        },
+        {
+          "type": "panel",
+          "settings": {
+            "eyebrow": "Officially licensed Miró",
+            "heading": "The Red and Gold Edit",
+            "subline": "Christmas colours, after Miró.",
+            "anchor": "red-gold",
+            "cta": "Discover"
+          }
+        },
+        {
+          "type": "bands",
+          "settings": {
+            "heading": "Jewellery Gifts by Price",
+            "label_1": "Under £50",
+            "label_2": "£50 to £100",
+            "label_3": "£100 to £200",
+            "label_4": "£200 and over"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

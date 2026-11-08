@@ -1,0 +1,323 @@
+{%- liquid
+  assign s = section.settings
+  assign base = s.base_url | default: '/pages/christmas-jewellery-gifts'
+-%}
+{% style %}
+  #am-gs-{{ section.id }} {
+    --l1: {{ s.left_bg_1 }};
+    --l2: {{ s.left_bg_2 }};
+    --rbg: {{ s.right_bg }};
+    --rh: {{ s.right_heading_color }};
+    --accent: {{ s.accent }};
+    --h: {{ s.heading_size }}px;
+    --pt: {{ s.padding_top }}px;
+    --pb: {{ s.padding_bottom }}px;
+  }
+  @media (max-width: 749px) {
+    #am-gs-{{ section.id }} { --h: {{ s.heading_size | times: 0.78 | round }}px; --pt: {{ s.padding_top | times: 0.6 | round }}px; --pb: {{ s.padding_bottom | times: 0.6 | round }}px; }
+  }
+{% endstyle %}
+<style>
+.am-gs{max-width:1100px;margin:0 auto;padding:var(--pt) 20px var(--pb)}
+.am-gs *{box-sizing:border-box}
+.am-gs p{margin:0;line-height:1.5}
+.am-gs a{text-decoration:none}
+.gs-wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.gs-card{display:flex;flex-direction:column;align-items:stretch;text-align:center;padding:28px 30px 36px;border:1px solid rgba(191,137,80,.75)}
+.gs-left{background:var(--l1);background:linear-gradient(180deg,var(--l1) 0%,var(--l2) 100%);color:#f3e6d8}
+.gs-right{background:var(--rbg);color:#1a1a18}
+.gs-card h2{margin:0!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-weight:400!important;font-size:var(--h)!important;line-height:1.1!important;letter-spacing:.01em!important;text-transform:none!important}
+.gs-left h2{color:#ecd5c0!important}
+.gs-right h2{color:var(--rh)!important}
+.gs-photo{display:block;position:relative;flex:1 1 auto;min-height:340px;margin:22px 0 28px;overflow:hidden;border:1px solid #bf8950;background:rgba(0,0,0,.15)}
+.gs-photo img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block}
+.gs-eye{font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase}
+.gs-left .gs-eye{color:#e2c3a5}
+.gs-right .gs-eye{color:var(--rh)}
+.gs-rule{display:block;width:56px;height:1px;background:#bf8950;margin:16px auto 18px}
+.gs-text{max-width:430px;margin:0 auto!important;font-family:'Jost',sans-serif;font-size:15px;font-weight:300;line-height:1.7!important}
+.gs-btn{display:inline-block;align-self:center;margin-top:22px;padding:13px 28px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;transition:background .25s,color .25s}
+.gs-left .gs-btn{border:1px solid #ecd5c0;color:#ecd5c0}
+.gs-left:hover .gs-btn{background:#ecd5c0;color:#5e0b17}
+.gs-right .gs-btn{border:1px solid #1a1a18;color:#1a1a18}
+.gs-right .gs-btn:hover{background:#1a1a18;color:#fff}
+.gs-tiles{display:grid;grid-template-columns:1fr 1fr;gap:20px 18px;margin:24px 0 28px;flex:1 1 auto}
+.gs-tile{display:flex;flex-direction:column;text-align:center;color:#1a1a18}
+.gs-tile__img{display:block;position:relative;aspect-ratio:1/1;overflow:hidden;background:#fff;border:1px solid rgba(26,26,24,.2)}
+.gs-tile__img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .7s}
+.gs-tile:hover .gs-tile__img img{opacity:.82}
+.gs-tile__t{display:block;padding:12px 4px 3px;font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;line-height:1.1}
+.gs-tile__s{display:block;padding:0 4px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#8a5a22}
+@media(max-width:749px){.am-gs{padding-left:12px;padding-right:12px}.gs-wrap{grid-template-columns:1fr;gap:18px}.gs-card{padding:22px 16px 28px}.gs-photo{min-height:0;aspect-ratio:4/5;flex:none}.gs-text{font-size:14px}.gs-tiles{gap:14px 10px;margin:20px 0 22px}.gs-tile__t{font-size:17px}.gs-tile__s{font-size:9px;letter-spacing:.14em}}
+</style>
+
+<div class="am-gs" id="am-gs-{{ section.id }}">
+  <div class="gs-wrap">
+
+    {%- capture left_inner -%}
+      {%- if s.left_heading != blank -%}<h2>{{ s.left_heading }}</h2>{%- endif -%}
+      {%- if s.left_image != blank -%}
+        <span class="gs-photo">{{ s.left_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: s.left_heading }}</span>
+      {%- endif -%}
+      {%- if s.left_eyebrow != blank -%}<p class="gs-eye">{{ s.left_eyebrow }}</p><span class="gs-rule"></span>{%- endif -%}
+      {%- if s.left_text != blank -%}<p class="gs-text">{{ s.left_text }}</p>{%- endif -%}
+      {%- if s.left_button != blank -%}<span class="gs-btn">{{ s.left_button }}</span>{%- endif -%}
+    {%- endcapture -%}
+    {%- if s.left_link != blank -%}
+      <a class="gs-card gs-left" href="{{ s.left_link }}">{{ left_inner }}</a>
+    {%- else -%}
+      <div class="gs-card gs-left">{{ left_inner }}</div>
+    {%- endif -%}
+
+    <div class="gs-card gs-right">
+      {%- if s.right_heading != blank -%}<h2>{{ s.right_heading }}</h2>{%- endif -%}
+      <div class="gs-tiles">
+        {%- for block in section.blocks -%}
+          {%- assign anchor = block.settings.anchor | handleize -%}
+          <a class="gs-tile" href="{{ base }}{% if anchor != blank %}#{{ anchor }}{% endif %}" {{ block.shopify_attributes }}>
+            <span class="gs-tile__img">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.label }}
+              {%- elsif block.settings.product.featured_image != blank -%}
+                {{ block.settings.product.featured_image | image_url: width: 500 | image_tag: loading: 'lazy', alt: block.settings.label }}
+              {%- endif -%}
+            </span>
+            <span class="gs-tile__t">{{ block.settings.label }}</span>
+            {%- if block.settings.note != blank -%}<span class="gs-tile__s">{{ block.settings.note }}</span>{%- endif -%}
+          </a>
+        {%- endfor -%}
+      </div>
+      {%- if s.right_eyebrow != blank -%}<p class="gs-eye">{{ s.right_eyebrow }}</p><span class="gs-rule"></span>{%- endif -%}
+      {%- if s.right_text != blank -%}<p class="gs-text">{{ s.right_text }}</p>{%- endif -%}
+      {%- if s.button_label != blank -%}<a class="gs-btn" href="{{ base }}">{{ s.button_label }}</a>{%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "AM Party + Gift Tiles",
+  "tag": "section",
+  "class": "am-gift-split",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left card (Christmas Party)"
+    },
+    {
+      "type": "text",
+      "id": "left_heading",
+      "label": "Heading",
+      "default": "Christmas Party Jewellery"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Photo"
+    },
+    {
+      "type": "text",
+      "id": "left_eyebrow",
+      "label": "Small line",
+      "default": "Christmas Party Season"
+    },
+    {
+      "type": "textarea",
+      "id": "left_text",
+      "label": "Text",
+      "default": "Statement earrings and pendants in red, gold and bold Modernist shapes and hues, including our officially licensed Miró jewellery."
+    },
+    {
+      "type": "url",
+      "id": "left_link",
+      "label": "Where the card goes",
+      "info": "Choose the party page or collection. The whole card becomes a link."
+    },
+    {
+      "type": "text",
+      "id": "left_button",
+      "label": "Button text (blank hides it)",
+      "default": "Shop party jewellery"
+    },
+    {
+      "type": "header",
+      "content": "Right box (gift tiles)"
+    },
+    {
+      "type": "text",
+      "id": "right_heading",
+      "label": "Heading",
+      "default": "Christmas Jewellery Gifts"
+    },
+    {
+      "type": "text",
+      "id": "right_eyebrow",
+      "label": "Small line",
+      "default": "The Christmas Edit 2026"
+    },
+    {
+      "type": "textarea",
+      "id": "right_text",
+      "label": "Text",
+      "default": "Pieces they’ll really love, luxuriously gift-wrapped with a handwritten card."
+    },
+    {
+      "type": "text",
+      "id": "base_url",
+      "label": "Gift page address",
+      "default": "/pages/christmas-jewellery-gifts",
+      "info": "Each square adds the name of its section, so it opens at the right part of the page."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text (blank hides it)",
+      "default": "See the full gift guide"
+    },
+    {
+      "type": "header",
+      "content": "Look"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "default": 38,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "left_bg_1",
+      "label": "Left card colour (top)",
+      "default": "#8B2A35"
+    },
+    {
+      "type": "color",
+      "id": "left_bg_2",
+      "label": "Left card colour (bottom)",
+      "default": "#5E0B17"
+    },
+    {
+      "type": "color",
+      "id": "right_bg",
+      "label": "Right box colour",
+      "default": "#FAFBF8"
+    },
+    {
+      "type": "color",
+      "id": "right_heading_color",
+      "label": "Right box heading colour",
+      "default": "#A42A36"
+    },
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Accent colour",
+      "default": "#BF8950"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Space above",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Space below",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Square",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Name",
+          "default": "Gifts For Her"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Small text",
+          "default": "From £75"
+        },
+        {
+          "type": "text",
+          "id": "anchor",
+          "label": "Section on the gift page",
+          "default": "for-her",
+          "info": "Must match the 'Link name' of that category on the gift page."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product (for the photo)",
+          "info": "Picks up this product's photo. Or choose a photo below."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo (optional)",
+          "info": "Used instead of the product photo if set."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "AM Party + Gift Tiles",
+      "blocks": [
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Gifts For Her",
+            "note": "From £75",
+            "anchor": "for-her"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "For Yourself",
+            "note": "From £75",
+            "anchor": "for-yourself"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Luxury Gifts",
+            "note": "From £75",
+            "anchor": "luxury-gifts"
+          }
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "label": "Stocking Fillers",
+            "note": "From £25",
+            "anchor": "secret-santa"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

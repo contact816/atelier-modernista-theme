@@ -257,12 +257,12 @@
           "type": "panel",
           "settings": {
             "eyebrow": "Officially licensed Miró",
-            "heading": "The Red and Gold Edit",
-            "subline": "Christmas colours, after Miró.",
+            "heading": "Give a Miró This Christmas",
+            "subline": "",
             "anchor": "red-gold",
             "products": [],
-            "collection": "",
-            "limit": 6,
+            "collection": "miro",
+            "limit": 12,
             "cta": "Discover"
           }
         },

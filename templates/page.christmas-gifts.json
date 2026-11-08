@@ -309,7 +309,8 @@
         ".gg-hero__eye {color: #ffffff !important; font-size: 13px !important; font-weight: 500 !important; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.75);}",
         ".am-gg .gg-panel h2 {margin-bottom: 36px !important;}",
         ".am-gg .gg-bandshead {margin: 84px 0 48px !important;}",
-        "@media (max-width: 749px) {.am-gg .gg-bandshead {margin: 56px 0 32px !important; }}"
+        "@media (max-width: 749px) {.am-gg .gg-bandshead {margin: 56px 0 32px !important; }}",
+        ".am-gg .gg-bands h4 {font-family: 'Jost', sans-serif !important; font-size: 15px !important; font-weight: 600 !important; letter-spacing: .16em !important;}"
       ],
       "name": "AM Gift Guide",
       "settings": {

@@ -91,7 +91,7 @@
           "type": "tile",
           "settings": {
             "label": "Gifts For Her",
-            "note": "From £75",
+            "note": "From £60",
             "anchor": "for-her",
             "product": "miro-red-enamel-parler-seul-earrings",
             "image": "shopify://shop_images/F4448606-B623-4F8D-B3C1-A2070BD96287_1_105_c.jpg"
@@ -111,7 +111,7 @@
           "type": "tile",
           "settings": {
             "label": "Stocking Fillers",
-            "note": "From £25",
+            "note": "From £20",
             "anchor": "secret-santa",
             "product": "the-colour-gift-box",
             "image": "shopify://shop_images/fa2261e03f8ec9ab809930e7ce87e5a75e6f7bfa760e8cedf46b28ab2a488f55.webp"

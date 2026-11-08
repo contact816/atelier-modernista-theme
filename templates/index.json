@@ -9,31 +9,6 @@
  */
 {
   "sections": {
-    "am_two_boxes_fYarR6": {
-      "type": "am-two-boxes",
-      "disabled": true,
-      "name": "AM Two Boxes",
-      "settings": {
-        "party_image": "shopify://shop_images/1a7ae5cc-7bef-48eb-b57c-a3c89746381d.png",
-        "party_position": 30,
-        "party_eyebrow": "Christmas Party Season",
-        "party_heading": "Christmas Party Jewellery",
-        "party_text": "Statement earrings and pendants in red, gold and bold Modernist shapes and hues, including our officially licensed Miró jewellery.",
-        "party_button": "Shop party jewellery",
-        "party_link": "shopify://collections/christmas-party-jewellery",
-        "party_fine": "Order by 16 Dec · Free 30-day returns",
-        "gift_image": "shopify://shop_images/M9999CO123000-VP_adl_ebda8040-50b9-41e3-81d1-52b10116b3c4.jpg",
-        "gift_position": 100,
-        "gift_eyebrow": "The Christmas Edit 2026",
-        "gift_heading": "Christmas Jewellery Gifts",
-        "gift_text": "Pieces they'll really love, luxuriously gift-wrapped with a handwritten card.",
-        "gift_button": "Shop Christmas Jewellery Gifts",
-        "gift_link": "shopify://pages/christmas-jewellery-gifts",
-        "gift_fine": "Order by 16 Dec · Express by 20 Dec",
-        "padding_top": 40,
-        "padding_bottom": 56
-      }
-    },
     "am_gift_tiles_Wj9wgh": {
       "type": "am-gift-tiles",
       "blocks": {
@@ -889,7 +864,6 @@
     }
   },
   "order": [
-    "am_two_boxes_fYarR6",
     "am_gift_tiles_Wj9wgh",
     "custom_liquid_hPtzhK",
     "pb_hero_MJ4EMh",

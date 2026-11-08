@@ -77,7 +77,7 @@
           "type": "category",
           "settings": {
             "show_tile": true,
-            "tile_label": "Gift Boxes",
+            "tile_label": "Luxury Gift Boxes",
             "tile_image": "shopify://shop_images/Atelier_Modernista_Art_Deco_Red_Gift_Box.png",
             "tile_note": "",
             "anchor": "gift-boxes",

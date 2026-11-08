@@ -55,17 +55,7 @@
         "tile_UdcN84",
         "tile_qcznYh"
       ],
-      "custom_css": [
-        ".am-gs .gs-right {background: linear-gradient(180deg, var(--l1) 0%, var(--l2) 100%); color: #f3e6d8;}",
-        ".am-gs .gs-right h2 {color: #ecd5c0 !important;}",
-        ".am-gs .gs-right .gs-eye {color: #e2c3a5;}",
-        ".am-gs .gs-right .gs-tile__t {color: #f3e6d8;}",
-        ".am-gs .gs-right .gs-tile__s {color: #e2c3a5;}",
-        ".am-gs .gs-right .gs-tile__img {border-color: rgba(236, 213, 192, 0.55);}",
-        ".am-gs .gs-right .gs-btn {border-color: #ecd5c0; color: #ecd5c0;}",
-        ".am-gs .gs-right .gs-btn:hover {background: #ecd5c0; color: #5e0b17;}",
-        ".am-gs .gs-text {color: #f3e6d8 !important; }"
-      ],
+      "custom_css": [],
       "name": "AM Party + Gift Tiles",
       "settings": {
         "left_heading": "Christmas Party Jewellery",

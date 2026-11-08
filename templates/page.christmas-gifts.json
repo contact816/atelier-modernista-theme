@@ -120,11 +120,11 @@
           "type": "category",
           "settings": {
             "show_tile": true,
-            "tile_label": "For Almost-Adults",
+            "tile_label": "For Teens",
             "tile_image": "shopify://shop_images/1EE95E12-0247-4575-BDE6-A2152B7205DE.webp",
             "tile_note": "",
             "anchor": "teens",
-            "heading": "Jewellery Gifts for Teenagers with Great Taste",
+            "heading": "Jewellery Gifts for Teenagers",
             "subline": "",
             "products": [
               "bauhaus-purple-red-earrings",

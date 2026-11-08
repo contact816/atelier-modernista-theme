@@ -94,17 +94,7 @@
             "note": "From £75",
             "anchor": "for-her",
             "product": "",
-            "image": "shopify://shop_images/Screenshot_2026-11-01_at_15.33.15_41a5f7b4-50be-4d18-bd8e-7dd22b967f1d.png"
-          }
-        },
-        "tile_XNBxJp": {
-          "type": "tile",
-          "settings": {
-            "label": "For Yourself",
-            "note": "From £75",
-            "anchor": "for-yourself",
-            "product": "",
-            "image": "shopify://shop_images/8ee01984-c1c1-40ca-a855-d125520729b1_8a511d3a-b4f5-44e3-b4bd-843b33074e00.png"
+            "image": "shopify://shop_images/29F1F10C-9BA0-4FF8-943A-0E5A522892AB_1_105_c.jpg"
           }
         },
         "tile_bGTCbX": {
@@ -126,13 +116,23 @@
             "product": "",
             "image": "shopify://shop_images/b281a01253cfff1f40d470e9c3574e5e9f21fd8fdc37c078b2296a98686e46ae.jpg"
           }
+        },
+        "tile_XNBxJp": {
+          "type": "tile",
+          "settings": {
+            "label": "For Yourself",
+            "note": "From £75",
+            "anchor": "for-yourself",
+            "product": "",
+            "image": "shopify://shop_images/8ee01984-c1c1-40ca-a855-d125520729b1_8a511d3a-b4f5-44e3-b4bd-843b33074e00.png"
+          }
         }
       },
       "block_order": [
         "tile_M4nbWN",
-        "tile_XNBxJp",
         "tile_bGTCbX",
-        "tile_jYLAak"
+        "tile_jYLAak",
+        "tile_XNBxJp"
       ],
       "name": "AM Home Hero",
       "settings": {

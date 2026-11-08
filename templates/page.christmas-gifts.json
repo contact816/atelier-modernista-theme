@@ -128,8 +128,6 @@
             "subline": "",
             "products": [
               "bauhaus-purple-red-earrings",
-              "palette-earrings",
-              "pink-pendant-necklace",
               "euclid-colour-wheel-necklace",
               "axiom-in-blue-bracelet-gold",
               "axion-forget-me-not-necklace-gold",
@@ -138,10 +136,12 @@
               "iskin-life-spiral-ring-blue-black-or-red-copy",
               "isosceles-925-silver-earrings",
               "kintsugi-18k-gold-vermeil-and-garnet-smile-pendant",
-              "silver-and-garnet-smile-pendant"
+              "silver-and-garnet-smile-pendant",
+              "miro-joyous-red-pendant",
+              "petite-engraved-18k-vermeil-necklace"
             ],
             "collection": "",
-            "limit": 6,
+            "limit": 12,
             "button_label": "",
             "button_link": ""
           }

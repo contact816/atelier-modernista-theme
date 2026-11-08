@@ -674,55 +674,6 @@
       "name": "Header with logo",
       "settings": {}
     },
-    "image_with_text_NMgRYF": {
-      "type": "image-with-text",
-      "blocks": {
-        "text_YjqMQ6": {
-          "type": "text",
-          "settings": {
-            "text": "",
-            "text_style": "body"
-          }
-        },
-        "button_Wk6WXa": {
-          "type": "button",
-          "settings": {
-            "button_label": "Read on",
-            "button_link": "shopify://collections/the-atelier-collection",
-            "button_style_secondary": false
-          }
-        },
-        "heading_8WxXrV": {
-          "type": "heading",
-          "settings": {
-            "heading": "Jewellery that's as relaxed as you  are.",
-            "heading_size": "h2"
-          }
-        }
-      },
-      "block_order": [
-        "text_YjqMQ6",
-        "button_Wk6WXa",
-        "heading_8WxXrV"
-      ],
-      "disabled": true,
-      "name": "t:sections.image-with-text.presets.name",
-      "settings": {
-        "image": "shopify://shop_images/Screenshot_2026-04-29_at_17.33.08.png",
-        "height": "adapt",
-        "desktop_image_width": "medium",
-        "layout": "image_first",
-        "image_behavior": "none",
-        "content_layout": "overlap",
-        "desktop_content_position": "top",
-        "desktop_content_alignment": "center",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "",
-        "color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "17835973092b47e3f7": {
       "type": "apps",
       "blocks": {
@@ -857,7 +808,6 @@
     "pb_newsletter_kqjr68",
     "custom-inspires",
     "blocks_Ew4x7P",
-    "image_with_text_NMgRYF",
     "17835973092b47e3f7",
     "arsenal_email_fqktkK",
     "am_hero_carousel_mAGHzJ",

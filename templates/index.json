@@ -46,24 +46,6 @@
             "product": "miro-femme-et-oiseaux-golden-necklace"
           }
         },
-        "tile_Exmhrh": {
-          "type": "tile",
-          "settings": {
-            "label": "Art Lovers",
-            "note": "From £55",
-            "anchor": "art-lovers",
-            "product": "life-spiral-earrings-ring"
-          }
-        },
-        "tile_4j6XrF": {
-          "type": "tile",
-          "settings": {
-            "label": "Gift Boxes",
-            "note": "From £120",
-            "anchor": "gift-boxes",
-            "product": "the-art-deco-gift-box"
-          }
-        },
         "tile_cjA9tm": {
           "type": "tile",
           "settings": {
@@ -73,13 +55,22 @@
             "product": "starburst-icon-necklace-925-18k-gold-vermeil"
           }
         },
-        "tile_yTJtAK": {
+        "tile_LC6VgC": {
           "type": "tile",
           "settings": {
-            "label": "Stocking Fillers + Secret Santa",
-            "note": "From £20",
-            "anchor": "secret-santa",
-            "product": "purple-petal-ring-925-sterling-silver"
+            "label": "For Yourself",
+            "note": "From £35",
+            "anchor": "for-yourself",
+            "product": "miro-1924-red-gold-earrings"
+          }
+        },
+        "tile_Exmhrh": {
+          "type": "tile",
+          "settings": {
+            "label": "Art Lovers",
+            "note": "From £55",
+            "anchor": "art-lovers",
+            "product": "life-spiral-earrings-ring"
           }
         },
         "tile_EeFC3r": {
@@ -91,13 +82,22 @@
             "product": "cobalt-silver-capsule"
           }
         },
-        "tile_LC6VgC": {
+        "tile_yTJtAK": {
           "type": "tile",
           "settings": {
-            "label": "For Yourself",
-            "note": "From £35",
-            "anchor": "for-yourself",
-            "product": "miro-1924-red-gold-earrings"
+            "label": "Stocking Fillers + Secret Santa",
+            "note": "From £20",
+            "anchor": "secret-santa",
+            "product": "purple-petal-ring-925-sterling-silver"
+          }
+        },
+        "tile_4j6XrF": {
+          "type": "tile",
+          "settings": {
+            "label": "Gift Boxes",
+            "note": "From £120",
+            "anchor": "gift-boxes",
+            "product": "the-art-deco-gift-box"
           }
         },
         "tile_riybYD": {
@@ -112,12 +112,12 @@
       },
       "block_order": [
         "tile_LzEPVh",
-        "tile_Exmhrh",
-        "tile_4j6XrF",
         "tile_cjA9tm",
-        "tile_yTJtAK",
-        "tile_EeFC3r",
         "tile_LC6VgC",
+        "tile_Exmhrh",
+        "tile_EeFC3r",
+        "tile_yTJtAK",
+        "tile_4j6XrF",
         "tile_riybYD"
       ],
       "name": "AM Gift Tiles",

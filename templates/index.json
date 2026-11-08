@@ -78,25 +78,25 @@
             "label": "Stocking Fillers + Secret Santa",
             "note": "From £20",
             "anchor": "secret-santa",
-            "product": ""
+            "product": "purple-petal-ring-925-sterling-silver"
           }
         },
         "tile_EeFC3r": {
           "type": "tile",
           "settings": {
-            "label": "Thank-You Gifts",
+            "label": "Luxury Gifts",
             "note": "From £35",
             "anchor": "thank-you",
-            "product": ""
+            "product": "cobalt-silver-capsule"
           }
         },
         "tile_LC6VgC": {
           "type": "tile",
           "settings": {
             "label": "For Yourself",
-            "note": "From £120",
+            "note": "From £35",
             "anchor": "for-yourself",
-            "product": ""
+            "product": "miro-1924-red-gold-earrings"
           }
         },
         "tile_riybYD": {
@@ -105,7 +105,7 @@
             "label": "Last-Minute Gifts",
             "note": "From £10",
             "anchor": "last-minute",
-            "product": ""
+            "product": "architect-enamel-copper-earrings"
           }
         }
       },
@@ -128,7 +128,7 @@
         "button_label": "See the full gift guide",
         "tiles_desktop": "4",
         "heading_size": 40,
-        "accent": "#B01B2E",
+        "accent": "#b01b2e",
         "padding_top": 48,
         "padding_bottom": 48
       }

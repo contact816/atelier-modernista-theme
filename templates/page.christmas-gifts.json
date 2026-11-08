@@ -24,7 +24,7 @@
           "type": "category",
           "settings": {
             "show_tile": true,
-            "tile_label": "For Her",
+            "tile_label": "Gifts For Her",
             "tile_image": "shopify://shop_images/6cbd506c-0e80-4b6a-bdc3-c955d86abdf8.png",
             "tile_note": "",
             "anchor": "for-her",
@@ -159,7 +159,7 @@
             "tile_note": "",
             "anchor": "thank-you",
             "heading": "Luxury Gifts",
-            "subline": "For a little extra touch of the decadent.",
+            "subline": "For that extra little touch of perfect.",
             "products": [
               "cobalt-silver-capsule",
               "curl-14k-gold-vermeil-earrings",

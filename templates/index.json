@@ -90,7 +90,7 @@
         "tile_M4nbWN": {
           "type": "tile",
           "settings": {
-            "label": "Gifts For Her",
+            "label": "Gifts For Jewellery Lovers",
             "note": "From £60",
             "anchor": "for-her",
             "product": "miro-red-enamel-parler-seul-earrings",
@@ -100,7 +100,7 @@
         "tile_bGTCbX": {
           "type": "tile",
           "settings": {
-            "label": "Luxury Gifts",
+            "label": "A Little Luxury",
             "note": "From £75",
             "anchor": "luxury-gifts",
             "product": "miro-spanish-dancer-earrings",
@@ -110,7 +110,7 @@
         "tile_jYLAak": {
           "type": "tile",
           "settings": {
-            "label": "Stocking Fillers",
+            "label": "Stocking Fillers You'd Love To Get",
             "note": "From £20",
             "anchor": "secret-santa",
             "product": "the-colour-gift-box",

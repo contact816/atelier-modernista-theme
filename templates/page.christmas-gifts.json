@@ -228,6 +228,7 @@
           "settings": {
             "show_tile": true,
             "tile_label": "Last-Minute Gifts",
+            "tile_image": "shopify://shop_images/M9999CO103200-VP_adl_63256f90-0b49-4b0a-93d3-4c0c629a4ecc.jpg",
             "tile_note": "",
             "anchor": "last-minute",
             "heading": "Last-Minute Gifts",

@@ -93,7 +93,8 @@
             "label": "Gifts For Her",
             "note": "From £75",
             "anchor": "for-her",
-            "product": ""
+            "product": "",
+            "image": "shopify://shop_images/6cbd506c-0e80-4b6a-bdc3-c955d86abdf8.png"
           }
         },
         "tile_XNBxJp": {
@@ -102,7 +103,8 @@
             "label": "For Yourself",
             "note": "From £75",
             "anchor": "for-yourself",
-            "product": ""
+            "product": "",
+            "image": "shopify://shop_images/8ee01984-c1c1-40ca-a855-d125520729b1_8a511d3a-b4f5-44e3-b4bd-843b33074e00.png"
           }
         },
         "tile_bGTCbX": {
@@ -111,7 +113,8 @@
             "label": "Luxury Gifts",
             "note": "From £75",
             "anchor": "luxury-gifts",
-            "product": ""
+            "product": "",
+            "image": "shopify://shop_images/M9999AR123000-VP_adl_773db1ff-0185-48f7-b746-0d932910435d.jpg"
           }
         },
         "tile_jYLAak": {
@@ -120,7 +123,8 @@
             "label": "Stocking Fillers",
             "note": "From £25",
             "anchor": "secret-santa",
-            "product": ""
+            "product": "",
+            "image": "shopify://shop_images/b281a01253cfff1f40d470e9c3574e5e9f21fd8fdc37c078b2296a98686e46ae.jpg"
           }
         }
       },

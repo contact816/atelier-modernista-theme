@@ -113,7 +113,7 @@
             "label": "Stocking Fillers",
             "note": "From £25",
             "anchor": "secret-santa",
-            "product": "",
+            "product": "the-colour-gift-box",
             "image": "shopify://shop_images/b281a01253cfff1f40d470e9c3574e5e9f21fd8fdc37c078b2296a98686e46ae.jpg"
           }
         },
@@ -123,7 +123,7 @@
             "label": "For Yourself",
             "note": "From £75",
             "anchor": "for-yourself",
-            "product": "",
+            "product": "miro-femme-et-oiseaux-golden-necklace",
             "image": "shopify://shop_images/8ee01984-c1c1-40ca-a855-d125520729b1_8a511d3a-b4f5-44e3-b4bd-843b33074e00.png"
           }
         }

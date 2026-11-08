@@ -28,7 +28,7 @@
             "tile_note": "",
             "anchor": "for-her",
             "heading": "Christmas Jewellery Gifts for Her",
-            "subline": "Pieces she will actually wear.",
+            "subline": "Pieces she will really love.",
             "products": [],
             "collection": "",
             "limit": 6,
@@ -39,7 +39,7 @@
         "info_9w7Ufd": {
           "type": "info",
           "settings": {
-            "text": "<p><strong>CHRISTMAS DELIVERY</strong></p><p>Order by <strong>16 December</strong> for standard UK delivery, or by <strong>20 December</strong> with express. Every piece dispatches within 1 working day.</p><p>UK delivery is £2.95, free on orders of £75 or more. Express is £6.95.</p><p>Free returns within 30 days on full-price pieces (excluding pierced earrings).</p><p><strong>THE ATELIER CIRCLE</strong></p><p>Joining is free: £10 off, free standard shipping, and a handwritten note with every order.</p>"
+            "text": "<p><strong>CHRISTMAS DELIVERY</strong></p><p>Order by <strong>16 December</strong> for standard UK delivery, or by <strong>20 December</strong> with express. Every piece dispatches within 1 working day.</p><p>UK delivery is £2.95, free on orders of £75 or more. Express is £6.95.</p><p>Free returns within 30 days on full-price pieces (excluding pierced earrings).</p>"
           }
         },
         "category_FwKj8n": {
@@ -78,7 +78,7 @@
           "type": "category",
           "settings": {
             "show_tile": true,
-            "tile_label": "Teenagers",
+            "tile_label": "Teens With Taste",
             "tile_note": "",
             "anchor": "teens",
             "heading": "Jewellery Gifts for Teenagers with Taste",

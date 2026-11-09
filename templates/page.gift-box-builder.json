@@ -56,13 +56,15 @@
         "bg": "#FDF6E3",
         "blue": "#0047AB",
         "little_product": "",
+        "little_image": "shopify://shop_images/b4f33e5e72477cbc91045f97e90465462084a2257225c578c6befba404b40e48.jpg",
         "little_name": "The Little Luxury Box",
-        "little_copy": "A small collection of thoughtful luxuries, with cashmere socks and a scented candle.",
-        "little_contents": "Cashmere socks\nPanda Botanicals candle\nGift presentation",
+        "little_copy": "Luxury is curling up in 100% cashmere socks with a French Lavender candle aglow nearby. \n\nAdd a piece of statement jewellery to your box, or something subtle and delicate, be it handmade notepaper or luxuriant Kew Garden hand-cream.",
+        "little_contents": "100% Cashmere Socks\nFrench Lavender Candle (4oz)\nGift Box with Tissue, Wax Seal and Handmade Card",
         "colour_product": "",
-        "colour_name": "The Colour Edit Box",
-        "colour_copy": "A colourful edit centred on a beautiful scarf, a candle and considered gift wrapping.",
-        "colour_contents": "Burgundy scarf\nScented candle\nGift presentation"
+        "colour_image": "shopify://shop_images/Minimal_Burgundy_Belly_Band_Concept.png",
+        "colour_name": "The Colour Edit Luxury Box",
+        "colour_copy": "Open the tissue paper to find a cashmere-rich scarf, a French Lavender candle, and luxuriant hand-cream from Kew Gardens. \n\nThe centrepiece of this luxury box is a pair of earrings from Atelier Modernista.",
+        "colour_contents": "Burgundy Cashmere scarf\nFrench Lavender Candle (4oz)\nKew Gardens Fig and Grape Hand-cream \nGift Box with Tissue, Wax Seal and Handmade Card"
       }
     }
   },

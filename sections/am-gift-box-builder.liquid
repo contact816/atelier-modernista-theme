@@ -1,0 +1,1004 @@
+
+{% comment %}
+  Atelier Modernista x The Style Chapter
+  Editable gift box builder for Shopify Dawn.
+  Install on a duplicate theme first.
+{% endcomment %}
+
+{% assign little = section.settings.little_product %}
+{% assign colour = section.settings.colour_product %}
+
+<section
+  id="am-gift-{{ section.id }}"
+  class="am-gift"
+  style="
+    --cream: {{ section.settings.bg }};
+    --blue: {{ section.settings.blue }};
+  "
+>
+  <div class="am-gift__container">
+
+    <p class="am-gift__eyebrow">
+      {{ section.settings.eyebrow | escape }}
+    </p>
+
+    <h1>{{ section.settings.heading | escape }}</h1>
+
+    <p class="am-gift__intro">
+      {{ section.settings.intro | escape }}
+    </p>
+
+    <div class="am-gift__layout">
+
+      <div class="am-gift__main">
+
+        <h2>01. Choose your base box</h2>
+
+        <div class="am-gift__boxes">
+
+          {% for n in (1..2) %}
+            {% liquid
+              if n == 1
+                assign product = little
+                assign photo = section.settings.little_image
+                assign name = section.settings.little_name
+                assign description = section.settings.little_copy
+                assign contents = section.settings.little_contents
+              else
+                assign product = colour
+                assign photo = section.settings.colour_image
+                assign name = section.settings.colour_name
+                assign description = section.settings.colour_copy
+                assign contents = section.settings.colour_contents
+              endif
+            %}
+
+            <button
+              type="button"
+              class="am-gift__box"
+              data-box
+              data-name="{{ name | escape }}"
+              data-id="{{ product.selected_or_first_available_variant.id }}"
+              data-price="{{ product.selected_or_first_available_variant.price | default: 0 }}"
+              data-contents="{{ contents | escape }}"
+              data-number="{{ n }}"
+              aria-pressed="{% if n == 1 %}true{% else %}false{% endif %}"
+            >
+
+              {% if photo != blank %}
+                {{
+                  photo
+                  | image_url: width: 900
+                  | image_tag: loading: 'lazy', class: 'am-gift__photo'
+                }}
+              {% elsif product.featured_image != blank %}
+                {{
+                  product.featured_image
+                  | image_url: width: 900
+                  | image_tag: loading: 'lazy', class: 'am-gift__photo'
+                }}
+              {% else %}
+                <div class="am-gift__placeholder">
+                  Add a photograph in the Theme Editor
+                </div>
+              {% endif %}
+
+              <strong>{{ name | escape }}</strong>
+
+              <span class="am-gift__description">
+                {{ description | escape }}
+              </span>
+
+              <span class="am-gift__price">
+                {% if product != blank %}
+                  {{ product.selected_or_first_available_variant.price | money }}
+                {% else %}
+                  Connect a Shopify product
+                {% endif %}
+              </span>
+
+            </button>
+          {% endfor %}
+
+        </div>
+
+        <hr>
+
+        <h2>02. What's included</h2>
+
+        <div class="am-gift__included" data-included></div>
+
+        <hr>
+
+        <h2>03. Add jewellery or a little extra</h2>
+
+        <p class="am-gift__help">
+          Choose a jewellery piece and any additional gifts.
+          Your total updates automatically.
+        </p>
+
+        <h3>Jewellery</h3>
+
+        <div class="am-gift__options">
+
+          <label class="am-gift__option">
+            <input
+              type="radio"
+              name="jewellery-{{ section.id }}"
+              value=""
+              checked
+            >
+            <span>No jewellery added</span>
+          </label>
+
+          {% for block in section.blocks %}
+            {% if block.type == 'jewellery' %}
+
+              {% assign p = block.settings.product %}
+
+              <label
+                class="am-gift__option"
+                {{ block.shopify_attributes }}
+              >
+
+                <input
+                  type="radio"
+                  name="jewellery-{{ section.id }}"
+                  value="{{ p.selected_or_first_available_variant.id }}"
+                  data-addon
+                  data-title="{{ p.title | escape }}"
+                  data-price="{{ p.selected_or_first_available_variant.price | default: 0 }}"
+                  {% if p == blank or p.selected_or_first_available_variant.available == false %}
+                    disabled
+                  {% endif %}
+                >
+
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 200
+                    | image_tag: loading: 'lazy', class: 'am-gift__thumb'
+                  }}
+                {% elsif p.featured_image != blank %}
+                  {{
+                    p.featured_image
+                    | image_url: width: 200
+                    | image_tag: loading: 'lazy', class: 'am-gift__thumb'
+                  }}
+                {% else %}
+                  <span class="am-gift__thumb am-gift__empty">
+                    Photo
+                  </span>
+                {% endif %}
+
+                <span class="am-gift__details">
+                  <strong>
+                    {{ p.title | default: 'Choose a product' | escape }}
+                  </strong>
+
+                  <small>{{ block.settings.caption | escape }}</small>
+                </span>
+
+                <span class="am-gift__addon-price">
+                  {% if p != blank %}
+                    +{{ p.selected_or_first_available_variant.price | money }}
+                  {% endif %}
+                </span>
+
+              </label>
+
+            {% endif %}
+          {% endfor %}
+
+        </div>
+
+        <h3>Small extras</h3>
+
+        <div class="am-gift__options">
+
+          {% for block in section.blocks %}
+            {% if block.type == 'extra' %}
+
+              {% assign p = block.settings.product %}
+
+              <label
+                class="am-gift__option"
+                {{ block.shopify_attributes }}
+              >
+
+                <input
+                  type="checkbox"
+                  value="{{ p.selected_or_first_available_variant.id }}"
+                  data-addon
+                  data-title="{{ p.title | escape }}"
+                  data-price="{{ p.selected_or_first_available_variant.price | default: 0 }}"
+                  {% if p == blank or p.selected_or_first_available_variant.available == false %}
+                    disabled
+                  {% endif %}
+                >
+
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 200
+                    | image_tag: loading: 'lazy', class: 'am-gift__thumb'
+                  }}
+                {% elsif p.featured_image != blank %}
+                  {{
+                    p.featured_image
+                    | image_url: width: 200
+                    | image_tag: loading: 'lazy', class: 'am-gift__thumb'
+                  }}
+                {% else %}
+                  <span class="am-gift__thumb am-gift__empty">
+                    Photo
+                  </span>
+                {% endif %}
+
+                <span class="am-gift__details">
+                  <strong>
+                    {{ p.title | default: 'Choose a product' | escape }}
+                  </strong>
+
+                  <small>{{ block.settings.caption | escape }}</small>
+                </span>
+
+                <span class="am-gift__addon-price">
+                  {% if p != blank %}
+                    +{{ p.selected_or_first_available_variant.price | money }}
+                  {% endif %}
+                </span>
+
+              </label>
+
+            {% endif %}
+          {% endfor %}
+
+        </div>
+
+        <hr>
+
+        <h2>04. Personalise your gift</h2>
+
+        <label class="am-gift__field">
+          Gift message (optional)
+
+          <textarea
+            data-message
+            maxlength="180"
+            rows="3"
+            placeholder="Write your gift message here"
+          ></textarea>
+        </label>
+
+        <label class="am-gift__field" data-socks>
+          Sock colour
+
+          <select data-sock-colour>
+            <option>Cream</option>
+            <option>Burgundy</option>
+            <option>Navy</option>
+            <option>Grey</option>
+          </select>
+        </label>
+
+        <label class="am-gift__field" data-scarf hidden>
+          Scarf choice
+
+          <select data-scarf-colour>
+            <option>Plain burgundy</option>
+            <option>Reversible burgundy</option>
+          </select>
+        </label>
+
+      </div>
+
+      <aside class="am-gift__summary">
+
+        <p class="am-gift__eyebrow">
+          Your Gift Box
+        </p>
+
+        <h2 data-summary-title>
+          {{ section.settings.little_name | escape }}
+        </h2>
+
+        <div data-summary-lines></div>
+
+        <div class="am-gift__total">
+          <strong>Total</strong>
+          <strong data-total>—</strong>
+        </div>
+
+        <button
+          type="button"
+          class="am-gift__cart"
+          data-cart
+          disabled
+        >
+          Select your box
+        </button>
+
+        <p data-status class="am-gift__status" role="status"></p>
+
+        <p class="am-gift__help">
+          Beautifully presented for gifting.
+          Delivery calculated at checkout.
+        </p>
+
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  #am-gift-{{ section.id }} {
+    background: var(--cream);
+    color: #1a1a1a;
+    padding: 55px 22px 75px;
+    font-family: 'Jost', Arial, sans-serif;
+  }
+
+  #am-gift-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__container {
+    max-width: 1160px;
+    margin: auto;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__eyebrow {
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .19em;
+  }
+
+  #am-gift-{{ section.id }} h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 12px 0;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__intro {
+    color: #68635d;
+    max-width: 700px;
+    line-height: 1.7;
+    margin-bottom: 35px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__layout {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__main h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 31px;
+    font-weight: 500;
+    margin: 25px 0 18px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__main h3 {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin: 28px 0 14px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__boxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__box {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background: #fff;
+    color: #1a1a1a;
+    border: 1px solid #d9d0c2;
+    padding: 13px;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__box[aria-pressed="true"] {
+    outline: 2px solid var(--blue);
+    outline-offset: -2px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__photo,
+  #am-gift-{{ section.id }} .am-gift__placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #f0ede8;
+    display: block;
+    margin-bottom: 13px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__placeholder {
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    text-align: center;
+    color: #777;
+    font-size: 12px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__box strong {
+    font-size: 17px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__description {
+    color: #68635d;
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 7px 0;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__price {
+    margin-top: auto;
+    padding-top: 12px;
+    font-size: 19px;
+    font-weight: 600;
+  }
+
+  #am-gift-{{ section.id }} hr {
+    border: 0;
+    border-top: 1px solid #d9d0c2;
+    margin: 32px 0;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__included {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #e8e0d5;
+    white-space: pre-line;
+    line-height: 1.9;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__options {
+    display: grid;
+    gap: 10px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    border: 1px solid #e8e0d5;
+    padding: 11px;
+    cursor: pointer;
+  }
+
+  #am-gift-{{ section.id }} input[type="checkbox"],
+  #am-gift-{{ section.id }} input[type="radio"] {
+    accent-color: var(--blue);
+  }
+
+  #am-gift-{{ section.id }} .am-gift__thumb {
+    width: 68px;
+    height: 68px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #f5f1ea;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__empty {
+    display: grid;
+    place-items: center;
+    color: #999;
+    font-size: 11px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__details {
+    flex: 1;
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+    font-size: 13px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__details small {
+    color: #777;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__addon-price {
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__field {
+    display: block;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__field[hidden] {
+    display: none;
+  }
+
+  #am-gift-{{ section.id }} select,
+  #am-gift-{{ section.id }} textarea {
+    width: 100%;
+    display: block;
+    margin-top: 8px;
+    padding: 12px;
+    background: white;
+    border: 1px solid #d9d0c2;
+    font: inherit;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__summary {
+    background: white;
+    padding: 26px;
+    border: 1px solid #d9d0c2;
+    position: sticky;
+    top: 20px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__summary h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 500;
+    font-size: 36px;
+    margin: 12px 0 20px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__summary-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 9px 0;
+    font-size: 13px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__total {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    margin-top: 15px;
+    border-top: 1px solid #ddd5ca;
+    font-size: 21px;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__total strong:last-child {
+    color: var(--blue);
+  }
+
+  #am-gift-{{ section.id }} .am-gift__cart {
+    width: 100%;
+    background: var(--blue);
+    color: white;
+    border: 0;
+    padding: 17px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__cart:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__status {
+    color: #a13d36;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__help {
+    color: #746e67;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 860px) {
+    #am-gift-{{ section.id }} .am-gift__layout {
+      grid-template-columns: 1fr;
+    }
+
+    #am-gift-{{ section.id }} .am-gift__summary {
+      position: static;
+    }
+  }
+
+  @media (max-width: 540px) {
+    #am-gift-{{ section.id }} .am-gift__boxes {
+      grid-template-columns: 1fr;
+    }
+
+    #am-gift-{{ section.id }} .am-gift__thumb {
+      width: 56px;
+      height: 56px;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  const root = document.getElementById(
+    'am-gift-{{ section.id }}'
+  );
+
+  if (!root || root.dataset.initialised === 'true') {
+    return;
+  }
+
+  root.dataset.initialised = 'true';
+
+  const $ = (selector) => root.querySelector(selector);
+  const $$ = (selector) =>
+    Array.from(root.querySelectorAll(selector));
+
+  const boxes = $$('[data-box]');
+  let active = boxes[0];
+
+  const money = (pence) =>
+    new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: 'GBP'
+    }).format(pence / 100);
+
+  const included = $('[data-included]');
+  const title = $('[data-summary-title]');
+  const lines = $('[data-summary-lines]');
+  const total = $('[data-total]');
+  const cartButton = $('[data-cart]');
+  const status = $('[data-status]');
+
+  function getSelection() {
+    const base = Number(active.dataset.price) || 0;
+
+    const extras = $$('[data-addon]:checked')
+      .filter(el => !el.disabled);
+
+    const extraTotal = extras.reduce(
+      (sum, el) => sum + Number(el.dataset.price || 0),
+      0
+    );
+
+    return {
+      base,
+      extras,
+      total: base + extraTotal
+    };
+  }
+
+  function render() {
+    const selected = getSelection();
+
+    boxes.forEach(box => {
+      box.setAttribute(
+        'aria-pressed',
+        String(box === active)
+      );
+    });
+
+    included.textContent =
+      active.dataset.contents ||
+      'Add contents in the Theme Editor.';
+
+    title.textContent = active.dataset.name;
+
+    $('[data-socks]').hidden =
+      active.dataset.number !== '1';
+
+    $('[data-scarf]').hidden =
+      active.dataset.number !== '2';
+
+    const entries = [
+      [active.dataset.name, selected.base],
+      ...selected.extras.map(el => [
+        el.dataset.title,
+        Number(el.dataset.price)
+      ])
+    ];
+
+    lines.replaceChildren();
+
+    entries.forEach(([name, price]) => {
+      const row = document.createElement('div');
+      row.className = 'am-gift__summary-line';
+
+      const label = document.createElement('span');
+      label.textContent = name;
+
+      const amount = document.createElement('span');
+      amount.textContent = money(price);
+
+      row.append(label, amount);
+      lines.appendChild(row);
+    });
+
+    total.textContent = money(selected.total);
+
+    cartButton.disabled =
+      !(Number(active.dataset.id) > 0);
+
+    cartButton.textContent = cartButton.disabled
+      ? 'Connect a box product in Shopify'
+      : 'Add gift box to bag';
+
+    status.textContent = '';
+  }
+
+  boxes.forEach(box => {
+    box.addEventListener('click', () => {
+      active = box;
+      render();
+    });
+  });
+
+  $$('[data-addon]').forEach(input => {
+    input.addEventListener('change', render);
+  });
+
+  cartButton.addEventListener('click', async () => {
+    const selected = getSelection();
+
+    if (!Number(active.dataset.id)) {
+      status.textContent =
+        'Please connect your box product first.';
+      return;
+    }
+
+    const group =
+      'AM-GIFT-' + Date.now();
+
+    const properties = {
+      '_Gift box group': group,
+      'Gift box': active.dataset.name
+    };
+
+    if (active.dataset.number === '1') {
+      properties['Sock colour'] =
+        $('[data-sock-colour]').value;
+    } else {
+      properties['Scarf choice'] =
+        $('[data-scarf-colour]').value;
+    }
+
+    const message = $('[data-message]').value.trim();
+
+    if (message) {
+      properties['Gift message'] =
+        message.slice(0, 180);
+    }
+
+    const items = [
+      {
+        id: Number(active.dataset.id),
+        quantity: 1,
+        properties
+      },
+      ...selected.extras.map(el => ({
+        id: Number(el.value),
+        quantity: 1,
+        properties: {
+          '_Gift box group': group,
+          '_Added to gift box': active.dataset.name
+        }
+      }))
+    ];
+
+    if (items.some(item => !item.id)) {
+      status.textContent =
+        'Please check the connected Shopify products.';
+      return;
+    }
+
+    cartButton.disabled = true;
+    cartButton.textContent = 'Adding to bag...';
+
+    try {
+      const shopRoot =
+        window.Shopify?.routes?.root || '/';
+
+      const response = await fetch(
+        shopRoot + 'cart/add.js',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ items })
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          result.description ||
+          result.message ||
+          'Unable to add items'
+        );
+      }
+
+      window.location.assign(shopRoot + 'cart');
+
+    } catch (error) {
+      status.textContent = error.message;
+      cartButton.disabled = false;
+      cartButton.textContent = 'Add gift box to bag';
+    }
+  });
+
+  render();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "AM Gift Box Builder",
+  "tag": "section",
+  "class": "section-am-gift-box-builder",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page introduction"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Branding",
+      "default": "Atelier Modernista x The Style Chapter"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "A Gift, Beautifully Chosen."
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Introduction",
+      "default": "Choose your base box, then add jewellery or a little extra. A gift made personal."
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Background colour",
+      "default": "#FDF6E3"
+    },
+    {
+      "type": "color",
+      "id": "blue",
+      "label": "Accent colour",
+      "default": "#0047AB"
+    },
+    {
+      "type": "header",
+      "content": "The Little Luxury Box"
+    },
+    {
+      "type": "product",
+      "id": "little_product",
+      "label": "Shopify base product"
+    },
+    {
+      "type": "image_picker",
+      "id": "little_image",
+      "label": "Gift box photograph"
+    },
+    {
+      "type": "text",
+      "id": "little_name",
+      "label": "Box name",
+      "default": "The Little Luxury Box"
+    },
+    {
+      "type": "textarea",
+      "id": "little_copy",
+      "label": "Description",
+      "default": "A small collection of thoughtful luxuries, with cashmere socks and a scented candle."
+    },
+    {
+      "type": "textarea",
+      "id": "little_contents",
+      "label": "What's included",
+      "default": "Cashmere socks\nPanda Botanicals candle\nGift presentation"
+    },
+    {
+      "type": "header",
+      "content": "The Colour Edit Box"
+    },
+    {
+      "type": "product",
+      "id": "colour_product",
+      "label": "Shopify base product"
+    },
+    {
+      "type": "image_picker",
+      "id": "colour_image",
+      "label": "Gift box photograph"
+    },
+    {
+      "type": "text",
+      "id": "colour_name",
+      "label": "Box name",
+      "default": "The Colour Edit Box"
+    },
+    {
+      "type": "textarea",
+      "id": "colour_copy",
+      "label": "Description",
+      "default": "A colourful edit centred on a beautiful scarf, a candle and considered gift wrapping."
+    },
+    {
+      "type": "textarea",
+      "id": "colour_contents",
+      "label": "What's included",
+      "default": "Burgundy scarf\nScented candle\nGift presentation"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "jewellery",
+      "name": "Jewellery option",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Shopify product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product photograph"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Short description"
+        }
+      ]
+    },
+    {
+      "type": "extra",
+      "name": "Small extra",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Shopify product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product photograph"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Short description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AM Gift Box Builder"
+    }
+  ]
+}
+{% endschema %}

@@ -1,27 +1,36 @@
 {%- comment -%}
-  Atelier Modernista x The Style Chapter - Gift Box Builder
-  Section file: sections/am-gift-box-builder.liquid
+  Atelier Modernista x The Style Chapter - Gift Box Builder (v2: three boxes, 4 included pieces + upgrade)
+  File: sections/am-gift-box-builder.liquid
 
-  HOW PRICING WORKS (read once)
-  - The chosen jewellery is added to the bag as its OWN Shopify variant, so stock decrements properly.
-  - To avoid charging twice, the BASE BOX product price must equal:
-        advertised box price  minus  included jewellery price
-    e.g. advertised £55, included jewellery £45  ->  box product priced £10.
-  - "Included jewellery value" (per box, in the section settings) must match the
-    shop price of your INCLUDED jewellery. Premium pieces show the difference as an upgrade.
+  HOW PRICING WORKS
+  - Each box's advertised price INCLUDES one jewellery piece, e.g. £39 / £49 / £59.
+  - The chosen jewellery goes into the bag as its OWN Shopify variant (so stock decrements).
+  - To avoid charging twice:  BOX PRODUCT PRICE = advertised price minus INCLUDED JEWELLERY PRICE.
+      Included jewellery products are priced at £20  ->  box products at £19 / £29 / £39.
+  - Set "Included jewellery price" on each box block to 20 (the shop price of the 4 included pieces).
+  - Upgrade pieces are priced higher (e.g. £30). The customer pays only the difference over £20.
   - Every price in the bag is a real Shopify price, so checkout always verifies it.
 {%- endcomment -%}
 
 {%- liquid
-  assign first_box = 0
+  assign first_box = ''
   assign box_count = 0
-  for i in (1..2)
-    assign kp = 'box_' | append: i | append: '_product'
-    if section.settings[kp] != blank
+  for block in section.blocks
+    if block.type == 'box' and block.settings.product != blank
       assign box_count = box_count | plus: 1
-      if first_box == 0
-        assign first_box = i
+      if first_box == ''
+        assign first_box = block.id
       endif
+    endif
+  endfor
+  assign has_upgrades = false
+  assign has_extras = false
+  for block in section.blocks
+    if block.type == 'jewellery' and block.settings.tier == 'upgrade' and block.settings.product != blank
+      assign has_upgrades = true
+    endif
+    if block.type == 'extra' and block.settings.product != blank
+      assign has_extras = true
     endif
   endfor
 -%}
@@ -54,15 +63,16 @@
   #amgb-{{ section.id }} .amgb-step__title { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 24px; margin: 0 0 4px; }
   #amgb-{{ section.id }} .amgb-step__title span { color: var(--amgb-burgundy); margin-right: 8px; }
   #amgb-{{ section.id }} .amgb-step__sub { margin: 0 0 14px; font-size: 13px; opacity: 0.7; }
-
   #amgb-{{ section.id }} .amgb-visually { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
 
   /* Boxes */
-  #amgb-{{ section.id }} .amgb-boxes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  #amgb-{{ section.id }} .amgb-boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
   #amgb-{{ section.id }} .amgb-box { display: block; position: relative; cursor: pointer; }
   #amgb-{{ section.id }} .amgb-box__inner { display: block; background: #fff; border: 1px solid var(--amgb-line); height: 100%; transition: border-color 0.2s, outline-color 0.2s; outline: 2px solid transparent; outline-offset: -1px; }
   #amgb-{{ section.id }} .amgb-box input:checked + .amgb-box__inner { outline-color: var(--amgb-cobalt); border-color: var(--amgb-cobalt); }
   #amgb-{{ section.id }} .amgb-box input:focus-visible + .amgb-box__inner { outline-color: var(--amgb-cobalt); }
+  #amgb-{{ section.id }} .amgb-box.is-soldout { cursor: not-allowed; }
+  #amgb-{{ section.id }} .amgb-box.is-soldout .amgb-box__inner { opacity: 0.45; }
   #amgb-{{ section.id }} .amgb-box__img { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--amgb-linen); }
   #amgb-{{ section.id }} .amgb-box__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
   #amgb-{{ section.id }} .amgb-box__body { display: block; padding: 14px 16px 16px; }
@@ -71,11 +81,10 @@
   #amgb-{{ section.id }} .amgb-box__price { display: block; font-weight: 500; color: var(--amgb-cobalt); }
   #amgb-{{ section.id }} .amgb-boxopt { margin-top: 12px; }
   #amgb-{{ section.id }} .amgb-boxopt label { display: block; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 6px; }
-
   #amgb-{{ section.id }} select { width: 100%; font-family: 'Jost', sans-serif; font-size: 14px; padding: 10px 12px; border: 1px solid var(--amgb-line); background: #fff; color: var(--amgb-ink); border-radius: 0; }
 
-  /* Jewellery grid */
-  #amgb-{{ section.id }} .amgb-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  /* Jewellery grids */
+  #amgb-{{ section.id }} .amgb-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
   #amgb-{{ section.id }} .amgb-card { display: block; position: relative; cursor: pointer; }
   #amgb-{{ section.id }} .amgb-card__inner { display: block; background: #fff; border: 1px solid var(--amgb-line); height: 100%; outline: 2px solid transparent; outline-offset: -1px; transition: outline-color 0.2s, border-color 0.2s; }
   #amgb-{{ section.id }} .amgb-card input:checked + .amgb-card__inner { outline-color: var(--amgb-cobalt); border-color: var(--amgb-cobalt); }
@@ -87,8 +96,14 @@
   #amgb-{{ section.id }} .amgb-card__body { display: block; padding: 10px 12px 12px; }
   #amgb-{{ section.id }} .amgb-card__name { display: block; font-size: 14px; line-height: 1.3; margin-bottom: 3px; }
   #amgb-{{ section.id }} .amgb-card__tag { display: block; font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--amgb-cobalt); }
-  #amgb-{{ section.id }} .amgb-card[data-tier="premium"] .amgb-card__tag { color: var(--amgb-burgundy); }
+  #amgb-{{ section.id }} .amgb-card[data-tier="upgrade"] .amgb-card__tag { color: var(--amgb-burgundy); }
   #amgb-{{ section.id }} .amgb-card select { margin-top: 8px; padding: 7px 8px; font-size: 13px; }
+
+  #amgb-{{ section.id }} .amgb-upgrade-toggle { margin-top: 16px; background: transparent; border: 1px solid var(--amgb-cobalt); color: var(--amgb-cobalt); font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1.8px; text-transform: uppercase; padding: 12px 18px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+  #amgb-{{ section.id }} .amgb-upgrade-toggle:hover, #amgb-{{ section.id }} .amgb-upgrade-toggle[aria-expanded="true"] { background: var(--amgb-cobalt); color: #fff; }
+  #amgb-{{ section.id }} .amgb-upgrade { margin-top: 16px; }
+  #amgb-{{ section.id }} .amgb-upgrade[hidden] { display: none; }
+  #amgb-{{ section.id }} .amgb-upgrade__sub { margin: 0 0 12px; font-size: 13px; opacity: 0.75; }
 
   /* Extras */
   #amgb-{{ section.id }} .amgb-extras { display: grid; gap: 10px; }
@@ -149,18 +164,16 @@
     {%- if request.design_mode -%}
       <div class="amgb-notice">
         <p><strong>Setup check (only visible in the theme editor)</strong></p>
-        {%- for i in (1..2) -%}
-          {%- liquid
-            assign kp = 'box_' | append: i | append: '_product'
-            assign kr = 'box_' | append: i | append: '_included_value'
-            assign bp = section.settings[kp]
-            assign ref = section.settings[kr] | times: 100 | round
-          -%}
-          {%- if bp == blank -%}
-            <p>Box {{ i }}: no product selected yet. It will stay hidden on the live page.</p>
-          {%- else -%}
-            {%- assign bv = bp.selected_or_first_available_variant -%}
-            <p>Box {{ i }}: {{ bp.title }} at {{ bv.price | money }} + included jewellery value {{ ref | money }} = <strong>{{ bv.price | plus: ref | money }}</strong> advertised.</p>
+        {%- for box in section.blocks -%}
+          {%- if box.type == 'box' -%}
+            {%- assign bp = box.settings.product -%}
+            {%- if bp == blank -%}
+              <p>A box block has no product selected. It stays hidden on the live page.</p>
+            {%- else -%}
+              {%- assign bv = bp.selected_or_first_available_variant -%}
+              {%- assign ref = box.settings.included_value | times: 100 | round -%}
+              <p>{{ bp.title }}: box product {{ bv.price | money }} + included jewellery {{ ref | money }} = <strong>{{ bv.price | plus: ref | money }}</strong> advertised.</p>
+            {%- endif -%}
           {%- endif -%}
         {%- endfor -%}
         {%- for block in section.blocks -%}
@@ -170,11 +183,14 @@
               <p>A jewellery block has no product selected. It will not show.</p>
             {%- elsif block.settings.tier == 'included' -%}
               {%- assign jv = jp.selected_or_first_available_variant -%}
-              {%- assign ref1 = section.settings.box_1_included_value | times: 100 | round -%}
-              {%- assign ref2 = section.settings.box_2_included_value | times: 100 | round -%}
-              {%- if jv.price != ref1 or jv.price != ref2 -%}
-                <p>Included piece "{{ jp.title }}" costs {{ jv.price | money }}. The advertised box total is only correct for a box whose included jewellery value matches that figure.</p>
-              {%- endif -%}
+              {%- for box in section.blocks -%}
+                {%- if box.type == 'box' -%}
+                  {%- assign ref = box.settings.included_value | times: 100 | round -%}
+                  {%- if jv.price != ref -%}
+                    <p>Included piece "{{ jp.title }}" is {{ jv.price | money }} but "{{ box.settings.title | default: box.settings.product.title }}" expects {{ ref | money }}. Its total will be wrong.</p>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
             {%- endif -%}
           {%- endif -%}
         {%- endfor -%}
@@ -191,34 +207,27 @@
         {%- comment -%} STEP 1: BOX {%- endcomment -%}
         <div class="amgb-step">
           <h3 class="amgb-step__title"><span>1</span>Choose your box</h3>
-          <p class="amgb-step__sub">Each box arrives gift-ready, with your choice of jewellery.</p>
+          <p class="amgb-step__sub">Each box arrives gift-ready, with one piece of jewellery of your choice.</p>
           <div class="amgb-boxes">
-            {%- for i in (1..2) -%}
-              {%- liquid
-                assign kp = 'box_' | append: i | append: '_product'
-                assign ki = 'box_' | append: i | append: '_image'
-                assign kt = 'box_' | append: i | append: '_title'
-                assign kd = 'box_' | append: i | append: '_description'
-                assign kr = 'box_' | append: i | append: '_included_value'
-                assign bp = section.settings[kp]
-              -%}
-              {%- if bp != blank -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'box' and block.settings.product != blank -%}
                 {%- liquid
+                  assign bp = block.settings.product
                   assign bv = bp.selected_or_first_available_variant
-                  assign ref = section.settings[kr] | times: 100 | round
-                  assign btitle = section.settings[kt] | default: bp.title
-                  assign bimg = section.settings[ki] | default: bp.featured_image
+                  assign ref = block.settings.included_value | times: 100 | round
+                  assign btitle = block.settings.title | default: bp.title
+                  assign bimg = block.settings.image | default: bp.featured_image
                 -%}
-                <label class="amgb-box" data-index="{{ i }}" data-title="{{ btitle | escape }}" data-ref="{{ ref }}" data-variant="{{ bv.id }}" data-price="{{ bv.price }}">
-                  <input type="radio" name="amgb-box-{{ section.id }}" value="{{ i }}" class="amgb-visually" {% if i == first_box %}checked{% endif %}>
+                <label class="amgb-box {% unless bp.available %}is-soldout{% endunless %}" data-index="{{ block.id }}" data-title="{{ btitle | escape }}" data-ref="{{ ref }}" data-variant="{{ bv.id }}" data-price="{{ bv.price }}" {{ block.shopify_attributes }}>
+                  <input type="radio" name="amgb-box-{{ section.id }}" value="{{ block.id }}" class="amgb-visually" {% if block.id == first_box and bp.available %}checked{% endif %} {% unless bp.available %}disabled{% endunless %}>
                   <span class="amgb-box__inner">
                     {%- if bimg != blank -%}
                       <span class="amgb-box__img">{{ bimg | image_url: width: 800 | image_tag: loading: 'lazy', alt: btitle }}</span>
                     {%- endif -%}
                     <span class="amgb-box__body">
                       <span class="amgb-box__title">{{ btitle }}</span>
-                      {%- if section.settings[kd] != blank -%}<span class="amgb-box__desc">{{ section.settings[kd] }}</span>{%- endif -%}
-                      <span class="amgb-box__price">{{ bv.price | plus: ref | money }}</span>
+                      {%- if block.settings.description != blank -%}<span class="amgb-box__desc">{{ block.settings.description }}</span>{%- endif -%}
+                      <span class="amgb-box__price">{% if bp.available %}{{ bv.price | plus: ref | money }}{% else %}Sold out{% endif %}</span>
                     </span>
                   </span>
                 </label>
@@ -226,64 +235,95 @@
             {%- endfor -%}
           </div>
 
-          {%- for i in (1..2) -%}
-            {%- assign kp = 'box_' | append: i | append: '_product' -%}
-            {%- assign bp = section.settings[kp] -%}
-            {%- if bp != blank and bp.has_only_default_variant == false -%}
-              <div class="amgb-boxopt" data-index="{{ i }}" hidden>
-                <label for="amgb-boxsel-{{ section.id }}-{{ i }}">{{ bp.options | join: ' / ' }}</label>
-                <select id="amgb-boxsel-{{ section.id }}-{{ i }}" class="amgb-boxsel">
-                  {%- for v in bp.variants -%}
-                    <option value="{{ v.id }}" data-price="{{ v.price }}" data-title="{{ v.title | escape }}" {% unless v.available %}disabled{% endunless %} {% if v.id == bp.selected_or_first_available_variant.id %}selected{% endif %}>{{ v.title }}{% unless v.available %} (sold out){% endunless %}</option>
-                  {%- endfor -%}
-                </select>
-              </div>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'box' and block.settings.product != blank -%}
+              {%- assign bp = block.settings.product -%}
+              {%- if bp.has_only_default_variant == false -%}
+                <div class="amgb-boxopt" data-index="{{ block.id }}" hidden>
+                  <label for="amgb-boxsel-{{ block.id }}">{{ bp.options | join: ' / ' }}</label>
+                  <select id="amgb-boxsel-{{ block.id }}" class="amgb-boxsel">
+                    {%- for v in bp.variants -%}
+                      <option value="{{ v.id }}" data-price="{{ v.price }}" data-title="{{ v.title | escape }}" {% unless v.available %}disabled{% endunless %} {% if v.id == bp.selected_or_first_available_variant.id %}selected{% endif %}>{{ v.title }}{% unless v.available %} (sold out){% endunless %}</option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+              {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
         </div>
 
-        {%- comment -%} STEP 2: JEWELLERY GRID {%- endcomment -%}
+        {%- comment -%} STEP 2: JEWELLERY {%- endcomment -%}
         <div class="amgb-step">
           <h3 class="amgb-step__title"><span>2</span>Choose your jewellery</h3>
-          <p class="amgb-step__sub">Pick one piece. Marked pieces are included; premium pieces carry a small upgrade.</p>
+          <p class="amgb-step__sub">One piece is included in your box. Pick the one you would wear most.</p>
           <div class="amgb-grid">
             {%- for block in section.blocks -%}
-              {%- if block.type == 'jewellery' -%}
-                {%- assign jp = block.settings.product -%}
-                {%- if jp != blank -%}
-                  {%- liquid
-                    assign jv = jp.selected_or_first_available_variant
-                    assign jname = block.settings.name | default: jp.title
-                    assign jimg = block.settings.image | default: jp.featured_image
-                  -%}
-                  <label class="amgb-card {% unless jp.available %}is-soldout{% endunless %}" data-tier="{{ block.settings.tier }}" data-name="{{ jname | escape }}" data-variant="{{ jv.id }}" data-price="{{ jv.price }}" {{ block.shopify_attributes }}>
-                    <input type="radio" name="amgb-jewel-{{ section.id }}" value="{{ block.id }}" class="amgb-visually" {% unless jp.available %}disabled{% endunless %}>
-                    <span class="amgb-card__inner">
-                      {%- if jimg != blank -%}
-                        <span class="amgb-card__img">{{ jimg | image_url: width: 600 | image_tag: loading: 'lazy', alt: jname }}</span>
+              {%- if block.type == 'jewellery' and block.settings.tier == 'included' and block.settings.product != blank -%}
+                {%- liquid
+                  assign jp = block.settings.product
+                  assign jv = jp.selected_or_first_available_variant
+                  assign jname = block.settings.name | default: jp.title
+                  assign jimg = block.settings.image | default: jp.featured_image
+                -%}
+                <label class="amgb-card {% unless jp.available %}is-soldout{% endunless %}" data-tier="included" data-name="{{ jname | escape }}" data-variant="{{ jv.id }}" data-price="{{ jv.price }}" {{ block.shopify_attributes }}>
+                  <input type="radio" name="amgb-jewel-{{ section.id }}" value="{{ block.id }}" class="amgb-visually" {% unless jp.available %}disabled{% endunless %}>
+                  <span class="amgb-card__inner">
+                    {%- if jimg != blank -%}<span class="amgb-card__img">{{ jimg | image_url: width: 600 | image_tag: loading: 'lazy', alt: jname }}</span>{%- endif -%}
+                    <span class="amgb-card__body">
+                      <span class="amgb-card__name">{{ jname }}</span>
+                      <span class="amgb-card__tag">{% if jp.available %}Included{% else %}Sold out{% endif %}</span>
+                      {%- if jp.has_only_default_variant == false and jp.available -%}
+                        <select class="amgb-jsel" aria-label="{{ jp.options | join: ' / ' }}">
+                          {%- for v in jp.variants -%}
+                            <option value="{{ v.id }}" data-price="{{ v.price }}" data-title="{{ v.title | escape }}" {% unless v.available %}disabled{% endunless %} {% if v.id == jv.id %}selected{% endif %}>{{ v.title }}{% unless v.available %} (sold out){% endunless %}</option>
+                          {%- endfor -%}
+                        </select>
                       {%- endif -%}
-                      <span class="amgb-card__body">
-                        <span class="amgb-card__name">{{ jname }}</span>
-                        <span class="amgb-card__tag">{% if jp.available == false %}Sold out{% elsif block.settings.tier == 'included' %}Included{% else %}Upgrade{% endif %}</span>
-                        {%- if jp.has_only_default_variant == false and jp.available -%}
-                          <select class="amgb-jsel" aria-label="{{ jp.options | join: ' / ' }}">
-                            {%- for v in jp.variants -%}
-                              <option value="{{ v.id }}" data-price="{{ v.price }}" data-title="{{ v.title | escape }}" {% unless v.available %}disabled{% endunless %} {% if v.id == jv.id %}selected{% endif %}>{{ v.title }}{% unless v.available %} (sold out){% endunless %}</option>
-                            {%- endfor -%}
-                          </select>
-                        {%- endif -%}
-                      </span>
                     </span>
-                  </label>
-                {%- endif -%}
+                  </span>
+                </label>
               {%- endif -%}
             {%- endfor -%}
           </div>
+
+          {%- if has_upgrades -%}
+            <button type="button" class="amgb-upgrade-toggle" id="amgb-upgrade-toggle-{{ section.id }}" aria-expanded="false" aria-controls="amgb-upgrade-{{ section.id }}">Upgrade your jewellery</button>
+            <div class="amgb-upgrade" id="amgb-upgrade-{{ section.id }}" hidden>
+              <p class="amgb-upgrade__sub">Choose one of these instead. You pay only the difference.</p>
+              <div class="amgb-grid">
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'jewellery' and block.settings.tier == 'upgrade' and block.settings.product != blank -%}
+                    {%- liquid
+                      assign jp = block.settings.product
+                      assign jv = jp.selected_or_first_available_variant
+                      assign jname = block.settings.name | default: jp.title
+                      assign jimg = block.settings.image | default: jp.featured_image
+                    -%}
+                    <label class="amgb-card {% unless jp.available %}is-soldout{% endunless %}" data-tier="upgrade" data-name="{{ jname | escape }}" data-variant="{{ jv.id }}" data-price="{{ jv.price }}" {{ block.shopify_attributes }}>
+                      <input type="radio" name="amgb-jewel-{{ section.id }}" value="{{ block.id }}" class="amgb-visually" {% unless jp.available %}disabled{% endunless %}>
+                      <span class="amgb-card__inner">
+                        {%- if jimg != blank -%}<span class="amgb-card__img">{{ jimg | image_url: width: 600 | image_tag: loading: 'lazy', alt: jname }}</span>{%- endif -%}
+                        <span class="amgb-card__body">
+                          <span class="amgb-card__name">{{ jname }}</span>
+                          <span class="amgb-card__tag">{% if jp.available %}Upgrade{% else %}Sold out{% endif %}</span>
+                          {%- if jp.has_only_default_variant == false and jp.available -%}
+                            <select class="amgb-jsel" aria-label="{{ jp.options | join: ' / ' }}">
+                              {%- for v in jp.variants -%}
+                                <option value="{{ v.id }}" data-price="{{ v.price }}" data-title="{{ v.title | escape }}" {% unless v.available %}disabled{% endunless %} {% if v.id == jv.id %}selected{% endif %}>{{ v.title }}{% unless v.available %} (sold out){% endunless %}</option>
+                              {%- endfor -%}
+                            </select>
+                          {%- endif -%}
+                        </span>
+                      </span>
+                    </label>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
         </div>
 
         {%- comment -%} STEP 3: EXTRAS {%- endcomment -%}
-        {%- assign has_extras = false -%}
-        {%- for block in section.blocks -%}{%- if block.type == 'extra' and block.settings.product != blank -%}{%- assign has_extras = true -%}{%- endif -%}{%- endfor -%}
         {%- if has_extras -%}
           <div class="amgb-step">
             <h3 class="amgb-step__title"><span>3</span>Add a little extra</h3>
@@ -321,7 +361,6 @@
         </div>
       </div>
 
-      {%- comment -%} SUMMARY {%- endcomment -%}
       <aside class="amgb-summary" aria-live="polite">
         <h3 class="amgb-summary__title">Your gift box</h3>
         <ul class="amgb-lines" id="amgb-lines-{{ section.id }}"></ul>
@@ -355,12 +394,22 @@
   var hint = document.getElementById('amgb-hint-{{ section.id }}');
   var errEl = document.getElementById('amgb-error-{{ section.id }}');
   var msg = document.getElementById('amgb-msg-{{ section.id }}');
+  var toggle = document.getElementById('amgb-upgrade-toggle-{{ section.id }}');
+  var upPanel = document.getElementById('amgb-upgrade-{{ section.id }}');
   var checked = function (el) { return el.querySelector('input').checked; };
 
+  if (toggle && upPanel) {
+    toggle.addEventListener('click', function () {
+      var open = upPanel.hidden;
+      upPanel.hidden = !open;
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
   function boxVar(el) {
-    var panel = root.querySelector('.amgb-boxopt[data-index="' + el.dataset.index + '"] select');
-    if (panel && panel.selectedOptions.length) {
-      var o = panel.selectedOptions[0];
+    var sel = root.querySelector('.amgb-boxopt[data-index="' + el.dataset.index + '"] select');
+    if (sel && sel.selectedOptions.length) {
+      var o = sel.selectedOptions[0];
       return { id: o.value, price: +o.dataset.price, title: o.dataset.title };
     }
     return { id: el.dataset.variant, price: +el.dataset.price, title: '' };
@@ -386,16 +435,21 @@
     var jewel = cards.filter(checked)[0];
     var ref = box ? +box.dataset.ref : 0;
 
+    // keep the upgrade panel open if an upgrade piece is chosen
+    if (jewel && jewel.dataset.tier === 'upgrade' && upPanel && upPanel.hidden) {
+      upPanel.hidden = false;
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
     panels.forEach(function (p) { p.hidden = !(box && p.dataset.index === box.dataset.index); });
     boxes.forEach(function (el) {
+      if (el.classList.contains('is-soldout')) return;
       el.querySelector('.amgb-box__price').textContent = money(boxVar(el).price + (+el.dataset.ref));
     });
     cards.forEach(function (c) {
-      if (c.classList.contains('is-soldout')) return;
-      var tag = c.querySelector('.amgb-card__tag');
-      if (c.dataset.tier === 'included') { tag.textContent = 'Included'; return; }
+      if (c.classList.contains('is-soldout') || c.dataset.tier !== 'upgrade') return;
       var delta = itemVar(c).price - ref;
-      tag.textContent = delta > 0 ? '+ ' + money(delta) + ' upgrade' : 'Included';
+      c.querySelector('.amgb-card__tag').textContent = delta > 0 ? '+ ' + money(delta) + ' upgrade' : 'Upgrade';
     });
 
     linesEl.innerHTML = '';
@@ -426,7 +480,7 @@
 
     var ready = !!(box && jewel);
     btn.disabled = !ready;
-    hint.textContent = ready ? '' : 'Choose your jewellery to continue';
+    hint.textContent = ready ? '' : (box ? 'Choose your jewellery to continue' : 'Choose a box to continue');
   }
 
   root.addEventListener('change', update);
@@ -443,8 +497,7 @@
 
     var bv = boxVar(box), jv = itemVar(jewel);
     var boxName = box.dataset.title;
-    var jname = jewel.dataset.name;
-    var boxProps = { 'Jewellery choice': jname };
+    var boxProps = { 'Jewellery choice': jewel.dataset.name };
     var note = (msg.value || '').trim();
     if (note) boxProps['Gift message'] = note;
 
@@ -490,20 +543,6 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Affordable Luxury." },
     { "type": "textarea", "id": "intro", "label": "Intro", "default": "Contemporary jewellery, soft cashmere and everyday luxuries, personally curated by Nat at The Style Chapter and Atelier Modernista." },
 
-    { "type": "header", "content": "Box 1" },
-    { "type": "product", "id": "box_1_product", "label": "Box 1 product" },
-    { "type": "image_picker", "id": "box_1_image", "label": "Box 1 image (finished gift box photo)" },
-    { "type": "text", "id": "box_1_title", "label": "Box 1 title", "default": "The Little Luxury Box" },
-    { "type": "textarea", "id": "box_1_description", "label": "Box 1 description", "default": "Cashmere socks, a Panda Botanicals candle and your choice of jewellery, presented ready to give." },
-    { "type": "number", "id": "box_1_included_value", "label": "Box 1: included jewellery value (£)", "default": 45, "info": "Shop price of the included jewellery. Box product price = advertised price minus this." },
-
-    { "type": "header", "content": "Box 2" },
-    { "type": "product", "id": "box_2_product", "label": "Box 2 product" },
-    { "type": "image_picker", "id": "box_2_image", "label": "Box 2 image (finished gift box photo)" },
-    { "type": "text", "id": "box_2_title", "label": "Box 2 title", "default": "The Colour Edit Box" },
-    { "type": "textarea", "id": "box_2_description", "label": "Box 2 description", "default": "A burgundy scarf, a Panda Botanicals candle and your choice of jewellery, presented ready to give." },
-    { "type": "number", "id": "box_2_included_value", "label": "Box 2: included jewellery value (£)", "default": 45, "info": "Shop price of the included jewellery. Box product price = advertised price minus this." },
-
     { "type": "header", "content": "Message, button and reassurance" },
     { "type": "text", "id": "message_help", "label": "Message helper text", "default": "A short note, written by hand on the card inside." },
     { "type": "text", "id": "message_placeholder", "label": "Message placeholder", "default": "With love, for you…" },
@@ -515,6 +554,18 @@
     { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 36 }
   ],
   "blocks": [
+    {
+      "type": "box",
+      "name": "Gift box",
+      "limit": 3,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Box product", "info": "Price it at: advertised total minus the included jewellery price." },
+        { "type": "image_picker", "id": "image", "label": "Image (finished gift box photo)" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "number", "id": "included_value", "label": "Included jewellery price (£)", "default": 20, "info": "Shop price of the 4 included jewellery products. Must match them exactly." }
+      ]
+    },
     {
       "type": "jewellery",
       "name": "Jewellery choice",
@@ -528,7 +579,7 @@
           "label": "Tier",
           "options": [
             { "value": "included", "label": "Included in the box" },
-            { "value": "premium", "label": "Paid premium upgrade" }
+            { "value": "upgrade", "label": "Paid upgrade" }
           ],
           "default": "included"
         }
@@ -544,18 +595,20 @@
       ]
     }
   ],
-  "max_blocks": 14,
+  "max_blocks": 24,
   "presets": [
     {
       "name": "AM Gift Box Builder",
       "blocks": [
+        { "type": "box", "settings": { "title": "The Scarf Box", "description": "A wool-blend scarf and your choice of jewellery, presented ready to give.", "included_value": 20 } },
+        { "type": "box", "settings": { "title": "The Little Luxury Box", "description": "Cashmere socks and your choice of jewellery, presented ready to give.", "included_value": 20 } },
+        { "type": "box", "settings": { "title": "The Luxury Colour Edit", "description": "A wool scarf, a candle, hand cream and your choice of jewellery.", "included_value": 20 } },
         { "type": "jewellery", "settings": { "tier": "included" } },
         { "type": "jewellery", "settings": { "tier": "included" } },
         { "type": "jewellery", "settings": { "tier": "included" } },
-        { "type": "jewellery", "settings": { "tier": "premium" } },
-        { "type": "jewellery", "settings": { "tier": "premium" } },
-        { "type": "jewellery", "settings": { "tier": "premium" } },
-        { "type": "extra" }
+        { "type": "jewellery", "settings": { "tier": "included" } },
+        { "type": "jewellery", "settings": { "tier": "upgrade" } },
+        { "type": "jewellery", "settings": { "tier": "upgrade" } }
       ]
     }
   ]

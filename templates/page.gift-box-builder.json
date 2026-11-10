@@ -103,7 +103,7 @@
         "jewellery_TAEmCd": {
           "type": "jewellery",
           "settings": {
-            "product": "",
+            "product": "art-deco-gold-bracelet",
             "name": "",
             "tier": "included"
           }

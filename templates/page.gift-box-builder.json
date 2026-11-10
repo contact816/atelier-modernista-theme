@@ -46,21 +46,6 @@
         "padding_bottom": 52
       }
     },
-    "am_gift_box_builder_fDnydn": {
-      "type": "am-gift-box-builder",
-      "name": "AM Gift Box Builder",
-      "settings": {
-        "eyebrow": "Atelier Modernista x The Style Chapter",
-        "heading": "Affordable Luxury.",
-        "intro": "",
-        "message_help": "A short note, written by hand on the card inside.",
-        "message_placeholder": "With love, for you…",
-        "button_label": "Add gift box to bag",
-        "reassurance": "Arrives gift-ready. Dispatched within 1 working day.",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "am_gift_box_builder_iz4JXA": {
       "type": "am-gift-box-builder",
       "blocks": {
@@ -94,7 +79,7 @@
         "jewellery_LnpDxA": {
           "type": "jewellery",
           "settings": {
-            "product": "",
+            "product": "equilibrium-earrings-in-deep-burgundy",
             "name": "",
             "tier": "included"
           }
@@ -168,7 +153,6 @@
   "order": [
     "main",
     "newsletter_d3knzT",
-    "am_gift_box_builder_fDnydn",
     "am_gift_box_builder_iz4JXA"
   ]
 }

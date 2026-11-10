@@ -53,24 +53,122 @@
         "eyebrow": "Atelier Modernista x The Style Chapter",
         "heading": "Affordable Luxury.",
         "intro": "",
-        "bg": "#fdf6e3",
-        "blue": "#0047ab",
-        "little_product": "",
-        "little_image": "shopify://shop_images/b4f33e5e72477cbc91045f97e90465462084a2257225c578c6befba404b40e48.jpg",
-        "little_name": "The Little Luxury Box",
-        "little_copy": "Luxury is curling up in 100% cashmere socks with a French Lavender candle aglow nearby, reading a good book or watching a movie you love with someone you love. \n\nThis box is designed to add real luxury to your life or someone else's, affordably.\nAdd a piece of statement jewellery to your box, or something subtle and delicate, be it handmade notepaper or luxuriant Kew Garden hand-cream.",
-        "little_contents": "100% Cashmere Socks\nFrench Lavender Candle (4oz)\nGift Box with Tissue, Wax Seal and Handmade Card",
-        "colour_product": "",
-        "colour_image": "shopify://shop_images/Minimal_Burgundy_Belly_Band_Concept.png",
-        "colour_name": "The Colour Edit Luxury Box",
-        "colour_copy": "Open the tissue paper to find a cashmere-rich scarf, a French Lavender candle, and luxuriant hand-cream from Kew Gardens. \n\nThe centrepiece of this luxury box is a pair of earrings from Atelier Modernista.",
-        "colour_contents": "Burgundy Cashmere scarf\nFrench Lavender Candle (4oz)\nKew Gardens Fig and Grape Hand-cream \nGift Box with Tissue, Wax Seal and Handmade Card"
+        "message_help": "A short note, written by hand on the card inside.",
+        "message_placeholder": "With love, for you…",
+        "button_label": "Add gift box to bag",
+        "reassurance": "Arrives gift-ready. Dispatched within 1 working day.",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "am_gift_box_builder_iz4JXA": {
+      "type": "am-gift-box-builder",
+      "blocks": {
+        "box_ygXThh": {
+          "type": "box",
+          "settings": {
+            "product": "luxury-gift-wrapping",
+            "title": "The Scarf Box",
+            "description": "A wool-blend scarf and your choice of jewellery, presented ready to give.",
+            "included_value": 20
+          }
+        },
+        "box_K6JhbQ": {
+          "type": "box",
+          "settings": {
+            "product": "luxury-gift-wrapping",
+            "title": "The Little Luxury Box",
+            "description": "Cashmere socks and your choice of jewellery, presented ready to give.",
+            "included_value": 20
+          }
+        },
+        "box_kdzRaT": {
+          "type": "box",
+          "settings": {
+            "product": "luxury-gift-wrapping",
+            "title": "The Luxury Colour Edit",
+            "description": "A wool scarf, a candle, hand cream and your choice of jewellery.",
+            "included_value": 20
+          }
+        },
+        "jewellery_LnpDxA": {
+          "type": "jewellery",
+          "settings": {
+            "product": "",
+            "name": "",
+            "tier": "included"
+          }
+        },
+        "jewellery_pbprzp": {
+          "type": "jewellery",
+          "settings": {
+            "product": "",
+            "name": "",
+            "tier": "included"
+          }
+        },
+        "jewellery_qKzdGe": {
+          "type": "jewellery",
+          "settings": {
+            "product": "",
+            "name": "",
+            "tier": "included"
+          }
+        },
+        "jewellery_TAEmCd": {
+          "type": "jewellery",
+          "settings": {
+            "product": "",
+            "name": "",
+            "tier": "included"
+          }
+        },
+        "jewellery_HDaq3q": {
+          "type": "jewellery",
+          "settings": {
+            "product": "",
+            "name": "",
+            "tier": "upgrade"
+          }
+        },
+        "jewellery_UYUiXz": {
+          "type": "jewellery",
+          "settings": {
+            "product": "",
+            "name": "",
+            "tier": "upgrade"
+          }
+        }
+      },
+      "block_order": [
+        "box_ygXThh",
+        "box_K6JhbQ",
+        "box_kdzRaT",
+        "jewellery_LnpDxA",
+        "jewellery_pbprzp",
+        "jewellery_qKzdGe",
+        "jewellery_TAEmCd",
+        "jewellery_HDaq3q",
+        "jewellery_UYUiXz"
+      ],
+      "name": "AM Gift Box Builder",
+      "settings": {
+        "eyebrow": "The Style Chapter × Atelier Modernista",
+        "heading": "Affordable Luxury.",
+        "intro": "Contemporary jewellery, soft cashmere and everyday luxuries, personally curated by Nat at The Style Chapter and Atelier Modernista.",
+        "message_help": "A short note, written by hand on the card inside.",
+        "message_placeholder": "With love, for you…",
+        "button_label": "Add gift box to bag",
+        "reassurance": "Arrives gift-ready. Dispatched within 1 working day.",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },
   "order": [
     "main",
     "newsletter_d3knzT",
-    "am_gift_box_builder_fDnydn"
+    "am_gift_box_builder_fDnydn",
+    "am_gift_box_builder_iz4JXA"
   ]
 }

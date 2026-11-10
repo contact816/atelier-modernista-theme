@@ -3,6 +3,11 @@
   Atelier Modernista x The Style Chapter
   Editable gift box builder for Shopify Dawn.
   Install on a duplicate theme first.
+  Included jewellery is recorded as a line-item property: stock is NOT
+  automatically decremented for included choices. Track/adjust stock manually.
+  Paid upgrades are separate Shopify products and use their actual variant price.
+  If an included jewellery block has a product attached, that product is only
+  used for the picture/title and is NOT added to the cart.
 {% endcomment %}
 
 {% assign little = section.settings.little_product %}
@@ -107,13 +112,15 @@
         <h2>02. What's included</h2>
 
         <div class="am-gift__included" data-included></div>
+        <p class="am-gift__help">Your choice of jewellery is included in the box price. A gift message can be added at the end.</p>
 
         <hr>
 
-        <h2>03. Add jewellery or a little extra</h2>
+        <h2>03. Choose your jewellery</h2>
 
         <p class="am-gift__help">
-          Choose a jewellery piece and any additional gifts.
+          Every box includes one piece of contemporary jewellery.
+          Choose your favourite from our included designs, or select a statement upgrade.
           Your total updates automatically.
         </p>
 
@@ -121,78 +128,69 @@
 
         <div class="am-gift__options">
 
-          <label class="am-gift__option">
-            <input
-              type="radio"
-              name="jewellery-{{ section.id }}"
-              value=""
-              checked
-            >
-            <span>No jewellery added</span>
-          </label>
-
+          {% assign jewellery_count = 0 %}
           {% for block in section.blocks %}
             {% if block.type == 'jewellery' %}
-
+              {% assign jewellery_count = jewellery_count | plus: 1 %}
               {% assign p = block.settings.product %}
-
-              <label
-                class="am-gift__option"
-                {{ block.shopify_attributes }}
-              >
-
+              {% assign is_upgrade = false %}
+              {% if block.settings.tier == 'upgrade' %}
+                {% assign is_upgrade = true %}
+              {% endif %}
+              {% assign jewellery_title = block.settings.title %}
+              {% if jewellery_title == blank and p != blank %}
+                {% assign jewellery_title = p.title %}
+              {% endif %}
+              {% assign jewellery_available = true %}
+              {% if is_upgrade %}
+                {% if p == blank or p.selected_or_first_available_variant.available == false %}
+                  {% assign jewellery_available = false %}
+                {% endif %}
+              {% endif %}
+              <label class="am-gift__option{% unless jewellery_available %} am-gift__unavailable{% endunless %}" {{ block.shopify_attributes }}>
                 <input
                   type="radio"
                   name="jewellery-{{ section.id }}"
-                  value="{{ p.selected_or_first_available_variant.id }}"
-                  data-addon
-                  data-title="{{ p.title | escape }}"
-                  data-price="{{ p.selected_or_first_available_variant.price | default: 0 }}"
-                  {% if p == blank or p.selected_or_first_available_variant.available == false %}
-                    disabled
-                  {% endif %}
+                  data-jewellery
+                  data-tier="{{ block.settings.tier }}"
+                  data-title="{{ jewellery_title | escape }}"
+                  data-id="{% if is_upgrade and p != blank %}{{ p.selected_or_first_available_variant.id }}{% endif %}"
+                  data-price="{% if is_upgrade and p != blank %}{{ p.selected_or_first_available_variant.price }}{% else %}0{% endif %}"
+                  {% unless jewellery_available %}disabled{% endunless %}
                 >
-
                 {% if block.settings.image != blank %}
-                  {{
-                    block.settings.image
-                    | image_url: width: 200
-                    | image_tag: loading: 'lazy', class: 'am-gift__thumb'
-                  }}
+                  {{ block.settings.image | image_url: width: 220 | image_tag: loading: 'lazy', class: 'am-gift__thumb' }}
                 {% elsif p.featured_image != blank %}
-                  {{
-                    p.featured_image
-                    | image_url: width: 200
-                    | image_tag: loading: 'lazy', class: 'am-gift__thumb'
-                  }}
+                  {{ p.featured_image | image_url: width: 220 | image_tag: loading: 'lazy', class: 'am-gift__thumb' }}
                 {% else %}
-                  <span class="am-gift__thumb am-gift__empty">
-                    Photo
-                  </span>
+                  <span class="am-gift__thumb am-gift__empty">Add photo</span>
                 {% endif %}
-
                 <span class="am-gift__details">
-                  <strong>
-                    {{ p.title | default: 'Choose a product' | escape }}
-                  </strong>
-
+                  <strong>{{ jewellery_title | default: 'Set jewellery title' | escape }}</strong>
                   <small>{{ block.settings.caption | escape }}</small>
                 </span>
-
                 <span class="am-gift__addon-price">
-                  {% if p != blank %}
-                    +{{ p.selected_or_first_available_variant.price | money }}
-                  {% endif %}
+                  {% unless jewellery_available %}
+                    Unavailable
+                  {% else %}
+                    {% if is_upgrade %}
+                      +{{ p.selected_or_first_available_variant.price | money }}
+                    {% else %}
+                      Included
+                    {% endif %}
+                  {% endunless %}
                 </span>
-
               </label>
-
             {% endif %}
           {% endfor %}
+          {% if jewellery_count == 0 %}
+            <p class="am-gift__help">Add jewellery option blocks in the Theme Editor.</p>
+          {% endif %}
 
         </div>
 
-        <h3>Small extras</h3>
+        <h3>Optional small extras</h3>
+        <p class="am-gift__help">A little something more, if you wish. The handmade paper is no longer a listed gift.</p>
 
         <div class="am-gift__options">
 
@@ -483,6 +481,16 @@
     cursor: pointer;
   }
 
+  #am-gift-{{ section.id }} .am-gift__unavailable {
+    opacity: .48;
+    cursor: not-allowed;
+  }
+
+  #am-gift-{{ section.id }} .am-gift__option:has(input:checked) {
+    border-color: var(--blue);
+    box-shadow: inset 0 0 0 1px var(--blue);
+  }
+
   #am-gift-{{ section.id }} input[type="checkbox"],
   #am-gift-{{ section.id }} input[type="radio"] {
     accent-color: var(--blue);
@@ -667,17 +675,14 @@
 
     const extras = $$('[data-addon]:checked')
       .filter(el => !el.disabled);
-
+    const jewellery = $('[data-jewellery]:checked');
+    const jewelleryPrice = jewellery && jewellery.dataset.tier === 'upgrade'
+      ? Number(jewellery.dataset.price || 0) : 0;
     const extraTotal = extras.reduce(
-      (sum, el) => sum + Number(el.dataset.price || 0),
-      0
+      (sum, el) => sum + Number(el.dataset.price || 0), 0
     );
-
-    return {
-      base,
-      extras,
-      total: base + extraTotal
-    };
+    return { base, extras, jewellery, jewelleryPrice,
+      total: base + extraTotal + jewelleryPrice };
   }
 
   function render() {
@@ -704,6 +709,10 @@
 
     const entries = [
       [active.dataset.name, selected.base],
+      ...(selected.jewellery ? [[
+        'Jewellery: ' + selected.jewellery.dataset.title,
+        selected.jewelleryPrice
+      ]] : []),
       ...selected.extras.map(el => [
         el.dataset.title,
         Number(el.dataset.price)
@@ -729,11 +738,13 @@
     total.textContent = money(selected.total);
 
     cartButton.disabled =
-      !(Number(active.dataset.id) > 0);
+      !(Number(active.dataset.id) > 0) || !selected.jewellery;
 
-    cartButton.textContent = cartButton.disabled
+    cartButton.textContent = !(Number(active.dataset.id) > 0)
       ? 'Connect a box product in Shopify'
-      : 'Add gift box to bag';
+      : !selected.jewellery
+        ? 'Choose your jewellery first'
+        : 'Add gift box to bag';
 
     status.textContent = '';
   }
@@ -745,7 +756,7 @@
     });
   });
 
-  $$('[data-addon]').forEach(input => {
+  $$('[data-addon], [data-jewellery]').forEach(input => {
     input.addEventListener('change', render);
   });
 
@@ -753,8 +764,11 @@
     const selected = getSelection();
 
     if (!Number(active.dataset.id)) {
-      status.textContent =
-        'Please connect your box product first.';
+      status.textContent = 'Please connect your box product first.';
+      return;
+    }
+    if (!selected.jewellery) {
+      status.textContent = 'Please choose a jewellery piece.';
       return;
     }
 
@@ -763,7 +777,8 @@
 
     const properties = {
       '_Gift box group': group,
-      'Gift box': active.dataset.name
+      'Gift box': active.dataset.name,
+      'Jewellery selection': selected.jewellery.dataset.title
     };
 
     if (active.dataset.number === '1') {
@@ -787,6 +802,15 @@
         quantity: 1,
         properties
       },
+      ...(selected.jewellery.dataset.tier === 'upgrade' ? [{
+        id: Number(selected.jewellery.dataset.id),
+        quantity: 1,
+        properties: {
+          '_Gift box group': group,
+          '_Added to gift box': active.dataset.name,
+          'Jewellery upgrade': selected.jewellery.dataset.title
+        }
+      }] : []),
       ...selected.extras.map(el => ({
         id: Number(el.value),
         quantity: 1,
@@ -870,7 +894,7 @@
       "type": "textarea",
       "id": "intro",
       "label": "Introduction",
-      "default": "Choose your base box, then add jewellery or a little extra. A gift made personal."
+      "default": "Choose your gift box and a piece of contemporary jewellery. One design is included; upgrade to something special if you wish."
     },
     {
       "type": "color",
@@ -908,13 +932,13 @@
       "type": "textarea",
       "id": "little_copy",
       "label": "Description",
-      "default": "A small collection of thoughtful luxuries, with cashmere socks and a scented candle."
+      "default": "Soft cashmere socks, a Panda Botanicals candle and a piece of jewellery chosen by you. A small gift with plenty to say."
     },
     {
       "type": "textarea",
       "id": "little_contents",
       "label": "What's included",
-      "default": "Cashmere socks\nPanda Botanicals candle\nGift presentation"
+      "default": "Cashmere socks\nPanda Botanicals candle\nYour choice of jewellery\nCream gift box and tissue"
     },
     {
       "type": "header",
@@ -940,13 +964,13 @@
       "type": "textarea",
       "id": "colour_copy",
       "label": "Description",
-      "default": "A colourful edit centred on a beautiful scarf, a candle and considered gift wrapping."
+      "default": "A rich burgundy scarf, a scented candle and jewellery of your choice, presented in a striking red box."
     },
     {
       "type": "textarea",
       "id": "colour_contents",
       "label": "What's included",
-      "default": "Burgundy scarf\nScented candle\nGift presentation"
+      "default": "Burgundy scarf\nPanda Botanicals candle\nYour choice of jewellery\nRed gift box and tissue"
     }
   ],
   "blocks": [
@@ -956,9 +980,24 @@
       "limit": 12,
       "settings": [
         {
+          "type": "select",
+          "id": "tier",
+          "label": "Price type",
+          "options": [
+            { "value": "included", "label": "Included in box price" },
+            { "value": "upgrade", "label": "Paid upgrade" }
+          ],
+          "default": "included"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Display title (optional)"
+        },
+        {
           "type": "product",
           "id": "product",
-          "label": "Shopify product"
+          "label": "Shopify product (required for paid upgrade)"
         },
         {
           "type": "image_picker",

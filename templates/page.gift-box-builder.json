@@ -49,21 +49,21 @@
     "am_gift_box_builder_iz4JXA": {
       "type": "am-gift-box-builder",
       "blocks": {
-        "box_ygXThh": {
-          "type": "box",
-          "settings": {
-            "product": "luxury-gift-wrapping",
-            "title": "The Scarf Box",
-            "description": "A wool-blend scarf and your choice of jewellery, presented ready to give.",
-            "included_value": 20
-          }
-        },
         "box_K6JhbQ": {
           "type": "box",
           "settings": {
             "product": "luxury-gift-wrapping",
             "title": "The Little Luxury Box",
             "description": "Cashmere socks and your choice of jewellery, presented ready to give.",
+            "included_value": 20
+          }
+        },
+        "box_ygXThh": {
+          "type": "box",
+          "settings": {
+            "product": "luxury-gift-wrapping",
+            "title": "The Luxury Scarf Box",
+            "description": "A wool-blend scarf and your choice of jewellery, presented ready to give.",
             "included_value": 20
           }
         },
@@ -84,18 +84,18 @@
             "tier": "included"
           }
         },
-        "jewellery_pbprzp": {
+        "jewellery_qKzdGe": {
           "type": "jewellery",
           "settings": {
-            "product": "isoceles-triangle-silver-bracelet",
+            "product": "orbital-earrings-in-rich-burgundy",
             "name": "",
             "tier": "included"
           }
         },
-        "jewellery_qKzdGe": {
+        "jewellery_pbprzp": {
           "type": "jewellery",
           "settings": {
-            "product": "isosceles-925-silver-earrings",
+            "product": "triangle-gold-silver-studs",
             "name": "",
             "tier": "included"
           }
@@ -111,7 +111,7 @@
         "jewellery_HDaq3q": {
           "type": "jewellery",
           "settings": {
-            "product": "",
+            "product": "brushed-gold-art-deco-earrings",
             "name": "",
             "tier": "upgrade"
           }
@@ -119,19 +119,19 @@
         "jewellery_UYUiXz": {
           "type": "jewellery",
           "settings": {
-            "product": "",
+            "product": "art-deco-necklace",
             "name": "",
             "tier": "upgrade"
           }
         }
       },
       "block_order": [
-        "box_ygXThh",
         "box_K6JhbQ",
+        "box_ygXThh",
         "box_kdzRaT",
         "jewellery_LnpDxA",
-        "jewellery_pbprzp",
         "jewellery_qKzdGe",
+        "jewellery_pbprzp",
         "jewellery_TAEmCd",
         "jewellery_HDaq3q",
         "jewellery_UYUiXz"

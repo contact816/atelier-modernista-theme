@@ -1,20 +1,34 @@
 {%- comment -%}
-  Atelier Modernista x The Style Chapter - Gift Box Builder (v2: three boxes, 4 included pieces + upgrade)
+  Atelier Modernista x The Style Chapter - Gift Box Builder (v3)
   File: sections/am-gift-box-builder.liquid
 
+  WHAT'S NEW IN v3
+  - Many more jewellery choices: up to 48 blocks, filter pills (Necklaces / Earrings / Bracelets...)
+    and a "Show more jewellery" button so long lists stay tidy.
+  - Per-box choices: every jewellery piece and every extra has "Show in these boxes only"
+    (type box numbers in the order the Gift box blocks appear, e.g. 1,2. Blank = every box).
+  - A new "Extra Luxuries" step: candles, hand cream and similar, each with photo, short
+    description and its own price. Extras can have variants (e.g. scent).
+  - Steps renumber themselves when a step is hidden for the chosen box.
+
   HOW PRICING WORKS
-  - Each box's advertised price INCLUDES one jewellery piece, e.g. £39 / £49 / £59.
+  - Each box's advertised price INCLUDES one jewellery piece.
   - The chosen jewellery goes into the bag as its OWN Shopify variant (so stock decrements).
   - To avoid charging twice:  BOX PRODUCT PRICE = advertised price minus INCLUDED JEWELLERY PRICE.
-      Included jewellery products are priced at £20  ->  box products at £19 / £29 / £39.
-  - Set "Included jewellery price" on each box block to 20 (the shop price of the 4 included pieces).
-  - Upgrade pieces are priced higher (e.g. £30). The customer pays only the difference over £20.
+      Included jewellery products priced at £20 -> e.g. £45 box = £25 box product.
+  - Set "Included jewellery price" on each box block to 20.
+  - Add-on pieces are priced above £20; the customer pays only the difference.
+      £30 component = "+ £10", £40 component = "+ £20".
+  - Extras are separate products at their own price (e.g. £10).
   - Every price in the bag is a real Shopify price, so checkout always verifies it.
 {%- endcomment -%}
 
 {%- liquid
   assign first_box = ''
   assign box_count = 0
+  assign box_n = 0
+  assign has_upgrades = false
+  assign has_extras = false
   for block in section.blocks
     if block.type == 'box' and block.settings.product != blank
       assign box_count = box_count | plus: 1
@@ -22,10 +36,6 @@
         assign first_box = block.id
       endif
     endif
-  endfor
-  assign has_upgrades = false
-  assign has_extras = false
-  for block in section.blocks
     if block.type == 'jewellery' and block.settings.tier == 'upgrade' and block.settings.product != blank
       assign has_upgrades = true
     endif
@@ -59,9 +69,12 @@
   #amgb-{{ section.id }} .amgb-intro { margin: 0; font-size: 15px; opacity: 0.8; }
 
   #amgb-{{ section.id }} .amgb-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 36px; align-items: start; }
-  #amgb-{{ section.id }} .amgb-step { margin: 0 0 30px; }
+  #amgb-{{ section.id }} .amgb-steps { counter-reset: amgbstep; }
+  #amgb-{{ section.id }} .amgb-step { margin: 0 0 30px; counter-increment: amgbstep; }
+  #amgb-{{ section.id }} .amgb-step[hidden] { display: none; }
   #amgb-{{ section.id }} .amgb-step__title { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 24px; margin: 0 0 4px; }
   #amgb-{{ section.id }} .amgb-step__title span { color: var(--amgb-burgundy); margin-right: 8px; }
+  #amgb-{{ section.id }} .amgb-step__title span::before { content: counter(amgbstep); }
   #amgb-{{ section.id }} .amgb-step__sub { margin: 0 0 14px; font-size: 13px; opacity: 0.7; }
   #amgb-{{ section.id }} .amgb-visually { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
 
@@ -83,9 +96,19 @@
   #amgb-{{ section.id }} .amgb-boxopt label { display: block; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 6px; }
   #amgb-{{ section.id }} select { width: 100%; font-family: 'Jost', sans-serif; font-size: 14px; padding: 10px 12px; border: 1px solid var(--amgb-line); background: #fff; color: var(--amgb-ink); border-radius: 0; }
 
+  /* Filter pills and show-more */
+  #amgb-{{ section.id }} .amgb-pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+  #amgb-{{ section.id }} .amgb-pills[hidden] { display: none; }
+  #amgb-{{ section.id }} .amgb-pill { background: transparent; border: 1px solid var(--amgb-line); color: var(--amgb-ink); font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; padding: 8px 14px; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+  #amgb-{{ section.id }} .amgb-pill:hover { border-color: var(--amgb-cobalt); }
+  #amgb-{{ section.id }} .amgb-pill[aria-pressed="true"] { background: var(--amgb-cobalt); border-color: var(--amgb-cobalt); color: #fff; }
+  #amgb-{{ section.id }} .amgb-more { display: block; margin: 16px auto 0; background: transparent; border: 0; border-bottom: 1px solid var(--amgb-ink); color: var(--amgb-ink); font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; padding: 4px 2px; cursor: pointer; }
+  #amgb-{{ section.id }} .amgb-more[hidden] { display: none; }
+
   /* Jewellery grids */
   #amgb-{{ section.id }} .amgb-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
   #amgb-{{ section.id }} .amgb-card { display: block; position: relative; cursor: pointer; }
+  #amgb-{{ section.id }} .amgb-card[hidden], #amgb-{{ section.id }} .amgb-card.is-collapsed { display: none !important; }
   #amgb-{{ section.id }} .amgb-card__inner { display: block; background: #fff; border: 1px solid var(--amgb-line); height: 100%; outline: 2px solid transparent; outline-offset: -1px; transition: outline-color 0.2s, border-color 0.2s; }
   #amgb-{{ section.id }} .amgb-card input:checked + .amgb-card__inner { outline-color: var(--amgb-cobalt); border-color: var(--amgb-cobalt); }
   #amgb-{{ section.id }} .amgb-card input:focus-visible + .amgb-card__inner { outline-color: var(--amgb-cobalt); }
@@ -99,23 +122,29 @@
   #amgb-{{ section.id }} .amgb-card[data-tier="upgrade"] .amgb-card__tag { color: var(--amgb-burgundy); }
   #amgb-{{ section.id }} .amgb-card select { margin-top: 8px; padding: 7px 8px; font-size: 13px; }
 
-  #amgb-{{ section.id }} .amgb-upgrade-toggle { margin-top: 16px; background: transparent; border: 1px solid var(--amgb-cobalt); color: var(--amgb-cobalt); font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1.8px; text-transform: uppercase; padding: 12px 18px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+  #amgb-{{ section.id }} .amgb-upgrade-toggle { margin-top: 20px; background: transparent; border: 1px solid var(--amgb-cobalt); color: var(--amgb-cobalt); font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1.8px; text-transform: uppercase; padding: 12px 18px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+  #amgb-{{ section.id }} .amgb-upgrade-toggle[hidden] { display: none; }
   #amgb-{{ section.id }} .amgb-upgrade-toggle:hover, #amgb-{{ section.id }} .amgb-upgrade-toggle[aria-expanded="true"] { background: var(--amgb-cobalt); color: #fff; }
   #amgb-{{ section.id }} .amgb-upgrade { margin-top: 16px; }
   #amgb-{{ section.id }} .amgb-upgrade[hidden] { display: none; }
   #amgb-{{ section.id }} .amgb-upgrade__sub { margin: 0 0 12px; font-size: 13px; opacity: 0.75; }
 
-  /* Extras */
-  #amgb-{{ section.id }} .amgb-extras { display: grid; gap: 10px; }
+  /* Extra Luxuries */
+  #amgb-{{ section.id }} .amgb-extras { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
   #amgb-{{ section.id }} .amgb-extra { display: block; cursor: pointer; position: relative; }
-  #amgb-{{ section.id }} .amgb-extra__inner { display: flex; gap: 14px; align-items: center; background: #fff; border: 1px solid var(--amgb-line); padding: 10px; outline: 2px solid transparent; outline-offset: -1px; }
+  #amgb-{{ section.id }} .amgb-extra[hidden] { display: none !important; }
+  #amgb-{{ section.id }} .amgb-extra__inner { display: block; background: #fff; border: 1px solid var(--amgb-line); height: 100%; outline: 2px solid transparent; outline-offset: -1px; transition: outline-color 0.2s, border-color 0.2s; }
   #amgb-{{ section.id }} .amgb-extra input:checked + .amgb-extra__inner { outline-color: var(--amgb-cobalt); border-color: var(--amgb-cobalt); }
-  #amgb-{{ section.id }} .amgb-extra__img { flex: 0 0 64px; width: 64px; height: 64px; overflow: hidden; background: var(--amgb-linen); }
+  #amgb-{{ section.id }} .amgb-extra input:focus-visible + .amgb-extra__inner { outline-color: var(--amgb-cobalt); }
+  #amgb-{{ section.id }} .amgb-extra__img { display: block; aspect-ratio: 1 / 1; overflow: hidden; background: var(--amgb-linen); }
   #amgb-{{ section.id }} .amgb-extra__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  #amgb-{{ section.id }} .amgb-extra__text { flex: 1; }
-  #amgb-{{ section.id }} .amgb-extra__name { display: block; font-size: 14px; }
-  #amgb-{{ section.id }} .amgb-extra__price { display: block; font-size: 13px; color: var(--amgb-cobalt); }
-  #amgb-{{ section.id }} .amgb-extra.is-soldout { opacity: 0.45; cursor: not-allowed; }
+  #amgb-{{ section.id }} .amgb-extra__body { display: block; padding: 10px 12px 12px; }
+  #amgb-{{ section.id }} .amgb-extra__name { display: block; font-family: 'Cormorant Garamond', serif; font-size: 18px; line-height: 1.2; margin-bottom: 2px; }
+  #amgb-{{ section.id }} .amgb-extra__desc { display: block; font-size: 12px; opacity: 0.75; margin-bottom: 6px; }
+  #amgb-{{ section.id }} .amgb-extra__price { display: block; font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--amgb-cobalt); }
+  #amgb-{{ section.id }} .amgb-extra select { margin-top: 8px; padding: 7px 8px; font-size: 13px; }
+  #amgb-{{ section.id }} .amgb-extra.is-soldout { cursor: not-allowed; }
+  #amgb-{{ section.id }} .amgb-extra.is-soldout .amgb-extra__inner { opacity: 0.45; }
 
   /* Message */
   #amgb-{{ section.id }} textarea { width: 100%; min-height: 96px; font-family: 'Jost', sans-serif; font-size: 14px; padding: 12px; border: 1px solid var(--amgb-line); background: #fff; color: var(--amgb-ink); resize: vertical; border-radius: 0; }
@@ -135,6 +164,7 @@
   #amgb-{{ section.id }} .amgb-hint { margin: 10px 0 0; font-size: 12px; opacity: 0.75; text-align: center; min-height: 18px; }
   #amgb-{{ section.id }} .amgb-error { margin: 10px 0 0; font-size: 13px; color: var(--amgb-burgundy); }
   #amgb-{{ section.id }} .amgb-reassure { margin: 12px 0 0; font-size: 12px; text-align: center; opacity: 0.7; }
+  #amgb-{{ section.id }} .amgb-returns { margin: 8px 0 0; font-size: 12px; text-align: center; opacity: 0.7; }
 
   #amgb-{{ section.id }} .amgb-notice { background: #fff; border: 1px dashed var(--amgb-burgundy); padding: 14px 16px; margin: 0 0 24px; font-size: 13px; }
   #amgb-{{ section.id }} .amgb-notice p { margin: 0 0 6px; }
@@ -147,6 +177,7 @@
   @media (max-width: 749px) {
     #amgb-{{ section.id }} .amgb-wrap { padding: 0 16px; }
     #amgb-{{ section.id }} .amgb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    #amgb-{{ section.id }} .amgb-extras { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     #amgb-{{ section.id }} .amgb-boxes { grid-template-columns: minmax(0, 1fr); }
     #amgb-{{ section.id }} .amgb-box__img { aspect-ratio: 16 / 10; }
   }
@@ -181,16 +212,43 @@
             {%- assign jp = block.settings.product -%}
             {%- if jp == blank -%}
               <p>A jewellery block has no product selected. It will not show.</p>
-            {%- elsif block.settings.tier == 'included' -%}
+            {%- else -%}
               {%- assign jv = jp.selected_or_first_available_variant -%}
+              {%- assign nb = 0 -%}
+              {%- assign wrapped = ',' | append: block.settings.boxes | remove: ' ' | append: ',' -%}
               {%- for box in section.blocks -%}
                 {%- if box.type == 'box' -%}
+                  {%- assign nb = nb | plus: 1 -%}
+                  {%- assign needle = ',' | append: nb | append: ',' -%}
                   {%- assign ref = box.settings.included_value | times: 100 | round -%}
-                  {%- if jv.price != ref -%}
-                    <p>Included piece "{{ jp.title }}" is {{ jv.price | money }} but "{{ box.settings.title | default: box.settings.product.title }}" expects {{ ref | money }}. Its total will be wrong.</p>
+                  {%- assign btitle = box.settings.title | default: box.settings.product.title -%}
+                  {%- assign applies = false -%}
+                  {%- if block.settings.boxes == blank or wrapped contains needle -%}{%- assign applies = true -%}{%- endif -%}
+                  {%- if applies -%}
+                    {%- if block.settings.tier == 'included' -%}
+                      {%- if jv.price != ref -%}
+                        <p>Included piece "{{ jp.title }}" is {{ jv.price | money }} but "{{ btitle }}" expects {{ ref | money }}. Its total will be wrong.</p>
+                      {%- endif -%}
+                    {%- else -%}
+                      {%- assign delta = jv.price | minus: ref -%}
+                      {%- if delta > 0 -%}
+                        <p>Add-on "{{ jp.title }}" shows as + {{ delta | money }} in "{{ btitle }}".</p>
+                      {%- else -%}
+                        <p>Add-on "{{ jp.title }}" is not above the included price in "{{ btitle }}", so it would cost nothing extra.</p>
+                      {%- endif -%}
+                    {%- endif -%}
                   {%- endif -%}
                 {%- endif -%}
               {%- endfor -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'extra' -%}
+            {%- if block.settings.product == blank -%}
+              <p>An extra has no product selected. It will not show.</p>
+            {%- else -%}
+              <p>Extra "{{ block.settings.product.title }}": + {{ block.settings.product.selected_or_first_available_variant.price | money }}.</p>
             {%- endif -%}
           {%- endif -%}
         {%- endfor -%}
@@ -204,12 +262,13 @@
     <div class="amgb-layout">
       <div class="amgb-steps">
 
-        {%- comment -%} STEP 1: BOX {%- endcomment -%}
+        {%- comment -%} STEP: BOX {%- endcomment -%}
         <div class="amgb-step">
-          <h3 class="amgb-step__title"><span>1</span>Choose your box</h3>
+          <h3 class="amgb-step__title"><span></span>Choose your box</h3>
           <p class="amgb-step__sub">Each box arrives gift-ready, with one piece of jewellery of your choice.</p>
           <div class="amgb-boxes">
             {%- for block in section.blocks -%}
+              {%- if block.type == 'box' -%}{%- assign box_n = box_n | plus: 1 -%}{%- endif -%}
               {%- if block.type == 'box' and block.settings.product != blank -%}
                 {%- liquid
                   assign bp = block.settings.product
@@ -218,7 +277,7 @@
                   assign btitle = block.settings.title | default: bp.title
                   assign bimg = block.settings.image | default: bp.featured_image
                 -%}
-                <label class="amgb-box {% unless bp.available %}is-soldout{% endunless %}" data-index="{{ block.id }}" data-title="{{ btitle | escape }}" data-ref="{{ ref }}" data-variant="{{ bv.id }}" data-price="{{ bv.price }}" {{ block.shopify_attributes }}>
+                <label class="amgb-box {% unless bp.available %}is-soldout{% endunless %}" data-index="{{ block.id }}" data-num="{{ box_n }}" data-title="{{ btitle | escape }}" data-ref="{{ ref }}" data-variant="{{ bv.id }}" data-price="{{ bv.price }}" {{ block.shopify_attributes }}>
                   <input type="radio" name="amgb-box-{{ section.id }}" value="{{ block.id }}" class="amgb-visually" {% if block.id == first_box and bp.available %}checked{% endif %} {% unless bp.available %}disabled{% endunless %}>
                   <span class="amgb-box__inner">
                     {%- if bimg != blank -%}
@@ -252,11 +311,12 @@
           {%- endfor -%}
         </div>
 
-        {%- comment -%} STEP 2: JEWELLERY {%- endcomment -%}
+        {%- comment -%} STEP: JEWELLERY {%- endcomment -%}
         <div class="amgb-step">
-          <h3 class="amgb-step__title"><span>2</span>Choose your jewellery</h3>
+          <h3 class="amgb-step__title"><span></span>Choose your jewellery</h3>
           <p class="amgb-step__sub">One piece is included in your box. Pick the one you would wear most.</p>
-          <div class="amgb-grid">
+          <div class="amgb-pills" id="amgb-pills-{{ section.id }}" hidden></div>
+          <div class="amgb-grid" data-grid="included">
             {%- for block in section.blocks -%}
               {%- if block.type == 'jewellery' and block.settings.tier == 'included' and block.settings.product != blank -%}
                 {%- liquid
@@ -265,7 +325,7 @@
                   assign jname = block.settings.name | default: jp.title
                   assign jimg = block.settings.image | default: jp.featured_image
                 -%}
-                <label class="amgb-card {% unless jp.available %}is-soldout{% endunless %}" data-tier="included" data-name="{{ jname | escape }}" data-variant="{{ jv.id }}" data-price="{{ jv.price }}" {{ block.shopify_attributes }}>
+                <label class="amgb-card {% unless jp.available %}is-soldout{% endunless %}" data-tier="included" data-cat="{{ block.settings.category }}" data-boxes="{{ block.settings.boxes | remove: ' ' }}" data-name="{{ jname | escape }}" data-variant="{{ jv.id }}" data-price="{{ jv.price }}" {{ block.shopify_attributes }}>
                   <input type="radio" name="amgb-jewel-{{ section.id }}" value="{{ block.id }}" class="amgb-visually" {% unless jp.available %}disabled{% endunless %}>
                   <span class="amgb-card__inner">
                     {%- if jimg != blank -%}<span class="amgb-card__img">{{ jimg | image_url: width: 600 | image_tag: loading: 'lazy', alt: jname }}</span>{%- endif -%}
@@ -285,12 +345,13 @@
               {%- endif -%}
             {%- endfor -%}
           </div>
+          <button type="button" class="amgb-more" data-more="included" hidden>Show more jewellery</button>
 
           {%- if has_upgrades -%}
             <button type="button" class="amgb-upgrade-toggle" id="amgb-upgrade-toggle-{{ section.id }}" aria-expanded="false" aria-controls="amgb-upgrade-{{ section.id }}">Upgrade your jewellery</button>
             <div class="amgb-upgrade" id="amgb-upgrade-{{ section.id }}" hidden>
               <p class="amgb-upgrade__sub">Choose one of these instead. You pay only the difference.</p>
-              <div class="amgb-grid">
+              <div class="amgb-grid" data-grid="upgrade">
                 {%- for block in section.blocks -%}
                   {%- if block.type == 'jewellery' and block.settings.tier == 'upgrade' and block.settings.product != blank -%}
                     {%- liquid
@@ -299,7 +360,7 @@
                       assign jname = block.settings.name | default: jp.title
                       assign jimg = block.settings.image | default: jp.featured_image
                     -%}
-                    <label class="amgb-card {% unless jp.available %}is-soldout{% endunless %}" data-tier="upgrade" data-name="{{ jname | escape }}" data-variant="{{ jv.id }}" data-price="{{ jv.price }}" {{ block.shopify_attributes }}>
+                    <label class="amgb-card {% unless jp.available %}is-soldout{% endunless %}" data-tier="upgrade" data-cat="{{ block.settings.category }}" data-boxes="{{ block.settings.boxes | remove: ' ' }}" data-name="{{ jname | escape }}" data-variant="{{ jv.id }}" data-price="{{ jv.price }}" {{ block.shopify_attributes }}>
                       <input type="radio" name="amgb-jewel-{{ section.id }}" value="{{ block.id }}" class="amgb-visually" {% unless jp.available %}disabled{% endunless %}>
                       <span class="amgb-card__inner">
                         {%- if jimg != blank -%}<span class="amgb-card__img">{{ jimg | image_url: width: 600 | image_tag: loading: 'lazy', alt: jname }}</span>{%- endif -%}
@@ -319,15 +380,16 @@
                   {%- endif -%}
                 {%- endfor -%}
               </div>
+              <button type="button" class="amgb-more" data-more="upgrade" hidden>Show more jewellery</button>
             </div>
           {%- endif -%}
         </div>
 
-        {%- comment -%} STEP 3: EXTRAS {%- endcomment -%}
+        {%- comment -%} STEP: EXTRA LUXURIES {%- endcomment -%}
         {%- if has_extras -%}
-          <div class="amgb-step">
-            <h3 class="amgb-step__title"><span>3</span>Add a little extra</h3>
-            <p class="amgb-step__sub">Optional.</p>
+          <div class="amgb-step" id="amgb-extras-step-{{ section.id }}">
+            <h3 class="amgb-step__title"><span></span>{{ section.settings.extras_title }}</h3>
+            {%- if section.settings.extras_sub != blank -%}<p class="amgb-step__sub">{{ section.settings.extras_sub }}</p>{%- endif -%}
             <div class="amgb-extras">
               {%- for block in section.blocks -%}
                 {%- if block.type == 'extra' and block.settings.product != blank -%}
@@ -337,13 +399,21 @@
                     assign ename = block.settings.name | default: ep.title
                     assign eimg = block.settings.image | default: ep.featured_image
                   -%}
-                  <label class="amgb-extra {% unless ep.available %}is-soldout{% endunless %}" data-name="{{ ename | escape }}" data-variant="{{ ev.id }}" data-price="{{ ev.price }}" {{ block.shopify_attributes }}>
+                  <label class="amgb-extra {% unless ep.available %}is-soldout{% endunless %}" data-boxes="{{ block.settings.boxes | remove: ' ' }}" data-name="{{ ename | escape }}" data-variant="{{ ev.id }}" data-price="{{ ev.price }}" {{ block.shopify_attributes }}>
                     <input type="checkbox" class="amgb-visually" {% unless ep.available %}disabled{% endunless %}>
                     <span class="amgb-extra__inner">
-                      {%- if eimg != blank -%}<span class="amgb-extra__img">{{ eimg | image_url: width: 160 | image_tag: loading: 'lazy', alt: ename }}</span>{%- endif -%}
-                      <span class="amgb-extra__text">
+                      {%- if eimg != blank -%}<span class="amgb-extra__img">{{ eimg | image_url: width: 500 | image_tag: loading: 'lazy', alt: ename }}</span>{%- endif -%}
+                      <span class="amgb-extra__body">
                         <span class="amgb-extra__name">{{ ename }}</span>
+                        {%- if block.settings.description != blank -%}<span class="amgb-extra__desc">{{ block.settings.description }}</span>{%- endif -%}
                         <span class="amgb-extra__price">{% if ep.available %}+ {{ ev.price | money }}{% else %}Sold out{% endif %}</span>
+                        {%- if ep.has_only_default_variant == false and ep.available -%}
+                          <select class="amgb-xsel" aria-label="{{ ep.options | join: ' / ' }}">
+                            {%- for v in ep.variants -%}
+                              <option value="{{ v.id }}" data-price="{{ v.price }}" data-title="{{ v.title | escape }}" {% unless v.available %}disabled{% endunless %} {% if v.id == ev.id %}selected{% endif %}>{{ v.title }}{% unless v.available %} (sold out){% endunless %}</option>
+                            {%- endfor -%}
+                          </select>
+                        {%- endif -%}
                       </span>
                     </span>
                   </label>
@@ -353,9 +423,9 @@
           </div>
         {%- endif -%}
 
-        {%- comment -%} STEP 4: MESSAGE {%- endcomment -%}
+        {%- comment -%} STEP: MESSAGE {%- endcomment -%}
         <div class="amgb-step">
-          <h3 class="amgb-step__title"><span>{% if has_extras %}4{% else %}3{% endif %}</span>Add a gift message</h3>
+          <h3 class="amgb-step__title"><span></span>Add a gift message</h3>
           <p class="amgb-step__sub">{{ section.settings.message_help }}</p>
           <textarea id="amgb-msg-{{ section.id }}" maxlength="200" aria-label="Gift message" placeholder="{{ section.settings.message_placeholder | escape }}"></textarea>
         </div>
@@ -369,6 +439,7 @@
         <p class="amgb-hint" id="amgb-hint-{{ section.id }}">Choose your jewellery to continue</p>
         <p class="amgb-error" id="amgb-error-{{ section.id }}" role="alert" hidden></p>
         {%- if section.settings.reassurance != blank -%}<p class="amgb-reassure">{{ section.settings.reassurance }}</p>{%- endif -%}
+        {%- if section.settings.returns_note != blank -%}<p class="amgb-returns">{{ section.settings.returns_note }}</p>{%- endif -%}
       </aside>
     </div>
     {%- endif -%}
@@ -384,10 +455,18 @@
   var fmt = new Intl.NumberFormat('en-GB', { style: 'currency', currency: currency });
   function money(c) { return fmt.format(c / 100).replace(/\.00$/, ''); }
 
+  var LIMIT = {{ section.settings.grid_limit | default: 8 }};
+  var CAT = { necklace: 'Necklaces', earrings: 'Earrings', bracelet: 'Bracelets', ring: 'Rings', other: 'More' };
+  var filter = 'all';
+  var pillKey = '';
+
   var boxes = [].slice.call(root.querySelectorAll('.amgb-box'));
   var cards = [].slice.call(root.querySelectorAll('.amgb-card'));
   var extras = [].slice.call(root.querySelectorAll('.amgb-extra'));
   var panels = [].slice.call(root.querySelectorAll('.amgb-boxopt'));
+  var grids = [].slice.call(root.querySelectorAll('.amgb-grid'));
+  var pills = document.getElementById('amgb-pills-{{ section.id }}');
+  var extrasStep = document.getElementById('amgb-extras-step-{{ section.id }}');
   var linesEl = document.getElementById('amgb-lines-{{ section.id }}');
   var totalEl = document.getElementById('amgb-total-{{ section.id }}');
   var btn = document.getElementById('amgb-add-{{ section.id }}');
@@ -397,6 +476,12 @@
   var toggle = document.getElementById('amgb-upgrade-toggle-{{ section.id }}');
   var upPanel = document.getElementById('amgb-upgrade-{{ section.id }}');
   var checked = function (el) { return el.querySelector('input').checked; };
+  var uncheck = function (el) { el.querySelector('input').checked = false; };
+
+  function allowedFor(el, num) {
+    var list = (el.dataset.boxes || '').replace(/\s/g, '');
+    return !list || (',' + list + ',').indexOf(',' + num + ',') > -1;
+  }
 
   if (toggle && upPanel) {
     toggle.addEventListener('click', function () {
@@ -405,6 +490,16 @@
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
+
+  root.addEventListener('click', function (e) {
+    var more = e.target.closest ? e.target.closest('.amgb-more') : null;
+    if (more) {
+      var g = root.querySelector('.amgb-grid[data-grid="' + more.dataset.more + '"]');
+      if (g) { g.dataset.expanded = '1'; update(); }
+    }
+    var pill = e.target.closest ? e.target.closest('.amgb-pill') : null;
+    if (pill) { filter = pill.dataset.filter; update(); }
+  });
 
   function boxVar(el) {
     var sel = root.querySelector('.amgb-boxopt[data-index="' + el.dataset.index + '"] select');
@@ -430,17 +525,87 @@
     linesEl.appendChild(row);
   }
 
+  function buildPills(allowedCards) {
+    if (!pills) return;
+    var cats = [];
+    allowedCards.forEach(function (c) {
+      var k = c.dataset.cat || 'other';
+      if (cats.indexOf(k) === -1) cats.push(k);
+    });
+    var key = cats.join('|');
+    if (cats.length < 2) { pills.hidden = true; pills.innerHTML = ''; pillKey = ''; filter = 'all'; return; }
+    if (cats.indexOf(filter) === -1 && filter !== 'all') filter = 'all';
+    if (key !== pillKey) {
+      pills.innerHTML = '';
+      var mk = function (f, label) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'amgb-pill'; b.dataset.filter = f; b.textContent = label;
+        pills.appendChild(b);
+      };
+      mk('all', 'All');
+      cats.forEach(function (k) { mk(k, CAT[k] || 'More'); });
+      pillKey = key;
+    }
+    [].slice.call(pills.querySelectorAll('.amgb-pill')).forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.filter === filter ? 'true' : 'false');
+    });
+    pills.hidden = false;
+  }
+
   function update() {
     var box = boxes.filter(checked)[0];
-    var jewel = cards.filter(checked)[0];
     var ref = box ? +box.dataset.ref : 0;
+    var num = box ? box.dataset.num : '';
 
-    // keep the upgrade panel open if an upgrade piece is chosen
+    // 1. pieces assigned to this box
+    var allowedCards = [];
+    cards.forEach(function (c) {
+      var ok = allowedFor(c, num);
+      c.dataset.allowed = ok ? '1' : '0';
+      if (ok) allowedCards.push(c);
+      else if (checked(c)) uncheck(c);
+    });
+    buildPills(allowedCards);
+
+    // 2. category filter, then hide / show
+    var upgradeShown = 0;
+    cards.forEach(function (c) {
+      var show = c.dataset.allowed === '1' && (filter === 'all' || (c.dataset.cat || 'other') === filter || checked(c));
+      c.hidden = !show;
+      if (!show && checked(c) && c.dataset.allowed !== '1') uncheck(c);
+      if (show && c.dataset.tier === 'upgrade') upgradeShown++;
+    });
+
+    // 3. tidy long lists
+    grids.forEach(function (g) {
+      var vis = [].slice.call(g.querySelectorAll('.amgb-card')).filter(function (c) { return !c.hidden; });
+      var open = g.dataset.expanded === '1';
+      vis.forEach(function (c, i) { c.classList.toggle('is-collapsed', !open && i >= LIMIT && !checked(c)); });
+      var moreBtn = root.querySelector('.amgb-more[data-more="' + g.dataset.grid + '"]');
+      if (moreBtn) moreBtn.hidden = open || vis.length <= LIMIT;
+    });
+
+    var jewel = cards.filter(checked)[0];
+    if (toggle && upPanel) {
+      toggle.hidden = upgradeShown === 0;
+      if (upgradeShown === 0) { upPanel.hidden = true; toggle.setAttribute('aria-expanded', 'false'); }
+    }
     if (jewel && jewel.dataset.tier === 'upgrade' && upPanel && upPanel.hidden) {
       upPanel.hidden = false;
       toggle.setAttribute('aria-expanded', 'true');
     }
 
+    // 4. extras assigned to this box
+    var extrasShown = 0;
+    extras.forEach(function (e) {
+      var ok = allowedFor(e, num);
+      e.hidden = !ok;
+      if (!ok && checked(e)) uncheck(e);
+      if (ok) extrasShown++;
+    });
+    if (extrasStep) extrasStep.hidden = extrasShown === 0;
+
+    // 5. prices, labels and summary
     panels.forEach(function (p) { p.hidden = !(box && p.dataset.index === box.dataset.index); });
     boxes.forEach(function (el) {
       if (el.classList.contains('is-soldout')) return;
@@ -474,7 +639,11 @@
       }
     }
     extras.forEach(function (e) {
-      if (checked(e)) { var ev = itemVar(e); li(e.dataset.name, '+ ' + money(ev.price)); total += ev.price; }
+      if (!e.hidden && checked(e)) {
+        var ev = itemVar(e);
+        li(e.dataset.name + (ev.title ? ' (' + ev.title + ')' : ''), '+ ' + money(ev.price));
+        total += ev.price;
+      }
     });
     totalEl.textContent = money(total);
 
@@ -506,7 +675,7 @@
       { id: +jv.id, quantity: 1, properties: { 'Part of': boxName } }
     ];
     extras.forEach(function (e) {
-      if (checked(e)) items.push({ id: +itemVar(e).id, quantity: 1, properties: { 'Part of': boxName } });
+      if (!e.hidden && checked(e)) items.push({ id: +itemVar(e).id, quantity: 1, properties: { 'Part of': boxName } });
     });
 
     fetch({{ routes.cart_add_url | append: '.js' | json }}, {
@@ -543,11 +712,19 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Affordable Luxury." },
     { "type": "textarea", "id": "intro", "label": "Intro", "default": "Contemporary jewellery, soft cashmere and everyday luxuries, personally curated by Nat at The Style Chapter and Atelier Modernista." },
 
+    { "type": "header", "content": "Jewellery" },
+    { "type": "range", "id": "grid_limit", "label": "Pieces shown before \"Show more\"", "min": 4, "max": 24, "step": 2, "default": 8 },
+
+    { "type": "header", "content": "Extra Luxuries" },
+    { "type": "text", "id": "extras_title", "label": "Step title", "default": "Extra Luxuries" },
+    { "type": "text", "id": "extras_sub", "label": "Step helper text", "default": "Optional. Added to your box and wrapped with it." },
+
     { "type": "header", "content": "Message, button and reassurance" },
     { "type": "text", "id": "message_help", "label": "Message helper text", "default": "A short note, written by hand on the card inside." },
     { "type": "text", "id": "message_placeholder", "label": "Message placeholder", "default": "With love, for you…" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Add gift box to bag" },
     { "type": "text", "id": "reassurance", "label": "Reassurance line", "default": "Arrives gift-ready. Dispatched within 1 working day." },
+    { "type": "text", "id": "returns_note", "label": "Returns note", "default": "Free returns within 30 days, except pierced earrings, which we can't take back for hygiene reasons." },
 
     { "type": "header", "content": "Spacing" },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 36 },
@@ -557,13 +734,13 @@
     {
       "type": "box",
       "name": "Gift box",
-      "limit": 3,
+      "limit": 4,
       "settings": [
         { "type": "product", "id": "product", "label": "Box product", "info": "Price it at: advertised total minus the included jewellery price." },
         { "type": "image_picker", "id": "image", "label": "Image (finished gift box photo)" },
         { "type": "text", "id": "title", "label": "Title" },
         { "type": "textarea", "id": "description", "label": "Description" },
-        { "type": "number", "id": "included_value", "label": "Included jewellery price (£)", "default": 20, "info": "Shop price of the 4 included jewellery products. Must match them exactly." }
+        { "type": "number", "id": "included_value", "label": "Included jewellery price (£)", "default": 20, "info": "Shop price of the included jewellery products. Must match them exactly." }
       ]
     },
     {
@@ -575,6 +752,20 @@
         { "type": "image_picker", "id": "image", "label": "Image (optional)", "info": "Leave blank to use the product's first photo." },
         {
           "type": "select",
+          "id": "category",
+          "label": "Type of piece",
+          "info": "Used for the filter buttons above the grid.",
+          "options": [
+            { "value": "necklace", "label": "Necklace" },
+            { "value": "earrings", "label": "Earrings" },
+            { "value": "bracelet", "label": "Bracelet" },
+            { "value": "ring", "label": "Ring" },
+            { "value": "other", "label": "Other" }
+          ],
+          "default": "necklace"
+        },
+        {
+          "type": "select",
           "id": "tier",
           "label": "Tier",
           "options": [
@@ -582,33 +773,42 @@
             { "value": "upgrade", "label": "Paid upgrade" }
           ],
           "default": "included"
-        }
+        },
+        { "type": "text", "id": "boxes", "label": "Show in these boxes only", "info": "Box numbers in the order the Gift box blocks appear, e.g. 1,2. Leave blank to show in every box." }
       ]
     },
     {
       "type": "extra",
-      "name": "Optional extra",
+      "name": "Extra Luxury",
       "settings": [
         { "type": "product", "id": "product", "label": "Extra product" },
         { "type": "text", "id": "name", "label": "Display name (optional)" },
-        { "type": "image_picker", "id": "image", "label": "Image (optional)" }
+        { "type": "text", "id": "description", "label": "Short description (optional)" },
+        { "type": "image_picker", "id": "image", "label": "Image (optional)" },
+        { "type": "text", "id": "boxes", "label": "Show in these boxes only", "info": "Box numbers, e.g. 1,2. Leave blank to show in every box." }
       ]
     }
   ],
-  "max_blocks": 24,
+  "max_blocks": 48,
   "presets": [
     {
       "name": "AM Gift Box Builder",
       "blocks": [
-        { "type": "box", "settings": { "title": "The Scarf Box", "description": "A wool-blend scarf and your choice of jewellery, presented ready to give.", "included_value": 20 } },
         { "type": "box", "settings": { "title": "The Little Luxury Box", "description": "Cashmere socks and your choice of jewellery, presented ready to give.", "included_value": 20 } },
-        { "type": "box", "settings": { "title": "The Luxury Colour Edit", "description": "A wool scarf, a candle, hand cream and your choice of jewellery.", "included_value": 20 } },
-        { "type": "jewellery", "settings": { "tier": "included" } },
-        { "type": "jewellery", "settings": { "tier": "included" } },
-        { "type": "jewellery", "settings": { "tier": "included" } },
-        { "type": "jewellery", "settings": { "tier": "included" } },
-        { "type": "jewellery", "settings": { "tier": "upgrade" } },
-        { "type": "jewellery", "settings": { "tier": "upgrade" } }
+        { "type": "box", "settings": { "title": "The Colour Edit", "description": "A 100% wool triangle scarf and your choice of jewellery, presented ready to give.", "included_value": 20 } },
+        { "type": "jewellery", "settings": { "tier": "included", "category": "necklace" } },
+        { "type": "jewellery", "settings": { "tier": "included", "category": "necklace" } },
+        { "type": "jewellery", "settings": { "tier": "included", "category": "earrings" } },
+        { "type": "jewellery", "settings": { "tier": "included", "category": "earrings" } },
+        { "type": "jewellery", "settings": { "tier": "included", "category": "bracelet" } },
+        { "type": "jewellery", "settings": { "tier": "included", "category": "bracelet" } },
+        { "type": "jewellery", "settings": { "tier": "upgrade", "category": "necklace" } },
+        { "type": "jewellery", "settings": { "tier": "upgrade", "category": "necklace" } },
+        { "type": "jewellery", "settings": { "tier": "upgrade", "category": "earrings" } },
+        { "type": "jewellery", "settings": { "tier": "upgrade", "category": "bracelet" } },
+        { "type": "extra" },
+        { "type": "extra" },
+        { "type": "extra" }
       ]
     }
   ]

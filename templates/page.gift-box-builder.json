@@ -62,17 +62,8 @@
           "type": "box",
           "settings": {
             "product": "luxury-gift-wrapping",
-            "title": "The Luxury Scarf Box",
-            "description": "A wool-blend scarf and your choice of jewellery, presented ready to give.",
-            "included_value": 20
-          }
-        },
-        "box_kdzRaT": {
-          "type": "box",
-          "settings": {
-            "product": "luxury-gift-wrapping",
             "title": "The Luxury Colour Edit",
-            "description": "A wool scarf, a candle, hand cream and your choice of jewellery.",
+            "description": "A wool-blend scarf and your choice of jewellery, presented ready to give.",
             "included_value": 20
           }
         },
@@ -128,7 +119,6 @@
       "block_order": [
         "box_K6JhbQ",
         "box_ygXThh",
-        "box_kdzRaT",
         "jewellery_LnpDxA",
         "jewellery_qKzdGe",
         "jewellery_pbprzp",

@@ -24,7 +24,7 @@
 {%- endcapture -%}
 
 {%- capture am_free -%}
-  {%- if am_threshold != blank -%}Free on orders of {{ am_threshold }} or more, and for Atelier Circle members.{%- else -%}Free for Atelier Circle members.{%- endif -%}
+  {%- if am_threshold != blank -%}Free on orders of {{ am_threshold }} or more.{%- endif -%}
 {%- endcapture -%}
 
 {%- capture am_express_sentence -%}
@@ -36,14 +36,14 @@
     {%- if am_timing != blank -%}<p>{{ am_timing }}</p>{%- endif -%}
     <p>
       {%- if am_standard != blank -%}Standard UK and Ireland delivery {{ am_standard }}. {% endif -%}
-      {%- if am_threshold != blank -%}Free on orders of {{ am_threshold }} or more, and always free for Atelier Circle members (free to join).{%- else -%}Always free for Atelier Circle members (free to join).{%- endif -%}
+      {%- if am_threshold != blank -%}Free on orders of {{ am_threshold }} or more.{%- endif -%}
     </p>
     {%- if am_express_sentence != blank -%}<p>{{ am_express_sentence }}</p>{%- endif -%}
 
   {%- when 'text' -%}
     {{- am_timing -}}
     {%- if am_standard != blank %} Standard UK and Ireland delivery {{ am_standard }}.{% endif -%}
-    {%- if am_threshold != blank %} Free on orders of {{ am_threshold }} or more, and always free for Atelier Circle members (free to join).{%- else %} Always free for Atelier Circle members (free to join).{%- endif -%}
+    {%- if am_threshold != blank %} Free on orders of {{ am_threshold }} or more.{%- endif -%}
     {%- if am_express_sentence != blank %} {{ am_express_sentence }}{%- endif -%}
 
   {%- else -%}

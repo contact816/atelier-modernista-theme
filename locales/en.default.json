@@ -188,7 +188,7 @@
       "taxes_included": "Taxes included.",
       "duties_included": "Duties included.",
       "duties_and_taxes_included": "Duties and taxes included.",
-      "shipping_policy_html": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more, and for Atelier Circle members."
+      "shipping_policy_html": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more."
     },
     "modal": {
       "label": "Media gallery"
@@ -304,14 +304,14 @@
       "empty": "Your bag is empty",
       "cart_error": "There was an error while updating your bag. Please try again.",
       "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your bag.",
-      "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more, and for Atelier Circle members. <a href=\"{{ link }}\">Shipping policy</a>",
-      "duties_and_taxes_included_shipping_at_checkout_without_policy": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more, and for Atelier Circle members.",
-      "taxes_included_shipping_at_checkout_with_policy_html": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more, and for Atelier Circle members. <a href=\"{{ link }}\">Shipping policy</a>",
-      "taxes_included_shipping_at_checkout_without_policy": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more, and for Atelier Circle members.",
-      "duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more, and for Atelier Circle members. <a href=\"{{ link }}\">Shipping policy</a>",
-      "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more, and for Atelier Circle members.",
-      "taxes_at_checkout_shipping_at_checkout_with_policy_html": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more, and for Atelier Circle members. <a href=\"{{ link }}\">Shipping policy</a>",
-      "taxes_at_checkout_shipping_at_checkout_without_policy": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more, and for Atelier Circle members.",
+      "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more. <a href=\"{{ link }}\">Shipping policy</a>",
+      "duties_and_taxes_included_shipping_at_checkout_without_policy": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more.",
+      "taxes_included_shipping_at_checkout_with_policy_html": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more. <a href=\"{{ link }}\">Shipping policy</a>",
+      "taxes_included_shipping_at_checkout_without_policy": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more.",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more. <a href=\"{{ link }}\">Shipping policy</a>",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more.",
+      "taxes_at_checkout_shipping_at_checkout_with_policy_html": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more. <a href=\"{{ link }}\">Shipping policy</a>",
+      "taxes_at_checkout_shipping_at_checkout_without_policy": "{{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more.",
       "headings": {
         "product": "Product",
         "price": "Price",

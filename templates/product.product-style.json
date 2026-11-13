@@ -136,6 +136,7 @@
         },
         "am_points_box": {
           "type": "am_points_box",
+          "disabled": true,
           "settings": {}
         }
       },

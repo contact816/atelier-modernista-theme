@@ -10,6 +10,8 @@
   endif
 -%}
 
+{% comment %}CIRCLE-HIDDEN: Atelier Circle points box hidden. Delete this if/endif pair to restore. See RESTORE-CIRCLE.md{% endcomment %}
+{% if false %}
 {%- unless product.handle == 'luxury-gift-wrapping' -%}
   <a
     id="AMProductPoints-{{ product.id }}"
@@ -95,3 +97,4 @@
     })();
   </script>
 {%- endunless -%}
+{% endif %}

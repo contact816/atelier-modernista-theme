@@ -4,10 +4,10 @@
 - **Built from:** `claude/sweet-sagan-591h1g` at `74ccab3` (the live theme's branch)
 - Nothing was deleted. Everything below can be put back.
 
-**Quickest full restore:** revert these three commits (newest first):
+**Quickest full restore:** revert these four commits (newest first):
 
 ```bash
-git revert 384a4e3 99e87d2 869c68c
+git revert 26c7248 384a4e3 99e87d2 869c68c
 ```
 
 ---
@@ -107,6 +107,30 @@ The four `_with_policy_html` cart keys also end with ` <a href="{{ link }}">Ship
 {{ standard_price }} standard delivery. Free on orders of {{ free_threshold }} or more.
 ```
 
+## Job 5: Homepage strip (`26c7248`)
+
+**`templates/index.json`**
+- **Section:** `am_circle_strip_hp01` (type `am-circle-strip`, named "AM — Circle Strip" in the editor)
+- **What was done:** added `"disabled": true` (line 695).
+- **Position:** the section stays in the homepage order, between "Explore By Colour" and "Own A Miró".
+- **Untouched:** its settings and the file `sections/am-circle-strip.liquid`.
+- No wording changed. For reference, the strip's live text was:
+  - Heading: "Join the Atelier Circle"
+  - Body: "£10 off, free standard UK shipping, and a handwritten note from Antonia. Free to join."
+  - Button: "Join free"
+
+**To turn it back on, use any one of these:**
+
+1. **Theme editor (no code):**
+   1. Go to Online Store > Themes.
+   2. On this theme, click Customize.
+   3. Open the Home page.
+   4. In the left sidebar, find "AM — Circle Strip". It shows a crossed-out eye.
+   5. Click the eye to show it.
+   6. Click Save.
+2. **Code:** in `templates/index.json`, delete the line `"disabled": true,` directly under `"type": "am-circle-strip",`.
+3. **Git:** run `git revert 26c7248`.
+
 ---
 
 ## Deliberately not touched
@@ -117,7 +141,6 @@ The four `_with_policy_html` cart keys also end with ` <a href="{{ link }}">Ship
 - `layout/theme.liquid`
 - Everything wishlist-related
 - Other Circle mentions found on live, listed separately and still unchanged:
-  - the homepage "Join the Atelier Circle" strip
   - `am-gift-guide` default copy
   - the nav bar default
   - unused sections

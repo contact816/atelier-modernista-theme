@@ -692,6 +692,7 @@
     },
     "am_circle_strip_hp01": {
       "type": "am-circle-strip",
+      "disabled": true,
       "name": "AM — Circle Strip",
       "settings": {
         "heading": "Join the Atelier Circle",

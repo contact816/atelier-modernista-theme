@@ -22,6 +22,8 @@
   endif
 -%}
 
+{% comment %}CIRCLE-HIDDEN: Atelier Circle cart points box hidden. Delete this if/endif pair to restore. See RESTORE-CIRCLE.md{% endcomment %}
+{% if false %}
 {%- if atelier_points > 0 -%}
   <div
     class="am-cart-points am-cart-points--{{ message_context }}"
@@ -55,3 +57,4 @@
     </div>
   </div>
 {%- endif -%}
+{% endif %}
